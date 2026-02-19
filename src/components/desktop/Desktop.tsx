@@ -15,9 +15,14 @@ import {
   type EcosystemHandle,
 } from '@/components/sections/Partners';
 
+/* ── constants ────────────────────────────────────────────────────── */
+const STATUSBAR_H = 40;
+
 /* ── types ────────────────────────────────────────────────────────── */
-type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure';
+type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users';
 type WinId  = CoreId | `partner:${string}`;
+
+const CORE_IDS: CoreId[] = ['terminal', 'install', 'why', 'ecosystem'];
 
 interface WinState {
   id:       WinId;
@@ -35,6 +40,7 @@ function getTitle(id: WinId): string {
   if (id === 'why')       return 'what.md';
   if (id === 'ecosystem') return 'ecosystem.json';
   if (id === 'treasure')  return 'treasure';
+  if (id === 'users')     return 'users.log';
   return id.slice('partner:'.length).toLowerCase() + '.json';
 }
 
@@ -51,7 +57,7 @@ const ECO_H = 394;
 function initialWindows(): WinState[] {
   const vw    = typeof window !== 'undefined' ? window.innerWidth  : 1440;
   const vh    = typeof window !== 'undefined' ? window.innerHeight : 900;
-  const areaH = vh - 40;   // subtract status-bar height
+  const areaH = vh - STATUSBAR_H;
 
   const ww = Math.floor(vw    * 0.55);
   const wh = Math.floor(areaH * 0.55);
@@ -77,11 +83,22 @@ function initialWindows(): WinState[] {
   ];
 }
 
+/* ── desktop icon definitions ─────────────────────────────────────── */
+const CORE_ICON_DEFS: { id: CoreId; src: string; label: string }[] = [
+  { id: 'terminal',  src: '/terminal.png', label: 'terminal'  },
+  { id: 'install',   src: '/install.png',  label: 'install'   },
+  { id: 'ecosystem', src: '/maps.png',     label: 'ecosystem' },
+  { id: 'why',       src: '/docs.png',     label: 'what.md'   },
+  { id: 'users',     src: '/users.png',    label: 'users'     },
+];
+
 /* ── Desktop ──────────────────────────────────────────────────────── */
 export function Desktop() {
   const [wins, setWins]               = useState<WinState[]>(initialWindows);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [viewMode, setViewMode]       = useState<ViewMode>('ui');
+  const [closedCore, setClosedCore]   = useState<Set<CoreId>>(new Set());
+  const [maximizedId, setMaximizedId] = useState<WinId | null>(null);
   const ecoRef                        = useRef<EcosystemHandle>(null);
   const cliRef                        = useRef<CliHandle>(null);
   const windowAreaRef                 = useRef<HTMLDivElement>(null);
@@ -107,10 +124,36 @@ export function Desktop() {
     setWins(prev => prev.map(w => w.id === id ? { ...w, x, y, w: ww, h } : w));
   }, []);
 
-  /* close (remove) a window — only for partner detail windows */
+  /* close — CORE_IDS windows hide (preserve pos); treasure/users/partner windows are removed */
   const handleClose = useCallback((id: WinId) => {
-    setWins(prev => prev.filter(w => w.id !== id));
-  }, []);
+    if (CORE_IDS.includes(id as CoreId)) {
+      setClosedCore(prev => new Set([...prev, id as CoreId]));
+      if (maximizedId === id) setMaximizedId(null);
+    } else {
+      setWins(prev => prev.filter(w => w.id !== id));
+      if (maximizedId === id) setMaximizedId(null);
+    }
+  }, [maximizedId]);
+
+  /* minimize — reset window to default position */
+  const handleMinimize = useCallback((id: WinId) => {
+    if (maximizedId === id) setMaximizedId(null);
+    const defaults = initialWindows();
+    const def = defaults.find(w => w.id === id);
+    if (def) {
+      setWins(prev => prev.map(w => w.id === id ? { ...w, x: def.x, y: def.y, w: def.w, h: def.h } : w));
+    }
+  }, [maximizedId]);
+
+  /* maximize — toggle fill-desktop state */
+  const handleMaximize = useCallback((id: WinId) => {
+    if (maximizedId === id) {
+      setMaximizedId(null);
+    } else {
+      setMaximizedId(id);
+      bringToFront(id);
+    }
+  }, [maximizedId, bringToFront]);
 
   /* open (or bring to front) the treasure window */
   const openTreasure = useCallback(() => {
@@ -135,12 +178,40 @@ export function Desktop() {
     });
   }, []);
 
+  /* open a core window (show if hidden, create if not yet in wins, or bring to front) */
+  const openCoreWindow = useCallback((id: CoreId) => {
+    if (closedCore.has(id)) {
+      setClosedCore(prev => { const n = new Set(prev); n.delete(id); return n; });
+      bringToFront(id);
+      return;
+    }
+    setWins(prev => {
+      const existing = prev.find(w => w.id === id);
+      if (existing) {
+        const maxZ = Math.max(...prev.map(w => w.zIndex));
+        return prev.map(w => w.id === id ? { ...w, zIndex: maxZ + 1 } : w);
+      }
+      // first open — create centered
+      const maxZ = Math.max(...prev.map(w => w.zIndex));
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      return [...prev, {
+        id,
+        x: Math.round(vw / 2 - 220),
+        y: Math.round(vh / 2 - 200),
+        w: 440,
+        h: 520,
+        zIndex: maxZ + 1,
+      }];
+    });
+  }, [closedCore, bringToFront]);
+
   /* cross-window drag: icon released — check if over CLI window */
   const handleCrossDragEnd = useCallback((partner: Partner, clientX: number, clientY: number) => {
     setDraggingPartner(null);
     setGhostPos(null);
     const cli     = wins.find(w => w.id === 'terminal');
-    const areaTop = windowAreaRef.current?.getBoundingClientRect().top ?? 40;
+    const areaTop = windowAreaRef.current?.getBoundingClientRect().top ?? STATUSBAR_H;
     if (
       cli &&
       clientX >= cli.x && clientX <= cli.x + cli.w &&
@@ -174,6 +245,10 @@ export function Desktop() {
       }];
     });
   }, []);
+
+  /* desktop dimensions for maximized windows */
+  const vw = typeof window !== 'undefined' ? window.innerWidth  : 1440;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
 
   return (
     <div
@@ -224,7 +299,7 @@ export function Desktop() {
 
       {/* ── Global status bar — always on top ─────────────────────── */}
       <StatusBar
-        onReset={() => setWins(initialWindows())}
+        onReset={() => { setWins(initialWindows()); setClosedCore(new Set()); setMaximizedId(null); }}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
       />
@@ -238,10 +313,10 @@ export function Desktop() {
         style={{ flex: 1, position: 'relative', overflow: 'hidden', display: viewMode === 'agent' ? 'none' : undefined }}
         onClick={() => setSelectedIcon(null)}
       >
-        {/* ── Desktop icons ─────────────────────────────────────── */}
+        {/* ── Treasure desktop icon ─────────────────────────────── */}
         <DesktopIcon
           label="treasure"
-          closedSrc="/treasure-closed.png"
+          src="/treasure-closed.png"
           openSrc="/treasure-open.png"
           isOpen={wins.some(w => w.id === 'treasure')}
           isSelected={selectedIcon === 'treasure'}
@@ -250,78 +325,110 @@ export function Desktop() {
           style={{ bottom: 24, left: 24 }}
         />
 
-      {wins.map(win => {
-        const partnerName = win.id.startsWith('partner:') ? win.id.slice('partner:'.length) : null;
-        const partner     = partnerName ? PARTNERS.find(p => p.name === partnerName) : null;
-        const maxZ        = Math.max(...wins.map(w => w.zIndex));
-
-        const isCloseable  = !!partnerName || win.id === 'treasure';
-        const isEcosystem  = win.id === 'ecosystem';
-        const isActive     = win.zIndex === maxZ;
-        const darkBg       = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
-
-        return (
-          <Window
-            key={win.id}
-            title={getTitle(win.id)}
-            noScroll={isNoScroll(win.id)}
-            isActive={isActive}
-            x={win.x}
-            y={win.y}
-            w={win.w}
-            h={win.h}
-            zIndex={win.zIndex}
-            background={darkBg}
-            onClose={isCloseable ? () => handleClose(win.id) : undefined}
-            headerRight={isEcosystem ? (
-              <button
-                aria-label='Shuffle icons'
-                onClick={e => { e.stopPropagation(); ecoRef.current?.shuffle(); }}
-                style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--color-text-ui-muted)' }}
-              >
-                <Shuffle size={10} strokeWidth={1.5} />
-              </button>
-            ) : undefined}
-            onFocus={() => bringToFront(win.id)}
-            onMove={(x, y) => handleMove(win.id, x, y)}
-            onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
-          >
-            {win.id === 'terminal'  && (
-              <div style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                {draggingPartner && (
-                  <div aria-hidden style={{
-                    position:     'absolute',
-                    inset:         0,
-                    zIndex:        10,
-                    background:   'var(--color-pink)',
-                    opacity:       0.1,
-                    pointerEvents:'none',
-                  }} />
-                )}
-                <TerminalContent ref={cliRef} />
-              </div>
-            )}
-            {win.id === 'install'   && <InstallWindow />}
-            {win.id === 'why'       && <FeaturesContent />}
-            {win.id === 'ecosystem' && (
-              <EcosystemIcons
-                ref={ecoRef}
-                onOpen={openPartner}
-                onCrossDragStart={p => setDraggingPartner(p)}
-                onCrossDragMove={(x, y) => setGhostPos({ x, y })}
-                onCrossDragEnd={handleCrossDragEnd}
-              />
-            )}
-            {win.id === 'treasure'  && <TreasureContent />}
-            {partner && (
-              <PartnerDetail
-                partner={partner}
-                onShowMe={cmd => { cliRef.current?.submit(cmd); bringToFront('terminal'); }}
-              />
-            )}
-          </Window>
-        );
+        {/* ── Core window desktop icons — tiled vertically top-right */}
+        {CORE_ICON_DEFS.map((def, i) => {
+          const isOpen = def.id === 'users'
+            ? wins.some(w => w.id === 'users')
+            : !closedCore.has(def.id);
+          return (
+            <DesktopIcon
+              key={def.id}
+              label={def.label}
+              src={def.src}
+              isOpen={isOpen}
+              isSelected={selectedIcon === def.id}
+              onSelect={e => { e.stopPropagation(); setSelectedIcon(def.id); }}
+              onOpen={() => openCoreWindow(def.id)}
+              style={{ top: 24 + i * 96, right: 24 }}
+            />
+          );
         })}
+
+        {wins
+          .filter(win => !closedCore.has(win.id as CoreId))
+          .map(win => {
+            const partnerName = win.id.startsWith('partner:') ? win.id.slice('partner:'.length) : null;
+            const partner     = partnerName ? PARTNERS.find(p => p.name === partnerName) : null;
+            const maxZ        = Math.max(...wins.map(w => w.zIndex));
+
+            const isCloseable  = !!partnerName || win.id === 'treasure' || win.id === 'users';
+            const isEcosystem  = win.id === 'ecosystem';
+            const isActive     = win.zIndex === maxZ;
+            const isMaximized  = maximizedId === win.id;
+            const darkBg       = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
+
+            // Override position/size when maximized
+            const finalX = isMaximized ? 0 : win.x;
+            const finalY = isMaximized ? 0 : win.y;
+            const finalW = isMaximized ? vw : win.w;
+            const finalH = isMaximized ? vh - STATUSBAR_H : win.h;
+
+            return (
+              <Window
+                key={win.id}
+                title={getTitle(win.id)}
+                noScroll={isNoScroll(win.id)}
+                isActive={isActive}
+                isMaximized={isMaximized}
+                x={finalX}
+                y={finalY}
+                w={finalW}
+                h={finalH}
+                zIndex={win.zIndex}
+                background={darkBg}
+                onClose={() => handleClose(win.id)}
+                onMinimize={() => handleMinimize(win.id)}
+                onMaximize={() => handleMaximize(win.id)}
+                headerRight={isEcosystem ? (
+                  <button
+                    aria-label='Shuffle icons'
+                    onClick={e => { e.stopPropagation(); ecoRef.current?.shuffle(); }}
+                    style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--color-text-ui-muted)' }}
+                  >
+                    <Shuffle size={10} strokeWidth={1.5} />
+                  </button>
+                ) : undefined}
+                onFocus={() => bringToFront(win.id)}
+                onMove={(x, y) => handleMove(win.id, x, y)}
+                onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
+              >
+                {win.id === 'terminal'  && (
+                  <div style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                    {draggingPartner && (
+                      <div aria-hidden style={{
+                        position:     'absolute',
+                        inset:         0,
+                        zIndex:        10,
+                        background:   'var(--color-pink)',
+                        opacity:       0.1,
+                        pointerEvents:'none',
+                      }} />
+                    )}
+                    <TerminalContent ref={cliRef} />
+                  </div>
+                )}
+                {win.id === 'install'   && <InstallWindow />}
+                {win.id === 'why'       && <FeaturesContent />}
+                {win.id === 'ecosystem' && (
+                  <EcosystemIcons
+                    ref={ecoRef}
+                    onOpen={openPartner}
+                    onCrossDragStart={p => setDraggingPartner(p)}
+                    onCrossDragMove={(x, y) => setGhostPos({ x, y })}
+                    onCrossDragEnd={handleCrossDragEnd}
+                  />
+                )}
+                {win.id === 'treasure'  && <TreasureContent />}
+                {win.id === 'users'     && <UsersContent />}
+                {partner && (
+                  <PartnerDetail
+                    partner={partner}
+                    onShowMe={cmd => { cliRef.current?.submit(cmd); bringToFront('terminal'); }}
+                  />
+                )}
+              </Window>
+            );
+          })}
       </div>
     </div>
   );
@@ -431,6 +538,105 @@ function TreasureContent() {
   );
 }
 
+/* ── Users / testimonials window content ─────────────────────────── */
+const TESTIMONIALS = [
+  {
+    quote: "Stripe Projects completely changed how I spin up new services. What used to take a full day of config is now a single command.",
+    name:  "Priya Nambiar",
+    role:  "Staff Engineer, Vercel",
+  },
+  {
+    quote: "The ecosystem integrations are killer. I dropped in Supabase and Redis in under two minutes. The CLI just works.",
+    name:  "Marcus Weil",
+    role:  "Founding Engineer, Loom",
+  },
+  {
+    quote: "Finally a developer tool that doesn't make me feel like I'm fighting it. The terminal window alone is worth the install.",
+    name:  "Anya Solberg",
+    role:  "Senior SWE, Linear",
+  },
+  {
+    quote: "We standardized our entire team on Stripe Projects. Onboarding a new service went from a two-day ordeal to about fifteen minutes.",
+    name:  "Daniel Osei",
+    role:  "Platform Lead, Retool",
+  },
+  {
+    quote: "Honestly surprised this is free. The DX is better than tools I've paid thousands for.",
+    name:  "Camille Tran",
+    role:  "CTO, Meridian Labs",
+  },
+  {
+    quote: "The `projects service add` command is pure magic. My whole infra is version-controlled and reproducible now.",
+    name:  "Soren Holt",
+    role:  "DevOps Engineer, Shopify",
+  },
+];
+
+function UsersContent() {
+  return (
+    <div style={{
+      padding:       '1.25rem 1.25rem 1.5rem',
+      fontFamily:    'var(--font-mono)',
+      display:       'flex',
+      flexDirection: 'column',
+      gap:           '0.75rem',
+      overflowY:     'auto',
+      scrollbarWidth:'none',
+    }}>
+      <p style={{
+        margin:        0,
+        fontSize:      '0.6rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.12em',
+        color:         'var(--color-text-ui-subtle)',
+        paddingBottom: '0.25rem',
+        borderBottom:  '1px solid var(--color-border-accent)',
+      }}>
+        {TESTIMONIALS.length} entries
+      </p>
+
+      {TESTIMONIALS.map((t, i) => (
+        <div
+          key={i}
+          style={{
+            padding:      '0.85rem 1rem',
+            background:   'var(--color-surface-2)',
+            border:       '1px solid var(--color-border-accent)',
+            display:      'flex',
+            flexDirection:'column',
+            gap:          '0.6rem',
+          }}
+        >
+          <p style={{
+            margin:     0,
+            fontSize:   '0.75rem',
+            color:      'var(--color-text-ui)',
+            lineHeight: 1.65,
+            fontStyle:  'italic',
+          }}>
+            "{t.quote}"
+          </p>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+            <span style={{
+              fontSize:   '0.65rem',
+              fontWeight: 700,
+              color:      'var(--color-pink)',
+            }}>
+              {t.name}
+            </span>
+            <span style={{
+              fontSize:   '0.6rem',
+              color:      'var(--color-text-ui-subtle)',
+            }}>
+              — {t.role}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ── Terminal window content: just the CLI ────────────────────────── */
 const TerminalContent = forwardRef<CliHandle>(function TerminalContent(_, ref) {
   return <CliTerminal ref={ref} />;
@@ -439,16 +645,16 @@ const TerminalContent = forwardRef<CliHandle>(function TerminalContent(_, ref) {
 /* ── DesktopIcon ──────────────────────────────────────────────────── */
 interface DesktopIconProps {
   label:      string;
-  closedSrc:  string;
-  openSrc:    string;
+  src:        string;
+  openSrc?:   string;
   isOpen:     boolean;
   isSelected: boolean;
-  onSelect:   () => void;
+  onSelect:   (e: React.MouseEvent) => void;
   onOpen:     () => void;
   style?:     CSSProperties;
 }
 
-function DesktopIcon({ label, closedSrc, openSrc, isOpen, isSelected, onSelect, onOpen, style }: DesktopIconProps) {
+function DesktopIcon({ label, src, openSrc, isOpen, isSelected, onSelect, onOpen, style }: DesktopIconProps) {
   const C = 6;
   const S = 'var(--color-pink)';
   const b = `1px solid ${S}`;
@@ -459,9 +665,11 @@ function DesktopIcon({ label, closedSrc, openSrc, isOpen, isSelected, onSelect, 
     { bottom: 0, left: 0,  borderBottom: b, borderLeft:  b },
   ];
 
+  const imgSrc = (openSrc && isOpen) ? openSrc : src;
+
   return (
     <div
-      onClick={e => { e.stopPropagation(); onSelect(); }}
+      onClick={e => { e.stopPropagation(); onSelect(e); }}
       onDoubleClick={e => { e.stopPropagation(); onOpen(); }}
       style={{
         position:      'absolute',
@@ -479,7 +687,7 @@ function DesktopIcon({ label, closedSrc, openSrc, isOpen, isSelected, onSelect, 
           <span key={i} aria-hidden style={{ position: 'absolute', width: C, height: C, pointerEvents: 'none', ...s }} />
         ))}
         <img
-          src={isOpen ? openSrc : closedSrc}
+          src={imgSrc}
           alt={label}
           draggable={false}
           style={{ width: 48, height: 48, imageRendering: 'pixelated' }}

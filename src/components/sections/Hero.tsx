@@ -5,8 +5,8 @@ import { TextLoop } from '@/components/ui/text-loop';
 type Tab = 'npm' | 'brew';
 
 const COMMANDS: Record<Tab, string> = {
-  npm:  'npm install stripe\nnpm @stripe/projects init',
-  brew: 'brew install stripe\nbrew @stripe/projects init',
+  npm:  'npx @stripe/projects init my-app',
+  brew: 'brew install stripe-cli\nstripe projects init my-app',
 };
 
 const TABS: { id: Tab; label: string }[] = [

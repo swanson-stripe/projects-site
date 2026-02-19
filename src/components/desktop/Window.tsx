@@ -1,4 +1,5 @@
-import type { CSSProperties, PointerEvent, ReactNode } from 'react';
+import { useState, useEffect, useRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import { useTheme } from '@/components/ui/ThemeContext';
 
 /* ── constants ────────────────────────────────────────────────────── */
 const BORDER          = '1px solid var(--color-border-accent)';
@@ -7,7 +8,7 @@ const INACTIVE_CORNER = 'var(--color-text-ui-subtle)';
 const ACTIVE_BAR_BG   = 'var(--color-pink)';
 const ACTIVE_TITLE    = 'var(--color-surface-dark)';  // dark text on bright bar
 const INACTIVE_TITLE  = 'var(--color-text-ui-subtle)';
-const DOT_COLOR       = 'var(--color-border-accent)'; // all dots same as border, always
+const DOT_INACTIVE    = 'var(--color-border-accent)'; // all dots same as border when inactive
 const CORNER_PX       = 8;
 const MIN_W           = 280;
 const MIN_H           = 180;
@@ -26,10 +27,15 @@ export interface WindowProps {
   h:             number;
   zIndex:        number;
   isActive?:     boolean;
+  isMaximized?:  boolean;
   /** Replace scrollable content area with overflow:hidden (e.g. for CliTerminal) */
   noScroll?:     boolean;
-  /** Called when the red traffic-light is clicked — hides the window */
+  /** Called when the red traffic-light is clicked */
   onClose?:      () => void;
+  /** Called when the yellow traffic-light is clicked — resets window position */
+  onMinimize?:   () => void;
+  /** Called when the green traffic-light is clicked — fills desktop */
+  onMaximize?:   () => void;
   /** Extra content rendered in the right side of the title bar */
   headerRight?:  ReactNode;
   /** Override the window background color */
@@ -37,6 +43,19 @@ export interface WindowProps {
   onFocus:       () => void;
   onMove:        (x: number, y: number) => void;
   onResize:      (x: number, y: number, w: number, h: number) => void;
+}
+
+/* ── traffic-light config ─────────────────────────────────────────── */
+const DOT_LABELS = ['close', 'minimise', 'maximise'] as const;
+
+// Per-theme ordering of [close, minimise, maximise] active colors.
+// dark:       swap green (yellow token) ↔ blue → [blue, purple, yellow]
+// all others: swap yellow-token ↔ purple    → [purple, yellow, blue]
+function getDotColors(theme: string): [string, string, string] {
+  if (theme === 'stripe-dev') {
+    return ['var(--color-blue)', 'var(--color-purple)', 'var(--color-yellow)'];
+  }
+  return ['var(--color-purple)', 'var(--color-yellow)', 'var(--color-blue)'];
 }
 
 /* ── corner bracket ───────────────────────────────────────────────── */
@@ -78,19 +97,29 @@ const HANDLE: Record<Dir, CSSProperties> = {
 };
 const DIRS: Dir[] = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
 
-/* ── traffic-light dots ───────────────────────────────────────────── */
-const LIGHTS = [
-  { label: 'close',    activeColor: '#FF5F57' },
-  { label: 'minimise', activeColor: '#FEBC2E' },
-  { label: 'maximise', activeColor: '#28C840' },
-];
-
 /* ── Window ───────────────────────────────────────────────────────── */
 export function Window({
-  title, children, x, y, w, h, zIndex, isActive = false, noScroll = false,
-  onClose, headerRight, background = 'var(--color-surface-dark)', onFocus, onMove, onResize,
+  title, children, x, y, w, h, zIndex,
+  isActive = false, isMaximized = false, noScroll = false,
+  onClose, onMinimize, onMaximize,
+  headerRight, background = 'var(--color-surface-dark)',
+  onFocus, onMove, onResize,
 }: WindowProps) {
+  const { theme }   = useTheme();
+  const dotColors   = getDotColors(theme);
   const cornerColor = isActive ? PINK : INACTIVE_CORNER;
+
+  /* apply transition only while entering/leaving maximized — never during drag */
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const prevMaximized = useRef(isMaximized);
+  useEffect(() => {
+    if (prevMaximized.current !== isMaximized) {
+      setIsTransitioning(true);
+      const t = setTimeout(() => setIsTransitioning(false), 350);
+      prevMaximized.current = isMaximized;
+      return () => clearTimeout(t);
+    }
+  }, [isMaximized]);
 
   /* drag — attached to title bar */
   function handleDragStart(e: PointerEvent<HTMLDivElement>) {
@@ -153,6 +182,9 @@ export function Window({
         flexDirection:  'column',
         border:          BORDER,
         background,
+        transition:     (isMaximized || isTransitioning)
+          ? 'left 0.28s ease-in-out, top 0.28s ease-in-out, width 0.28s ease-in-out, height 0.28s ease-in-out'
+          : undefined,
       }}
       onPointerDown={onFocus}
     >
@@ -164,7 +196,7 @@ export function Window({
 
       {/* ── title bar ───────────────────────────────────────────── */}
       <div
-        onPointerDown={handleDragStart}
+        onPointerDown={isMaximized ? undefined : handleDragStart}
         style={{
           display:       'flex',
           alignItems:    'center',
@@ -172,27 +204,37 @@ export function Window({
           padding:       '0.45rem 0.75rem',
           borderBottom:   BORDER,
           background:    isActive ? ACTIVE_BAR_BG : 'transparent',
-          cursor:        'move',
+          cursor:        isMaximized ? 'default' : 'move',
           flexShrink:    0,
           userSelect:    'none',
           fontFamily:    'var(--font-mono)',
         }}
       >
-        {/* traffic lights — real colors when closeable, flat border color otherwise */}
+        {/* traffic lights — per-theme ordered accent colors when active, flat when inactive */}
         <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-          {LIGHTS.map(l => (
-            <div
-              key={l.label}
-              aria-label={l.label}
-              onClick={l.label === 'close' && onClose ? (e) => { e.stopPropagation(); onClose(); } : undefined}
-              style={{
-                width: 10, height: 10, borderRadius: '50%',
-                background: onClose ? l.activeColor : DOT_COLOR,
-                flexShrink: 0,
-                cursor: l.label === 'close' && onClose ? 'pointer' : 'default',
-              }}
-            />
-          ))}
+          {DOT_LABELS.map((label, i) => {
+            const handler =
+              label === 'close'    ? onClose    :
+              label === 'minimise' ? onMinimize :
+              label === 'maximise' ? onMaximize :
+              undefined;
+            return (
+              <div
+                key={label}
+                aria-label={label}
+                onClick={handler ? (e) => { e.stopPropagation(); handler(); } : undefined}
+                style={{
+                  width:        10,
+                  height:       10,
+                  borderRadius: '50%',
+                  background:   isActive ? dotColors[i] : DOT_INACTIVE,
+                  flexShrink:   0,
+                  cursor:       handler ? 'pointer' : 'default',
+                  transition:   'background 0.15s ease',
+                }}
+              />
+            );
+          })}
         </div>
 
         {/* title — centred, monospace, all-caps */}
@@ -231,7 +273,7 @@ export function Window({
       </div>
 
       {/* ── resize handles ───────────────────────────────────────── */}
-      {DIRS.map(dir => (
+      {!isMaximized && DIRS.map(dir => (
         <div
           key={dir}
           style={{ position: 'absolute', zIndex: 3, ...HANDLE[dir] }}
