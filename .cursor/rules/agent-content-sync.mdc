@@ -1,0 +1,29 @@
+---
+description: Keep agent-facing content files in sync when site content changes
+globs: src/components/sections/*.tsx, src/components/desktop/Desktop.tsx, index.html
+alwaysApply: false
+---
+
+# Agent Content Sync
+
+When you edit any site content (copy, features, partners, CLI commands, contest details), you **must also update** the three agent-facing files to keep them in sync:
+
+## Files to update together
+
+| Source change | Update these agent files |
+|---|---|
+| Feature copy (`Features.tsx`) | `public/llms.txt` → Features section, `public/index.html.md` → Features section, `AgentView.tsx` → `FEATURES` array |
+| Partner data (`Partners.tsx`) | `public/llms.txt` → Ecosystem section, `public/index.html.md` → Ecosystem section, `AgentView.tsx` → `PARTNERS` array |
+| CLI commands (`CliTerminal.tsx`) | `public/llms.txt` → CLI Commands section, `public/index.html.md` → CLI Reference table, `AgentView.tsx` → `CLI_COMMANDS` array |
+| Contest details (`Desktop.tsx` `TreasureContent`) | `public/llms.txt` → Contest section, `public/index.html.md` → Contest section, `AgentView.tsx` → contest steps |
+| Hero/tagline (`Hero.tsx`) | `public/llms.txt` → summary blockquote, `public/index.html.md` → intro, `index.html` → meta description |
+
+## The three agent files
+
+- `public/llms.txt` — Concise llmstxt.org-spec overview for LLMs fetching site info at inference time
+- `public/index.html.md` — Full markdown mirror of the entire site for crawlers that don't execute JS
+- `src/components/sections/AgentView.tsx` — In-app document view (shown when the user toggles "Agent" in the toolbar)
+
+## Rule of thumb
+
+If a human user would see different content after your edit, an agent should too. Update all three files.

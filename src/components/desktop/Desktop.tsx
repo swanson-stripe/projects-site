@@ -2,10 +2,11 @@ import { useState, useCallback, useRef, forwardRef, type CSSProperties } from 'r
 import { Shuffle } from 'lucide-react';
 import { Window } from './Window';
 import { GridBackground } from '@/components/ui/grid-background';
-import { StatusBar } from '@/components/sections/TerminalBanner';
+import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
 import { FeaturesContent } from '@/components/sections/Features';
+import { AgentView } from '@/components/sections/AgentView';
 import {
   EcosystemIcons,
   PartnerDetail,
@@ -80,6 +81,7 @@ function initialWindows(): WinState[] {
 export function Desktop() {
   const [wins, setWins]               = useState<WinState[]>(initialWindows);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  const [viewMode, setViewMode]       = useState<ViewMode>('ui');
   const ecoRef                        = useRef<EcosystemHandle>(null);
   const cliRef                        = useRef<CliHandle>(null);
   const windowAreaRef                 = useRef<HTMLDivElement>(null);
@@ -223,12 +225,17 @@ export function Desktop() {
       {/* ── Global status bar — always on top ─────────────────────── */}
       <StatusBar
         onReset={() => setWins(initialWindows())}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
       />
+
+      {/* ── Agent view — replaces window area when active ─────────── */}
+      {viewMode === 'agent' && <AgentView />}
 
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div
         ref={windowAreaRef}
-        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+        style={{ flex: 1, position: 'relative', overflow: 'hidden', display: viewMode === 'agent' ? 'none' : undefined }}
         onClick={() => setSelectedIcon(null)}
       >
         {/* ── Desktop icons ─────────────────────────────────────── */}

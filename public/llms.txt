@@ -1,0 +1,57 @@
+# Stripe Projects
+
+> Stripe Projects is a CLI tool that scaffolds production-ready, full-stack applications with Stripe payments pre-configured. Run one command to get a working app with payments, authentication, a database, and deployment already wired together.
+
+Stripe Projects eliminates the boilerplate that every new application requires. Instead of spending days connecting Stripe, setting up auth, choosing a database, and configuring deployments, developers run a single command and get a fully integrated starting point. Every generated application is immediately ready to accept real payments.
+
+## Getting Started
+
+- [Install command](https://stripe.com/docs): Run `stripe projects create my-app` to scaffold a new application
+- [Stripe Documentation](https://stripe.com/docs): Full developer documentation for the Stripe platform
+- [GitHub](https://github.com/stripe): Open source code and examples
+
+**Quick start:**
+```
+stripe projects create my-app
+stripe projects init
+```
+
+## Features
+
+- **Zero config payments** — Stripe is pre-wired. Accept one-time payments, subscriptions, and invoices from day one. No boilerplate required.
+- **Full-stack scaffolding** — Choose your frontend, backend, and database. Projects generates a working app with all layers connected and ready to deploy.
+- **Auth out of the box** — User authentication is configured with your chosen provider. Login, sign-up, and session management work on first boot.
+- **Deploy in one command** — From scaffolding to production in seconds. Projects handles environment variables, secrets, and deployment configuration.
+
+## Ecosystem — Supported Services
+
+Projects integrates with these services, which can be added via `projects service add <name>`:
+
+- **Stripe** (payments) — Accept one-time payments, subscriptions, and invoices. Pre-wired with no boilerplate. https://stripe.com
+- **Clerk** (auth) — Drop-in authentication with social login, magic links, MFA, and full user management UI. https://clerk.dev
+- **Supabase** (storage/database) — Open-source Firebase alternative with Postgres, realtime subscriptions, and file storage. https://supabase.com
+- **Vercel** (hosting) — Deploy frontend apps to the edge with automatic CI/CD, edge functions, and global CDN. https://vercel.com
+- **Neon** (database) — Serverless Postgres with autoscaling to zero, database branching, and a generous free tier. https://neon.tech
+- **Railway** (hosting) — Deploy servers, databases, and cron jobs with zero ops overhead. https://railway.app
+- **PostHog** (analytics) — Self-hostable product analytics with event capture, session replay, and feature flags. https://posthog.com
+- **Sentry** (monitoring) — Full-stack error monitoring, performance tracing, and alerting pre-configured with zero setup. https://sentry.io
+- **Chroma** (ai/vector database) — Open-source embedding database for AI applications. https://trychroma.com
+- **PlanetScale** (database) — MySQL-compatible serverless database with non-blocking schema changes and branching workflows. https://planetscale.com
+
+## CLI Commands
+
+```
+stripe projects create <app-name>     # Scaffold a new application
+stripe projects init                  # Initialize services and config
+stripe projects service add <name>    # Add an ecosystem service
+/contest                              # Submit contest entry from within the CLI
+```
+
+## Contest
+
+Run `stripe projects init` and submit `/contest` inside the CLI to enter a giveaway. Winners receive a Mac Mini, openclaw, and Stripe Projects credits. 10 total winners chosen at random.
+
+## Optional
+
+- [Stripe API Reference](https://stripe.com/docs/api): Complete API reference for all Stripe endpoints and objects
+- [Stripe GitHub](https://github.com/stripe): Open source libraries, SDKs, and sample projects

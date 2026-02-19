@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { Volume2, VolumeX, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, Monitor } from 'lucide-react';
 import { useAudio } from '@/components/ui/AudioContext';
 import { useTheme } from '@/components/ui/ThemeContext';
+
+export type ViewMode = 'ui' | 'agent';
 
 /* ── helpers ──────────────────────────────────────────────────────────────── */
 function pad(n: number) {
@@ -243,8 +245,12 @@ function SettingsPopover({
 ─────────────────────────────────────────────────────────────────────────── */
 export function StatusBar({
   onReset,
+  viewMode = 'ui',
+  onViewModeChange,
 }: {
   onReset?: () => void;
+  viewMode?: ViewMode;
+  onViewModeChange?: (mode: ViewMode) => void;
 }) {
   const [ts, setTs]               = useState(getTimestamp);
   const [hovered, setHovered]     = useState(false);
@@ -311,6 +317,28 @@ export function StatusBar({
             >
               <SlidersHorizontal size={13} strokeWidth={1.5} />
             </button>
+
+            {/* UI / Agent view toggle — icon-only */}
+            <button
+              aria-label={viewMode === 'agent' ? 'Switch to UI view' : 'Switch to agent view'}
+              onClick={() => onViewModeChange?.(viewMode === 'agent' ? 'ui' : 'agent')}
+              title={viewMode === 'agent' ? 'Switch to UI view' : 'Switch to agent view'}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                color: viewMode === 'agent' ? 'var(--color-stripe-purple)' : 'var(--color-text-ui-muted)',
+              }}
+            >
+              {viewMode === 'agent'
+                ? <Bot size={13} strokeWidth={1.5} />
+                : <Monitor size={13} strokeWidth={1.5} />
+              }
+            </button>
+
             <button
               aria-label='Reset desktop layout'
               onClick={onReset}
