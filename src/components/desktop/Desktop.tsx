@@ -376,7 +376,7 @@ export function Desktop() {
                 h={finalH}
                 zIndex={win.zIndex}
                 background={darkBg}
-                onClose={() => handleClose(win.id)}
+                onClose={isCloseable ? () => handleClose(win.id) : undefined}
                 onMinimize={() => handleMinimize(win.id)}
                 onMaximize={() => handleMaximize(win.id)}
                 headerRight={isEcosystem ? (
