@@ -351,7 +351,6 @@ export function Desktop() {
             const partner     = partnerName ? PARTNERS.find(p => p.name === partnerName) : null;
             const maxZ        = Math.max(...wins.map(w => w.zIndex));
 
-            const isCloseable  = !!partnerName || win.id === 'treasure' || win.id === 'users';
             const isEcosystem  = win.id === 'ecosystem';
             const isActive     = win.zIndex === maxZ;
             const isMaximized  = maximizedId === win.id;
@@ -376,7 +375,7 @@ export function Desktop() {
                 h={finalH}
                 zIndex={win.zIndex}
                 background={darkBg}
-                onClose={isCloseable ? () => handleClose(win.id) : undefined}
+                onClose={() => handleClose(win.id)}
                 onMinimize={() => handleMinimize(win.id)}
                 onMaximize={() => handleMaximize(win.id)}
                 headerRight={isEcosystem ? (
