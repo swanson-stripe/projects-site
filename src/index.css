@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Söhne (sohne-var) — Klim Type Foundry
+   Drop woff2 files into /public/fonts/ — see /public/fonts/README.md
+   Until files are present the stack falls through to Helvetica Neue / Arial.
+───────────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'sohne-var';
+  src: url('/fonts/sohne-var.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'sohne-var';
+  src: url('/fonts/sohne-var-italic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Design tokens — extracted from stripe.dev
+───────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Typography — sohne-var with Stripe's exact fallback stack */
+  --font-sans: 'sohne-var', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'Fira Code', monospace;
+
+  /* ── Background ── */
+  --color-bg:          #21252c;   /* main page background */
+  --color-surface:     #1c2029;   /* card / panel surfaces */
+  --color-surface-2:   #191d24;   /* elevated surfaces / terminal cells */
+  --color-surface-dark: #16171a;  /* deepest surface — terminal / install windows */
+  --color-overlay:     #262b35;   /* hover / selected state */
+
+  /* ── Border ── */
+  --color-border:        #1a2d42;   /* default border */
+  --color-border-subtle: rgba(255,255,255,0.06); /* hairline dividers */
+  --color-border-strong: #254060;   /* strong border / active outlines */
+  --color-border-accent: #425466;   /* UI chrome borders — window frames, separators */
+
+  /* ── Text ── */
+  --color-text-primary:    #ffffff;  /* headlines, body */
+  --color-text-secondary:  #8baec8;  /* supporting text */
+  --color-text-muted:      #3d607e;  /* timestamps, labels */
+  --color-text-disabled:   #243d54;  /* disabled / placeholder */
+
+  /* ── UI chrome text (theme-switchable white → dark) ── */
+  --color-text-ui:         #ffffff;             /* full-strength UI text */
+  --color-text-ui-muted:   rgba(255,255,255,0.5);  /* mid-dim labels, icons */
+  --color-text-ui-subtle:  rgba(255,255,255,0.3);  /* very dim hints, corners */
+
+  /* ── Stripe brand ── */
+  --color-stripe-purple:       #635bff;  /* primary CTA */
+  --color-stripe-purple-hover: #7b74ff;
+  --color-stripe-purple-muted: rgba(99,91,255,0.15);
+
+  /* ── Accent ── */
+  --color-cyan:        #00b3d4;  /* teal / cyan accent (wireframe art tint) */
+  --color-cyan-muted:  rgba(0,179,212,0.12);
+  --color-amber:       #f59e0b;  /* "Dev" wordmark accent */
+  --color-amber-muted: rgba(245,158,11,0.12);
+
+  /* ── Status / tags ── */
+  --color-tag-bg:      #1c2029;
+  --color-tag-border:  #2a3545;
+  --color-tag-text:    #4d90cc;
+
+  /* ── Accent colors ── */
+  --color-pink:        #AAE87B;   /* lime green — primary accent (replaces hot pink) */
+  --color-blue:        #0085FF;   /* vivid blue — active bars, selections */
+  --color-yellow:      #52C78D;   /* mellow green — secondary accent (replaces yellow) */
+  --color-purple:      #9B8AFB;   /* soft purple — new accent */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Base reset
+───────────────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;      /* Firefox */
+  overflow-x: clip;           /* clip corner bracket bleed without creating a new BFC */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-surface-dark);
+  color: #ffffff;
+  font-family: 'sohne-var', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Slightly tighter letter-spacing to match Söhne's feel */
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-blue);
+  color: #ffffff;
+}
+
+/* ── CLI terminal input ────────────────────────────────────────────── */
+.cli-input::placeholder {
+  color: var(--color-text-ui-subtle);
+  font-style: italic;
+}
+
+/* hide webkit scrollbar inside the CLI output area */
+.cli-output::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── music player scrubber + volume range ──────────────────────────── */
+.player-range {
+  accent-color: var(--color-pink);
+  cursor: pointer;
+  height: 3px;
+}
+
+/* ── Helm theme overrides ──────────────────────────────────────────── */
+[data-theme="midnight"] {
+  --color-bg:              #0C1A27;
+  --color-surface:         #1A1560;
+  --color-surface-dark:    #0A2540;
+  --color-border-accent:   #2E2A6A;
+  --color-pink:            #15BE53;
+  --color-blue:            #00C4C4;
+  --color-yellow:          #FF7600;
+  --color-purple:          #635BFF;
+  --color-text-secondary:  #A0C4E0;
+}
+
+[data-theme="midnight"] ::selection {
+  background: #FF7600;
+  color: #ffffff;
+}
+
+/* ── Cybervision theme overrides ───────────────────────────────────── */
+[data-theme="cybervision"] {
+  --color-bg:              #001203;
+  --color-surface:         #001A05;
+  --color-surface-dark:    #000000;
+  --color-border-accent:   #0D2410;
+  --color-pink:            #00FF66;
+  --color-blue:            #00C8FF;
+  --color-yellow:          #FF003C;
+  --color-purple:          #FF003C;
+  --color-text-secondary:  #F6F9FC;
+}
+
+[data-theme="cybervision"] ::selection {
+  background: #FF003C;
+  color: #F6F9FC;
+}
+
+/* ── Vaporwave theme overrides ─────────────────────────────────────── */
+[data-theme="vaporwave"] {
+  --color-bg:              #FFF4F8;
+  --color-surface:         #F7E8EF;
+  --color-surface-dark:    #EDDDE3;
+  --color-border-accent:   #C9A8B8;
+  --color-pink:            #D61C8C;
+  --color-blue:            #007C91;
+  --color-yellow:          #F26A21;
+  --color-purple:          #2B1A3A;
+  --color-text-secondary:  #2B1A3A;
+  --color-text-ui:         #2B1A3A;
+  --color-text-ui-muted:   rgba(43,26,58,0.65);
+  --color-text-ui-subtle:  rgba(43,26,58,0.35);
+}
+
+[data-theme="vaporwave"] body {
+  color: #2B1A3A;
+}
+
+[data-theme="vaporwave"] .logo-on-light {
+  filter: invert(1);
+}
+
+[data-theme="vaporwave"] ::selection {
+  background: #D61C8C;
+  color: #FFF4F8;
+}
+
