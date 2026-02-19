@@ -497,7 +497,6 @@ export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowM
             display:      'block',
             width:        '100%',
             padding:      '0.5rem 0.875rem',
-            borderTop:    '1px solid var(--color-border-accent)',
             background:   'transparent',
             border:       'none',
             borderTop:    '1px solid var(--color-border-accent)',
