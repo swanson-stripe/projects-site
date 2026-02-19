@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type PointerEvent as RPE } from 'react';
+import { useState, useCallback, useRef, useEffect, forwardRef, useImperativeHandle, type PointerEvent as RPE } from 'react';
 import { motion } from 'motion/react';
 import { InView } from '@/components/ui/in-view';
 
@@ -104,61 +104,61 @@ export const PARTNERS: Partner[] = [
     name: 'Stripe', category: 'payments', url: 'https://stripe.com', logo: StripeLogo,
     description: 'Payments infrastructure',
     longDescription: 'Accept one-time payments, subscriptions, and invoices from day one. Stripe is pre-wired — no boilerplate required. Used by millions of businesses worldwide.',
-    cliCommand: 'projects service stripe',
+    cliCommand: 'projects service add stripe',
   },
   {
     name: 'PlanetScale', category: 'database', url: 'https://planetscale.com', logo: PlanetScaleLogo, lightInvert: true,
     description: 'Serverless MySQL platform',
     longDescription: 'MySQL-compatible serverless database with non-blocking schema changes, automatic sharding, and branching workflows built for modern development teams.',
-    cliCommand: 'projects service planetscale',
+    cliCommand: 'projects service add planetscale',
   },
   {
     name: 'Supabase', category: 'storage', url: 'https://supabase.com', logo: SupabaseLogo,
     description: 'Open source Firebase alt.',
     longDescription: 'Open-source Firebase alternative with Postgres, realtime subscriptions, file storage, and auto-generated APIs. Fully managed and infinitely scalable.',
-    cliCommand: 'projects service supabase',
+    cliCommand: 'projects service add supabase',
   },
   {
     name: 'Railway', category: 'hosting', url: 'https://railway.app', logo: RailwayLogo, lightInvert: true,
     description: 'Infrastructure for devs',
     longDescription: 'Deploy servers, databases, and cron jobs with zero ops overhead. Railway handles provisioning, networking, and scaling so you can stay focused on code.',
-    cliCommand: 'projects service railway',
+    cliCommand: 'projects service add railway',
   },
   {
     name: 'Neon', category: 'database', url: 'https://neon.tech', logo: NeonLogo,
     description: 'Serverless Postgres',
     longDescription: 'Serverless Postgres with autoscaling to zero, database branching, and a generous free tier. Spin up a new branch for every PR automatically.',
-    cliCommand: 'projects service neon',
+    cliCommand: 'projects service add neon',
   },
   {
     name: 'Chroma', category: 'ai', url: 'https://trychroma.com', logo: ChromaLogo,
     description: 'AI-native vector database',
     longDescription: 'The open-source embedding database for AI applications. Store, search, and manage vector embeddings at any scale, with a simple Python and JavaScript API.',
-    cliCommand: 'projects service chroma',
+    cliCommand: 'projects service add chroma',
   },
   {
     name: 'Sentry', category: 'monitoring', url: 'https://sentry.io', logo: SentryLogo, lightInvert: true,
     description: 'Error monitoring',
     longDescription: 'Catch errors before your users do. Sentry provides full-stack error monitoring, performance tracing, and alerting — all pre-configured with zero setup.',
-    cliCommand: 'projects service sentry',
+    cliCommand: 'projects service add sentry',
   },
   {
     name: 'Clerk', category: 'auth', url: 'https://clerk.dev', logo: ClerkLogo,
     description: 'Auth & user management',
     longDescription: 'Drop-in authentication with social login, magic links, MFA, and full user management UI. Works out of the box with zero configuration.',
-    cliCommand: 'projects service clerk',
+    cliCommand: 'projects service add clerk',
   },
   {
     name: 'PostHog', category: 'analytics', url: 'https://posthog.com', logo: PostHogLogo,
     description: 'Product analytics',
     longDescription: 'Self-hostable product analytics with event capture, session replay, feature flags, and A/B testing. Everything you need to understand and improve your product.',
-    cliCommand: 'projects service posthog',
+    cliCommand: 'projects service add posthog',
   },
   {
     name: 'Vercel', category: 'hosting', url: 'https://vercel.com', logo: VercelLogo, lightInvert: true,
     description: 'Frontend cloud platform',
     longDescription: 'Deploy frontend apps to the edge with automatic CI/CD, edge functions, and global CDN distribution. Seamless integration with Next.js and all major frameworks.',
-    cliCommand: 'projects service vercel',
+    cliCommand: 'projects service add vercel',
   },
 ];
 
@@ -190,7 +190,10 @@ const GAP_Y     = 40;            // vertical gap between icon rows
 const PAD       = 40;            // padding inside window on all sides
 const COLS    = 4;
 
-export interface EcosystemHandle { shuffle: () => void; }
+export interface EcosystemHandle {
+  shuffle:            () => void;
+  resetIconPosition:  (name: string) => void;
+}
 
 function makeGridPositions(partners: Partner[]): Record<string, { x: number; y: number }> {
   const out: Record<string, { x: number; y: number }> = {};
@@ -203,37 +206,102 @@ function makeGridPositions(partners: Partner[]): Record<string, { x: number; y: 
   return out;
 }
 
-export const EcosystemIcons = forwardRef<EcosystemHandle, { onOpen: (p: Partner) => void }>(
-  function EcosystemIcons({ onOpen }, ref) {
-    const [order,    setOrder]    = useState<Partner[]>(PARTNERS);
-    const [positions, setPositions] = useState(() => makeGridPositions(PARTNERS));
-    const [dragging,  setDragging]  = useState<string | null>(null);
-    const [selected,  setSelected]  = useState<number | null>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+export interface EcosystemIconsProps {
+  onOpen:             (p: Partner) => void;
+  onCrossDragStart?:  (p: Partner) => void;
+  onCrossDragMove?:   (x: number, y: number) => void;
+  onCrossDragEnd?:    (p: Partner, x: number, y: number) => void;
+}
 
-    /* ── shuffle: new random order + reset grid positions ────── */
-    const shuffle = useCallback(() => {
-      const next = [...PARTNERS].sort(() => Math.random() - 0.5);
-      setOrder(next);
-      setPositions(makeGridPositions(next));
-      setSelected(null);
+export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
+  function EcosystemIcons({ onOpen, onCrossDragStart, onCrossDragMove, onCrossDragEnd }, ref) {
+    const [order,        setOrder]        = useState<Partner[]>(PARTNERS);
+    const [positions,    setPositions]    = useState(() => makeGridPositions(PARTNERS));
+    const [dragging,     setDragging]     = useState<string | null>(null);
+    const [selected,     setSelected]     = useState<number | null>(null);
+    const [displaySlots, setDisplaySlots] = useState<Partner[]>(PARTNERS);
+    const [isShuffling,  setIsShuffling]  = useState(false);
+    const shuffleTimers  = useRef<ReturnType<typeof setTimeout>[]>([]);
+    const containerRef   = useRef<HTMLDivElement>(null);
+
+    useEffect(() => () => {
+      shuffleTimers.current.forEach(id => { clearTimeout(id); clearInterval(id as unknown as ReturnType<typeof setInterval>); });
     }, []);
 
-    useImperativeHandle(ref, () => ({ shuffle }), [shuffle]);
+    /* ── shuffle: cascade slot-machine animation ─────────────── */
+    const shuffle = useCallback(() => {
+      // Cancel any in-progress shuffle
+      shuffleTimers.current.forEach(id => { clearTimeout(id); clearInterval(id as unknown as ReturnType<typeof setInterval>); });
+      shuffleTimers.current = [];
+
+      const nextOrder = [...PARTNERS].sort(() => Math.random() - 0.5);
+      const n = PARTNERS.length;
+
+      setIsShuffling(true);
+      setSelected(null);
+      // Seed displaySlots from current order so positions don't jump
+      setDisplaySlots([...order]);
+
+      const STAGGER       = 150; // ms between each slot starting
+      const CYCLE_DURATION = 480; // ms each slot spins before settling
+      const CYCLE_SPEED   = 70;  // ms between random icon swaps
+
+      for (let i = 0; i < n; i++) {
+        const startAt = i * STAGGER;
+        const endAt   = startAt + CYCLE_DURATION;
+
+        let cycleInterval: ReturnType<typeof setInterval>;
+
+        const startId = setTimeout(() => {
+          cycleInterval = setInterval(() => {
+            const rand = PARTNERS[Math.floor(Math.random() * PARTNERS.length)];
+            setDisplaySlots(prev => { const s = [...prev]; s[i] = rand; return s; });
+          }, CYCLE_SPEED);
+          shuffleTimers.current.push(cycleInterval as unknown as ReturnType<typeof setTimeout>);
+        }, startAt);
+
+        const endId = setTimeout(() => {
+          clearInterval(cycleInterval);
+          setDisplaySlots(prev => { const s = [...prev]; s[i] = nextOrder[i]; return s; });
+
+          if (i === n - 1) {
+            setOrder(nextOrder);
+            setPositions(makeGridPositions(nextOrder));
+            setIsShuffling(false);
+          }
+        }, endAt);
+
+        shuffleTimers.current.push(startId, endId);
+      }
+    }, [order]);
+
+    const resetIconPosition = useCallback((name: string) => {
+      setPositions(prev => {
+        const gridPos = makeGridPositions(order)[name];
+        if (!gridPos) return prev;
+        return { ...prev, [name]: gridPos };
+      });
+    }, [order]);
+
+    useImperativeHandle(ref, () => ({ shuffle, resetIconPosition }), [shuffle, resetIconPosition]);
 
     /* ── drag ─────────────────────────────────────────────────── */
     function startDrag(e: RPE<HTMLDivElement>, name: string) {
-      if (e.button !== 0) return;
+      if (e.button !== 0 || isShuffling) return;
       e.preventDefault();
       e.stopPropagation();
       setDragging(name);
+      const partner = order.find(p => p.name === name)!;
+      onCrossDragStart?.(partner);
       const sx = e.clientX, sy = e.clientY;
       const sp = { ...positions[name] };
       function onMove(ev: globalThis.PointerEvent) {
         setPositions(prev => ({ ...prev, [name]: { x: sp.x + ev.clientX - sx, y: sp.y + ev.clientY - sy } }));
+        onCrossDragMove?.(ev.clientX, ev.clientY);
       }
-      function onUp() {
+      function onUp(ev: globalThis.PointerEvent) {
         setDragging(null);
+        onCrossDragEnd?.(partner, ev.clientX, ev.clientY);
         window.removeEventListener('pointermove', onMove);
         window.removeEventListener('pointerup',   onUp);
       }
@@ -274,14 +342,16 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, { onOpen: (p: Partner)
         onKeyDown={handleKeyDown}
         style={{ position: 'relative', flex: 1, overflow: 'hidden', outline: 'none' }}
       >
-        {order.map((partner, idx) => {
-          const pos        = positions[partner.name];
-          const isDragging = dragging === partner.name;
-          const isSelected = selected === idx;
+        {(isShuffling ? displaySlots : order).map((partner, idx) => {
+          const pos = isShuffling
+            ? { x: PAD + (idx % COLS) * (ICON_W + GAP_X), y: PAD + Math.floor(idx / COLS) * (HIGHLIGHT + 16 + 14 + GAP_Y) }
+            : positions[partner.name];
+          const isDragging = !isShuffling && dragging === partner.name;
+          const isSelected = !isShuffling && selected === idx;
 
           return (
             <div
-              key={partner.name}
+              key={isShuffling ? idx : partner.name}
               style={{
                 position:  'absolute',
                 left:       pos.x,
@@ -363,7 +433,7 @@ const CATEGORY_COLOR: Record<Category, string> = {
   hosting:    '#00b3d4',
 };
 
-export function PartnerDetail({ partner }: { partner: Partner }) {
+export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowMe?: (cmd: string) => void }) {
   const catColor = CATEGORY_COLOR[partner.category];
   return (
     <div style={{
@@ -421,6 +491,26 @@ export function PartnerDetail({ partner }: { partner: Partner }) {
             {partner.cliCommand}
           </code>
         </div>
+        <button
+          onClick={() => onShowMe?.(partner.cliCommand)}
+          style={{
+            display:      'block',
+            width:        '100%',
+            padding:      '0.5rem 0.875rem',
+            borderTop:    '1px solid var(--color-border-accent)',
+            background:   'transparent',
+            border:       'none',
+            borderTop:    '1px solid var(--color-border-accent)',
+            textAlign:    'left',
+            fontFamily:   'var(--font-mono)',
+            fontSize:     '0.72rem',
+            color:        'var(--color-pink)',
+            cursor:       onShowMe ? 'pointer' : 'default',
+            letterSpacing:'0.02em',
+          }}
+        >
+          show me →
+        </button>
       </div>
     </div>
   );

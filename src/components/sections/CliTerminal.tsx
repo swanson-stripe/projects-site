@@ -4,10 +4,18 @@ import {
   useEffect,
   useCallback,
   memo,
+  forwardRef,
+  useImperativeHandle,
   type KeyboardEvent as KE,
 } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TextEffect } from '@/components/ui/text-effect';
+import { PARTNERS } from '@/components/sections/Partners';
+
+/* ─── imperative handle ──────────────────────────────────────────── */
+export interface CliHandle {
+  submit: (command: string) => void;
+}
 
 /* ─── tokens ─────────────────────────────────────────────────────── */
 const PINK   = 'var(--color-pink)';
@@ -32,15 +40,55 @@ let _uid = 100;
 const uid = () => _uid++;
 
 /* ─── slash command registry ─────────────────────────────────────── */
-const SLASH_COMMANDS = [
-  { cmd: '/help',     desc: 'show command reference'       },
-  { cmd: '/partners', desc: 'list all integrations'        },
-  { cmd: '/stack',    desc: 'view starter templates'       },
-  { cmd: '/costs',    desc: 'view pricing info'            },
-  { cmd: '/env',      desc: 'view environment variables'   },
-  { cmd: '/services', desc: 'view current stack services'  },
-  { cmd: '/clear',    desc: 'clear terminal'               },
-  { cmd: '/why',      desc: 'why projects exists'          },
+interface SlashCommand { cmd: string; desc: string; isGroup?: boolean; }
+
+/* Services that can be provisioned — used to build sub-entries */
+const SERVICE_OPTIONS: Array<{ name: string; desc: string }> = [
+  { name: 'stripe',      desc: 'payments · billing'              },
+  { name: 'clerk',       desc: 'auth · user management'          },
+  { name: 'supabase',    desc: 'storage · open source db'        },
+  { name: 'vercel',      desc: 'hosting · frontend cloud'        },
+  { name: 'neon',        desc: 'database · serverless postgres'  },
+  { name: 'railway',     desc: 'hosting · infrastructure'        },
+  { name: 'posthog',     desc: 'analytics · product events'      },
+  { name: 'sentry',      desc: 'monitoring · error tracking'     },
+  { name: 'chroma',      desc: 'ai · vector database'            },
+  { name: 'planetscale', desc: 'database · serverless mysql'     },
+];
+
+/* Commands that take a service name as their next argument */
+const SERVICE_ARG_CMDS = [
+  '/services add',
+  '/services import',
+  '/services remove',
+  '/services upgrade',
+  '/services configure',
+  '/services inspect',
+] as const;
+
+const SLASH_COMMANDS: SlashCommand[] = [
+  { cmd: '/help',                   desc: 'show command reference'                },
+  { cmd: '/partners',               desc: 'list all integrations'                 },
+  { cmd: '/stack',                  desc: 'view starter templates'                },
+  { cmd: '/costs',                  desc: 'view pricing info'                     },
+  { cmd: '/env',                    desc: 'view environment variables'            },
+  // services group — isGroup: true means Enter expands rather than submits
+  { cmd: '/services add',           desc: 'add a service to your stack',       isGroup: true },
+  { cmd: '/services import',        desc: 'import existing external resource', isGroup: true },
+  { cmd: '/services remove',        desc: 'remove a service',                  isGroup: true },
+  { cmd: '/services upgrade',       desc: 'change service tier',               isGroup: true },
+  { cmd: '/services configure',     desc: 'interactive configuration wizard',  isGroup: true },
+  { cmd: '/services inspect',       desc: 'show configuration options',        isGroup: true },
+  { cmd: '/services connect',       desc: 'connect two services'               },
+  { cmd: '/services status',        desc: 'view current stack status'          },
+  { cmd: '/services list',          desc: 'list available services'            },
+  // service sub-entries — shown after a group command is expanded
+  ...SERVICE_ARG_CMDS.flatMap(base =>
+    SERVICE_OPTIONS.map(s => ({ cmd: `${base} ${s.name}`, desc: s.desc }))
+  ),
+  { cmd: '/contest',                desc: 'enter to win a mac mini'           },
+  { cmd: '/clear',                  desc: 'clear terminal'                     },
+  { cmd: '/why',                    desc: 'why projects exists'                },
 ];
 
 /* ─── welcome table ──────────────────────────────────────────────── */
@@ -91,11 +139,13 @@ function respond(input: string): Line[] {
       { id: uid(), t: 'col2', lkey: 'templates list',       text: 'List available starter templates'   },
       { id: uid(), t: 'blank',   text: '' },
       { id: uid(), t: 'section', text: 'services' },
-      { id: uid(), t: 'col2', lkey: 'services add <svc>',   text: 'Add a service to your stack'   },
-      { id: uid(), t: 'col2', lkey: 'services remove <id>', text: 'Remove a service'              },
-      { id: uid(), t: 'col2', lkey: 'services upgrade <s>', text: 'Change service tier'           },
-      { id: uid(), t: 'col2', lkey: 'services status',      text: 'View current stack status'     },
-      { id: uid(), t: 'col2', lkey: 'services list',        text: 'List available services'       },
+      { id: uid(), t: 'col2', lkey: 'services add <provider/service>',    text: 'Add a service to your stack'           },
+      { id: uid(), t: 'col2', lkey: 'services import <provider/service>', text: 'Import existing external resource'     },
+      { id: uid(), t: 'col2', lkey: 'services remove <service-id>',       text: 'Remove a service'                      },
+      { id: uid(), t: 'col2', lkey: 'services upgrade <service>',         text: 'Change service tier'                   },
+      { id: uid(), t: 'col2', lkey: 'services connect <src> <dst>',       text: 'Connect two services'                  },
+      { id: uid(), t: 'col2', lkey: 'services status',                    text: 'View current stack status'             },
+      { id: uid(), t: 'col2', lkey: 'services list',                      text: 'List available services (marketplace)' },
       { id: uid(), t: 'blank',   text: '' },
       { id: uid(), t: 'section', text: 'portability' },
       { id: uid(), t: 'col2', lkey: 'export [--format=<f>]', text: 'Export stack (yaml, terraform, pulumi)' },
@@ -189,19 +239,136 @@ function respond(input: string): Line[] {
     ];
   }
 
-  /* ── /services ── */
-  if (lower === '/services') {
+  /* ── /services add ── */
+  if (lower === '/services add') {
     return [
       { id: uid(), t: 'blank',   text: '' },
-      { id: uid(), t: 'section', text: 'service commands' },
+      { id: uid(), t: 'hint',    text: 'usage: services add <provider/service>' },
       { id: uid(), t: 'blank',   text: '' },
-      { id: uid(), t: 'col2', lkey: 'services add <svc>',    text: 'Add a service to your stack'    },
-      { id: uid(), t: 'col2', lkey: 'services remove <id>',  text: 'Remove a service'               },
-      { id: uid(), t: 'col2', lkey: 'services upgrade <s>',  text: 'Change service tier'            },
-      { id: uid(), t: 'col2', lkey: 'services configure <s>',text: 'Interactive config wizard'      },
-      { id: uid(), t: 'col2', lkey: 'services inspect <s>',  text: 'Show configuration options'     },
-      { id: uid(), t: 'col2', lkey: 'services status',       text: 'View current stack status'      },
-      { id: uid(), t: 'col2', lkey: 'services list',         text: 'Browse marketplace'             },
+      { id: uid(), t: 'col2', lkey: 'vercel',      text: 'hosting · frontend cloud'    },
+      { id: uid(), t: 'col2', lkey: 'clerk',       text: 'auth · user management'      },
+      { id: uid(), t: 'col2', lkey: 'supabase',    text: 'storage · open source db'    },
+      { id: uid(), t: 'col2', lkey: 'neon',        text: 'database · serverless postgres' },
+      { id: uid(), t: 'col2', lkey: 'planetscale', text: 'database · serverless mysql' },
+      { id: uid(), t: 'col2', lkey: 'railway',     text: 'hosting · infrastructure'    },
+      { id: uid(), t: 'col2', lkey: 'posthog',     text: 'analytics · product events'  },
+      { id: uid(), t: 'col2', lkey: 'sentry',      text: 'monitoring · error tracking' },
+      { id: uid(), t: 'col2', lkey: 'chroma',      text: 'ai · vector database'        },
+      { id: uid(), t: 'col2', lkey: 'stripe',      text: 'payments · billing'          },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'e.g.  services add vercel' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services import ── */
+  if (lower === '/services import') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'usage: services import <provider/service>' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'connects an existing external resource to your stack' },
+      { id: uid(), t: 'step',    text: 'credentials are read from your environment and stored securely' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'e.g.  services import supabase' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services remove ── */
+  if (lower === '/services remove') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'usage: services remove <service-id>' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'deprovisions the service and removes its credentials' },
+      { id: uid(), t: 'step',    text: 'run services status to see service IDs' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services upgrade ── */
+  if (lower === '/services upgrade') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'usage: services upgrade <service>' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'launches an interactive tier selector for the service' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services configure ── */
+  if (lower === '/services configure') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'usage: services configure <service>' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'opens an interactive wizard to update service settings' },
+      { id: uid(), t: 'step',    text: 'changes are applied to the active environment' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services inspect ── */
+  if (lower === '/services inspect') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'usage: services inspect <service>' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'prints all configuration options and current values for a service' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services connect ── */
+  if (lower === '/services connect') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'usage: services connect <src> <dst>' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'auto-wires credentials from src into dst environment variables' },
+      { id: uid(), t: 'step',    text: 'no manual env configuration required' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'e.g.  services connect supabase vercel' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services status ── */
+  if (lower === '/services status') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'stack · my-app' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: '✓ vercel',      text: 'hosting    · active   · $20/mo' },
+      { id: uid(), t: 'col2', lkey: '✓ clerk',       text: 'auth       · active   · $25/mo' },
+      { id: uid(), t: 'col2', lkey: '✓ supabase',    text: 'storage    · active   · $25/mo' },
+      { id: uid(), t: 'col2', lkey: '✓ stripe',      text: 'payments   · active   · $0/mo'  },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'total',          text: '$70/mo across 4 services'       },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services list ── */
+  if (lower === '/services list') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'marketplace' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'vercel',      text: 'hosting · frontend cloud platform'     },
+      { id: uid(), t: 'col2', lkey: 'clerk',       text: 'auth · user management & social login' },
+      { id: uid(), t: 'col2', lkey: 'supabase',    text: 'storage · open source firebase alt'   },
+      { id: uid(), t: 'col2', lkey: 'neon',        text: 'database · serverless postgres'        },
+      { id: uid(), t: 'col2', lkey: 'planetscale', text: 'database · serverless mysql'           },
+      { id: uid(), t: 'col2', lkey: 'railway',     text: 'hosting · zero-ops infrastructure'     },
+      { id: uid(), t: 'col2', lkey: 'posthog',     text: 'analytics · product events & replay'  },
+      { id: uid(), t: 'col2', lkey: 'sentry',      text: 'monitoring · error tracking'           },
+      { id: uid(), t: 'col2', lkey: 'chroma',      text: 'ai · vector database'                  },
+      { id: uid(), t: 'col2', lkey: 'stripe',      text: 'payments · billing & subscriptions'    },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'run services add <name> to provision any service' },
       { id: uid(), t: 'blank',   text: '' },
     ];
   }
@@ -236,6 +403,45 @@ function respond(input: string): Line[] {
       { id: uid(), t: 'step',    text: 'agentic toolkit, a significant set of roadblocks appeared:'      },
       { id: uid(), t: 'step',    text: 'choice, provisioning, and management. projects aims to simplify' },
       { id: uid(), t: 'step',    text: 'all of that, in a way that feels so obvious now.'                },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── projects service add <name>  OR  /services add <name> ── */
+  const addMatch = raw.match(/^(?:projects\s+service(?:s)?\s+add|\/services\s+add)\s+(\S+)/i);
+  if (addMatch) {
+    const svcSlug    = addMatch[1].toLowerCase();
+    const partner    = PARTNERS.find(p => p.name.toLowerCase() === svcSlug);
+    const displayName = partner?.name ?? svcSlug;
+    const category   = partner?.category ?? 'service';
+    return [
+      { id: uid(), t: 'blank', text: '' },
+      { id: uid(), t: 'step',  text: `provisioning ${displayName}...` },
+      { id: uid(), t: 'sub',   text: 'allocating resources' },
+      { id: uid(), t: 'sub',   text: `configuring ${category} instance` },
+      { id: uid(), t: 'sub',   text: 'generating credentials' },
+      { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
+      { id: uid(), t: 'blank', text: '' },
+      { id: uid(), t: 'hint',  text: 'run env list to view new credentials' },
+      { id: uid(), t: 'blank', text: '' },
+    ];
+  }
+
+  /* ── /contest ── */
+  if (lower === '/contest') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: '🎁  contest entry' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'done',    text: 'entry received — good luck!' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'the email associated with your stripe account' },
+      { id: uid(), t: 'step',    text: 'has been entered into the drawing.' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'prize',   text: 'mac mini + openclaw + projects credits' },
+      { id: uid(), t: 'col2', lkey: 'winners', text: '10 randomly chosen'                     },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'results announced at the close of the event' },
       { id: uid(), t: 'blank',   text: '' },
     ];
   }
@@ -386,7 +592,7 @@ const SlashMenu = memo(function SlashMenu({
 });
 
 /* ─── main component ─────────────────────────────────────────────── */
-export function CliTerminal() {
+export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
   const [lines, setLines]       = useState<Line[]>([]);
   const [value, setValue]       = useState('');
   const [menuIdx, setMenuIdx]   = useState(0);
@@ -395,9 +601,19 @@ export function CliTerminal() {
   const historyRef              = useRef<string[]>([]);
   const histIdxRef              = useRef(-1);
 
-  /* filtered slash commands for menu */
+  /* expose submit imperatively so Desktop can drive the CLI */
+  useImperativeHandle(ref, () => ({
+    submit: (command: string) => {
+      submitRef.current(command);
+    },
+  }));
+
+  /* stable ref so useImperativeHandle doesn't re-run when submit changes */
+  const submitRef = useRef<(cmd: string) => void>(() => {});
+
+  /* filtered slash commands for menu — capped at 5 */
   const menuItems = value.startsWith('/')
-    ? SLASH_COMMANDS.filter(s => s.cmd.startsWith(value))
+    ? SLASH_COMMANDS.filter(s => s.cmd.startsWith(value)).slice(0, 5)
     : [];
   const menuOpen = menuItems.length > 0;
 
@@ -437,6 +653,9 @@ export function CliTerminal() {
     setValue('');
   }, [value]);
 
+  /* keep submitRef current so the imperative handle always calls latest */
+  useEffect(() => { submitRef.current = submit; }, [submit]);
+
   const onKeyDown = (e: KE<HTMLInputElement>) => {
     if (menuOpen) {
       if (e.key === 'ArrowDown') {
@@ -451,8 +670,16 @@ export function CliTerminal() {
       }
       if (e.key === 'Enter') {
         e.preventDefault();
-        const selected = menuItems[menuIdx]?.cmd;
-        if (selected) submit(selected);
+        const selected = menuItems[menuIdx];
+        if (selected) {
+          if (selected.isGroup) {
+            // Expand the group: set input to the command + space and show its sub-entries
+            setValue(selected.cmd + ' ');
+            setMenuIdx(0);
+          } else {
+            submit(selected.cmd);
+          }
+        }
         return;
       }
       if (e.key === 'Escape') {
@@ -544,4 +771,4 @@ export function CliTerminal() {
       </div>
     </div>
   );
-}
+});

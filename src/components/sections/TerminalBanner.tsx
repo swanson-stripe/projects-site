@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { CirclePlay, CirclePause, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import { Volume2, VolumeX, SlidersHorizontal, RotateCcw } from 'lucide-react';
 import { useAudio } from '@/components/ui/AudioContext';
 import { useTheme } from '@/components/ui/ThemeContext';
 
@@ -243,18 +243,14 @@ function SettingsPopover({
 ─────────────────────────────────────────────────────────────────────────── */
 export function StatusBar({
   onReset,
-  onOpenPlayer,
-  playerWindowOpen = false,
 }: {
-  onReset?:        () => void;
-  onOpenPlayer?:   () => void;
-  playerWindowOpen?: boolean;
+  onReset?: () => void;
 }) {
   const [ts, setTs]               = useState(getTimestamp);
   const [hovered, setHovered]     = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const settingsRef               = useRef<HTMLButtonElement>(null);
-  const { isPlaying } = useAudio();
+  const { isMuted, toggleMute } = useAudio();
 
   useEffect(() => {
     const id = setInterval(() => setTs(getTimestamp()), 1_000);
@@ -288,19 +284,19 @@ export function StatusBar({
         {/* system icons + date/time */}
         <Cell>
           <div className='flex items-center' style={{ gap: 'clamp(0.6rem, 1.5vw, 1rem)' }}>
-            {/* Now Playing — icon reflects playback state; click opens player window */}
+            {/* Mute / unmute background music */}
             <button
-              aria-label='Now Playing'
-              onClick={onOpenPlayer}
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
+              onClick={toggleMute}
               style={{
                 display: 'flex', alignItems: 'center', background: 'none', border: 'none',
                 padding: 0, cursor: 'pointer',
-                color: playerWindowOpen ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
+                color: isMuted ? 'var(--color-text-ui-muted)' : 'var(--color-text-ui)',
               }}
             >
-              {isPlaying
-                ? <CirclePause size={13} strokeWidth={1.5} />
-                : <CirclePlay  size={13} strokeWidth={1.5} />
+              {isMuted
+                ? <VolumeX size={13} strokeWidth={1.5} />
+                : <Volume2 size={13} strokeWidth={1.5} />
               }
             </button>
             <button

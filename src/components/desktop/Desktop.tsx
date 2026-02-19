@@ -1,12 +1,11 @@
-import { useState, useCallback, useRef, type CSSProperties } from 'react';
+import { useState, useCallback, useRef, forwardRef, type CSSProperties } from 'react';
 import { Shuffle } from 'lucide-react';
 import { Window } from './Window';
 import { GridBackground } from '@/components/ui/grid-background';
 import { StatusBar } from '@/components/sections/TerminalBanner';
-import { CliTerminal } from '@/components/sections/CliTerminal';
+import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
 import { FeaturesContent } from '@/components/sections/Features';
-import { MusicPlayer } from '@/components/ui/MusicPlayer';
 import {
   EcosystemIcons,
   PartnerDetail,
@@ -16,7 +15,7 @@ import {
 } from '@/components/sections/Partners';
 
 /* ── types ────────────────────────────────────────────────────────── */
-type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'player' | 'treasure';
+type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure';
 type WinId  = CoreId | `partner:${string}`;
 
 interface WinState {
@@ -34,13 +33,12 @@ function getTitle(id: WinId): string {
   if (id === 'install')   return 'install.sh';
   if (id === 'why')       return 'what.md';
   if (id === 'ecosystem') return 'ecosystem.json';
-  if (id === 'player')    return 'player.fm';
   if (id === 'treasure')  return 'treasure';
   return id.slice('partner:'.length).toLowerCase() + '.json';
 }
 
 function isNoScroll(id: WinId): boolean {
-  return id === 'terminal' || id === 'ecosystem' || id === 'player';
+  return id === 'terminal' || id === 'ecosystem';
 }
 
 /* ── initial staggered layout ─────────────────────────────────────── */
@@ -83,6 +81,10 @@ export function Desktop() {
   const [wins, setWins]               = useState<WinState[]>(initialWindows);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const ecoRef                        = useRef<EcosystemHandle>(null);
+  const cliRef                        = useRef<CliHandle>(null);
+  const windowAreaRef                 = useRef<HTMLDivElement>(null);
+  const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
+  const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
 
   /* bring clicked window to front */
   const bringToFront = useCallback((id: WinId) => {
@@ -108,29 +110,6 @@ export function Desktop() {
     setWins(prev => prev.filter(w => w.id !== id));
   }, []);
 
-  /* open / bring-to-front the music player window */
-  const openPlayer = useCallback(() => {
-    setWins(prev => {
-      const existing = prev.find(w => w.id === 'player');
-      if (existing) {
-        const maxZ = Math.max(...prev.map(w => w.zIndex));
-        if (existing.zIndex === maxZ) return prev;
-        return prev.map(w => w.id === 'player' ? { ...w, zIndex: maxZ + 1 } : w);
-      }
-      const maxZ = Math.max(...prev.map(w => w.zIndex));
-      const vw   = window.innerWidth;
-      const vh   = window.innerHeight;
-      return [...prev, {
-        id:     'player' as const,
-        x:      Math.round(vw / 2 - 170),
-        y:      Math.round(vh / 2 - 220),
-        w:      340,
-        h:      370,
-        zIndex: maxZ + 1,
-      }];
-    });
-  }, []);
-
   /* open (or bring to front) the treasure window */
   const openTreasure = useCallback(() => {
     setWins(prev => {
@@ -147,12 +126,29 @@ export function Desktop() {
         id:     'treasure' as const,
         x:      Math.round(vw / 2 - 200),
         y:      Math.round(vh / 2 - 150),
-        w:      400,
-        h:      300,
+        w:      420,
+        h:      560,
         zIndex: maxZ + 1,
       }];
     });
   }, []);
+
+  /* cross-window drag: icon released — check if over CLI window */
+  const handleCrossDragEnd = useCallback((partner: Partner, clientX: number, clientY: number) => {
+    setDraggingPartner(null);
+    setGhostPos(null);
+    const cli     = wins.find(w => w.id === 'terminal');
+    const areaTop = windowAreaRef.current?.getBoundingClientRect().top ?? 40;
+    if (
+      cli &&
+      clientX >= cli.x && clientX <= cli.x + cli.w &&
+      clientY >= areaTop + cli.y && clientY <= areaTop + cli.y + cli.h
+    ) {
+      cliRef.current?.submit(`projects service add ${partner.name.toLowerCase()}`);
+      bringToFront('terminal');
+      ecoRef.current?.resetIconPosition(partner.name);
+    }
+  }, [wins, bringToFront]);
 
   /* open a partner detail window — or bring to front if already open */
   const openPartner = useCallback((partner: Partner) => {
@@ -192,15 +188,46 @@ export function Desktop() {
       {/* ── Full-viewport grid — behind everything ────────────────── */}
       <GridBackground />
 
+      {/* ── Drag ghost — follows cursor when dragging an icon cross-window */}
+      {draggingPartner && ghostPos && (
+        <div
+          aria-hidden
+          style={{
+            position:       'fixed',
+            left:            ghostPos.x - 20,
+            top:             ghostPos.y - 20,
+            pointerEvents:  'none',
+            zIndex:          9999,
+            display:        'flex',
+            flexDirection:  'column',
+            alignItems:     'center',
+            gap:             6,
+            opacity:         0.85,
+          }}
+        >
+          <div style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+               className={draggingPartner.lightInvert ? 'logo-on-light' : ''}>
+            <draggingPartner.logo className='w-full h-full object-contain' />
+          </div>
+          <span style={{
+            fontSize:   '0.55rem',
+            fontFamily: 'var(--font-mono)',
+            color:      'var(--color-text-ui)',
+            textShadow: '0 1px 4px rgba(0,0,0,0.8)',
+          }}>
+            {draggingPartner.name}
+          </span>
+        </div>
+      )}
+
       {/* ── Global status bar — always on top ─────────────────────── */}
       <StatusBar
         onReset={() => setWins(initialWindows())}
-        onOpenPlayer={openPlayer}
-        playerWindowOpen={wins.some(w => w.id === 'player')}
       />
 
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div
+        ref={windowAreaRef}
         style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
         onClick={() => setSelectedIcon(null)}
       >
@@ -221,7 +248,7 @@ export function Desktop() {
         const partner     = partnerName ? PARTNERS.find(p => p.name === partnerName) : null;
         const maxZ        = Math.max(...wins.map(w => w.zIndex));
 
-        const isCloseable  = !!partnerName || win.id === 'player' || win.id === 'treasure';
+        const isCloseable  = !!partnerName || win.id === 'treasure';
         const isEcosystem  = win.id === 'ecosystem';
         const isActive     = win.zIndex === maxZ;
         const darkBg       = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
@@ -252,13 +279,39 @@ export function Desktop() {
             onMove={(x, y) => handleMove(win.id, x, y)}
             onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
           >
-            {win.id === 'terminal'  && <TerminalContent />}
+            {win.id === 'terminal'  && (
+              <div style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                {draggingPartner && (
+                  <div aria-hidden style={{
+                    position:     'absolute',
+                    inset:         0,
+                    zIndex:        10,
+                    background:   'var(--color-pink)',
+                    opacity:       0.1,
+                    pointerEvents:'none',
+                  }} />
+                )}
+                <TerminalContent ref={cliRef} />
+              </div>
+            )}
             {win.id === 'install'   && <InstallWindow />}
             {win.id === 'why'       && <FeaturesContent />}
-            {win.id === 'ecosystem' && <EcosystemIcons ref={ecoRef} onOpen={openPartner} />}
-            {win.id === 'player'    && <MusicPlayer />}
-            {win.id === 'treasure'  && null}
-            {partner && <PartnerDetail partner={partner} />}
+            {win.id === 'ecosystem' && (
+              <EcosystemIcons
+                ref={ecoRef}
+                onOpen={openPartner}
+                onCrossDragStart={p => setDraggingPartner(p)}
+                onCrossDragMove={(x, y) => setGhostPos({ x, y })}
+                onCrossDragEnd={handleCrossDragEnd}
+              />
+            )}
+            {win.id === 'treasure'  && <TreasureContent />}
+            {partner && (
+              <PartnerDetail
+                partner={partner}
+                onShowMe={cmd => { cliRef.current?.submit(cmd); bringToFront('terminal'); }}
+              />
+            )}
           </Window>
         );
         })}
@@ -267,10 +320,114 @@ export function Desktop() {
   );
 }
 
-/* ── Terminal window content: just the CLI ────────────────────────── */
-function TerminalContent() {
-  return <CliTerminal />;
+/* ── Treasure window content ──────────────────────────────────────── */
+function TreasureContent() {
+  return (
+    <div style={{
+      padding:       '1.75rem 1.5rem',
+      fontFamily:    'var(--font-mono)',
+      display:       'flex',
+      flexDirection: 'column',
+      gap:           '1.25rem',
+      overflowY:     'auto',
+    }}>
+      {/* icon */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img
+          src='/contest.png'
+          alt='contest'
+          draggable={false}
+          style={{ width: 64, height: 64, imageRendering: 'pixelated' }}
+        />
+      </div>
+
+      {/* heading */}
+      <h2 style={{
+        margin:      0,
+        fontSize:    '0.9rem',
+        fontWeight:  700,
+        color:       'var(--color-text-ui)',
+        lineHeight:  1.35,
+        textAlign:   'center',
+      }}>
+        Enter to win a mac mini +{' '}
+        <span style={{ color: 'var(--color-pink)' }}>openclaw</span>
+        {' '}+ stripe projects credits
+      </h2>
+
+      {/* divider */}
+      <div style={{ height: 1, background: 'var(--color-border-accent)' }} />
+
+      {/* subheading */}
+      <p style={{
+        margin:       0,
+        fontSize:     '0.62rem',
+        textTransform:'uppercase',
+        letterSpacing:'0.12em',
+        color:        'var(--color-text-ui-subtle)',
+      }}>
+        How to enter
+      </p>
+
+      {/* steps */}
+      <ol style={{
+        margin:     0,
+        padding:    0,
+        listStyle:  'none',
+        display:    'flex',
+        flexDirection: 'column',
+        gap:        '0.6rem',
+      }}>
+        {[
+          'install stripe projects',
+          'run stripe projects init',
+          'submit the slash command /contest',
+        ].map((step, i) => (
+          <li key={i} style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
+            <span style={{
+              flexShrink: 0,
+              fontSize:   '0.65rem',
+              color:      'var(--color-pink)',
+              minWidth:   '1ch',
+            }}>
+              {i + 1}.
+            </span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--color-text-ui)', lineHeight: 1.5 }}>
+              {step}
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      {/* divider */}
+      <div style={{ height: 1, background: 'var(--color-border-accent)' }} />
+
+      {/* body */}
+      <p style={{
+        margin:     0,
+        fontSize:   '0.72rem',
+        color:      'var(--color-text-ui-muted)',
+        lineHeight: 1.7,
+      }}>
+        That's it. The email associated with your Stripe account will be entered into the contest.
+      </p>
+      <p style={{
+        margin:     0,
+        fontSize:   '0.72rem',
+        color:      'var(--color-text-ui-subtle)',
+        lineHeight: 1.7,
+        fontStyle:  'italic',
+      }}>
+        10 total winners will be randomly chosen.
+      </p>
+    </div>
+  );
 }
+
+/* ── Terminal window content: just the CLI ────────────────────────── */
+const TerminalContent = forwardRef<CliHandle>(function TerminalContent(_, ref) {
+  return <CliTerminal ref={ref} />;
+});
 
 /* ── DesktopIcon ──────────────────────────────────────────────────── */
 interface DesktopIconProps {
@@ -330,7 +487,6 @@ function DesktopIcon({ label, closedSrc, openSrc, isOpen, isSelected, onSelect, 
           color:         isSelected ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
           textTransform: 'uppercase',
           letterSpacing: '0.1em',
-          textShadow:    '0 1px 3px rgba(0,0,0,0.8)',
           transition:    'color 0.1s',
         }}
       >
