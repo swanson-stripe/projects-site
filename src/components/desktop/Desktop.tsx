@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, type CSSProperties } from 'react';
 import { Shuffle } from 'lucide-react';
 import { Window } from './Window';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -16,7 +16,7 @@ import {
 } from '@/components/sections/Partners';
 
 /* ── types ────────────────────────────────────────────────────────── */
-type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'player';
+type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'player' | 'treasure';
 type WinId  = CoreId | `partner:${string}`;
 
 interface WinState {
@@ -35,6 +35,7 @@ function getTitle(id: WinId): string {
   if (id === 'why')       return 'what.md';
   if (id === 'ecosystem') return 'ecosystem.json';
   if (id === 'player')    return 'player.fm';
+  if (id === 'treasure')  return 'treasure';
   return id.slice('partner:'.length).toLowerCase() + '.json';
 }
 
@@ -79,8 +80,9 @@ function initialWindows(): WinState[] {
 
 /* ── Desktop ──────────────────────────────────────────────────────── */
 export function Desktop() {
-  const [wins, setWins]   = useState<WinState[]>(initialWindows);
-  const ecoRef            = useRef<EcosystemHandle>(null);
+  const [wins, setWins]               = useState<WinState[]>(initialWindows);
+  const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  const ecoRef                        = useRef<EcosystemHandle>(null);
 
   /* bring clicked window to front */
   const bringToFront = useCallback((id: WinId) => {
@@ -124,6 +126,29 @@ export function Desktop() {
         y:      Math.round(vh / 2 - 220),
         w:      340,
         h:      370,
+        zIndex: maxZ + 1,
+      }];
+    });
+  }, []);
+
+  /* open (or bring to front) the treasure window */
+  const openTreasure = useCallback(() => {
+    setWins(prev => {
+      const existing = prev.find(w => w.id === 'treasure');
+      if (existing) {
+        const maxZ = Math.max(...prev.map(w => w.zIndex));
+        if (existing.zIndex === maxZ) return prev;
+        return prev.map(w => w.id === 'treasure' ? { ...w, zIndex: maxZ + 1 } : w);
+      }
+      const maxZ = Math.max(...prev.map(w => w.zIndex));
+      const vw   = window.innerWidth;
+      const vh   = window.innerHeight;
+      return [...prev, {
+        id:     'treasure' as const,
+        x:      Math.round(vw / 2 - 200),
+        y:      Math.round(vh / 2 - 150),
+        w:      400,
+        h:      300,
         zIndex: maxZ + 1,
       }];
     });
@@ -175,13 +200,28 @@ export function Desktop() {
       />
 
       {/* ── Window area — fills remaining height ──────────────────── */}
-      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+      <div
+        style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+        onClick={() => setSelectedIcon(null)}
+      >
+        {/* ── Desktop icons ─────────────────────────────────────── */}
+        <DesktopIcon
+          label="treasure"
+          closedSrc="/treasure-closed.png"
+          openSrc="/treasure-open.png"
+          isOpen={wins.some(w => w.id === 'treasure')}
+          isSelected={selectedIcon === 'treasure'}
+          onSelect={() => setSelectedIcon('treasure')}
+          onOpen={openTreasure}
+          style={{ bottom: 24, left: 24 }}
+        />
+
       {wins.map(win => {
         const partnerName = win.id.startsWith('partner:') ? win.id.slice('partner:'.length) : null;
         const partner     = partnerName ? PARTNERS.find(p => p.name === partnerName) : null;
         const maxZ        = Math.max(...wins.map(w => w.zIndex));
 
-        const isCloseable  = !!partnerName || win.id === 'player';
+        const isCloseable  = !!partnerName || win.id === 'player' || win.id === 'treasure';
         const isEcosystem  = win.id === 'ecosystem';
         const isActive     = win.zIndex === maxZ;
         const darkBg       = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
@@ -217,6 +257,7 @@ export function Desktop() {
             {win.id === 'why'       && <FeaturesContent />}
             {win.id === 'ecosystem' && <EcosystemIcons ref={ecoRef} onOpen={openPartner} />}
             {win.id === 'player'    && <MusicPlayer />}
+            {win.id === 'treasure'  && null}
             {partner && <PartnerDetail partner={partner} />}
           </Window>
         );
@@ -229,4 +270,72 @@ export function Desktop() {
 /* ── Terminal window content: just the CLI ────────────────────────── */
 function TerminalContent() {
   return <CliTerminal />;
+}
+
+/* ── DesktopIcon ──────────────────────────────────────────────────── */
+interface DesktopIconProps {
+  label:      string;
+  closedSrc:  string;
+  openSrc:    string;
+  isOpen:     boolean;
+  isSelected: boolean;
+  onSelect:   () => void;
+  onOpen:     () => void;
+  style?:     CSSProperties;
+}
+
+function DesktopIcon({ label, closedSrc, openSrc, isOpen, isSelected, onSelect, onOpen, style }: DesktopIconProps) {
+  const C = 6;
+  const S = 'var(--color-pink)';
+  const b = `1px solid ${S}`;
+  const corners: CSSProperties[] = [
+    { top: 0,    left: 0,  borderTop:    b, borderLeft:  b },
+    { top: 0,    right: 0, borderTop:    b, borderRight: b },
+    { bottom: 0, right: 0, borderBottom: b, borderRight: b },
+    { bottom: 0, left: 0,  borderBottom: b, borderLeft:  b },
+  ];
+
+  return (
+    <div
+      onClick={e => { e.stopPropagation(); onSelect(); }}
+      onDoubleClick={e => { e.stopPropagation(); onOpen(); }}
+      style={{
+        position:      'absolute',
+        display:       'flex',
+        flexDirection: 'column',
+        alignItems:    'center',
+        cursor:        'default',
+        userSelect:    'none',
+        ...style,
+      }}
+    >
+      {/* image wrapper — corner brackets anchor here */}
+      <div style={{ position: 'relative', width: 64, height: 64, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {isSelected && corners.map((s, i) => (
+          <span key={i} aria-hidden style={{ position: 'absolute', width: C, height: C, pointerEvents: 'none', ...s }} />
+        ))}
+        <img
+          src={isOpen ? openSrc : closedSrc}
+          alt={label}
+          draggable={false}
+          style={{ width: 48, height: 48, imageRendering: 'pixelated' }}
+        />
+      </div>
+
+      <span
+        style={{
+          marginTop:     8,
+          fontSize:      '0.6rem',
+          fontFamily:    'var(--font-mono)',
+          color:         isSelected ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          textShadow:    '0 1px 3px rgba(0,0,0,0.8)',
+          transition:    'color 0.1s',
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
 }

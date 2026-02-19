@@ -6,7 +6,7 @@ import {
   memo,
   type KeyboardEvent as KE,
 } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { TextEffect } from '@/components/ui/text-effect';
 
 /* ─── tokens ─────────────────────────────────────────────────────── */
@@ -16,93 +16,242 @@ const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
 /* ─── types ──────────────────────────────────────────────────────── */
-type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err';
+type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2';
 
 interface Line {
   id: number;
   t: LT;
   text: string;
-  lkey?: string;   // key column for kv lines
-  initial?: boolean; // use TextEffect on entry
+  lkey?: string;   // key column for kv / col2 lines
+  initial?: boolean;
+  dim?: boolean;   // for raw lines that should use DIM color
 }
 
 /* ─── uid counter ────────────────────────────────────────────────── */
-let _uid = 100; // start high to avoid boot/dynamic ID clash
+let _uid = 100;
 const uid = () => _uid++;
+
+/* ─── slash command registry ─────────────────────────────────────── */
+const SLASH_COMMANDS = [
+  { cmd: '/help',     desc: 'show command reference'       },
+  { cmd: '/partners', desc: 'list all integrations'        },
+  { cmd: '/stack',    desc: 'view starter templates'       },
+  { cmd: '/costs',    desc: 'view pricing info'            },
+  { cmd: '/env',      desc: 'view environment variables'   },
+  { cmd: '/services', desc: 'view current stack services'  },
+  { cmd: '/clear',    desc: 'clear terminal'               },
+  { cmd: '/why',      desc: 'why projects exists'          },
+];
+
+/* ─── welcome table ──────────────────────────────────────────────── */
+const W = 46; // inner width of the box
+const border_top = '╔' + '═'.repeat(W) + '╗';
+const border_bot = '╚' + '═'.repeat(W) + '╝';
+const row = (text: string) => '║  ' + text.padEnd(W - 2) + '║';
 
 /* ─── boot sequence ──────────────────────────────────────────────── */
 const BOOT: Array<Line & { showAt: number }> = [
-  { id: 0,  t: 'cmd',   text: 'stripe projects init',                         initial: true, showAt: 0    },
-  { id: 1,  t: 'blank', text: '',                                                            showAt: 200  },
-  { id: 2,  t: 'step',  text: 'install stripe projects',                       initial: true, showAt: 550  },
-  { id: 3,  t: 'step',  text: 'select your desired tech stack',                initial: true, showAt: 1100 },
-  { id: 4,  t: 'sub',   text: 'frontend with vercel',                          initial: true, showAt: 1500 },
-  { id: 5,  t: 'sub',   text: 'auth with clerk',                               initial: true, showAt: 1750 },
-  { id: 6,  t: 'sub',   text: 'storage with supabase',                         initial: true, showAt: 2000 },
-  { id: 7,  t: 'sub',   text: 'payments with stripe',                          initial: true, showAt: 2250 },
-  { id: 8,  t: 'sub',   text: 'analytics with posthog',                        initial: true, showAt: 2500 },
-  { id: 9,  t: 'blank', text: '',                                                            showAt: 2750 },
-  { id: 10, t: 'done',  text: 'automatically created and provisioned for you', initial: true, showAt: 3000 },
-  { id: 11, t: 'url',   text: 'app running at localhost:9999',                 initial: true, showAt: 3600 },
+  // welcome table
+  { id: 0,  t: 'raw',   text: border_top,                                             dim: true, showAt: 0    },
+  { id: 1,  t: 'raw',   text: row('stripe projects  ·  v1.0.0'),                      dim: true, showAt: 60   },
+  { id: 2,  t: 'raw',   text: row('unified developer infrastructure'),                 dim: true, showAt: 60   },
+  { id: 3,  t: 'raw',   text: border_bot,                                             dim: true, showAt: 60   },
+  { id: 4,  t: 'blank', text: '',                                                                showAt: 200  },
+  // init command + boot flow
+  { id: 5,  t: 'cmd',   text: 'stripe projects init',                    initial: true, showAt: 700  },
+  { id: 6,  t: 'blank', text: '',                                                                showAt: 900  },
+  { id: 7,  t: 'step',  text: 'install stripe projects',                 initial: true, showAt: 1150 },
+  { id: 8,  t: 'step',  text: 'select your desired tech stack',          initial: true, showAt: 1700 },
+  { id: 9,  t: 'sub',   text: 'frontend with vercel',                    initial: true, showAt: 2100 },
+  { id: 10, t: 'sub',   text: 'auth with clerk',                         initial: true, showAt: 2350 },
+  { id: 11, t: 'sub',   text: 'storage with supabase',                   initial: true, showAt: 2600 },
+  { id: 12, t: 'sub',   text: 'payments with stripe',                    initial: true, showAt: 2850 },
+  { id: 13, t: 'sub',   text: 'analytics with posthog',                  initial: true, showAt: 3100 },
+  { id: 14, t: 'blank', text: '',                                                                showAt: 3350 },
+  { id: 15, t: 'done',  text: 'automatically created and provisioned for you', initial: true, showAt: 3600 },
+  { id: 16, t: 'url',   text: 'app running at localhost:9999',           initial: true, showAt: 4200 },
 ];
 
 /* ─── command responses ──────────────────────────────────────────── */
 function respond(input: string): Line[] {
-  switch (input.trim().toLowerCase()) {
-    case '/partners':
-      return [
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'section', text: 'supported partners' },
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'kv', lkey: 'stripe',      text: 'payments processing'   },
-        { id: uid(), t: 'kv', lkey: 'clerk',       text: 'authentication'        },
-        { id: uid(), t: 'kv', lkey: 'supabase',    text: 'storage & database'    },
-        { id: uid(), t: 'kv', lkey: 'posthog',     text: 'product analytics'     },
-        { id: uid(), t: 'kv', lkey: 'neon',        text: 'serverless postgres'   },
-        { id: uid(), t: 'kv', lkey: 'sentry',      text: 'error monitoring'      },
-        { id: uid(), t: 'kv', lkey: 'chroma',      text: 'vector database'       },
-        { id: uid(), t: 'kv', lkey: 'planetscale', text: 'mysql platform'        },
-        { id: uid(), t: 'kv', lkey: 'railway',     text: 'cloud deployment'      },
-        { id: uid(), t: 'kv', lkey: 'vercel',      text: 'frontend hosting'      },
-        { id: uid(), t: 'blank',   text: '' },
-      ];
+  const raw = input.trim();
+  const lower = raw.toLowerCase();
 
-    case '/stack':
-      return [
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'section', text: 'available stacks' },
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'step', text: 'web  — next.js · vercel · supabase · clerk'   },
-        { id: uid(), t: 'step', text: 'saas — remix · railway · neon · stripe'        },
-        { id: uid(), t: 'step', text: 'ai   — next.js · vercel · chroma · openai'    },
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'hint', text: 'use /partners to see all available integrations' },
-        { id: uid(), t: 'blank',   text: '' },
-      ];
-
-    case '/help':
-      return [
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'section', text: 'commands' },
-        { id: uid(), t: 'blank',   text: '' },
-        { id: uid(), t: 'kv', lkey: '/partners', text: 'list all supported partners'  },
-        { id: uid(), t: 'kv', lkey: '/stack',    text: 'view available tech stacks'   },
-        { id: uid(), t: 'kv', lkey: '/clear',    text: 'clear the terminal'           },
-        { id: uid(), t: 'kv', lkey: '/help',     text: 'show this message'            },
-        { id: uid(), t: 'blank',   text: '' },
-      ];
-
-    case '/clear':
-      return []; // handled separately in submit()
-
-    default:
-      return [
-        { id: uid(), t: 'blank', text: '' },
-        { id: uid(), t: 'err',   text: `command not found: ${input.trim()}` },
-        { id: uid(), t: 'hint',  text: 'type /help to see available commands' },
-        { id: uid(), t: 'blank', text: '' },
-      ];
+  /* ── /help ── */
+  if (lower === '/help' || lower === 'help') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'usage' },
+      { id: uid(), t: 'raw',     text: 'projects <command> [flags]' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'getting started' },
+      { id: uid(), t: 'col2', lkey: 'init [name]',          text: 'Initialize a new stack'              },
+      { id: uid(), t: 'col2', lkey: 'init --guided',        text: 'Interactive wizard (recommended)'   },
+      { id: uid(), t: 'col2', lkey: 'init --template <n>',  text: 'Initialize from a starter template' },
+      { id: uid(), t: 'col2', lkey: 'templates list',       text: 'List available starter templates'   },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'services' },
+      { id: uid(), t: 'col2', lkey: 'services add <svc>',   text: 'Add a service to your stack'   },
+      { id: uid(), t: 'col2', lkey: 'services remove <id>', text: 'Remove a service'              },
+      { id: uid(), t: 'col2', lkey: 'services upgrade <s>', text: 'Change service tier'           },
+      { id: uid(), t: 'col2', lkey: 'services status',      text: 'View current stack status'     },
+      { id: uid(), t: 'col2', lkey: 'services list',        text: 'List available services'       },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'portability' },
+      { id: uid(), t: 'col2', lkey: 'export [--format=<f>]', text: 'Export stack (yaml, terraform, pulumi)' },
+      { id: uid(), t: 'col2', lkey: 'apply <file>',           text: 'Import/apply stack configuration'      },
+      { id: uid(), t: 'col2', lkey: 'offboard',               text: 'Interactive migration wizard'          },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'more' },
+      { id: uid(), t: 'col2', lkey: 'env ?',    text: 'environments command list'     },
+      { id: uid(), t: 'col2', lkey: 'secret ?', text: 'secrets & credentials list'   },
+      { id: uid(), t: 'col2', lkey: 'costs ?',  text: 'costs & billing command list'  },
+      { id: uid(), t: 'col2', lkey: 'flags',    text: 'global flags list'             },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'type any question in plain english' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
   }
+
+  /* ── /partners or "what services" ── */
+  if (lower === '/partners' || lower.includes('what services') || lower.includes('integrations')) {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'supported integrations' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'stripe',      text: 'payments processing'   },
+      { id: uid(), t: 'col2', lkey: 'clerk',       text: 'authentication'        },
+      { id: uid(), t: 'col2', lkey: 'supabase',    text: 'storage & database'    },
+      { id: uid(), t: 'col2', lkey: 'posthog',     text: 'product analytics'     },
+      { id: uid(), t: 'col2', lkey: 'neon',        text: 'serverless postgres'   },
+      { id: uid(), t: 'col2', lkey: 'sentry',      text: 'error monitoring'      },
+      { id: uid(), t: 'col2', lkey: 'chroma',      text: 'vector database'       },
+      { id: uid(), t: 'col2', lkey: 'planetscale', text: 'mysql platform'        },
+      { id: uid(), t: 'col2', lkey: 'railway',     text: 'cloud deployment'      },
+      { id: uid(), t: 'col2', lkey: 'vercel',      text: 'frontend hosting'      },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'run services add <name> to provision any integration' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /stack ── */
+  if (lower === '/stack') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'starter templates' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'web',      text: 'next.js · vercel · supabase · clerk'  },
+      { id: uid(), t: 'col2', lkey: 'saas',     text: 'remix · railway · neon · stripe'      },
+      { id: uid(), t: 'col2', lkey: 'ai',       text: 'next.js · vercel · chroma · openai'   },
+      { id: uid(), t: 'col2', lkey: 'commerce', text: 'next.js · vercel · stripe · supabase' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'run init --template <name> to bootstrap a stack' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /costs ── */
+  if (lower === '/costs' || lower.includes('cost') || lower.includes('pricing') || lower.includes('how much')) {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'pricing' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'projects itself is free — you pay only for what you provision' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'example free-tier stack' },
+      { id: uid(), t: 'col2', lkey: 'vercel hobby',    text: '$0/mo  · 100GB bandwidth'         },
+      { id: uid(), t: 'col2', lkey: 'clerk free',      text: '$0/mo  · 10,000 MAUs'             },
+      { id: uid(), t: 'col2', lkey: 'supabase free',   text: '$0/mo  · 500MB database'          },
+      { id: uid(), t: 'col2', lkey: 'neon free',       text: '$0/mo  · 0.5GB storage'           },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'example paid stack' },
+      { id: uid(), t: 'col2', lkey: 'vercel pro',      text: '$20/mo · unlimited deployments'   },
+      { id: uid(), t: 'col2', lkey: 'clerk growth',    text: '$25/mo · unlimited MAUs'          },
+      { id: uid(), t: 'col2', lkey: 'supabase pro',    text: '$25/mo · 8GB database'            },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'run costs ? for full billing commands' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /env ── */
+  if (lower === '/env') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'environment commands' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'env list',             text: 'List all provisioned credentials'   },
+      { id: uid(), t: 'col2', lkey: 'env list --reveal',    text: 'Show full credential values'        },
+      { id: uid(), t: 'col2', lkey: 'env set <key> <val>',  text: 'Set an environment variable'        },
+      { id: uid(), t: 'col2', lkey: 'env use <name>',       text: 'Switch active environment'          },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /services ── */
+  if (lower === '/services') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'service commands' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'col2', lkey: 'services add <svc>',    text: 'Add a service to your stack'    },
+      { id: uid(), t: 'col2', lkey: 'services remove <id>',  text: 'Remove a service'               },
+      { id: uid(), t: 'col2', lkey: 'services upgrade <s>',  text: 'Change service tier'            },
+      { id: uid(), t: 'col2', lkey: 'services configure <s>',text: 'Interactive config wizard'      },
+      { id: uid(), t: 'col2', lkey: 'services inspect <s>',  text: 'Show configuration options'     },
+      { id: uid(), t: 'col2', lkey: 'services status',       text: 'View current stack status'      },
+      { id: uid(), t: 'col2', lkey: 'services list',         text: 'Browse marketplace'             },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── natural language: capabilities ── */
+  if (lower.includes('capabilit') || lower.includes('what can you') || lower.includes('what do you')) {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'capabilities' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'scaffold a full-stack project in seconds with projects init' },
+      { id: uid(), t: 'step',    text: 'provision any combination of services from the marketplace'  },
+      { id: uid(), t: 'step',    text: 'manage environments, credentials, and secrets in one place'  },
+      { id: uid(), t: 'step',    text: 'connect services automatically — no manual env wiring'       },
+      { id: uid(), t: 'step',    text: 'export your stack to terraform, pulumi, or raw yaml'         },
+      { id: uid(), t: 'step',    text: 'migrate off any service with the interactive offboard wizard' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'hint',    text: 'run /help for the full command reference' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /why ── */
+  if (lower === '/why') {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'section', text: 'noboa' },
+      { id: uid(), t: 'hint',    text: 'not obvious before, obvious after' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'as incredible tools for developers and agents have proliferated,' },
+      { id: uid(), t: 'step',    text: 'we have a wealth of choices as builders. when building with an'  },
+      { id: uid(), t: 'step',    text: 'agentic toolkit, a significant set of roadblocks appeared:'      },
+      { id: uid(), t: 'step',    text: 'choice, provisioning, and management. projects aims to simplify' },
+      { id: uid(), t: 'step',    text: 'all of that, in a way that feels so obvious now.'                },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
+  /* ── /clear ── */
+  if (lower === '/clear') {
+    return []; // handled separately in submit()
+  }
+
+  /* ── fallback ── */
+  return [
+    { id: uid(), t: 'blank', text: '' },
+    { id: uid(), t: 'err',   text: `command not found: ${raw}` },
+    { id: uid(), t: 'hint',  text: 'type /help to see available commands, or ask a question in plain english' },
+    { id: uid(), t: 'blank', text: '' },
+  ];
 }
 
 /* ─── line style lookup ──────────────────────────────────────────── */
@@ -110,24 +259,23 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   cmd:     { prefix: '$',  prefixColor: PINK,       textColor: 'var(--color-text-ui)',  indent: false },
   step:    { prefix: '·',  prefixColor: MUTED,      textColor: 'var(--color-text-ui)',  indent: false },
   sub:     { prefix: '↳',  prefixColor: DIM,        textColor: MUTED,                   indent: true  },
-  done:    { prefix: '✓',  prefixColor: '#4ade80',  textColor: 'var(--color-text-ui)',   indent: false },
+  done:    { prefix: '✓',  prefixColor: '#4ade80',  textColor: 'var(--color-text-ui)',  indent: false },
   url:     { prefix: '▸',  prefixColor: PINK,       textColor: PINK,                    indent: false },
   blank:   { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   kv:      { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
   section: { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
   hint:    { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
   err:     { prefix: '✗',  prefixColor: '#f87171',  textColor: '#f87171',               indent: false },
+  raw:     { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
+  col2:    { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
 };
 
-/* ─── stable animation targets (must not be inline objects — prevents
-       framer-motion from seeing a new reference on every parent re-render
-       and re-firing the animation, which causes blinking when typing) ── */
-const ANIM_TARGET     = { opacity: 1, y: 0 }  as const;
-const ANIM_INIT_NEW   = { opacity: 0, y: 5 }  as const;
-const ANIM_INIT_BOOT  = { opacity: 1 }         as const;
+/* ─── stable animation targets ───────────────────────────────────── */
+const ANIM_TARGET     = { opacity: 1, y: 0 } as const;
+const ANIM_INIT_NEW   = { opacity: 0, y: 5 } as const;
+const ANIM_INIT_BOOT  = { opacity: 1 }        as const;
 
 /* ─── individual line renderer ────────────────────────────────────── */
-// memo prevents re-renders when only the input `value` state changes
 const LineRow = memo(function LineRow({ line }: { line: Line }) {
   if (line.t === 'blank') {
     return <div style={{ height: '0.9em' }} />;
@@ -149,60 +297,114 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         lineHeight: 1.75,
       }}
     >
-      {/* prefix glyph */}
       {prefix && (
         <span style={{ color: prefixColor, flexShrink: 0, userSelect: 'none', minWidth: '1ch' }}>
           {prefix}
         </span>
       )}
 
-      {/* content */}
-      {line.t === 'kv' ? (
-        /* key-value grid: rendered directly (multi-color, no TextEffect) */
+      {line.t === 'raw' ? (
+        <span style={{ color: line.dim ? DIM : textColor, whiteSpace: 'pre' }}>{line.text}</span>
+      ) : line.t === 'col2' ? (
+        <span style={{ display: 'inline-grid', gridTemplateColumns: '18em 1fr', gap: '1.5em', width: '100%' }}>
+          <span style={{ color: PINK }}>{line.lkey}</span>
+          <span style={{ color: MUTED }}>{line.text}</span>
+        </span>
+      ) : line.t === 'kv' ? (
         <span style={{ display: 'inline-grid', gridTemplateColumns: '9em 1fr', gap: '1.5em', width: '100%' }}>
           <span style={{ color: PINK }}>{line.lkey}</span>
           <span style={{ color: MUTED }}>{line.text}</span>
         </span>
       ) : line.t === 'section' ? (
-        <span style={{
-          color: DIM,
-          textTransform: 'uppercase',
-          letterSpacing: '0.12em',
-          fontSize: '0.72em',
-        }}>
+        <span style={{ color: DIM, textTransform: 'uppercase', letterSpacing: '0.12em', fontSize: '0.72em' }}>
           {line.text}
         </span>
       ) : line.t === 'hint' ? (
         <span style={{ color: DIM, fontStyle: 'italic' }}>{line.text}</span>
       ) : line.initial ? (
-        /* initial boot lines — use TextEffect word-by-word fade */
-        <TextEffect
-          as='span'
-          per='word'
-          preset='fade'
-          speedReveal={2.5}
-          style={{ color: textColor }}
-        >
+        <TextEffect as='span' per='word' preset='fade' speedReveal={2.5} style={{ color: textColor }}>
           {line.text}
         </TextEffect>
       ) : (
-        /* dynamic lines — plain span (motion.div wrapper handles animation) */
         <span style={{ color: textColor }}>{line.text}</span>
       )}
     </motion.div>
   );
 });
 
+/* ─── slash command menu ─────────────────────────────────────────── */
+const SlashMenu = memo(function SlashMenu({
+  items,
+  selectedIdx,
+}: {
+  items: typeof SLASH_COMMANDS;
+  selectedIdx: number;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 4 }}
+        transition={{ duration: 0.12 }}
+        style={{
+          position:   'absolute',
+          bottom:     '100%',
+          left:       0,
+          right:      0,
+          background: 'var(--color-surface-dark)',
+          border:     BORDER,
+          borderBottom: 'none',
+          zIndex:     50,
+          fontFamily: 'inherit',
+          fontSize:   'inherit',
+        }}
+      >
+        {items.map((item, i) => {
+          const active = i === selectedIdx;
+          return (
+            <div
+              key={item.cmd}
+              style={{
+                display:         'grid',
+                gridTemplateColumns: '12em 1fr',
+                gap:             '1em',
+                padding:         '0.35rem clamp(1.5rem, 5vw, 4rem)',
+                background:      active ? 'rgba(255,255,255,0.05)' : 'transparent',
+                borderLeft:      active ? `2px solid ${PINK}` : '2px solid transparent',
+              }}
+            >
+              <span style={{ color: PINK }}>{item.cmd}</span>
+              <span style={{ color: MUTED }}>{item.desc}</span>
+            </div>
+          );
+        })}
+      </motion.div>
+    </AnimatePresence>
+  );
+});
+
 /* ─── main component ─────────────────────────────────────────────── */
 export function CliTerminal() {
-  const [lines, setLines]   = useState<Line[]>([]);
-  const [value, setValue]   = useState('');
-  const outputRef           = useRef<HTMLDivElement>(null);
-  const inputRef            = useRef<HTMLInputElement>(null);
-  const historyRef          = useRef<string[]>([]);
-  const histIdxRef          = useRef(-1);
+  const [lines, setLines]       = useState<Line[]>([]);
+  const [value, setValue]       = useState('');
+  const [menuIdx, setMenuIdx]   = useState(0);
+  const outputRef               = useRef<HTMLDivElement>(null);
+  const inputRef                = useRef<HTMLInputElement>(null);
+  const historyRef              = useRef<string[]>([]);
+  const histIdxRef              = useRef(-1);
 
-  /* progressive reveal of boot sequence */
+  /* filtered slash commands for menu */
+  const menuItems = value.startsWith('/')
+    ? SLASH_COMMANDS.filter(s => s.cmd.startsWith(value))
+    : [];
+  const menuOpen = menuItems.length > 0;
+
+  /* reset menu selection when filtered list changes */
+  useEffect(() => { setMenuIdx(0); }, [value]);
+
+  /* progressive boot reveal */
   useEffect(() => {
     const ts = BOOT.map(({ showAt, ...line }) =>
       setTimeout(() => setLines(prev => [...prev, line as Line]), showAt)
@@ -210,18 +412,17 @@ export function CliTerminal() {
     return () => ts.forEach(clearTimeout);
   }, []);
 
-  /* auto-scroll output to bottom whenever lines change */
+  /* auto-scroll */
   useEffect(() => {
     const el = outputRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [lines]);
 
-  /* command submission */
-  const submit = useCallback(() => {
-    const val = value.trim();
+  /* submit */
+  const submit = useCallback((override?: string) => {
+    const val = (override ?? value).trim();
     if (!val) return;
 
-    /* save to history */
     historyRef.current.unshift(val);
     histIdxRef.current = -1;
 
@@ -237,6 +438,30 @@ export function CliTerminal() {
   }, [value]);
 
   const onKeyDown = (e: KE<HTMLInputElement>) => {
+    if (menuOpen) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setMenuIdx(i => (i + 1) % menuItems.length);
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setMenuIdx(i => (i - 1 + menuItems.length) % menuItems.length);
+        return;
+      }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const selected = menuItems[menuIdx]?.cmd;
+        if (selected) submit(selected);
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setValue('');
+        return;
+      }
+    }
+
     if (e.key === 'Enter') {
       submit();
     } else if (e.key === 'ArrowUp') {
@@ -259,26 +484,18 @@ export function CliTerminal() {
       onClick={() => inputRef.current?.focus()}
     >
       {/* ── output area ──────────────────────────────────────────── */}
-      {/*
-        Display: flex + flex-direction: column lets the spacer push
-        content to the bottom. When content overflows the container,
-        the spacer shrinks to 0 and auto-scroll handles the rest.
-      */}
       <div
         ref={outputRef}
         style={{
-          flex: 1,
-          overflowY: 'auto',
-          display: 'flex',
+          flex:          1,
+          overflowY:     'auto',
+          display:       'flex',
           flexDirection: 'column',
-          scrollbarWidth: 'none',
-          fontSize: '14px',
+          scrollbarWidth:'none',
+          fontSize:      '14px',
         }}
       >
-        {/* spacer — pushes lines to the bottom when content is short */}
         <div style={{ flex: 1 }} />
-
-        {/* actual lines, padded identically to the input row */}
         <div style={{ padding: 'clamp(1.75rem, 5vw, 2.5rem) clamp(1.5rem, 5vw, 4rem)' }}>
           {lines.map(line => (
             <LineRow key={line.id} line={line} />
@@ -286,42 +503,44 @@ export function CliTerminal() {
         </div>
       </div>
 
-      {/* ── input row ────────────────────────────────────────────── */}
-      <div
-        style={{
-          borderTop: BORDER,
-          padding: 'clamp(0.8rem, 1.5vw, 1.1rem) clamp(1.5rem, 5vw, 4rem)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.75rem',
-          fontSize: '14px',
-          flexShrink: 0,
-        }}
-      >
-        <span style={{ color: PINK, userSelect: 'none', flexShrink: 0 }}>›</span>
-        <input
-          ref={inputRef}
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          onKeyDown={onKeyDown}
-          autoFocus
-          autoComplete='off'
-          autoCorrect='off'
-          spellCheck={false}
-          placeholder='type /help for commands'
-          className='cli-input'
+      {/* ── input row (relative so menu can anchor to it) ─────────── */}
+      <div style={{ position: 'relative', flexShrink: 0 }}>
+        {menuOpen && <SlashMenu items={menuItems} selectedIdx={menuIdx} />}
+        <div
           style={{
-            flex: 1,
-            background: 'transparent',
-            border: 'none',
-            outline: 'none',
-            color: 'var(--color-text-ui)',
-            fontFamily: 'inherit',
-            fontSize: 'inherit',
-            caretColor: PINK,
-            letterSpacing: 'inherit',
+            borderTop: BORDER,
+            padding:   'clamp(0.8rem, 1.5vw, 1.1rem) clamp(1.5rem, 5vw, 4rem)',
+            display:   'flex',
+            alignItems:'center',
+            gap:       '0.75rem',
+            fontSize:  '14px',
           }}
-        />
+        >
+          <span style={{ color: PINK, userSelect: 'none', flexShrink: 0 }}>›</span>
+          <input
+            ref={inputRef}
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            onKeyDown={onKeyDown}
+            autoFocus
+            autoComplete='off'
+            autoCorrect='off'
+            spellCheck={false}
+            placeholder='type /help for commands'
+            className='cli-input'
+            style={{
+              flex:        1,
+              background:  'transparent',
+              border:      'none',
+              outline:     'none',
+              color:       'var(--color-text-ui)',
+              fontFamily:  'inherit',
+              fontSize:    'inherit',
+              caretColor:  PINK,
+              letterSpacing:'inherit',
+            }}
+          />
+        </div>
       </div>
     </div>
   );
