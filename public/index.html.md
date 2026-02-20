@@ -40,17 +40,23 @@ stripe projects service add <service-name>
 
 ## Features
 
-### Zero Config Payments
-Stripe is pre-wired into every generated application. Accept one-time payments, subscriptions, and invoices from day one — no boilerplate required. Used by millions of businesses worldwide.
+### No Dashboard Hopping
+Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. With just one command, you can provision a complete, working stack (hosting, database, auth, and more) directly from your CLI.
 
-### Full-Stack Scaffolding
-Choose your frontend framework, backend language, and database. Projects generates a working application with all layers connected and ready to deploy. The generated code follows best practices and is immediately production-capable.
+### Real Infrastructure Without Lock-In
+We provision real services, not sandboxes. More importantly, you maintain direct, unintermediated relationships with every provider. The accounts are in your name, the credentials are yours, and if you ever choose to leave, you keep everything with zero migration friction.
 
-### Auth Out of the Box
-User authentication is configured with your chosen provider. Login, sign-up, and session management all work on first boot. Social login, magic links, and MFA are supported depending on the provider.
+### Built for AI-Assisted Development
+AI agents can write great code, but they historically couldn't provision the infrastructure to run it. This tool is machine-readable and tool-callable, giving coding agents (like Claude Code or Cursor) the ability to reliably provision and wire up real infrastructure, turning generated code into a fully functioning app.
 
-### Deploy in One Command
-From scaffolding to production in seconds. Projects handles environment variables, secrets, and deployment configuration automatically. No manual configuration of build pipelines or server environments.
+### A Central Hub for Keys and Secrets
+Stop scattering API keys across multiple dashboards and local files. Gain one secure, central place to manage credentials and environment variables across your entire stack, which are automatically injected directly into your project environment.
+
+### Seamless Upgrades
+Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. Powered by the Agentic Commerce Protocol, you can seamlessly scale your stack and handle payments centrally, rather than managing separate invoices and credit cards for each service.
+
+### Bring Your Existing Stack
+You don't have to start entirely from scratch. You can easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.
 
 ---
 

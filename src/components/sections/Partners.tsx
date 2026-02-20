@@ -290,18 +290,28 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
       if (e.button !== 0 || isShuffling) return;
       e.preventDefault();
       e.stopPropagation();
-      setDragging(name);
-      const partner = order.find(p => p.name === name)!;
-      onCrossDragStart?.(partner);
       const sx = e.clientX, sy = e.clientY;
       const sp = { ...positions[name] };
+      const partner = order.find(p => p.name === name)!;
+      let dragStarted = false;
+      const THRESHOLD = 5;
       function onMove(ev: globalThis.PointerEvent) {
-        setPositions(prev => ({ ...prev, [name]: { x: sp.x + ev.clientX - sx, y: sp.y + ev.clientY - sy } }));
+        const dx = ev.clientX - sx;
+        const dy = ev.clientY - sy;
+        if (!dragStarted) {
+          if (Math.sqrt(dx * dx + dy * dy) < THRESHOLD) return;
+          dragStarted = true;
+          setDragging(name);
+          onCrossDragStart?.(partner);
+        }
+        setPositions(prev => ({ ...prev, [name]: { x: sp.x + dx, y: sp.y + dy } }));
         onCrossDragMove?.(ev.clientX, ev.clientY);
       }
       function onUp(ev: globalThis.PointerEvent) {
-        setDragging(null);
-        onCrossDragEnd?.(partner, ev.clientX, ev.clientY);
+        if (dragStarted) {
+          setDragging(null);
+          onCrossDragEnd?.(partner, ev.clientX, ev.clientY);
+        }
         window.removeEventListener('pointermove', onMove);
         window.removeEventListener('pointerup',   onUp);
       }
@@ -353,13 +363,14 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
             <div
               key={isShuffling ? idx : partner.name}
               style={{
-                position:  'absolute',
-                left:       pos.x,
-                top:        pos.y,
-                width:      ICON_W,
-                cursor:     isDragging ? 'grabbing' : 'pointer',
-                userSelect: 'none',
-                zIndex:     isDragging ? 5 : 1,
+                position:   'absolute',
+                left:        pos.x,
+                top:         pos.y,
+                width:       ICON_W,
+                cursor:      isDragging ? 'grabbing' : 'pointer',
+                userSelect:  'none',
+                zIndex:      isDragging ? 5 : 1,
+                visibility:  isDragging ? 'hidden' : 'visible',
               }}
               onPointerDown={e => startDrag(e, partner.name)}
               onClick={() => handleIconClick(idx)}

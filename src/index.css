@@ -167,6 +167,7 @@ body {
 [data-theme="vaporwave"] {
   --color-bg:              #FFF4F8;
   --color-surface:         #F7E8EF;
+  --color-surface-2:       #E8D5DE;
   --color-surface-dark:    #EDDDE3;
   --color-border-accent:   #C9A8B8;
   --color-pink:            #D61C8C;

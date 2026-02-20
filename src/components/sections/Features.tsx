@@ -1,43 +1,67 @@
-import { Zap, Lock, Layers, RefreshCw } from 'lucide-react';
+import { Terminal, Server, Bot, KeyRound, CreditCard, Link2 } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 import { motion } from 'motion/react';
 
 const FEATURES = [
   {
-    icon: Zap,
-    title: 'Zero config payments',
+    icon: Terminal,
+    image: '/what-hopping.png',
+    title: 'No dashboard hopping',
     description:
-      'Stripe is pre-wired. Accept one-time payments, subscriptions, and invoices from day one — no boilerplate required.',
+      'Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. With just one command, you can provision a complete, working stack directly from your CLI.',
     iconBg: 'rgba(245,158,11,0.1)',
     iconBorder: 'rgba(245,158,11,0.2)',
     iconColor: '#f59e0b',
   },
   {
-    icon: Layers,
-    title: 'Full-stack scaffolding',
+    icon: Server,
+    image: '/what-infra.png',
+    title: 'Real infrastructure without lock-in',
     description:
-      'Choose your frontend, backend, and database. Projects generates a working app with all layers connected and ready to deploy.',
+      'We provision real services, not sandboxes. You maintain direct, unintermediated relationships with every provider — the accounts are in your name, the credentials are yours, and if you ever leave, you keep everything.',
     iconBg: 'rgba(99,91,255,0.1)',
     iconBorder: 'rgba(99,91,255,0.2)',
     iconColor: '#635bff',
   },
   {
-    icon: Lock,
-    title: 'Auth out of the box',
+    icon: Bot,
+    image: '/what-agent.png',
+    title: 'Built for AI-assisted development',
     description:
-      'User authentication is configured with your chosen provider. Login, sign-up, and session management work on first boot.',
+      'AI agents can write great code, but they historically couldn\'t provision the infrastructure to run it. This tool is machine-readable and tool-callable, giving coding agents the ability to reliably provision and wire up real infrastructure.',
     iconBg: 'rgba(0,179,212,0.1)',
     iconBorder: 'rgba(0,179,212,0.2)',
     iconColor: '#00b3d4',
   },
   {
-    icon: RefreshCw,
-    title: 'Deploy in one command',
+    icon: KeyRound,
+    image: '/what-hub.png',
+    title: 'A central hub for keys and secrets',
     description:
-      'From scaffolding to production in seconds. Projects handles environment variables, secrets, and deployment configuration for you.',
+      'Stop scattering API keys across multiple dashboards and local files. One secure, central place to manage credentials and environment variables across your entire stack, automatically injected into your project environment.',
     iconBg: 'rgba(34,197,94,0.1)',
     iconBorder: 'rgba(34,197,94,0.2)',
     iconColor: '#22c55e',
+  },
+  {
+    icon: CreditCard,
+    image: '/what-upgrade.png',
+    title: 'Seamless upgrades',
+    description:
+      'Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. Powered by the Agentic Commerce Protocol, scale your stack and handle payments centrally rather than juggling separate invoices.',
+    iconBg: 'rgba(244,63,94,0.1)',
+    iconBorder: 'rgba(244,63,94,0.2)',
+    iconColor: '#f43f5e',
+  },
+  {
+    icon: Link2,
+    image: '/what-stack.png',
+    title: 'Bring your existing stack',
+    description:
+      'You don\'t have to start from scratch. Easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.',
+    iconBg: 'rgba(251,146,60,0.1)',
+    iconBorder: 'rgba(251,146,60,0.2)',
+    iconColor: '#fb923c',
   },
 ];
 
@@ -59,25 +83,12 @@ export function Features() {
           }}
           transition={{ duration: 0.6 }}
         >
-          <p
-            className='text-xs font-medium tracking-widest uppercase mb-3'
-            style={{ color: 'var(--color-text-muted)' }}
-          >
-            Why Projects
-          </p>
           <h2 className='text-3xl sm:text-4xl font-bold text-white mb-4'>
-            Everything you need, nothing you don't
+            From idea to production.<br />One command. Real infrastructure.
           </h2>
-          <p
-            className='text-lg max-w-xl mx-auto'
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            Stop spending weekends wiring up the same boilerplate. Projects handles
-            the scaffolding so you can focus on what makes your product unique.
-          </p>
         </InView>
 
-        <div className='grid sm:grid-cols-2 gap-3'>
+        <div className='flex flex-col gap-3'>
           {FEATURES.map((feature, i) => (
             <InView
               key={feature.title}
@@ -115,11 +126,11 @@ export function Features() {
                   <feature.icon className='w-4.5 h-4.5' />
                 </div>
 
-                <h3 className='text-sm font-semibold text-white mb-2'>
+                <h3 className='text-base font-semibold text-white mb-2'>
                   {feature.title}
                 </h3>
                 <p
-                  className='text-sm leading-relaxed'
+                  className='text-base leading-relaxed'
                   style={{ color: 'var(--color-text-muted)' }}
                 >
                   {feature.description}
@@ -138,46 +149,44 @@ export function Features() {
    Used inside the why.md desktop window where the IO never fires.
 ─────────────────────────────────────────────────────────────────────────────── */
 export function FeaturesContent() {
+  const PAD = '1.25rem';
   return (
-    <div style={{ padding: '1.25rem', overflowY: 'auto', scrollbarWidth: 'none' }}>
-      <p style={{
-        fontSize: '0.6rem', letterSpacing: '0.12em', textTransform: 'uppercase',
-        color: 'var(--color-text-ui-subtle)', marginBottom: '0.375rem',
-        fontFamily: 'var(--font-mono)',
-      }}>
-        Why Projects
-      </p>
+    <div style={{ padding: PAD, overflowY: 'auto', scrollbarWidth: 'none', fontFamily: 'var(--font-mono)' }}>
       <h2 style={{
         fontSize: '1rem', fontWeight: 700, color: 'var(--color-text-ui)',
-        marginBottom: '0.875rem', lineHeight: 1.3,
+        marginBottom: PAD, lineHeight: 1.3, textAlign: 'center',
       }}>
-        Everything you need,<br />nothing you don't
+        From idea to production.<br />One command. Real infrastructure.
       </h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: PAD }}>
         {FEATURES.map(f => (
           <div
             key={f.title}
             style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '0.875rem',
+              alignItems: 'flex-start',
               border: '1px solid var(--color-border-accent)',
               padding: '0.875rem',
               background: 'var(--color-surface)',
             }}
           >
-            <div style={{
-              width: 28, height: 28, display: 'flex', alignItems: 'center',
-              justifyContent: 'center', background: f.iconBg,
-              border: `1px solid ${f.iconBorder}`, color: f.iconColor,
-              marginBottom: '0.625rem', flexShrink: 0,
-            }}>
-              <f.icon style={{ width: 14, height: 14 }} />
+            <img
+              src={f.image}
+              alt={f.title}
+              draggable={false}
+              style={{ width: 140, height: 140, flexShrink: 0, objectFit: 'cover' }}
+            />
+            <div>
+              <h3 style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: '0 0 0.25rem' }}>
+                {f.title}
+              </h3>
+              <p style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--color-text-ui)', lineHeight: 1.55, margin: 0 }}>
+                {f.description}
+              </p>
             </div>
-            <h3 style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--color-text-ui)', marginBottom: '0.25rem' }}>
-              {f.title}
-            </h3>
-            <p style={{ fontSize: '0.65rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.55, margin: 0 }}>
-              {f.description}
-            </p>
           </div>
         ))}
       </div>

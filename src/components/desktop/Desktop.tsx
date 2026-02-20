@@ -77,7 +77,7 @@ function initialWindows(): WinState[] {
     // install   — top-right, guaranteed right of terminal
     { id: 'install',   x: installX,  y: m,  w: iw, h: ih, zIndex: 3 },
     // what.md   — bottom-left
-    { id: 'why',       x: m + 20,         y: areaH - wh - m,   w: ww,    h: wh,    zIndex: 2 },
+    { id: 'why',       x: m + 20,         y: areaH - wh - m,   w: Math.floor(ww * 0.75),    h: wh,    zIndex: 2 },
     // ecosystem — bottom-right
     { id: 'ecosystem', x: vw - ECO_W - m, y: areaH - ECO_H - m, w: ECO_W, h: ECO_H, zIndex: 1 },
   ];
