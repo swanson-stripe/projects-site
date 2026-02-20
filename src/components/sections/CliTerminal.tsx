@@ -455,8 +455,8 @@ function respond(input: string): Line[] {
 
 /* ─── line style lookup ──────────────────────────────────────────── */
 const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: string; indent: boolean }> = {
-  cmd:     { prefix: '$',  prefixColor: PINK,       textColor: 'var(--color-text-ui)',  indent: false },
-  step:    { prefix: '·',  prefixColor: MUTED,      textColor: 'var(--color-text-ui)',  indent: false },
+  cmd:     { prefix: '›',  prefixColor: PINK,       textColor: 'var(--color-text-ui)',  indent: false },
+  step:    { prefix: '•',  prefixColor: MUTED,      textColor: 'var(--color-text-ui)',  indent: false },
   sub:     { prefix: '↳',  prefixColor: DIM,        textColor: MUTED,                   indent: true  },
   done:    { prefix: '✓',  prefixColor: '#4ade80',  textColor: 'var(--color-text-ui)',  indent: false },
   url:     { prefix: '▸',  prefixColor: PINK,       textColor: PINK,                    indent: false },
@@ -510,7 +510,7 @@ function WelcomeBox() {
             <span style={{ color: 'var(--color-text-ui)' }}>vaporblaze</span>
           </div>
           <div style={{ ...cell, color: MUTED }}>
-            <span style={{ color: PINK }}>/stack list</span>{' '}to view current tech stack
+            <span style={{ color: 'var(--color-text-ui)' }}>/services status</span>{' '}to view current stack
           </div>
         </div>
 
@@ -571,7 +571,13 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         alignItems: 'baseline',
         gap: '0.65em',
         marginBottom: '0.15em',
-        paddingLeft: indent ? '2.4em' : 0,
+        paddingLeft: line.t === 'cmd' ? 'clamp(0.75rem, 2.5vw, 2rem)' : indent ? '2.4em' : 0,
+        paddingRight: line.t === 'cmd' ? 'clamp(0.75rem, 2.5vw, 2rem)' : 0,
+        paddingTop:   line.t === 'cmd' ? '0.25em' : 0,
+        paddingBottom:line.t === 'cmd' ? '0.25em' : 0,
+        marginLeft:   line.t === 'cmd' ? 'calc(-1 * clamp(0.75rem, 2.5vw, 2rem))' : 0,
+        marginRight:  line.t === 'cmd' ? 'calc(-1 * clamp(0.75rem, 2.5vw, 2rem))' : 0,
+        background:   line.t === 'cmd' ? 'rgba(0,0,0,0.12)' : 'transparent',
         lineHeight: 1.75,
       }}
     >
@@ -855,19 +861,20 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
                 }}
               >
                 {value === '' ? (
-                  /* placeholder + block cursor at pos 0 when empty */
+                  /* placeholder / block cursor when empty */
                   <>
-                    {focused && (
+                    {focused ? (
                       <span style={{
                         display:    'inline-block',
                         minWidth:   '0.6em',
                         background: PINK,
                         flexShrink: 0,
                       }}>{'\u00a0'}</span>
+                    ) : (
+                      <span style={{ color: DIM, fontStyle: 'italic' }}>
+                        type /help for commands
+                      </span>
                     )}
-                    <span style={{ color: DIM, fontStyle: 'italic' }}>
-                      {focused ? '\u00a0' : ''}type /help for commands
-                    </span>
                   </>
                 ) : (
                   /* text before cursor | block cursor | text after cursor */

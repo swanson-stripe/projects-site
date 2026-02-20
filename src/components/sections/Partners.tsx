@@ -207,7 +207,7 @@ function makeGridPositions(partners: Partner[]): Record<string, { x: number; y: 
 }
 
 export interface EcosystemIconsProps {
-  onOpen:             (p: Partner) => void;
+  onOpen:             (p: Partner, iconOrigin?: { x: number; y: number }) => void;
   onCrossDragStart?:  (p: Partner) => void;
   onCrossDragMove?:   (x: number, y: number) => void;
   onCrossDragEnd?:    (p: Partner, x: number, y: number) => void;
@@ -340,7 +340,8 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
     }
 
     /* ── focus container when an icon is clicked ──────────────── */
-    function handleIconClick(idx: number) {
+    function handleIconClick(e: React.MouseEvent, idx: number) {
+      e.stopPropagation();
       setSelected(idx);
       containerRef.current?.focus();
     }
@@ -350,6 +351,8 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
         ref={containerRef}
         tabIndex={0}
         onKeyDown={handleKeyDown}
+        onClick={() => setSelected(null)}
+        onBlur={() => setSelected(null)}
         style={{ position: 'relative', flex: 1, overflow: 'hidden', outline: 'none' }}
       >
         {(isShuffling ? displaySlots : order).map((partner, idx) => {
@@ -373,8 +376,14 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
                 visibility:  isDragging ? 'hidden' : 'visible',
               }}
               onPointerDown={e => startDrag(e, partner.name)}
-              onClick={() => handleIconClick(idx)}
-              onDoubleClick={() => onOpen(partner)}
+              onClick={e => handleIconClick(e, idx)}
+              onDoubleClick={e => {
+                const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+                onOpen(partner, {
+                  x: rect.left + rect.width  / 2,
+                  y: rect.top  + rect.height / 2,
+                });
+              }}
             >
               {/* highlight — corner brackets only when selected, no fill */}
               <div style={{

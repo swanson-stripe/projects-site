@@ -116,7 +116,7 @@ Enter to win a **Mac Mini**, **openclaw**, and **Stripe Projects credits**.
 2. Run `stripe projects init`
 3. Submit the slash command `/contest` inside the CLI
 
-The email associated with your Stripe account will be entered into the contest. 10 total winners will be randomly chosen.
+The email associated with your Stripe account will be entered into the contest. 10 total winners will be randomly chosen. [Read more about the rules and terms.](https://stripe.com)
 
 ---
 

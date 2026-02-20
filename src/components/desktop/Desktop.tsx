@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, forwardRef, type CSSProperties } from 'react';
+import { AnimatePresence } from 'motion/react';
 import { Shuffle } from 'lucide-react';
 import { Window } from './Window';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -19,7 +20,7 @@ import {
 const STATUSBAR_H = 40;
 
 /* ── types ────────────────────────────────────────────────────────── */
-type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users';
+type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users' | 'feedback';
 type WinId  = CoreId | `partner:${string}`;
 
 const CORE_IDS: CoreId[] = ['terminal', 'install', 'why', 'ecosystem'];
@@ -41,6 +42,7 @@ function getTitle(id: WinId): string {
   if (id === 'ecosystem') return 'ecosystem.json';
   if (id === 'treasure')  return 'treasure';
   if (id === 'users')     return 'users.log';
+  if (id === 'feedback')  return 'feedback';
   return id.slice('partner:'.length).toLowerCase() + '.json';
 }
 
@@ -90,6 +92,7 @@ const CORE_ICON_DEFS: { id: CoreId; src: string; label: string }[] = [
   { id: 'ecosystem', src: '/maps.png',     label: 'ecosystem' },
   { id: 'why',       src: '/docs.png',     label: 'what.md'   },
   { id: 'users',     src: '/users.png',    label: 'users'     },
+  { id: 'feedback',  src: '/help.png',     label: 'feedback'  },
 ];
 
 /* ── Desktop ──────────────────────────────────────────────────────── */
@@ -98,11 +101,13 @@ export function Desktop() {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [viewMode, setViewMode]       = useState<ViewMode>('ui');
   const [closedCore, setClosedCore]   = useState<Set<CoreId>>(new Set());
+  const [feedbackKey, setFeedbackKey] = useState(0);
   const [maximizedId, setMaximizedId] = useState<WinId | null>(null);
   const ecoRef                        = useRef<EcosystemHandle>(null);
   const cliRef                        = useRef<CliHandle>(null);
   const windowAreaRef                 = useRef<HTMLDivElement>(null);
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
+  const [partnerOrigins,  setPartnerOrigins]  = useState<Record<string, { x: number; y: number }>>({});
   const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
 
   /* bring clicked window to front */
@@ -180,6 +185,7 @@ export function Desktop() {
 
   /* open a core window (show if hidden, create if not yet in wins, or bring to front) */
   const openCoreWindow = useCallback((id: CoreId) => {
+    if (id === 'feedback') setFeedbackKey(k => k + 1);
     if (closedCore.has(id)) {
       setClosedCore(prev => { const n = new Set(prev); n.delete(id); return n; });
       bringToFront(id);
@@ -195,12 +201,14 @@ export function Desktop() {
       const maxZ = Math.max(...prev.map(w => w.zIndex));
       const vw = window.innerWidth;
       const vh = window.innerHeight;
+      const w = id === 'feedback' ? 420 : 440;
+      const h = id === 'feedback' ? 380 : 520;
       return [...prev, {
         id,
-        x: Math.round(vw / 2 - 220),
-        y: Math.round(vh / 2 - 200),
-        w: 440,
-        h: 520,
+        x: Math.round(vw / 2 - w / 2),
+        y: Math.round(vh / 2 - h / 2),
+        w,
+        h,
         zIndex: maxZ + 1,
       }];
     });
@@ -224,8 +232,9 @@ export function Desktop() {
   }, [wins, bringToFront]);
 
   /* open a partner detail window — or bring to front if already open */
-  const openPartner = useCallback((partner: Partner) => {
+  const openPartner = useCallback((partner: Partner, iconOrigin?: { x: number; y: number }) => {
     const id: WinId = `partner:${partner.name}`;
+    if (iconOrigin) setPartnerOrigins(prev => ({ ...prev, [id]: iconOrigin }));
     setWins(prev => {
       const existing = prev.find(w => w.id === id);
       if (existing) {
@@ -249,6 +258,17 @@ export function Desktop() {
   /* desktop dimensions for maximized windows */
   const vw = typeof window !== 'undefined' ? window.innerWidth  : 1440;
   const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
+
+  /* icon viewport-center for each window id — used as animation transform origin */
+  function getOrigin(id: WinId): { x: number; y: number } | undefined {
+    const coreIdx = CORE_ICON_DEFS.findIndex(d => d.id === id);
+    if (coreIdx !== -1) {
+      return { x: vw - 24 - 32, y: STATUSBAR_H + 24 + coreIdx * 96 + 32 };
+    }
+    if (id === 'treasure') return { x: 24 + 32, y: vh - 24 - 32 };
+    if (id.startsWith('partner:')) return partnerOrigins[id];
+    return undefined;
+  }
 
   return (
     <div
@@ -344,6 +364,7 @@ export function Desktop() {
           );
         })}
 
+        <AnimatePresence>
         {wins
           .filter(win => !closedCore.has(win.id as CoreId))
           .map(win => {
@@ -387,6 +408,7 @@ export function Desktop() {
                     <Shuffle size={10} strokeWidth={1.5} />
                   </button>
                 ) : undefined}
+                origin={getOrigin(win.id)}
                 onFocus={() => bringToFront(win.id)}
                 onMove={(x, y) => handleMove(win.id, x, y)}
                 onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
@@ -419,6 +441,7 @@ export function Desktop() {
                 )}
                 {win.id === 'treasure'  && <TreasureContent />}
                 {win.id === 'users'     && <UsersContent />}
+                {win.id === 'feedback'  && <FeedbackContent key={feedbackKey} />}
                 {partner && (
                   <PartnerDetail
                     partner={partner}
@@ -428,6 +451,7 @@ export function Desktop() {
               </Window>
             );
           })}
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -450,7 +474,7 @@ function TreasureContent() {
           src='/contest.png'
           alt='contest'
           draggable={false}
-          style={{ width: 64, height: 64, imageRendering: 'pixelated' }}
+          style={{ width: 128, height: 128, imageRendering: 'pixelated' }}
         />
       </div>
 
@@ -463,9 +487,7 @@ function TreasureContent() {
         lineHeight:  1.35,
         textAlign:   'center',
       }}>
-        Enter to win a mac mini +{' '}
-        <span style={{ color: 'var(--color-pink)' }}>openclaw</span>
-        {' '}+ stripe projects credits
+        Enter to win a mac mini + openclaw + stripe projects credits
       </h2>
 
       {/* divider */}
@@ -531,7 +553,8 @@ function TreasureContent() {
         lineHeight: 1.7,
         fontStyle:  'italic',
       }}>
-        10 total winners will be randomly chosen.
+        10 total winners will be randomly chosen.{' '}
+        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Read more about the rules and terms.</a>
       </p>
     </div>
   );
@@ -632,6 +655,134 @@ function UsersContent() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+/* ── Feedback window content ──────────────────────────────────────── */
+function FeedbackContent() {
+  const [text, setText]       = useState('');
+  const [status, setStatus]   = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [thanked, setThanked] = useState(false);
+
+  async function handleSubmit() {
+    if (!text.trim() || status !== 'idle') return;
+    setStatus('sending');
+    await new Promise(r => setTimeout(r, 1200));
+    setStatus('sent');
+    await new Promise(r => setTimeout(r, 800));
+    setThanked(true);
+  }
+
+  if (thanked) {
+    return (
+      <div style={{
+        flex:           1,
+        display:        'flex',
+        flexDirection:  'column',
+        alignItems:     'center',
+        justifyContent: 'center',
+        padding:        '2rem',
+        gap:            '1rem',
+      }}>
+        <img
+          src='/thankyou.png'
+          alt='thank you'
+          draggable={false}
+          style={{ width: 80, height: 80, imageRendering: 'pixelated' }}
+        />
+        <p style={{
+          margin:     0,
+          fontFamily: 'var(--font-mono)',
+          fontSize:   '0.8rem',
+          color:      'var(--color-text-ui)',
+          textAlign:  'center',
+          lineHeight: 1.6,
+        }}>
+          Thanks for the feedback.
+        </p>
+      </div>
+    );
+  }
+
+  const submitLabel =
+    status === 'sending' ? 'Sending...' :
+    status === 'sent'    ? 'Sent'       :
+    'Send feedback';
+
+  const btnColor =
+    status === 'sent'    ? 'var(--color-yellow)' :
+    status === 'sending' ? 'var(--color-text-ui-muted)' :
+    'var(--color-pink)';
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'var(--font-mono)' }}>
+      {/* scrollable content */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65 }}>
+          Let us know what you think about projects. What's good? What's not so good? What would you change? What works well for you?
+        </p>
+
+        <textarea
+          value={text}
+          onChange={e => setText(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSubmit(); }}
+          rows={6}
+          style={{
+            resize:     'none',
+            background: 'var(--color-surface-2)',
+            border:     '1px solid var(--color-border-accent)',
+            outline:    'none',
+            color:      'var(--color-text-ui)',
+            fontFamily: 'var(--font-mono)',
+            fontSize:   '0.78rem',
+            lineHeight: 1.65,
+            padding:    '0.6rem 0.75rem',
+            caretColor: 'var(--color-pink)',
+            width:      '100%',
+            boxSizing:  'border-box',
+          }}
+        />
+
+        <p style={{ margin: 0, fontSize: '0.65rem', color: 'var(--color-text-ui-subtle)', lineHeight: 1.6 }}>
+          Have a specific issue?{' '}
+          <a href='https://stripe.com/docs' target='_blank' rel='noreferrer'
+            style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>
+            Contact support
+          </a>
+          {' '}or{' '}
+          <a href='https://stripe.com/docs' target='_blank' rel='noreferrer'
+            style={{ color: 'var(--color-pink)', textDecoration: 'none' }}>
+            read our docs
+          </a>.
+        </p>
+      </div>
+
+      {/* button bar — same height as install Copy button */}
+      <div style={{
+        borderTop:      '1px solid var(--color-border-accent)',
+        padding:        '0.6rem',
+        display:        'flex',
+        justifyContent: 'center',
+        flexShrink:     0,
+      }}>
+        <button
+          onClick={handleSubmit}
+          disabled={status !== 'idle'}
+          style={{
+            background: 'none',
+            border:     'none',
+            padding:    0,
+            color:      btnColor,
+            fontFamily: 'var(--font-mono)',
+            fontSize:   '0.8rem',
+            cursor:     status === 'idle' ? 'pointer' : 'default',
+            transition: 'color 0.15s',
+          }}
+        >
+          {submitLabel}
+        </button>
+      </div>
     </div>
   );
 }

@@ -319,7 +319,8 @@ export function AgentView() {
         <p style={s.sectionLabel}>Contest</p>
         <h2 style={s.h2}>Win a Mac Mini + openclaw + Stripe Projects credits</h2>
         <p style={{ ...s.featureDesc, marginBottom: '1rem' }}>
-          10 total winners will be randomly chosen from all entries.
+          10 total winners will be randomly chosen from all entries.{' '}
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Read more about the rules and terms.</a>
         </p>
         <div>
           {['Install Stripe Projects', 'Run stripe projects init', 'Submit the slash command /contest'].map((step, i) => (

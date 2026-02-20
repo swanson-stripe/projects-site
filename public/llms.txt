@@ -51,7 +51,7 @@ stripe projects service add <name>    # Add an ecosystem service
 
 ## Contest
 
-Run `stripe projects init` and submit `/contest` inside the CLI to enter a giveaway. Winners receive a Mac Mini, openclaw, and Stripe Projects credits. 10 total winners chosen at random.
+Run `stripe projects init` and submit `/contest` inside the CLI to enter a giveaway. Winners receive a Mac Mini, openclaw, and Stripe Projects credits. 10 total winners chosen at random. Read more about the rules and terms at https://stripe.com.
 
 ## Optional
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import { motion } from 'motion/react';
 import { useTheme } from '@/components/ui/ThemeContext';
 
 /* ── constants ────────────────────────────────────────────────────── */
@@ -43,6 +44,8 @@ export interface WindowProps {
   onFocus:       () => void;
   onMove:        (x: number, y: number) => void;
   onResize:      (x: number, y: number, w: number, h: number) => void;
+  /** Viewport coordinates of the icon that spawned this window — used as animation origin */
+  origin?:       { x: number; y: number };
 }
 
 /* ── traffic-light config ─────────────────────────────────────────── */
@@ -103,7 +106,7 @@ export function Window({
   isActive = false, isMaximized = false, noScroll = false,
   onClose, onMinimize, onMaximize,
   headerRight, background = 'var(--color-surface-dark)',
-  onFocus, onMove, onResize,
+  onFocus, onMove, onResize, origin,
 }: WindowProps) {
   const { theme }   = useTheme();
   const dotColors   = getDotColors(theme);
@@ -169,8 +172,34 @@ export function Window({
     window.addEventListener('pointerup',   onUp);
   }
 
+  const transformOrigin = origin
+    ? `${origin.x - x}px ${origin.y - y}px`
+    : 'top right';
+
   return (
-    <div
+    <motion.div
+      variants={{
+        initial: { opacity: 0, scale: 0 },
+        animate: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            opacity: { duration: 0.14, ease: 'easeOut' },
+            scale:   { type: 'spring', stiffness: 320, damping: 28 },
+          },
+        },
+        exit: {
+          opacity: 0,
+          scale: 0,
+          transition: {
+            scale:   { duration: 0.3, ease: 'easeOut' },
+            opacity: { duration: 0.3, ease: 'easeOut' },
+          },
+        },
+      }}
+      initial='initial'
+      animate='animate'
+      exit='exit'
       style={{
         position:       'absolute',
         left:            x,
@@ -182,9 +211,10 @@ export function Window({
         flexDirection:  'column',
         border:          BORDER,
         background,
-        transition:     (isMaximized || isTransitioning)
-          ? 'left 0.28s ease-in-out, top 0.28s ease-in-out, width 0.28s ease-in-out, height 0.28s ease-in-out'
-          : undefined,
+        transformOrigin,
+        ...(isMaximized || isTransitioning ? {
+          transition: 'left 0.28s ease-in-out, top 0.28s ease-in-out, width 0.28s ease-in-out, height 0.28s ease-in-out',
+        } : {}),
       }}
       onPointerDown={onFocus}
     >
@@ -226,7 +256,7 @@ export function Window({
                 style={{
                   width:        10,
                   height:       10,
-                  borderRadius: '50%',
+                  clipPath:     'polygon(2px 0%, calc(100% - 2px) 0%, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0% calc(100% - 2px), 0% 2px, 2px 2px)',
                   background:   isActive ? dotColors[i] : DOT_INACTIVE,
                   flexShrink:   0,
                   cursor:       handler ? 'pointer' : 'default',
@@ -280,6 +310,6 @@ export function Window({
           onPointerDown={e => handleResizeStart(e, dir)}
         />
       ))}
-    </div>
+    </motion.div>
   );
 }
