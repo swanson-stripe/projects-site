@@ -26,7 +26,7 @@ const MOBILE_ICON_CELL_W = 84;
 const MOBILE_ICON_CELL_H = 96;
 
 /* ── types ────────────────────────────────────────────────────────── */
-type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users' | 'feedback';
+type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users' | 'feedback' | 'join';
 type WinId  = CoreId | `partner:${string}`;
 
 const CORE_IDS: CoreId[] = ['terminal', 'install', 'why', 'ecosystem'];
@@ -49,6 +49,7 @@ function getTitle(id: WinId): string {
   if (id === 'treasure')  return 'treasure';
   if (id === 'users')     return 'users.log';
   if (id === 'feedback')  return 'feedback';
+  if (id === 'join')      return 'join.md';
   return id.slice('partner:'.length).toLowerCase() + '.json';
 }
 
@@ -245,8 +246,8 @@ export function Desktop() {
       const vh        = window.innerHeight;
       const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
       const areaH     = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
-      const w         = isMobile ? vw - MOBILE_MARGIN * 2 : (id === 'feedback' ? 420 : 440);
-      const h         = id === 'feedback' ? 380 : 520;
+      const w         = isMobile ? vw - MOBILE_MARGIN * 2 : (id === 'feedback' || id === 'join' ? 420 : 440);
+      const h         = id === 'feedback' ? 380 : id === 'join' ? 420 : 520;
       return [...prev, {
         id,
         x: isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - w / 2),
@@ -541,6 +542,7 @@ export function Desktop() {
                   <EcosystemIcons
                     ref={ecoRef}
                     onOpen={openPartner}
+                    onOpenJoin={() => openCoreWindow('join')}
                     onCrossDragStart={p => setDraggingPartner(p)}
                     onCrossDragMove={(x, y) => setGhostPos({ x, y })}
                     onCrossDragEnd={handleCrossDragEnd}
@@ -549,6 +551,7 @@ export function Desktop() {
                 {win.id === 'treasure'  && <TreasureContent />}
                 {win.id === 'users'     && <UsersContent />}
                 {win.id === 'feedback'  && <FeedbackContent key={feedbackKey} />}
+                {win.id === 'join'      && <JoinContent />}
                 {partner && (
                   <PartnerDetail
                     partner={partner}
@@ -867,6 +870,169 @@ function FeedbackContent() {
       </div>
 
       {/* button bar — same height as install Copy button */}
+      <div style={{
+        borderTop:      '1px solid var(--color-border-accent)',
+        padding:        '0.6rem',
+        display:        'flex',
+        justifyContent: 'center',
+        flexShrink:     0,
+      }}>
+        <button
+          onClick={handleSubmit}
+          disabled={status !== 'idle'}
+          style={{
+            background: 'none',
+            border:     'none',
+            padding:    0,
+            color:      btnColor,
+            fontFamily: 'var(--font-mono)',
+            fontSize:   '0.8rem',
+            cursor:     status === 'idle' ? 'pointer' : 'default',
+            transition: 'color 0.15s',
+          }}
+        >
+          {submitLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── Join window content ──────────────────────────────────────────── */
+const JOIN_CATEGORIES = ['payments', 'auth', 'database', 'storage', 'monitoring', 'analytics', 'ai', 'hosting', 'other'] as const;
+
+function JoinContent() {
+  const [category, setCategory] = useState('');
+  const [name,     setName]     = useState('');
+  const [url,      setUrl]      = useState('');
+  const [email,    setEmail]    = useState('');
+  const [status,   setStatus]   = useState<'idle' | 'sending' | 'sent'>('idle');
+  const [thanked,  setThanked]  = useState(false);
+
+  async function handleSubmit() {
+    if (!category || !name.trim() || !url.trim() || !email.trim() || status !== 'idle') return;
+    setStatus('sending');
+    await new Promise(r => setTimeout(r, 1200));
+    setStatus('sent');
+    await new Promise(r => setTimeout(r, 800));
+    setThanked(true);
+  }
+
+  if (thanked) {
+    return (
+      <div style={{
+        flex: 1, display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '2rem', gap: '1rem',
+      }}>
+        <img
+          src='/thankyou.png'
+          alt='thank you'
+          draggable={false}
+          style={{ width: 80, height: 80, imageRendering: 'pixelated' }}
+        />
+        <p style={{
+          margin: 0, fontFamily: 'var(--font-mono)',
+          fontSize: '0.8rem', color: 'var(--color-text-ui)',
+          textAlign: 'center', lineHeight: 1.6,
+        }}>
+          Thanks! We'll be in touch.
+        </p>
+      </div>
+    );
+  }
+
+  const submitLabel =
+    status === 'sending' ? 'Submitting...' :
+    status === 'sent'    ? 'Submitted'     :
+    'Submit';
+
+  const btnColor =
+    status === 'sent'    ? 'var(--color-yellow)'        :
+    status === 'sending' ? 'var(--color-text-ui-muted)' :
+    'var(--color-pink)';
+
+  const inputStyle: CSSProperties = {
+    background:  'var(--color-surface-2)',
+    border:      '1px solid var(--color-border-accent)',
+    outline:     'none',
+    color:       'var(--color-text-ui)',
+    fontFamily:  'var(--font-mono)',
+    fontSize:    '0.78rem',
+    lineHeight:   1.65,
+    padding:     '0.5rem 0.75rem',
+    caretColor:  'var(--color-pink)',
+    width:       '100%',
+    boxSizing:   'border-box',
+  };
+
+  const labelStyle: CSSProperties = {
+    margin:         0,
+    fontSize:       '0.6rem',
+    textTransform:  'uppercase',
+    letterSpacing:  '0.1em',
+    color:          'var(--color-text-ui-subtle)',
+    marginBottom:   '0.3rem',
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'var(--font-mono)' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+
+        <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65 }}>
+          Become a part of the Projects ecosystem.
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <p style={labelStyle}>Category</p>
+          <select
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
+          >
+            <option value="">Select a category</option>
+            {JOIN_CATEGORIES.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <p style={labelStyle}>Name</p>
+          <input
+            type="text"
+            placeholder="Your project or company"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <p style={labelStyle}>URL</p>
+          <input
+            type="url"
+            placeholder="https://"
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <p style={labelStyle}>Contact Email</p>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSubmit(); }}
+            style={inputStyle}
+          />
+        </div>
+
+      </div>
+
       <div style={{
         borderTop:      '1px solid var(--color-border-accent)',
         padding:        '0.6rem',

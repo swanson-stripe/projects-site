@@ -208,13 +208,14 @@ function makeGridPositions(partners: Partner[]): Record<string, { x: number; y: 
 
 export interface EcosystemIconsProps {
   onOpen:             (p: Partner, iconOrigin?: { x: number; y: number }) => void;
+  onOpenJoin?:        (iconOrigin?: { x: number; y: number }) => void;
   onCrossDragStart?:  (p: Partner) => void;
   onCrossDragMove?:   (x: number, y: number) => void;
   onCrossDragEnd?:    (p: Partner, x: number, y: number) => void;
 }
 
 export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
-  function EcosystemIcons({ onOpen, onCrossDragStart, onCrossDragMove, onCrossDragEnd }, ref) {
+  function EcosystemIcons({ onOpen, onOpenJoin, onCrossDragStart, onCrossDragMove, onCrossDragEnd }, ref) {
     const [order,        setOrder]        = useState<Partner[]>(PARTNERS);
     const [positions,    setPositions]    = useState(() => makeGridPositions(PARTNERS));
     const [dragging,     setDragging]     = useState<string | null>(null);
@@ -321,7 +322,7 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
 
     /* ── keyboard navigation ──────────────────────────────────── */
     function handleKeyDown(e: React.KeyboardEvent) {
-      const n = order.length;
+      const n = order.length + 1; // +1 for the Join item
       if (selected === null) {
         if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'].includes(e.key)) {
           e.preventDefault();
@@ -334,7 +335,11 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
         case 'ArrowLeft':  e.preventDefault(); setSelected(Math.max(0, selected - 1)); break;
         case 'ArrowDown':  e.preventDefault(); setSelected(Math.min(n - 1, selected + COLS)); break;
         case 'ArrowUp':    e.preventDefault(); setSelected(Math.max(0, selected - COLS)); break;
-        case 'Enter':      e.preventDefault(); onOpen(order[selected]); break;
+        case 'Enter':
+          e.preventDefault();
+          if (selected === order.length) onOpenJoin?.();
+          else onOpen(order[selected]);
+          break;
         case 'Escape':     setSelected(null); break;
       }
     }
@@ -433,6 +438,85 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
             </div>
           );
         })}
+
+        {/* ── Join icon — always last, never shuffled ───────────────── */}
+        {(() => {
+          const joinIdx = order.length;
+          const joinPos = {
+            x: PAD + (joinIdx % COLS) * (ICON_W + GAP_X),
+            y: PAD + Math.floor(joinIdx / COLS) * (HIGHLIGHT + 16 + 14 + GAP_Y),
+          };
+          const isJoinSelected = !isShuffling && selected === joinIdx;
+          const C = 6;
+          const S = 'var(--color-pink)';
+          const b = `1px solid ${S}`;
+          const corners: React.CSSProperties[] = [
+            { top: 0, left: 0,  borderTop: b, borderLeft:  b },
+            { top: 0, right: 0, borderTop: b, borderRight: b },
+            { bottom: 0, right: 0, borderBottom: b, borderRight: b },
+            { bottom: 0, left: 0,  borderBottom: b, borderLeft:  b },
+          ];
+          return (
+            <div
+              key="join"
+              style={{
+                position:  'absolute',
+                left:       joinPos.x,
+                top:        joinPos.y,
+                width:      ICON_W,
+                cursor:     'pointer',
+                userSelect: 'none',
+                zIndex:     1,
+              }}
+              onClick={e => {
+                if (isShuffling) return;
+                e.stopPropagation();
+                setSelected(joinIdx);
+                containerRef.current?.focus();
+              }}
+              onDoubleClick={e => {
+                if (isShuffling) return;
+                const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+                onOpenJoin?.({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+              }}
+            >
+              <div style={{
+                width:          HIGHLIGHT,
+                height:         HIGHLIGHT,
+                margin:        '0 auto',
+                position:      'relative',
+                display:       'flex',
+                alignItems:    'center',
+                justifyContent:'center',
+              }}>
+                {isJoinSelected && corners.map((s, i) => (
+                  <span key={i} aria-hidden style={{
+                    position: 'absolute', width: C, height: C, pointerEvents: 'none', ...s,
+                  }} />
+                ))}
+                <div style={{ width: ICON_BOX, height: ICON_BOX, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img
+                    src="/you.png"
+                    alt="Join"
+                    draggable={false}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', transform: 'scale(1.6)' }}
+                  />
+                </div>
+              </div>
+              <p style={{
+                textAlign:  'center',
+                fontSize:   '0.62rem',
+                marginTop:   16,
+                color:      isJoinSelected ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
+                fontFamily: 'var(--font-mono)',
+                transition: 'color 0.1s',
+                lineHeight:  1.2,
+              }}>
+                Join
+              </p>
+            </div>
+          );
+        })()}
       </div>
     );
   }
