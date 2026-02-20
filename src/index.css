@@ -124,6 +124,30 @@ body {
   height: 3px;
 }
 
+/* ── Stripedotdev theme overrides ─────────────────────────────────── */
+[data-theme="stripedotdev"] {
+  --color-bg:              #0B2337;
+  --color-surface:         #0B2337;
+  --color-surface-2:       #0D2C44;
+  --color-surface-dark:    #011627;
+  --color-border:          #1A3A5A;
+  --color-border-accent:   #1A3A5A;
+  --color-border-strong:   #2A5075;
+  --color-pink:            #F6CB88;
+  --color-blue:            #779BEB;
+  --color-yellow:          #B7E688;
+  --color-purple:          #F6CB88;
+  --color-text-ui:         #C2C7D0;
+  --color-text-ui-muted:   rgba(194,199,208,0.5);
+  --color-text-ui-subtle:  rgba(194,199,208,0.3);
+  --color-text-secondary:  #8BA8C0;
+}
+
+[data-theme="stripedotdev"] ::selection {
+  background: #779BEB;
+  color: #011627;
+}
+
 /* ── Helm theme overrides ──────────────────────────────────────────── */
 [data-theme="midnight"] {
   --color-bg:              #0C1A27;

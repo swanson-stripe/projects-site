@@ -3,10 +3,11 @@ import { useTheme } from './ThemeContext';
 
 /* ── Theme → track mapping ────────────────────────────────────────── */
 const TRACK_MAP: Record<string, string> = {
-  'stripe-dev':  '/dark.mp3',
-  'midnight':    '/midnight.mp3',
-  'cybervision': '/cybervision.mp3',
-  'vaporwave':   '/vaporwave.mp3',
+  'stripedotdev': '/dotdev.mp3',
+  'stripe-dev':   '/dark.mp3',
+  'midnight':     '/midnight.mp3',
+  'cybervision':  '/cybervision.mp3',
+  'vaporwave':    '/vaporwave.mp3',
 };
 
 function trackForTheme(themeId: string): string {

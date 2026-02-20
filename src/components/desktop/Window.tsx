@@ -56,6 +56,9 @@ const DOT_LABELS = ['close', 'minimise', 'maximise'] as const;
 // dark:       swap green (yellow token) ↔ blue → [blue, purple, yellow]
 // all others: swap yellow-token ↔ purple    → [purple, yellow, blue]
 function getDotColors(theme: string): [string, string, string] {
+  if (theme === 'stripedotdev') {
+    return ['#C2C7D0', '#779BEB', '#B7E688'];
+  }
   if (theme === 'stripe-dev') {
     return ['var(--color-blue)', 'var(--color-purple)', 'var(--color-yellow)'];
   }
