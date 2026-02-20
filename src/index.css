@@ -141,6 +141,8 @@ body {
   --color-text-ui-muted:   rgba(194,199,208,0.5);
   --color-text-ui-subtle:  rgba(194,199,208,0.3);
   --color-text-secondary:  #8BA8C0;
+  --color-grid-hash:       #657C95;
+  --grid-hash-alpha:       1;
 }
 
 [data-theme="stripedotdev"] ::selection {

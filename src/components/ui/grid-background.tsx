@@ -21,11 +21,19 @@ function parseHex(hex: string): [number, number, number] {
   return [parseInt(h.slice(0,2), 16), parseInt(h.slice(2,4), 16), parseInt(h.slice(4,6), 16)];
 }
 
-// Read --color-pink from the document at call time
-function getAccentRgb(): [number, number, number] {
-  const raw = getComputedStyle(document.documentElement).getPropertyValue('--color-pink').trim();
-  if (raw.startsWith('#')) return parseHex(raw);
-  return [0xAA, 0xE8, 0x7B]; // fallback: default lime green
+// Read hash color and base alpha from CSS variables, falling back to --color-pink at 0.12
+function getHashStyle(): { rgb: [number, number, number]; alpha: number } {
+  const style = getComputedStyle(document.documentElement);
+  const gridHash = style.getPropertyValue('--color-grid-hash').trim();
+  const gridAlpha = style.getPropertyValue('--grid-hash-alpha').trim();
+  const rgb = gridHash.startsWith('#')
+    ? parseHex(gridHash)
+    : (() => {
+        const pink = style.getPropertyValue('--color-pink').trim();
+        return pink.startsWith('#') ? parseHex(pink) : [0xAA, 0xE8, 0x7B] as [number,number,number];
+      })();
+  const alpha = gridAlpha ? parseFloat(gridAlpha) : NORMAL_ALPHA;
+  return { rgb, alpha };
 }
 
 function accentColor(accent: [number, number, number]) {
@@ -46,7 +54,7 @@ export function GridBackground() {
       const w     = window.innerWidth;
       const h     = window.innerHeight;
       const mouse = mouseRef.current;
-      const accent = getAccentRgb();
+      const { rgb: accent, alpha: baseAlpha } = getHashStyle();
 
       // Resize bitmap to physical pixels
       canvas.width  = w * dpr;
@@ -81,11 +89,11 @@ export function GridBackground() {
           ctx.fillStyle = color;
 
           if (glow > 0) {
-            ctx.globalAlpha = NORMAL_ALPHA + (1 - NORMAL_ALPHA) * glow;
+            ctx.globalAlpha = baseAlpha + (1 - baseAlpha) * glow;
             ctx.shadowColor = color;
             ctx.shadowBlur  = 10 * dpr * glow;
           } else {
-            ctx.globalAlpha = NORMAL_ALPHA;
+            ctx.globalAlpha = baseAlpha;
           }
 
           ctx.fill(HASH_PATH);
