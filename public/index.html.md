@@ -53,7 +53,7 @@ AI agents can write great code, but they historically couldn't provision the inf
 Stop scattering API keys across multiple dashboards and local files. Gain one secure, central place to manage credentials and environment variables across your entire stack, which are automatically injected directly into your project environment.
 
 ### Seamless Upgrades
-Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. Powered by the Agentic Commerce Protocol, you can seamlessly scale your stack and handle payments centrally, rather than managing separate invoices and credit cards for each service.
+Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. One payment method, one place to pay — and your agent can handle it all on your behalf.
 
 ### Bring Your Existing Stack
 You don't have to start entirely from scratch. You can easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.

@@ -110,10 +110,7 @@ body {
 }
 
 /* ── CLI terminal input ────────────────────────────────────────────── */
-.cli-input::placeholder {
-  color: var(--color-text-ui-subtle);
-  font-style: italic;
-}
+/* placeholder is rendered manually in overlay — no native placeholder needed */
 
 /* hide webkit scrollbar inside the CLI output area */
 .cli-output::-webkit-scrollbar {

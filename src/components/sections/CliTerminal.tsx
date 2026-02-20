@@ -3,10 +3,12 @@ import {
   useRef,
   useEffect,
   useCallback,
+  useMemo,
   memo,
   forwardRef,
   useImperativeHandle,
   type KeyboardEvent as KE,
+  type CSSProperties,
 } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TextEffect } from '@/components/ui/text-effect';
@@ -24,7 +26,7 @@ const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
 /* ─── types ──────────────────────────────────────────────────────── */
-type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2';
+type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2' | 'welcome';
 
 interface Line {
   id: number;
@@ -91,20 +93,11 @@ const SLASH_COMMANDS: SlashCommand[] = [
   { cmd: '/why',                    desc: 'why projects exists'                },
 ];
 
-/* ─── welcome table ──────────────────────────────────────────────── */
-const W = 46; // inner width of the box
-const border_top = '╔' + '═'.repeat(W) + '╗';
-const border_bot = '╚' + '═'.repeat(W) + '╝';
-const row = (text: string) => '║  ' + text.padEnd(W - 2) + '║';
-
 /* ─── boot sequence ──────────────────────────────────────────────── */
 const BOOT: Array<Line & { showAt: number }> = [
-  // welcome table
-  { id: 0,  t: 'raw',   text: border_top,                                             dim: true, showAt: 0    },
-  { id: 1,  t: 'raw',   text: row('stripe projects  ·  v1.0.0'),                      dim: true, showAt: 60   },
-  { id: 2,  t: 'raw',   text: row('unified developer infrastructure'),                 dim: true, showAt: 60   },
-  { id: 3,  t: 'raw',   text: border_bot,                                             dim: true, showAt: 60   },
-  { id: 4,  t: 'blank', text: '',                                                                showAt: 200  },
+  // welcome box
+  { id: 0,  t: 'welcome', text: '', initial: true, showAt: 0   },
+  { id: 4,  t: 'blank',   text: '',                showAt: 200 },
   // init command + boot flow
   { id: 5,  t: 'cmd',   text: 'stripe projects init',                    initial: true, showAt: 700  },
   { id: 6,  t: 'blank', text: '',                                                                showAt: 900  },
@@ -126,7 +119,7 @@ function respond(input: string): Line[] {
   const lower = raw.toLowerCase();
 
   /* ── /help ── */
-  if (lower === '/help' || lower === 'help') {
+  if (lower === '/help' || lower === 'help' || lower === '?') {
     return [
       { id: uid(), t: 'blank',   text: '' },
       { id: uid(), t: 'section', text: 'usage' },
@@ -474,6 +467,7 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   err:     { prefix: '✗',  prefixColor: '#f87171',  textColor: '#f87171',               indent: false },
   raw:     { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
   col2:    { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
+  welcome: { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
 };
 
 /* ─── stable animation targets ───────────────────────────────────── */
@@ -481,10 +475,88 @@ const ANIM_TARGET     = { opacity: 1, y: 0 } as const;
 const ANIM_INIT_NEW   = { opacity: 0, y: 5 } as const;
 const ANIM_INIT_BOOT  = { opacity: 1 }        as const;
 
+/* ─── welcome box ────────────────────────────────────────────────── */
+function WelcomeBox() {
+  const timeStr = useMemo(() => {
+    const now = new Date();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mi = String(now.getMinutes()).padStart(2, '0');
+    return `${mm}.${dd} ${hh}:${mi}`;
+  }, []);
+
+  const cell: CSSProperties = { padding: '0.4em 0.7em' };
+  const vdiv: CSSProperties = { borderRight: BORDER };
+
+  return (
+    <div style={{ border: BORDER, display: 'flex', lineHeight: 1.45, userSelect: 'none', marginBottom: '0.25em' }}>
+      {/* three-row grid */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* row 1: ·  projects  |  v1.0.1  |  powered by stripe */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', borderBottom: BORDER }}>
+          <div style={{ ...cell, ...vdiv, display: 'flex', alignItems: 'center', gap: '0.45em' }}>
+            <span style={{ color: PINK }}>⡜</span>
+            <span style={{ color: 'var(--color-text-ui)' }}>projects</span>
+          </div>
+          <div style={{ ...cell, ...vdiv, color: MUTED }}>v 1.0.1</div>
+          <div style={{ ...cell, color: MUTED }}>powered by stripe</div>
+        </div>
+
+        {/* row 2: current project  |  stack hint */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: BORDER }}>
+          <div style={{ ...cell, ...vdiv, color: MUTED }}>
+            currently working on{' '}
+            <span style={{ color: 'var(--color-text-ui)' }}>vaporblaze</span>
+          </div>
+          <div style={{ ...cell, color: MUTED }}>
+            <span style={{ color: PINK }}>/stack list</span>{' '}to view current tech stack
+          </div>
+        </div>
+
+        {/* row 3: commands  |  shortcuts */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr' }}>
+          <div style={{ ...cell, ...vdiv, color: MUTED, whiteSpace: 'nowrap' }}>/ for commands</div>
+          <div style={{ ...cell, color: MUTED }}>? for shortcuts</div>
+        </div>
+      </div>
+
+      {/* right column: rotated date/time */}
+      <div style={{
+        borderLeft:  BORDER,
+        display:     'flex',
+        alignItems:  'center',
+        justifyContent: 'center',
+        padding:     '0 0.45em',
+        writingMode: 'vertical-rl',
+        color:       MUTED,
+        fontSize:    '0.78em',
+        letterSpacing: '0.04em',
+        minWidth:    '2em',
+        lineHeight:  1,
+      }}>
+        {timeStr}
+      </div>
+    </div>
+  );
+}
+
 /* ─── individual line renderer ────────────────────────────────────── */
 const LineRow = memo(function LineRow({ line }: { line: Line }) {
   if (line.t === 'blank') {
     return <div style={{ height: '0.9em' }} />;
+  }
+
+  if (line.t === 'welcome') {
+    return (
+      <motion.div
+        initial={line.initial ? ANIM_INIT_BOOT : ANIM_INIT_NEW}
+        animate={ANIM_TARGET}
+        transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <WelcomeBox />
+      </motion.div>
+    );
   }
 
   const { prefix, prefixColor, textColor, indent } = LINE_PROPS[line.t];
@@ -573,16 +645,17 @@ const SlashMenu = memo(function SlashMenu({
             <div
               key={item.cmd}
               style={{
-                display:         'grid',
-                gridTemplateColumns: '12em 1fr',
-                gap:             '1em',
-                padding:         '0.35rem clamp(1.5rem, 5vw, 4rem)',
-                background:      active ? 'rgba(255,255,255,0.05)' : 'transparent',
-                borderLeft:      active ? `2px solid ${PINK}` : '2px solid transparent',
+                display:             'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap:                 '1em',
+                padding:             '0.35rem clamp(0.75rem, 2.5vw, 2rem)',
+                background:          active ? 'rgba(255,255,255,0.05)' : 'transparent',
+                borderLeft:          active ? `2px solid ${PINK}` : '2px solid transparent',
+                alignItems:          'baseline',
               }}
             >
               <span style={{ color: PINK }}>{item.cmd}</span>
-              <span style={{ color: MUTED }}>{item.desc}</span>
+              <span style={{ color: MUTED, textAlign: 'right' }}>{item.desc}</span>
             </div>
           );
         })}
@@ -596,10 +669,19 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
   const [lines, setLines]       = useState<Line[]>([]);
   const [value, setValue]       = useState('');
   const [menuIdx, setMenuIdx]   = useState(0);
+  const [selStart, setSelStart] = useState(0);
+  const [focused, setFocused]   = useState(false);
   const outputRef               = useRef<HTMLDivElement>(null);
   const inputRef                = useRef<HTMLInputElement>(null);
   const historyRef              = useRef<string[]>([]);
   const histIdxRef              = useRef(-1);
+
+  /* sync cursor position after browser processes events */
+  const syncSel = useCallback(() => {
+    requestAnimationFrame(() => {
+      setSelStart(inputRef.current?.selectionStart ?? 0);
+    });
+  }, []);
 
   /* expose submit imperatively so Desktop can drive the CLI */
   useImperativeHandle(ref, () => ({
@@ -645,12 +727,14 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
     if (val.toLowerCase() === '/clear') {
       setLines([]);
       setValue('');
+      setSelStart(0);
       return;
     }
 
     const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
     setLines(prev => [...prev, cmdLine, ...respond(val)]);
     setValue('');
+    setSelStart(0);
   }, [value]);
 
   /* keep submitRef current so the imperative handle always calls latest */
@@ -674,7 +758,9 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
         if (selected) {
           if (selected.isGroup) {
             // Expand the group: set input to the command + space and show its sub-entries
-            setValue(selected.cmd + ' ');
+            const expanded = selected.cmd + ' ';
+            setValue(expanded);
+            setSelStart(expanded.length);
             setMenuIdx(0);
           } else {
             submit(selected.cmd);
@@ -685,6 +771,7 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
       if (e.key === 'Escape') {
         e.preventDefault();
         setValue('');
+        setSelStart(0);
         return;
       }
     }
@@ -695,12 +782,17 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
       e.preventDefault();
       const next = Math.min(histIdxRef.current + 1, historyRef.current.length - 1);
       histIdxRef.current = next;
-      if (historyRef.current[next] !== undefined) setValue(historyRef.current[next]);
+      const histVal = historyRef.current[next];
+      if (histVal !== undefined) { setValue(histVal); setSelStart(histVal.length); }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
       const next = Math.max(histIdxRef.current - 1, -1);
       histIdxRef.current = next;
-      setValue(next === -1 ? '' : (historyRef.current[next] ?? ''));
+      const histVal = next === -1 ? '' : (historyRef.current[next] ?? '');
+      setValue(histVal);
+      setSelStart(histVal.length);
+    } else {
+      syncSel();
     }
   };
 
@@ -723,50 +815,138 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
         }}
       >
         <div style={{ flex: 1 }} />
-        <div style={{ padding: 'clamp(1.75rem, 5vw, 2.5rem) clamp(1.5rem, 5vw, 4rem)' }}>
+        <div style={{ padding: 'clamp(1rem, 3vw, 1.5rem) clamp(0.75rem, 2.5vw, 2rem)' }}>
           {lines.map(line => (
             <LineRow key={line.id} line={line} />
           ))}
         </div>
       </div>
 
-      {/* ── input row (relative so menu can anchor to it) ─────────── */}
-      <div style={{ position: 'relative', flexShrink: 0 }}>
-        {menuOpen && <SlashMenu items={menuItems} selectedIdx={menuIdx} />}
+      {/* ── input + footer section ─────────────────────────────────── */}
+      <div style={{ flexShrink: 0, background: 'rgba(0,0,0,0.12)' }}>
+        {/* input row (relative so menu can anchor to it) */}
+        <div style={{ position: 'relative' }}>
+          {menuOpen && <SlashMenu items={menuItems} selectedIdx={menuIdx} />}
+          <div
+            style={{
+              borderTop: BORDER,
+              padding:   'clamp(0.6rem, 1.2vw, 0.9rem) clamp(0.75rem, 2.5vw, 2rem)',
+              display:   'flex',
+              alignItems:'center',
+              gap:       '0.75rem',
+              fontSize:  '14px',
+            }}
+          >
+            <span style={{ color: PINK, userSelect: 'none', flexShrink: 0 }}>›</span>
+
+            {/* text display + block cursor overlay over a transparent input */}
+            <div style={{ flex: 1, position: 'relative', lineHeight: '1.4' }}>
+              {/* rendered text with block cursor — pointer-events: none so input stays clickable */}
+              <div
+                aria-hidden
+                style={{
+                  position:      'absolute',
+                  inset:         0,
+                  display:       'flex',
+                  alignItems:    'center',
+                  pointerEvents: 'none',
+                  whiteSpace:    'pre',
+                  overflow:      'hidden',
+                }}
+              >
+                {value === '' ? (
+                  /* placeholder + block cursor at pos 0 when empty */
+                  <>
+                    {focused && (
+                      <span style={{
+                        display:    'inline-block',
+                        minWidth:   '0.6em',
+                        background: PINK,
+                        flexShrink: 0,
+                      }}>{'\u00a0'}</span>
+                    )}
+                    <span style={{ color: DIM, fontStyle: 'italic' }}>
+                      {focused ? '\u00a0' : ''}type /help for commands
+                    </span>
+                  </>
+                ) : (
+                  /* text before cursor | block cursor | text after cursor */
+                  <>
+                    <span style={{ color: 'var(--color-text-ui)' }}>{value.slice(0, selStart)}</span>
+                    {focused ? (
+                      <span style={{
+                        display:    'inline-block',
+                        minWidth:   '0.6em',
+                        background: PINK,
+                        color:      'var(--color-surface-dark)',
+                        flexShrink: 0,
+                        textAlign:  'center',
+                      }}>
+                        {value[selStart] ?? '\u00a0'}
+                      </span>
+                    ) : (
+                      /* unfocused: no cursor, just show char normally */
+                      <span style={{ color: 'var(--color-text-ui)' }}>{value[selStart] ?? ''}</span>
+                    )}
+                    <span style={{ color: 'var(--color-text-ui)' }}>{value.slice(selStart + 1)}</span>
+                  </>
+                )}
+              </div>
+
+              {/* transparent input — captures all keyboard + mouse input */}
+              <input
+                ref={inputRef}
+                value={value}
+                onChange={e => { setValue(e.target.value); syncSel(); }}
+                onKeyDown={onKeyDown}
+                onSelect={syncSel}
+                onFocus={() => { setFocused(true); syncSel(); }}
+                onBlur={() => setFocused(false)}
+                autoFocus
+                autoComplete='off'
+                autoCorrect='off'
+                spellCheck={false}
+                className='cli-input'
+                style={{
+                  display:      'block',
+                  width:        '100%',
+                  background:   'transparent',
+                  border:       'none',
+                  outline:      'none',
+                  color:        'transparent',
+                  caretColor:   'transparent',
+                  fontFamily:   'inherit',
+                  fontSize:     'inherit',
+                  letterSpacing:'inherit',
+                  padding:      0,
+                  margin:       0,
+                  cursor:       'text',
+                  /* give it a line-height so the container has natural height */
+                  lineHeight:   '1.4',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* pinned footer */}
         <div
           style={{
-            borderTop: BORDER,
-            padding:   'clamp(0.8rem, 1.5vw, 1.1rem) clamp(1.5rem, 5vw, 4rem)',
-            display:   'flex',
-            alignItems:'center',
-            gap:       '0.75rem',
-            fontSize:  '14px',
+            borderTop:      '1px solid var(--color-border-subtle)',
+            padding:        '0.35rem clamp(0.75rem, 2.5vw, 2rem)',
+            display:        'flex',
+            justifyContent: 'space-between',
+            alignItems:     'center',
+            fontSize:       '11px',
+            color:          DIM,
+            userSelect:     'none',
           }}
         >
-          <span style={{ color: PINK, userSelect: 'none', flexShrink: 0 }}>›</span>
-          <input
-            ref={inputRef}
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            onKeyDown={onKeyDown}
-            autoFocus
-            autoComplete='off'
-            autoCorrect='off'
-            spellCheck={false}
-            placeholder='type /help for commands'
-            className='cli-input'
-            style={{
-              flex:        1,
-              background:  'transparent',
-              border:      'none',
-              outline:     'none',
-              color:       'var(--color-text-ui)',
-              fontFamily:  'inherit',
-              fontSize:    'inherit',
-              caretColor:  PINK,
-              letterSpacing:'inherit',
-            }}
-          />
+          <span>
+            <span style={{ color: 'var(--color-text-ui)' }}>/services status</span>
+            <span style={{ color: DIM }}>{' '}to view current stack</span>
+          </span>
+          <span>? for shortcuts</span>
         </div>
       </div>
     </div>

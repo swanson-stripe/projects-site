@@ -48,7 +48,7 @@ const FEATURES = [
     image: '/what-upgrade.png',
     title: 'Seamless upgrades',
     description:
-      'Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. Powered by the Agentic Commerce Protocol, scale your stack and handle payments centrally rather than juggling separate invoices.',
+      'Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. One payment method, one place to pay — and your agent can handle it all on your behalf.',
     iconBg: 'rgba(244,63,94,0.1)',
     iconBorder: 'rgba(244,63,94,0.2)',
     iconColor: '#f43f5e',
