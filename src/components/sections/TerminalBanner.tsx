@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, Monitor } from 'lucide-react';
 import { useAudio } from '@/components/ui/AudioContext';
 import { useTheme } from '@/components/ui/ThemeContext';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export type ViewMode = 'ui' | 'agent';
 
@@ -257,6 +258,7 @@ export function StatusBar({
   const [showSettings, setShowSettings] = useState(false);
   const settingsRef               = useRef<HTMLButtonElement>(null);
   const { isMuted, toggleMute } = useAudio();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const id = setInterval(() => setTs(getTimestamp()), 1_000);
@@ -277,7 +279,7 @@ export function StatusBar({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className='flex items-stretch'>
+      <div className='flex items-center' style={{ minHeight: isMobile ? 52 : 40 }}>
         {/* logo + name + by stripe */}
         <Cell grow>
           <div className='flex items-center' style={{ gap: 6 }}>
@@ -289,7 +291,7 @@ export function StatusBar({
 
         {/* system icons + date/time */}
         <Cell>
-          <div className='flex items-center' style={{ gap: 'clamp(0.6rem, 1.5vw, 1rem)' }}>
+          <div className='flex items-center' style={{ gap: isMobile ? 'clamp(1.2rem, 3vw, 2rem)' : 'clamp(0.6rem, 1.5vw, 1rem)' }}>
             {/* Mute / unmute background music */}
             <button
               aria-label={isMuted ? 'Unmute' : 'Mute'}
@@ -301,8 +303,8 @@ export function StatusBar({
               }}
             >
               {isMuted
-                ? <VolumeX size={13} strokeWidth={1.5} />
-                : <Volume2 size={13} strokeWidth={1.5} />
+                ? <VolumeX size={isMobile ? 20 : 13} strokeWidth={1.5} />
+                : <Volume2 size={isMobile ? 20 : 13} strokeWidth={1.5} />
               }
             </button>
             <button
@@ -315,7 +317,7 @@ export function StatusBar({
                 color: showSettings ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
               }}
             >
-              <SlidersHorizontal size={13} strokeWidth={1.5} />
+              <SlidersHorizontal size={isMobile ? 20 : 13} strokeWidth={1.5} />
             </button>
 
             {/* UI / Agent view toggle — icon-only */}
@@ -334,8 +336,8 @@ export function StatusBar({
               }}
             >
               {viewMode === 'agent'
-                ? <Bot size={13} strokeWidth={1.5} />
-                : <Monitor size={13} strokeWidth={1.5} />
+                ? <Bot size={isMobile ? 20 : 13} strokeWidth={1.5} />
+                : <Monitor size={isMobile ? 20 : 13} strokeWidth={1.5} />
               }
             </button>
 
@@ -344,12 +346,14 @@ export function StatusBar({
               onClick={onReset}
               style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-ui-muted)', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
             >
-              <RotateCcw size={13} strokeWidth={1.5} />
+              <RotateCcw size={isMobile ? 20 : 13} strokeWidth={1.5} />
             </button>
 
-            <span style={{ letterSpacing: '0.04em' }}>
-              {ts.date}&nbsp;&nbsp;{ts.time}
-            </span>
+            {!isMobile && (
+              <span style={{ letterSpacing: '0.04em' }}>
+                {ts.date}&nbsp;&nbsp;{ts.time}
+              </span>
+            )}
           </div>
         </Cell>
       </div>

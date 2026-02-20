@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useTheme } from '@/components/ui/ThemeContext';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 /* ── constants ────────────────────────────────────────────────────── */
 const BORDER          = '1px solid var(--color-border-accent)';
@@ -109,8 +110,11 @@ export function Window({
   onFocus, onMove, onResize, origin,
 }: WindowProps) {
   const { theme }   = useTheme();
+  const isMobile    = useIsMobile();
   const dotColors   = getDotColors(theme);
   const cornerColor = isActive ? PINK : INACTIVE_CORNER;
+  const dotSize     = isMobile ? 16 : 10;
+  const dotGap      = isMobile ? 10 : 6;
 
   /* apply transition only while entering/leaving maximized — never during drag */
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -231,17 +235,18 @@ export function Window({
           display:       'flex',
           alignItems:    'center',
           gap:           '0.75rem',
-          padding:       '0.45rem 0.75rem',
+          padding:       isMobile ? '0.7rem 1rem' : '0.45rem 0.75rem',
           borderBottom:   BORDER,
           background:    isActive ? ACTIVE_BAR_BG : 'transparent',
           cursor:        isMaximized ? 'default' : 'move',
           flexShrink:    0,
           userSelect:    'none',
           fontFamily:    'var(--font-mono)',
+          touchAction:   'none',
         }}
       >
         {/* traffic lights — per-theme ordered accent colors when active, flat when inactive */}
-        <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+        <div style={{ display: 'flex', gap: dotGap, flexShrink: 0 }}>
           {DOT_LABELS.map((label, i) => {
             const handler =
               label === 'close'    ? onClose    :
@@ -254,8 +259,8 @@ export function Window({
                 aria-label={label}
                 onClick={handler ? (e) => { e.stopPropagation(); handler(); } : undefined}
                 style={{
-                  width:        10,
-                  height:       10,
+                  width:        dotSize,
+                  height:       dotSize,
                   clipPath:     'polygon(2px 0%, calc(100% - 2px) 0%, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0% calc(100% - 2px), 0% 2px, 2px 2px)',
                   background:   isActive ? dotColors[i] : DOT_INACTIVE,
                   flexShrink:   0,
@@ -282,7 +287,7 @@ export function Window({
         </span>
 
         {/* right side: custom content or balancing spacer */}
-        <div style={{ width: 10 * 3 + 6 * 2, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+        <div style={{ width: dotSize * 3 + dotGap * 2, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           {headerRight}
         </div>
       </div>
@@ -303,7 +308,7 @@ export function Window({
       </div>
 
       {/* ── resize handles ───────────────────────────────────────── */}
-      {!isMaximized && DIRS.map(dir => (
+      {!isMaximized && !isMobile && DIRS.map(dir => (
         <div
           key={dir}
           style={{ position: 'absolute', zIndex: 3, ...HANDLE[dir] }}

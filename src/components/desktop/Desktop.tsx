@@ -15,9 +15,15 @@ import {
   type Partner,
   type EcosystemHandle,
 } from '@/components/sections/Partners';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 /* ── constants ────────────────────────────────────────────────────── */
-const STATUSBAR_H = 40;
+const STATUSBAR_H        = 40;
+const MOBILE_STATUSBAR_H = 52;
+const MOBILE_MARGIN      = 12;
+const MOBILE_GAP         = 12;
+const MOBILE_ICON_CELL_W = 84;
+const MOBILE_ICON_CELL_H = 96;
 
 /* ── types ────────────────────────────────────────────────────────── */
 type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users' | 'feedback';
@@ -85,6 +91,35 @@ function initialWindows(): WinState[] {
   ];
 }
 
+function mobileInitialWindows(): WinState[] {
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 390;
+  const ww = vw - MOBILE_MARGIN * 2;
+
+  const defs: { id: CoreId; h: number }[] = [
+    { id: 'install',   h: 220 },
+    { id: 'why',       h: 400 },
+    // ECO_H was sized for the desktop title bar (~25px). The mobile title bar is ~39px,
+    // so add 40px to restore the bottom padding inside the ecosystem grid.
+    { id: 'ecosystem', h: ECO_H + 40 },
+    // Terminal boot sequence is ~450px of content; give the output area enough room.
+    { id: 'terminal',  h: 560 },
+  ];
+
+  // Small gap from the top of the window area so the first window doesn't butt up against the status bar
+  let y = 8;
+  return defs.map((d, i) => {
+    const win: WinState = { id: d.id, x: MOBILE_MARGIN, y, w: ww, h: d.h, zIndex: defs.length - i };
+    y += d.h + MOBILE_GAP;
+    return win;
+  });
+}
+
+/** Total canvas height needed for a tiled mobile layout */
+function mobileTotalH(wins: WinState[]): number {
+  const maxBottom = wins.reduce((m, w) => Math.max(m, w.y + w.h), 0);
+  return maxBottom + 32; // small bottom breathing room only — treasure is hidden inside the terminal window
+}
+
 /* ── desktop icon definitions ─────────────────────────────────────── */
 const CORE_ICON_DEFS: { id: CoreId; src: string; label: string }[] = [
   { id: 'terminal',  src: '/terminal.png', label: 'terminal'  },
@@ -97,7 +132,10 @@ const CORE_ICON_DEFS: { id: CoreId; src: string; label: string }[] = [
 
 /* ── Desktop ──────────────────────────────────────────────────────── */
 export function Desktop() {
-  const [wins, setWins]               = useState<WinState[]>(initialWindows);
+  const isMobile                      = useIsMobile();
+  const [wins, setWins]               = useState<WinState[]>(() =>
+    (typeof window !== 'undefined' && window.innerWidth < 768) ? mobileInitialWindows() : initialWindows()
+  );
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [viewMode, setViewMode]       = useState<ViewMode>('ui');
   const [closedCore, setClosedCore]   = useState<Set<CoreId>>(new Set());
@@ -143,12 +181,12 @@ export function Desktop() {
   /* minimize — reset window to default position */
   const handleMinimize = useCallback((id: WinId) => {
     if (maximizedId === id) setMaximizedId(null);
-    const defaults = initialWindows();
+    const defaults = isMobile ? mobileInitialWindows() : initialWindows();
     const def = defaults.find(w => w.id === id);
     if (def) {
       setWins(prev => prev.map(w => w.id === id ? { ...w, x: def.x, y: def.y, w: def.w, h: def.h } : w));
     }
-  }, [maximizedId]);
+  }, [maximizedId, isMobile]);
 
   /* maximize — toggle fill-desktop state */
   const handleMaximize = useCallback((id: WinId) => {
@@ -169,19 +207,23 @@ export function Desktop() {
         if (existing.zIndex === maxZ) return prev;
         return prev.map(w => w.id === 'treasure' ? { ...w, zIndex: maxZ + 1 } : w);
       }
-      const maxZ = Math.max(...prev.map(w => w.zIndex));
-      const vw   = window.innerWidth;
-      const vh   = window.innerHeight;
+      const maxZ     = Math.max(...prev.map(w => w.zIndex));
+      const vw       = window.innerWidth;
+      const vh       = window.innerHeight;
+      const w        = isMobile ? vw - MOBILE_MARGIN * 2 : 420;
+      const h        = 560;
+      const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
+      const areaH    = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
       return [...prev, {
         id:     'treasure' as const,
-        x:      Math.round(vw / 2 - 200),
-        y:      Math.round(vh / 2 - 150),
-        w:      420,
-        h:      560,
+        x:      isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - 200),
+        y:      Math.round(scrollTop + (areaH - h) / 2),
+        w,
+        h,
         zIndex: maxZ + 1,
       }];
     });
-  }, []);
+  }, [isMobile]);
 
   /* open a core window (show if hidden, create if not yet in wins, or bring to front) */
   const openCoreWindow = useCallback((id: CoreId) => {
@@ -197,22 +239,24 @@ export function Desktop() {
         const maxZ = Math.max(...prev.map(w => w.zIndex));
         return prev.map(w => w.id === id ? { ...w, zIndex: maxZ + 1 } : w);
       }
-      // first open — create centered
-      const maxZ = Math.max(...prev.map(w => w.zIndex));
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const w = id === 'feedback' ? 420 : 440;
-      const h = id === 'feedback' ? 380 : 520;
+      // first open — create centered in current viewport
+      const maxZ      = Math.max(...prev.map(w => w.zIndex));
+      const vw        = window.innerWidth;
+      const vh        = window.innerHeight;
+      const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
+      const areaH     = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
+      const w         = isMobile ? vw - MOBILE_MARGIN * 2 : (id === 'feedback' ? 420 : 440);
+      const h         = id === 'feedback' ? 380 : 520;
       return [...prev, {
         id,
-        x: Math.round(vw / 2 - w / 2),
-        y: Math.round(vh / 2 - h / 2),
+        x: isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - w / 2),
+        y: Math.round(scrollTop + (areaH - h) / 2),
         w,
         h,
         zIndex: maxZ + 1,
       }];
     });
-  }, [closedCore, bringToFront]);
+  }, [closedCore, bringToFront, isMobile]);
 
   /* cross-window drag: icon released — check if over CLI window */
   const handleCrossDragEnd = useCallback((partner: Partner, clientX: number, clientY: number) => {
@@ -241,26 +285,45 @@ export function Desktop() {
         const maxZ = Math.max(...prev.map(w => w.zIndex));
         return prev.map(w => w.id === id ? { ...w, zIndex: maxZ + 1 } : w);
       }
-      const maxZ = Math.max(...prev.map(w => w.zIndex));
-      const vw   = window.innerWidth;
-      const vh   = window.innerHeight;
+      const maxZ      = Math.max(...prev.map(w => w.zIndex));
+      const vw        = window.innerWidth;
+      const vh        = window.innerHeight;
+      const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
+      const areaH     = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
+      const w         = isMobile ? vw - MOBILE_MARGIN * 2 : 380;
+      const h         = 360;
       return [...prev, {
         id,
-        x: Math.round(vw / 2 - 190 + (prev.length - 4) * 24),
-        y: Math.round(vh / 2 - 180 + (prev.length - 4) * 24),
-        w: 380,
-        h: 360,
+        x: isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - 190 + (prev.length - 4) * 24),
+        y: isMobile
+          ? Math.round(scrollTop + (areaH - h) / 2)
+          : Math.round(vh / 2 - 180 + (prev.length - 4) * 24),
+        w,
+        h,
         zIndex: maxZ + 1,
       }];
     });
-  }, []);
+  }, [isMobile]);
 
   /* desktop dimensions for maximized windows */
   const vw = typeof window !== 'undefined' ? window.innerWidth  : 1440;
   const vh = typeof window !== 'undefined' ? window.innerHeight : 900;
 
+  /* mobile canvas height — tall enough for all tiled windows + treasure area */
+  const mobileCanvasH = isMobile ? mobileTotalH(wins) : undefined;
+
+  /* mobile icon grid geometry */
+  const mobileIconsPerRow = Math.max(1, Math.floor((vw - MOBILE_MARGIN * 2) / MOBILE_ICON_CELL_W));
+
+  /* treasure icon on mobile — positioned inside the terminal window's bounds so it's hidden behind it */
+  const mobileTerminalWin  = isMobile ? wins.find(w => w.id === 'terminal') : undefined;
+  const mobileTreasureY    = mobileTerminalWin
+    ? mobileTerminalWin.y + mobileTerminalWin.h - MOBILE_ICON_CELL_H - 16
+    : undefined;
+
   /* icon viewport-center for each window id — used as animation transform origin */
   function getOrigin(id: WinId): { x: number; y: number } | undefined {
+    if (isMobile) return undefined; // skip transform-origin animation on mobile
     const coreIdx = CORE_ICON_DEFS.findIndex(d => d.id === id);
     if (coreIdx !== -1) {
       return { x: vw - 24 - 32, y: STATUSBAR_H + 24 + coreIdx * 96 + 32 };
@@ -319,7 +382,11 @@ export function Desktop() {
 
       {/* ── Global status bar — always on top ─────────────────────── */}
       <StatusBar
-        onReset={() => { setWins(initialWindows()); setClosedCore(new Set()); setMaximizedId(null); }}
+        onReset={() => {
+          setWins(isMobile ? mobileInitialWindows() : initialWindows());
+          setClosedCore(new Set());
+          setMaximizedId(null);
+        }}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
       />
@@ -330,9 +397,19 @@ export function Desktop() {
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div
         ref={windowAreaRef}
-        style={{ flex: 1, position: 'relative', overflow: 'hidden', display: viewMode === 'agent' ? 'none' : undefined }}
+        style={{
+          flex:          1,
+          position:      'relative',
+          overflowX:     'hidden',
+          overflowY:     isMobile ? 'auto' : 'hidden',
+          scrollbarWidth:'none',
+          display:       viewMode === 'agent' ? 'none' : undefined,
+        }}
         onClick={() => setSelectedIcon(null)}
       >
+        {/* ── Inner canvas — gives absolute-positioned children a scrollable height context */}
+        <div style={{ position: 'relative', width: '100%', minHeight: mobileCanvasH }}>
+
         {/* ── Treasure desktop icon ─────────────────────────────── */}
         <DesktopIcon
           label="treasure"
@@ -342,27 +419,57 @@ export function Desktop() {
           isSelected={selectedIcon === 'treasure'}
           onSelect={() => setSelectedIcon('treasure')}
           onOpen={openTreasure}
-          style={{ bottom: 24, left: 24 }}
+          style={isMobile
+            ? { top: mobileTreasureY, left: '50%', transform: 'translateX(-50%)', zIndex: 0 }
+            : { bottom: 24, left: 24 }
+          }
         />
 
-        {/* ── Core window desktop icons — tiled vertically top-right */}
-        {CORE_ICON_DEFS.map((def, i) => {
-          const isOpen = def.id === 'users'
-            ? wins.some(w => w.id === 'users')
-            : !closedCore.has(def.id);
-          return (
-            <DesktopIcon
-              key={def.id}
-              label={def.label}
-              src={def.src}
-              isOpen={isOpen}
-              isSelected={selectedIcon === def.id}
-              onSelect={e => { e.stopPropagation(); setSelectedIcon(def.id); }}
-              onOpen={() => openCoreWindow(def.id)}
-              style={{ top: 24 + i * 96, right: 24 }}
-            />
-          );
-        })}
+        {/* ── Core window desktop icons ──────────────────────────── */}
+        {isMobile ? (
+          /* Mobile: grid layout top-left */
+          CORE_ICON_DEFS.map((def, i) => {
+            const isOpen = def.id === 'users'
+              ? wins.some(w => w.id === 'users')
+              : !closedCore.has(def.id);
+            const col = i % mobileIconsPerRow;
+            const row = Math.floor(i / mobileIconsPerRow);
+            return (
+              <DesktopIcon
+                key={def.id}
+                label={def.label}
+                src={def.src}
+                isOpen={isOpen}
+                isSelected={selectedIcon === def.id}
+                onSelect={e => { e.stopPropagation(); setSelectedIcon(def.id); }}
+                onOpen={() => openCoreWindow(def.id)}
+                style={{
+                  top:  16 + row * MOBILE_ICON_CELL_H,
+                  left: MOBILE_MARGIN + col * MOBILE_ICON_CELL_W,
+                }}
+              />
+            );
+          })
+        ) : (
+          /* Desktop: tiled vertically on the right */
+          CORE_ICON_DEFS.map((def, i) => {
+            const isOpen = def.id === 'users'
+              ? wins.some(w => w.id === 'users')
+              : !closedCore.has(def.id);
+            return (
+              <DesktopIcon
+                key={def.id}
+                label={def.label}
+                src={def.src}
+                isOpen={isOpen}
+                isSelected={selectedIcon === def.id}
+                onSelect={e => { e.stopPropagation(); setSelectedIcon(def.id); }}
+                onOpen={() => openCoreWindow(def.id)}
+                style={{ top: 24 + i * 96, right: 24 }}
+              />
+            );
+          })
+        )}
 
         <AnimatePresence>
         {wins
@@ -381,7 +488,7 @@ export function Desktop() {
             const finalX = isMaximized ? 0 : win.x;
             const finalY = isMaximized ? 0 : win.y;
             const finalW = isMaximized ? vw : win.w;
-            const finalH = isMaximized ? vh - STATUSBAR_H : win.h;
+            const finalH = isMaximized ? vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H) : win.h;
 
             return (
               <Window
@@ -452,6 +559,7 @@ export function Desktop() {
             );
           })}
         </AnimatePresence>
+        </div>{/* end inner canvas */}
       </div>
     </div>
   );
@@ -817,10 +925,24 @@ function DesktopIcon({ label, src, openSrc, isOpen, isSelected, onSelect, onOpen
 
   const imgSrc = (openSrc && isOpen) ? openSrc : src;
 
+  /* double-tap detection — works for both mouse dblclick and touch */
+  const lastTapRef = useRef(0);
+  function handleTap(e: React.MouseEvent) {
+    const now = Date.now();
+    if (now - lastTapRef.current < 350) {
+      e.stopPropagation();
+      onOpen();
+      lastTapRef.current = 0;
+    } else {
+      e.stopPropagation();
+      onSelect(e);
+      lastTapRef.current = now;
+    }
+  }
+
   return (
     <div
-      onClick={e => { e.stopPropagation(); onSelect(e); }}
-      onDoubleClick={e => { e.stopPropagation(); onOpen(); }}
+      onClick={handleTap}
       style={{
         position:      'absolute',
         display:       'flex',
