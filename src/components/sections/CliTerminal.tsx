@@ -13,6 +13,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { TextEffect } from '@/components/ui/text-effect';
 import { PARTNERS } from '@/components/sections/Partners';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 /* ─── imperative handle ──────────────────────────────────────────── */
 export interface CliHandle {
@@ -672,6 +673,7 @@ const SlashMenu = memo(function SlashMenu({
 
 /* ─── main component ─────────────────────────────────────────────── */
 export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
+  const isMobile                = useIsMobile();
   const [lines, setLines]       = useState<Line[]>([]);
   const [value, setValue]       = useState('');
   const [menuIdx, setMenuIdx]   = useState(0);
@@ -909,7 +911,7 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
                 onSelect={syncSel}
                 onFocus={() => { setFocused(true); syncSel(); }}
                 onBlur={() => setFocused(false)}
-                autoFocus
+                autoFocus={!isMobile}
                 autoComplete='off'
                 autoCorrect='off'
                 spellCheck={false}
