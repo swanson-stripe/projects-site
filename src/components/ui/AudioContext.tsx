@@ -8,6 +8,7 @@ const TRACK_MAP: Record<string, string> = {
   'midnight':     '/midnight.mp3',
   'cybervision':  '/cybervision.mp3',
   'vaporwave':    '/vaporwave.mp3',
+  '配色事典':      '/dictionary.mp3',
 };
 
 function trackForTheme(themeId: string): string {

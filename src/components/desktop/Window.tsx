@@ -62,6 +62,9 @@ function getDotColors(theme: string): [string, string, string] {
   if (theme === 'stripe-dev') {
     return ['var(--color-blue)', 'var(--color-purple)', 'var(--color-yellow)'];
   }
+  if (theme === '配色事典') {
+    return ['#A23B33', '#C7742C', '#4F6F60'];
+  }
   return ['var(--color-purple)', 'var(--color-yellow)', 'var(--color-blue)'];
 }
 

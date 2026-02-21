@@ -216,3 +216,42 @@ body {
   color: #FFF4F8;
 }
 
+/* ── 配色事典 theme overrides ─────────────────────────────────────── */
+[data-theme="配色事典"] {
+  --color-bg:              #E8DDC8;
+  --color-surface:         #E3D7BE;
+  --color-surface-2:       #DBC9AC;
+  --color-surface-dark:    #D8C2A6;
+  --color-overlay:         #CDBA96;
+  --color-border:          rgba(74,63,68,0.22);
+  --color-border-subtle:   rgba(74,63,68,0.10);
+  --color-border-strong:   #BFA888;
+  --color-border-accent:   #D0BA9A;
+  --color-pink:            #4F6F60;
+  --color-blue:            #A23B33;
+  --color-yellow:          #C7742C;
+  --color-purple:          #4F6F60;
+  --color-text-primary:    #4A3F44;
+  --color-text-secondary:  #6B5E62;
+  --color-text-muted:      #8C7A7E;
+  --color-text-disabled:   #B5A4A8;
+  --color-text-ui:         #4A3F44;
+  --color-text-ui-muted:   rgba(74,63,68,0.60);
+  --color-text-ui-subtle:  rgba(74,63,68,0.35);
+  --color-grid-hash:       #4F6F60;
+  --grid-hash-alpha:       0.35;
+}
+
+[data-theme="配色事典"] body {
+  color: #4A3F44;
+}
+
+[data-theme="配色事典"] .logo-on-light {
+  filter: invert(1);
+}
+
+[data-theme="配色事典"] ::selection {
+  background: #4F6F60;
+  color: #E8DDC8;
+}
+

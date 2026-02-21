@@ -13,6 +13,7 @@ export const THEMES: ThemeDefinition[] = [
   { id: 'midnight',     label: 'midnight',      accent: '#15BE53' },
   { id: 'cybervision',  label: 'cybervision',   accent: '#00FF66' },
   { id: 'vaporwave',    label: 'vaporwave',     accent: '#D61C8C' },
+  { id: '配色事典',      label: '配色事典',       accent: '#4F6F60' },
 ];
 
 interface ThemeContextValue {
