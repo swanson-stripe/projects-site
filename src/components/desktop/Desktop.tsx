@@ -409,7 +409,7 @@ export function Desktop() {
         onClick={() => setSelectedIcon(null)}
       >
         {/* ── Inner canvas — gives absolute-positioned children a scrollable height context */}
-        <div style={{ position: 'relative', width: '100%', minHeight: mobileCanvasH }}>
+        <div style={{ position: 'relative', width: '100%', minHeight: isMobile ? mobileCanvasH : '100%' }}>
 
         {/* ── Treasure desktop icon ─────────────────────────────── */}
         <DesktopIcon

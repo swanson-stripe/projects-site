@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTheme } from './ThemeContext';
 
 const TILE         = 104;   // px between mark centres (halved from 208)
 const MARK_SIZE    = 9;     // hash mark size in CSS px (matches SVG viewBox)
@@ -21,19 +22,17 @@ function parseHex(hex: string): [number, number, number] {
   return [parseInt(h.slice(0,2), 16), parseInt(h.slice(2,4), 16), parseInt(h.slice(4,6), 16)];
 }
 
-// Read hash color and base alpha from CSS variables, falling back to --color-pink at 0.12
-function getHashStyle(): { rgb: [number, number, number]; alpha: number } {
+// Read hash color, base alpha, and glow color from CSS variables
+function getHashStyle(): { rgb: [number, number, number]; alpha: number; glowRgb: [number, number, number] } {
   const style = getComputedStyle(document.documentElement);
-  const gridHash = style.getPropertyValue('--color-grid-hash').trim();
+  const gridHash  = style.getPropertyValue('--color-grid-hash').trim();
   const gridAlpha = style.getPropertyValue('--grid-hash-alpha').trim();
-  const rgb = gridHash.startsWith('#')
-    ? parseHex(gridHash)
-    : (() => {
-        const pink = style.getPropertyValue('--color-pink').trim();
-        return pink.startsWith('#') ? parseHex(pink) : [0xAA, 0xE8, 0x7B] as [number,number,number];
-      })();
+  const pink      = style.getPropertyValue('--color-pink').trim();
+  const accentRgb = pink.startsWith('#') ? parseHex(pink) : [0xAA, 0xE8, 0x7B] as [number, number, number];
+  const rgb = gridHash.startsWith('#') ? parseHex(gridHash) : accentRgb;
   const alpha = gridAlpha ? parseFloat(gridAlpha) : NORMAL_ALPHA;
-  return { rgb, alpha };
+  // Glow always uses the theme accent (--color-pink) so it's visible even at full base alpha
+  return { rgb, alpha, glowRgb: accentRgb };
 }
 
 function accentColor(accent: [number, number, number]) {
@@ -41,9 +40,11 @@ function accentColor(accent: [number, number, number]) {
 }
 
 export function GridBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef  = useRef<{ x: number; y: number } | null>(null);
-  const rafRef    = useRef<number>(0);
+  const { theme }  = useTheme();
+  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const mouseRef   = useRef<{ x: number; y: number } | null>(null);
+  const rafRef     = useRef<number>(0);
+  const scheduleRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -54,7 +55,7 @@ export function GridBackground() {
       const w     = window.innerWidth;
       const h     = window.innerHeight;
       const mouse = mouseRef.current;
-      const { rgb: accent, alpha: baseAlpha } = getHashStyle();
+      const { rgb: accent, alpha: baseAlpha, glowRgb } = getHashStyle();
 
       // Resize bitmap to physical pixels
       canvas.width  = w * dpr;
@@ -85,15 +86,18 @@ export function GridBackground() {
           ctx.save();
           ctx.translate(px, py);
 
-          const color = accentColor(accent);
-          ctx.fillStyle = color;
+          ctx.globalAlpha = baseAlpha + (1 - baseAlpha) * glow;
 
           if (glow > 0) {
-            ctx.globalAlpha = baseAlpha + (1 - baseAlpha) * glow;
-            ctx.shadowColor = color;
-            ctx.shadowBlur  = 10 * dpr * glow;
+            // Blend fill color from base hash color toward the accent (glow) color
+            const r = Math.round(accent[0] + (glowRgb[0] - accent[0]) * glow);
+            const g = Math.round(accent[1] + (glowRgb[1] - accent[1]) * glow);
+            const b = Math.round(accent[2] + (glowRgb[2] - accent[2]) * glow);
+            ctx.fillStyle   = `rgb(${r},${g},${b})`;
+            ctx.shadowColor = accentColor(glowRgb);
+            ctx.shadowBlur  = 16 * dpr * glow;
           } else {
-            ctx.globalAlpha = baseAlpha;
+            ctx.fillStyle = accentColor(accent);
           }
 
           ctx.fill(HASH_PATH);
@@ -106,6 +110,7 @@ export function GridBackground() {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(draw);
     }
+    scheduleRef.current = schedule;
 
     function onMouseMove(e: MouseEvent) {
       mouseRef.current = { x: e.clientX, y: e.clientY };
@@ -128,6 +133,12 @@ export function GridBackground() {
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
+
+  // Redraw when theme changes — data-theme attribute is set after mount so
+  // the initial canvas draw may use stale CSS variables without this.
+  useEffect(() => {
+    scheduleRef.current();
+  }, [theme]);
 
   return (
     <canvas

@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 const FEATURES = [
   {
     icon: Terminal,
-    image: '/what-hopping.png',
+    graphic: '/graphic3.png',
     title: 'No dashboard hopping',
     description:
       'Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. With just one command, you can provision a complete, working stack directly from your CLI.',
@@ -15,7 +15,7 @@ const FEATURES = [
   },
   {
     icon: Server,
-    image: '/what-infra.png',
+    graphic: '/graphic1.png',
     title: 'Real infrastructure without lock-in',
     description:
       'We provision real services, not sandboxes. You maintain direct, unintermediated relationships with every provider — the accounts are in your name, the credentials are yours, and if you ever leave, you keep everything.',
@@ -25,7 +25,7 @@ const FEATURES = [
   },
   {
     icon: Bot,
-    image: '/what-agent.png',
+    graphic: '/graphic5.png',
     title: 'Built for AI-assisted development',
     description:
       'AI agents can write great code, but they historically couldn\'t provision the infrastructure to run it. This tool is machine-readable and tool-callable, giving coding agents the ability to reliably provision and wire up real infrastructure.',
@@ -35,7 +35,7 @@ const FEATURES = [
   },
   {
     icon: KeyRound,
-    image: '/what-hub.png',
+    graphic: '/graphic2.png',
     title: 'A central hub for keys and secrets',
     description:
       'Stop scattering API keys across multiple dashboards and local files. One secure, central place to manage credentials and environment variables across your entire stack, automatically injected into your project environment.',
@@ -45,7 +45,7 @@ const FEATURES = [
   },
   {
     icon: CreditCard,
-    image: '/what-upgrade.png',
+    graphic: '/graphic6.png',
     title: 'Seamless upgrades',
     description:
       'Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. One payment method, one place to pay — and your agent can handle it all on your behalf.',
@@ -55,7 +55,7 @@ const FEATURES = [
   },
   {
     icon: Link2,
-    image: '/what-stack.png',
+    graphic: '/graphic4.png',
     title: 'Bring your existing stack',
     description:
       'You don\'t have to start from scratch. Easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.',
@@ -173,12 +173,18 @@ export function FeaturesContent() {
               background: 'var(--color-surface)',
             }}
           >
-            <img
-              src={f.image}
-              alt={f.title}
-              draggable={false}
-              style={{ width: 140, height: 140, flexShrink: 0, objectFit: 'cover' }}
-            />
+            <div style={{
+              width: 140, height: 140, flexShrink: 0,
+              border: '1px solid var(--color-text-ui)',
+              overflow: 'hidden',
+            }}>
+              <img
+                src={f.graphic}
+                alt={f.title}
+                draggable={false}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+              />
+            </div>
             <div>
               <h3 style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: '0 0 0.25rem' }}>
                 {f.title}
