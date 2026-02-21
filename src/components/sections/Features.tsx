@@ -1,4 +1,4 @@
-import { useState, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useState, useImperativeHandle, forwardRef } from 'react';
 import { Terminal, Server, Bot, KeyRound, CreditCard, Link2 } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 import { motion } from 'motion/react';
