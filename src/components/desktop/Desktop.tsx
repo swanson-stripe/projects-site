@@ -82,9 +82,9 @@ function initialWindows(): WinState[] {
 
   return [
     // terminal  — top-left
-    { id: 'terminal',  x: m,         y: m,  w: ww, h: wh, zIndex: 4 },
+    { id: 'terminal',  x: m,         y: m,  w: ww, h: wh, zIndex: 3 },
     // install   — top-right, guaranteed right of terminal
-    { id: 'install',   x: installX,  y: m,  w: iw, h: ih, zIndex: 3 },
+    { id: 'install',   x: installX,  y: m,  w: iw, h: ih, zIndex: 4 },
     // what.md   — bottom-left
     { id: 'why',       x: m + 20,         y: areaH - wh - m,   w: Math.floor(ww * 0.75),    h: wh,    zIndex: 2 },
     // ecosystem — bottom-right
