@@ -6,7 +6,7 @@ import { GridBackground } from '@/components/ui/grid-background';
 import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
-import { FeaturesContent } from '@/components/sections/Features';
+import { FeaturesContent, type FeaturesHandle } from '@/components/sections/Features';
 import { AgentView } from '@/components/sections/AgentView';
 import {
   EcosystemIcons,
@@ -144,6 +144,7 @@ export function Desktop() {
   const [maximizedId, setMaximizedId] = useState<WinId | null>(null);
   const ecoRef                        = useRef<EcosystemHandle>(null);
   const cliRef                        = useRef<CliHandle>(null);
+  const featuresRef                   = useRef<FeaturesHandle>(null);
   const windowAreaRef                 = useRef<HTMLDivElement>(null);
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [partnerOrigins,  setPartnerOrigins]  = useState<Record<string, { x: number; y: number }>>({});
@@ -481,6 +482,7 @@ export function Desktop() {
             const maxZ        = Math.max(...wins.map(w => w.zIndex));
 
             const isEcosystem  = win.id === 'ecosystem';
+            const isWhy        = win.id === 'why';
             const isActive     = win.zIndex === maxZ;
             const isMaximized  = maximizedId === win.id;
             const darkBg       = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
@@ -507,10 +509,14 @@ export function Desktop() {
                 onClose={() => handleClose(win.id)}
                 onMinimize={() => handleMinimize(win.id)}
                 onMaximize={() => handleMaximize(win.id)}
-                headerRight={isEcosystem ? (
+                headerRight={(isEcosystem || isWhy) ? (
                   <button
-                    aria-label='Shuffle icons'
-                    onClick={e => { e.stopPropagation(); ecoRef.current?.shuffle(); }}
+                    aria-label='Shuffle'
+                    onClick={e => {
+                      e.stopPropagation();
+                      if (isEcosystem) ecoRef.current?.shuffle();
+                      if (isWhy)       featuresRef.current?.shuffle();
+                    }}
                     style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--color-text-ui-muted)' }}
                   >
                     <Shuffle size={10} strokeWidth={1.5} />
@@ -537,7 +543,7 @@ export function Desktop() {
                   </div>
                 )}
                 {win.id === 'install'   && <InstallWindow />}
-                {win.id === 'why'       && <FeaturesContent />}
+                {win.id === 'why'       && <FeaturesContent ref={featuresRef} />}
                 {win.id === 'ecosystem' && (
                   <EcosystemIcons
                     ref={ecoRef}
