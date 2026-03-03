@@ -12,6 +12,8 @@ import {
   EcosystemIcons,
   PartnerDetail,
   PARTNERS,
+  ECO_CONTENT_W,
+  ECO_CONTENT_H,
   type Partner,
   type EcosystemHandle,
 } from '@/components/sections/Partners';
@@ -54,14 +56,15 @@ function getTitle(id: WinId): string {
 }
 
 function isNoScroll(id: WinId): boolean {
-  return id === 'terminal' || id === 'ecosystem';
+  return id === 'terminal';
 }
 
 /* ── initial staggered layout ─────────────────────────────────────── */
-// 4 cols × 80px + 3×GAP(40) + 2×PAD(40) = 320+120+80 = 520px wide
-// 3 rows × (48+16+14)=78px + 2×GAP(40) + 2×PAD(40) = 234+80+80 = 394px tall
-const ECO_W = 520;
-const ECO_H = 394;
+// Window dimensions = content dimensions + window chrome overhead
+// Title bar height (desktop): padding 0.45rem×2 + ~0.6rem font + 1px border ≈ 27px
+const ECO_TITLEBAR_H = 27;
+const ECO_W = ECO_CONTENT_W;
+const ECO_H = ECO_CONTENT_H + ECO_TITLEBAR_H;
 
 function initialWindows(): WinState[] {
   const vw    = typeof window !== 'undefined' ? window.innerWidth  : 1440;
@@ -99,9 +102,8 @@ function mobileInitialWindows(): WinState[] {
   const defs: { id: CoreId; h: number }[] = [
     { id: 'install',   h: 220 },
     { id: 'why',       h: 400 },
-    // ECO_H was sized for the desktop title bar (~25px). The mobile title bar is ~39px,
-    // so add 40px to restore the bottom padding inside the ecosystem grid.
-    { id: 'ecosystem', h: ECO_H + 40 },
+    // Mobile title bar is taller (~39px vs ~27px desktop), compensate accordingly.
+    { id: 'ecosystem', h: ECO_CONTENT_H + 39 },
     // Terminal boot sequence is ~450px of content; give the output area enough room.
     { id: 'terminal',  h: 560 },
   ];

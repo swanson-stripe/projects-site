@@ -303,7 +303,7 @@ export function Window({
         style={{
           flex:          1,
           overflow:      noScroll ? 'hidden' : 'auto',
-          overflowX:     'hidden',
+          overflowX:     noScroll ? 'hidden' : 'auto',
           scrollbarWidth:'none',
           minHeight:     0,
           display:       noScroll ? 'flex' : undefined,

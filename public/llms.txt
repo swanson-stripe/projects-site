@@ -39,6 +39,12 @@ Projects integrates with these services, which can be added via `projects servic
 - **Sentry** (monitoring) — Full-stack error monitoring, performance tracing, and alerting pre-configured with zero setup. https://sentry.io
 - **Chroma** (ai/vector database) — Open-source embedding database for AI applications. https://trychroma.com
 - **PlanetScale** (database) — MySQL-compatible serverless database with non-blocking schema changes and branching workflows. https://planetscale.com
+- **Cloudflare** (hosting/edge) — Global edge network with Workers, Pages, R2 storage, D1 database, and DDoS protection. https://cloudflare.com
+- **Inngest** (hosting/background jobs) — Reliable background jobs, scheduled tasks, and multi-step workflows as plain TypeScript functions. https://inngest.com
+- **SendGrid** (email) — Send transactional emails through a battle-tested API trusted by 80,000+ businesses. https://sendgrid.com
+- **Twilio** (email/communications) — Add SMS notifications, voice calls, and two-factor authentication with a single unified API. https://twilio.com
+- **ElevenLabs** (ai/voice) — Generate human-quality speech in 32 languages with ultra-low latency voice generation. https://elevenlabs.io
+- **OpenRouter** (ai/llm) — Access 200+ AI models through a single OpenAI-compatible API with automatic fallbacks. https://openrouter.ai
 
 ## CLI Commands
 

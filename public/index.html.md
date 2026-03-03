@@ -90,6 +90,18 @@ Projects integrates with leading services across every category needed to build 
 ### AI / Vector Database
 - **Chroma** — Open-source embedding database for AI applications. Store, search, and manage vector embeddings at any scale with a simple Python and JavaScript API. https://trychroma.com
 
+### Edge & Background Jobs
+- **Cloudflare** — Global edge network with Workers, Pages, R2 storage, D1 database, and built-in DDoS protection. Deploy compute at the edge in 300+ cities with zero cold starts. https://cloudflare.com
+- **Inngest** — Write reliable background jobs, scheduled tasks, and multi-step workflows as plain TypeScript functions. Automatic retries, observability, and concurrency control with zero infrastructure. https://inngest.com
+
+### Email & Communications
+- **SendGrid** — Send transactional emails — verification, receipts, password resets — through a battle-tested API trusted by over 80,000 businesses. Pre-wired with ready-to-use templates and delivery analytics. https://sendgrid.com
+- **Twilio** — Add SMS notifications, voice calls, and two-factor authentication to your app with a single unified API. Reach users on any channel — phone, WhatsApp, or email — from day one. https://twilio.com
+
+### AI / Voice & Model Routing
+- **ElevenLabs** — Generate human-quality speech in 32 languages with ultra-low latency. Clone voices, build interactive voice agents, and stream audio in real time through a simple REST API. https://elevenlabs.io
+- **OpenRouter** — Access 200+ AI models — GPT-4, Claude, Gemini, Llama, and more — through a single OpenAI-compatible API. Automatic fallbacks, cost optimization, and usage analytics built in. https://openrouter.ai
+
 ---
 
 ## CLI Reference

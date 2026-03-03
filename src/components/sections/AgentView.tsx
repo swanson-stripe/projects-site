@@ -48,6 +48,12 @@ const PARTNERS = [
   { name: 'Sentry',      category: 'monitoring',  desc: 'Full-stack error monitoring, performance tracing, and alerting. Pre-configured with zero setup.',                         url: 'https://sentry.io'        },
   { name: 'Chroma',      category: 'ai',          desc: 'Open-source embedding database for AI applications. Store, search, and manage vector embeddings at any scale.',           url: 'https://trychroma.com'    },
   { name: 'PlanetScale', category: 'database',    desc: 'MySQL-compatible serverless database with non-blocking schema changes and branching workflows.',                          url: 'https://planetscale.com'  },
+  { name: 'Cloudflare',  category: 'hosting',     desc: 'Global edge network with Workers, Pages, R2 storage, D1 database, and built-in DDoS protection.',                        url: 'https://cloudflare.com'   },
+  { name: 'Inngest',     category: 'hosting',     desc: 'Reliable background jobs, scheduled tasks, and multi-step workflows as plain TypeScript functions with zero infrastructure.', url: 'https://inngest.com'   },
+  { name: 'SendGrid',    category: 'email',       desc: 'Send transactional emails — verification, receipts, password resets — through a battle-tested API trusted by 80,000+ businesses.', url: 'https://sendgrid.com' },
+  { name: 'Twilio',      category: 'email',       desc: 'Add SMS notifications, voice calls, and two-factor authentication to your app with a single unified API.',                url: 'https://twilio.com'       },
+  { name: 'ElevenLabs',  category: 'ai',          desc: 'Generate human-quality speech in 32 languages with ultra-low latency. Clone voices and build interactive voice agents.',  url: 'https://elevenlabs.io'    },
+  { name: 'OpenRouter',  category: 'ai',          desc: 'Access 200+ AI models through a single OpenAI-compatible API with automatic fallbacks and cost optimization.',            url: 'https://openrouter.ai'    },
 ];
 
 const CLI_COMMANDS = [
