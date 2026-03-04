@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TextEffect } from '@/components/ui/text-effect';
+import { StaticSignal } from '@/components/ui/static-signal';
 import { PARTNERS } from '@/components/sections/Partners';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
@@ -27,13 +28,13 @@ const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
 /* ─── types ──────────────────────────────────────────────────────── */
-type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2' | 'welcome';
+type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2' | 'welcome' | 'spinner' | 'choice' | 'tpl' | 'add' | 'mod';
 
 interface Line {
   id: number;
   t: LT;
   text: string;
-  lkey?: string;   // key column for kv / col2 lines
+  lkey?: string;   // key column for kv / col2 / choice / tpl lines
   initial?: boolean;
   dim?: boolean;   // for raw lines that should use DIM color
 }
@@ -92,6 +93,89 @@ const SLASH_COMMANDS: SlashCommand[] = [
   { cmd: '/contest',                desc: 'enter to win a mac mini'           },
   { cmd: '/clear',                  desc: 'clear terminal'                     },
   { cmd: '/why',                    desc: 'why projects exists'                },
+];
+
+/* ─── install-demo constants ─────────────────────────────────────── */
+const INSTALL_CMD = 'brew install stripe-cli';
+const INIT_CMD    = 'stripe projects init my-app';
+
+/* ─── template data ──────────────────────────────────────────────── */
+interface TplService {
+  name:     string;
+  category: string;
+  tier:     string;
+  cost:     number;
+  envVars:  number;
+}
+interface Template {
+  id:       string;
+  price:    number;
+  desc:     string;
+  tags:     string[];
+  services: TplService[];
+}
+
+const TEMPLATES: Template[] = [
+  {
+    id: 'saas-starter', price: 55,
+    desc: 'SaaS with auth, billing, and analytics',
+    tags: ['hosting', 'auth', 'payments', 'database'],
+    services: [
+      { name: 'Vercel',   category: 'hosting',   tier: 'pro',           cost: 20, envVars: 3  },
+      { name: 'Clerk',    category: 'auth',       tier: 'growth',        cost: 25, envVars: 4  },
+      { name: 'Stripe',   category: 'payments',   tier: 'pay-as-you-go', cost:  0, envVars: 3  },
+      { name: 'Neon',     category: 'database',   tier: 'scale',         cost: 10, envVars: 2  },
+      { name: 'PostHog',  category: 'analytics',  tier: 'free',          cost:  0, envVars: 2  },
+    ],
+  },
+  {
+    id: 'ai-app', price: 95,
+    desc: 'AI-native product with model routing and vector search',
+    tags: ['hosting', 'ai', 'database', 'auth'],
+    services: [
+      { name: 'Vercel',     category: 'hosting',    tier: 'pro',    cost: 20, envVars: 3 },
+      { name: 'Clerk',      category: 'auth',        tier: 'growth', cost: 25, envVars: 4 },
+      { name: 'OpenRouter', category: 'ai routing',  tier: 'usage',  cost: 30, envVars: 2 },
+      { name: 'Chroma',     category: 'vector db',   tier: 'cloud',  cost: 20, envVars: 2 },
+      { name: 'Neon',       category: 'database',    tier: 'scale',  cost: 10, envVars: 2 },
+    ],
+  },
+  {
+    id: 'ecommerce', price: 75,
+    desc: 'E-commerce with payments, storage, and tracking',
+    tags: ['hosting', 'payments', 'storage', 'auth'],
+    services: [
+      { name: 'Vercel',   category: 'hosting',   tier: 'pro',           cost: 20, envVars: 3 },
+      { name: 'Stripe',   category: 'payments',   tier: 'pay-as-you-go', cost:  0, envVars: 3 },
+      { name: 'Supabase', category: 'storage',    tier: 'pro',           cost: 25, envVars: 5 },
+      { name: 'Clerk',    category: 'auth',        tier: 'growth',        cost: 25, envVars: 4 },
+      { name: 'PostHog',  category: 'analytics',  tier: 'free',          cost:  0, envVars: 2 },
+    ],
+  },
+  {
+    id: 'api-backend', price: 45,
+    desc: 'Scalable backend API with jobs and monitoring',
+    tags: ['hosting', 'database', 'auth', 'jobs'],
+    services: [
+      { name: 'Railway', category: 'hosting',     tier: 'developer', cost: 20, envVars: 3 },
+      { name: 'Neon',    category: 'database',    tier: 'scale',     cost: 10, envVars: 2 },
+      { name: 'Clerk',   category: 'auth',         tier: 'free',      cost:  0, envVars: 4 },
+      { name: 'Inngest', category: 'background jobs', tier: 'basic',  cost:  5, envVars: 2 },
+      { name: 'Sentry',  category: 'monitoring',  tier: 'developer', cost: 26, envVars: 2 },
+    ],
+  },
+  {
+    id: 'content-platform', price: 85,
+    desc: 'Content platform with media storage and email',
+    tags: ['hosting', 'storage', 'auth', 'email'],
+    services: [
+      { name: 'Vercel',    category: 'hosting',  tier: 'pro',    cost: 20, envVars: 3 },
+      { name: 'Supabase',  category: 'storage',  tier: 'pro',    cost: 25, envVars: 5 },
+      { name: 'Clerk',     category: 'auth',      tier: 'growth', cost: 25, envVars: 4 },
+      { name: 'Stripe',    category: 'payments',  tier: 'usage',  cost:  0, envVars: 3 },
+      { name: 'SendGrid',  category: 'email',     tier: 'essentials', cost: 20, envVars: 2 },
+    ],
+  },
 ];
 
 /* ─── boot sequence ──────────────────────────────────────────────── */
@@ -469,6 +553,11 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   raw:     { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
   col2:    { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
   welcome: { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
+  spinner: { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
+  choice:  { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
+  tpl:     { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
+  add:     { prefix: '+',  prefixColor: '#4ade80',  textColor: MUTED,                   indent: true  },
+  mod:     { prefix: '~',  prefixColor: '#fbbf24',  textColor: MUTED,                   indent: true  },
 };
 
 /* ─── stable animation targets ───────────────────────────────────── */
@@ -556,6 +645,70 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <WelcomeBox />
+      </motion.div>
+    );
+  }
+
+  if (line.t === 'spinner') {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.15 }}
+        style={{ marginBottom: '0.15em', lineHeight: 1.75 }}
+      >
+        <StaticSignal />
+      </motion.div>
+    );
+  }
+
+  if (line.t === 'choice') {
+    return (
+      <motion.div
+        initial={ANIM_INIT_NEW}
+        animate={ANIM_TARGET}
+        transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em', marginBottom: '0.15em', lineHeight: 1.75 }}
+      >
+        <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right' }}>{line.lkey}</span>
+        <span style={{ color: MUTED }}>{line.text}</span>
+      </motion.div>
+    );
+  }
+
+  if (line.t === 'tpl') {
+    const tplIdx = parseInt(line.lkey ?? '1') - 1;
+    const tpl    = TEMPLATES[tplIdx];
+    if (!tpl) return null;
+    const MAX_TAGS = 3;
+    const visibleTags  = tpl.tags.slice(0, MAX_TAGS);
+    const overflowTags = tpl.tags.length - MAX_TAGS;
+    return (
+      <motion.div
+        initial={ANIM_INIT_NEW}
+        animate={ANIM_TARGET}
+        transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{ marginBottom: '0.5em' }}
+      >
+        {/* row 1: number · name · price · description */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em', lineHeight: 1.75 }}>
+          <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right' }}>{line.lkey}</span>
+          <span style={{ color: PINK,                          minWidth: '17ch' }}>{tpl.id}</span>
+          <span style={{ color: '#4ade80', minWidth: '7ch' }}>${tpl.price}/mo</span>
+          <span style={{ color: MUTED }}>{tpl.desc}</span>
+        </div>
+        {/* row 2: tags */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4em', paddingLeft: '2.3em', paddingBottom: '0.15em' }}>
+          {visibleTags.map(tag => (
+            <span key={tag} style={{
+              fontSize: '0.72em', color: DIM, border: `1px solid ${DIM}`,
+              padding: '0.05em 0.45em', lineHeight: 1.6,
+            }}>{tag}</span>
+          ))}
+          {overflowTags > 0 && (
+            <span style={{ fontSize: '0.72em', color: DIM }}>+{overflowTags}</span>
+          )}
+        </div>
       </motion.div>
     );
   }
@@ -671,14 +824,26 @@ const SlashMenu = memo(function SlashMenu({
   );
 });
 
+/* ─── props ──────────────────────────────────────────────────────── */
+export interface CliTerminalProps {
+  /** When true: skip boot sequence, pre-fill the install command, and run
+   *  a guided 2-step demo (install → init) before falling back to normal mode. */
+  installDemo?: boolean;
+  /** When true: auto-submit the pre-filled install command 2s after mount. */
+  autoSubmit?: boolean;
+}
+
 /* ─── main component ─────────────────────────────────────────────── */
-export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
+export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false }, ref) {
   const isMobile                = useIsMobile();
   const [lines, setLines]       = useState<Line[]>([]);
-  const [value, setValue]       = useState('');
+  const [value, setValue]       = useState(() => installDemo ? INSTALL_CMD : '');
   const [menuIdx, setMenuIdx]   = useState(0);
-  const [selStart, setSelStart] = useState(0);
+  const [selStart, setSelStart] = useState(() => installDemo ? INSTALL_CMD.length : 0);
   const [focused, setFocused]   = useState(false);
+  const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
+  const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
+  const appNameRef              = useRef('my-app'); // set from the init command
   const outputRef               = useRef<HTMLDivElement>(null);
   const inputRef                = useRef<HTMLInputElement>(null);
   const historyRef              = useRef<string[]>([]);
@@ -710,13 +875,22 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
   /* reset menu selection when filtered list changes */
   useEffect(() => { setMenuIdx(0); }, [value]);
 
-  /* progressive boot reveal */
+  /* progressive boot reveal — skipped in installDemo mode */
   useEffect(() => {
+    if (installDemo) return;
     const ts = BOOT.map(({ showAt, ...line }) =>
       setTimeout(() => setLines(prev => [...prev, line as Line]), showAt)
     );
     return () => ts.forEach(clearTimeout);
-  }, []);
+  }, [installDemo]);
+
+  /* auto-submit first install command on mount */
+  useEffect(() => {
+    if (!autoSubmit || !installDemo) return;
+    const t = setTimeout(() => submitRef.current(INSTALL_CMD), 2000);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally runs once on mount
 
   /* auto-scroll */
   useEffect(() => {
@@ -729,6 +903,41 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
     const val = (override ?? value).trim();
     if (!val) return;
 
+    /* ── demo step 1: install.sh → spinner → welcome table ── */
+    if (installDemo && demoStepRef.current === 0) {
+      demoStepRef.current = 1; // block re-entry immediately
+      const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
+      const spinnerId = uid();
+      setLines([cmdLine, { id: spinnerId, t: 'spinner', text: '' }]);
+      setValue('');
+      setSelStart(0);
+      setTimeout(() => {
+        const blank:   Line = { id: uid(), t: 'blank',   text: '' };
+        const welcome: Line = { id: uid(), t: 'welcome', text: '' };
+        setLines(prev => [...prev.filter(l => l.id !== spinnerId), blank, welcome]);
+        setValue(INIT_CMD);
+        setSelStart(INIT_CMD.length);
+      }, 1600 + Math.random() * 900);
+      return;
+    }
+
+    /* ── demo step 2: stripe projects init → interactive install flow ── */
+    if (installDemo && demoStepRef.current === 1) {
+      demoStepRef.current = 2;
+      // extract app name: last token of "stripe projects init <name>"
+      const initMatch = val.match(/projects\s+init\s+(\S+)/i);
+      if (initMatch) appNameRef.current = initMatch[1];
+      historyRef.current.unshift(val);
+      const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
+      const spinnerId = uid();
+      setLines(prev => [...prev, cmdLine, { id: spinnerId, t: 'spinner', text: '' }]);
+      setValue('');
+      setSelStart(0);
+      setTimeout(() => runInstallFlow(spinnerId), 1600 + Math.random() * 900);
+      return;
+    }
+
+    /* ── normal behaviour (with thinking delay) ── */
     historyRef.current.unshift(val);
     histIdxRef.current = -1;
 
@@ -740,15 +949,33 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
     }
 
     const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
-    setLines(prev => [...prev, cmdLine, ...respond(val)]);
+    const spinnerId = uid();
+    const response = respond(val);
+    setLines(prev => [...prev, cmdLine, { id: spinnerId, t: 'spinner', text: '' }]);
     setValue('');
     setSelStart(0);
-  }, [value]);
+    setTimeout(() => {
+      setLines(prev => [...prev.filter(l => l.id !== spinnerId), ...response]);
+    }, 1400 + Math.random() * 1200);
+  }, [value, installDemo]);
 
   /* keep submitRef current so the imperative handle always calls latest */
   useEffect(() => { submitRef.current = submit; }, [submit]);
 
   const onKeyDown = (e: KE<HTMLInputElement>) => {
+    /* ── interactive choice intercept ── */
+    if (pendingChoiceRef.current) {
+      if (/^[1-9]$/.test(e.key)) {
+        e.preventDefault();
+        pendingChoiceRef.current(e.key); // handler clears or restores ref
+        return;
+      }
+      if (e.key === 'Enter') {
+        e.preventDefault(); // block accidental submit while waiting for choice
+        return;
+      }
+    }
+
     if (menuOpen) {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -803,6 +1030,118 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
       syncSel();
     }
   };
+
+  /* ── install demo flow ── act 1: installing → act 2: choose path ──
+     All setLines calls use functional updates so no stale closures.
+     pendingChoiceRef handlers clear themselves when a valid key is received. */
+
+  function runInstallFlow(initialSpinnerId: number) {
+    const stepId   = uid();
+    const spin1Id  = uid();
+    setLines(prev => [
+      ...prev.filter(l => l.id !== initialSpinnerId),
+      { id: stepId,  t: 'step',    text: 'installing stripe projects...' },
+      { id: spin1Id, t: 'spinner', text: '' },
+    ]);
+    setTimeout(() => {
+      setLines(prev => [
+        ...prev.filter(l => l.id !== stepId && l.id !== spin1Id),
+        { id: uid(), t: 'done',  text: 'stripe projects installed' },
+        { id: uid(), t: 'blank', text: '' },
+      ]);
+      setTimeout(showChoosePath, 400);
+    }, 1800 + Math.random() * 600);
+  }
+
+  function showChoosePath() {
+    setLines(prev => [...prev,
+      { id: uid(), t: 'hint',   text: 'how do you want to build your tech stack?' },
+      { id: uid(), t: 'choice', lkey: '1', text: 'select from a template' },
+      { id: uid(), t: 'choice', lkey: '2', text: 'set up manually' },
+    ]);
+    pendingChoiceRef.current = (key: string) => {
+      if (key === '1') {
+        pendingChoiceRef.current = null;
+        setLines(prev => [...prev, { id: uid(), t: 'cmd', text: '1' }]);
+        setTimeout(showTemplates, 300);
+      } else if (key === '2') {
+        pendingChoiceRef.current = null;
+        setLines(prev => [...prev,
+          { id: uid(), t: 'cmd',   text: '2' },
+          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'hint',  text: 'run services add <name> to provision services individually' },
+          { id: uid(), t: 'blank', text: '' },
+        ]);
+        demoStepRef.current = 3; // normal terminal mode
+      }
+      // invalid key → do nothing, ref stays set
+    };
+  }
+
+  function showTemplates() {
+    setLines(prev => [...prev,
+      { id: uid(), t: 'hint', text: 'choose a starter template:' },
+      { id: uid(), t: 'blank', text: '' },
+      ...TEMPLATES.map((_, i) => ({
+        id: uid(), t: 'tpl' as LT, lkey: String(i + 1), text: '',
+      })),
+    ]);
+    pendingChoiceRef.current = (key: string) => {
+      const idx = parseInt(key) - 1;
+      if (idx >= 0 && idx < TEMPLATES.length) {
+        pendingChoiceRef.current = null;
+        const tpl = TEMPLATES[idx];
+        setLines(prev => [...prev,
+          { id: uid(), t: 'cmd',   text: key },
+          { id: uid(), t: 'blank', text: '' },
+        ]);
+        provisionNext(tpl.services, 0);
+      }
+      // invalid key → do nothing
+    };
+  }
+
+  function provisionNext(services: TplService[], idx: number) {
+    if (idx >= services.length) {
+      // Act 5: all done — use the app name and detect Vercel
+      const name      = appNameRef.current;
+      const hasVercel = services.some(s => s.name.toLowerCase() === 'vercel');
+      const urlText   = hasVercel
+        ? `${name}-project.vercel.app`
+        : `${name} running at localhost:9999`;
+      setLines(prev => [...prev,
+        { id: uid(), t: 'done', text: 'automatically created and provisioned for you' },
+        { id: uid(), t: 'url',  text: urlText },
+      ]);
+      return;
+    }
+    const svc     = services[idx];
+    const stepId  = uid();
+    const spinId  = uid();
+    setLines(prev => [...prev,
+      { id: stepId, t: 'step',    text: `provisioning ${svc.name}...` },
+      { id: spinId, t: 'spinner', text: '' },
+    ]);
+    setTimeout(() => {
+      const costLabel = svc.cost === 0 ? '$0/mo' : `$${svc.cost}/mo`;
+      setLines(prev => [
+        ...prev.filter(l => l.id !== stepId && l.id !== spinId),
+        { id: uid(), t: 'step',  text: `provisioning ${svc.name}.` },
+        { id: uid(), t: 'sub',   text: 'allocated resources' },
+        { id: uid(), t: 'sub',   text: `configured ${svc.category} instance` },
+        { id: uid(), t: 'sub',   text: 'generated credentials' },
+        { id: uid(), t: 'sub',   text: 'updated stack configuration' },
+        { id: uid(), t: 'blank', text: '' },
+        { id: uid(), t: 'done',  text: `${svc.name} provisioned and added to your project.` },
+        { id: uid(), t: 'add',   text: `account created · ${svc.tier} tier · ${costLabel}` },
+        { id: uid(), t: 'add',   text: `injected ${svc.envVars} environment variables` },
+        { id: uid(), t: 'mod',   text: 'modified stack.yaml' },
+        { id: uid(), t: 'mod',   text: 'modified .env' },
+        { id: uid(), t: 'blank', text: '' },
+      ]);
+      setTimeout(() => provisionNext(services, idx + 1), 500);
+    }, 1500 + Math.random() * 700);
+  }
 
   return (
     <div
@@ -874,7 +1213,7 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
                       }}>{'\u00a0'}</span>
                     ) : (
                       <span style={{ color: DIM, fontStyle: 'italic' }}>
-                        type /help for commands
+                        try: projects services add vercel
                       </span>
                     )}
                   </>
@@ -952,7 +1291,7 @@ export const CliTerminal = forwardRef<CliHandle>(function CliTerminal(_, ref) {
           }}
         >
           <span>
-            <span style={{ color: 'var(--color-text-ui)' }}>/services status</span>
+            <span style={{ color: 'var(--color-text-ui)' }}>projects status</span>
             <span style={{ color: DIM }}>{' '}to view current stack</span>
           </span>
           <span>? for shortcuts</span>

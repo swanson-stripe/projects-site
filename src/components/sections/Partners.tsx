@@ -1,8 +1,11 @@
 import { useState, useCallback, useRef, useEffect, forwardRef, useImperativeHandle, type PointerEvent as RPE } from 'react';
 import { motion } from 'motion/react';
+import { SlidersHorizontal } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 
-type Category = 'payments' | 'auth' | 'database' | 'storage' | 'monitoring' | 'analytics' | 'ai' | 'hosting' | 'email';
+export type Category = 'payments' | 'auth' | 'database' | 'storage' | 'monitoring' | 'analytics' | 'ai' | 'hosting' | 'email';
+
+export const CATEGORIES: Category[] = ['ai', 'analytics', 'auth', 'database', 'email', 'hosting', 'monitoring', 'payments', 'storage'];
 
 export interface Partner {
   name:            string;
@@ -298,10 +301,11 @@ export interface EcosystemIconsProps {
   onCrossDragStart?:  (p: Partner) => void;
   onCrossDragMove?:   (x: number, y: number) => void;
   onCrossDragEnd?:    (p: Partner, x: number, y: number) => void;
+  activeFilter?:      Category | null;
 }
 
 export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
-  function EcosystemIcons({ onOpen, onOpenJoin, onCrossDragStart, onCrossDragMove, onCrossDragEnd }, ref) {
+  function EcosystemIcons({ onOpen, onOpenJoin, onCrossDragStart, onCrossDragMove, onCrossDragEnd, activeFilter }, ref) {
     const [order,        setOrder]        = useState<Partner[]>(PARTNERS);
     const [positions,    setPositions]    = useState(() => makeGridPositions(PARTNERS));
     const [dragging,     setDragging]     = useState<string | null>(null);
@@ -437,6 +441,10 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
       containerRef.current?.focus();
     }
 
+    // when filtering, show only matching partners at fresh grid positions
+    const visible         = activeFilter ? order.filter(p => p.category === activeFilter) : order;
+    const filteredGridPos = activeFilter ? makeGridPositions(visible) : null;
+
     return (
       <div
         ref={containerRef}
@@ -446,10 +454,10 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
         onBlur={() => setSelected(null)}
         style={{ position: 'relative', width: ECO_CONTENT_W, height: ECO_CONTENT_H, flexShrink: 0, overflow: 'hidden', outline: 'none' }}
       >
-        {(isShuffling ? displaySlots : order).map((partner, idx) => {
+        {(isShuffling ? displaySlots : visible).map((partner, idx) => {
           const pos = isShuffling
             ? { x: PAD + (idx % COLS) * (ICON_W + GAP_X), y: PAD + Math.floor(idx / COLS) * (HIGHLIGHT + 16 + 14 + GAP_Y) }
-            : positions[partner.name];
+            : (filteredGridPos ? filteredGridPos[partner.name] : positions[partner.name]);
           const isDragging = !isShuffling && dragging === partner.name;
           const isSelected = !isShuffling && selected === idx;
 
@@ -527,7 +535,7 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
 
         {/* ── Join icon — always last, never shuffled ───────────────── */}
         {(() => {
-          const joinIdx = order.length;
+          const joinIdx = visible.length;
           const joinPos = {
             x: PAD + (joinIdx % COLS) * (ICON_W + GAP_X),
             y: PAD + Math.floor(joinIdx / COLS) * (HIGHLIGHT + 16 + 14 + GAP_Y),
@@ -607,6 +615,101 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
     );
   }
 );
+
+/* ── EcoFilterButton ──────────────────────────────────────────────────────────
+   Filter icon button + popover for the ecosystem window header.
+─────────────────────────────────────────────────────────────────────────── */
+
+export function EcoFilterButton({
+  activeFilter,
+  onFilter,
+}: {
+  activeFilter: Category | null;
+  onFilter: (c: Category | null) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handler(e: MouseEvent) {
+      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [open]);
+
+  const CATS_USED = CATEGORIES.filter(c => PARTNERS.some(p => p.category === c));
+  const DIM  = 'var(--color-text-ui-muted)';
+  const PINK = 'var(--color-pink)';
+
+  return (
+    <div ref={wrapRef} style={{ position: 'relative' }}>
+      <button
+        aria-label='Filter by category'
+        onClick={e => { e.stopPropagation(); setOpen(o => !o); }}
+        style={{
+          display: 'flex', alignItems: 'center', background: 'none', border: 'none',
+          padding: 0, cursor: 'pointer',
+          color: activeFilter ? PINK : DIM,
+        }}
+      >
+        <SlidersHorizontal size={10} strokeWidth={1.5} />
+      </button>
+
+      {open && (
+        <div style={{
+          position:    'absolute',
+          top:         'calc(100% + 6px)',
+          right:       0,
+          background:  'var(--color-surface-dark)',
+          border:      '1px solid var(--color-border-accent)',
+          padding:     '4px',
+          zIndex:      9999,
+          minWidth:    110,
+          display:     'flex',
+          flexDirection: 'column',
+          gap:           2,
+          fontFamily:  'var(--font-mono)',
+          fontSize:    '0.68rem',
+        }}>
+          {/* "All" clears the filter */}
+          <button
+            onClick={() => { onFilter(null); setOpen(false); }}
+            style={{
+              textAlign:   'left',
+              padding:     '3px 8px',
+              background:  activeFilter === null ? 'rgba(255,255,255,0.06)' : 'none',
+              border:      'none',
+              cursor:      'pointer',
+              color:       activeFilter === null ? PINK : DIM,
+              borderRadius: 2,
+            }}
+          >
+            all
+          </button>
+          {CATS_USED.map(cat => (
+            <button
+              key={cat}
+              onClick={() => { onFilter(cat === activeFilter ? null : cat); setOpen(false); }}
+              style={{
+                textAlign:    'left',
+                padding:      '3px 8px',
+                background:   activeFilter === cat ? 'rgba(255,255,255,0.06)' : 'none',
+                border:       'none',
+                cursor:       'pointer',
+                color:        activeFilter === cat ? PINK : DIM,
+                borderRadius:  2,
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 /* ── PartnerDetail ────────────────────────────────────────────────────────────
    Content rendered inside a partner detail window.

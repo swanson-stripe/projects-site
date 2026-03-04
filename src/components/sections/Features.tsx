@@ -3,7 +3,7 @@ import { Terminal, Server, Bot, KeyRound, CreditCard, Link2 } from 'lucide-react
 import { InView } from '@/components/ui/in-view';
 import { motion } from 'motion/react';
 
-const FEATURES = [
+export const FEATURES = [
   {
     icon: Terminal,
     image: '/what-hopping.png',

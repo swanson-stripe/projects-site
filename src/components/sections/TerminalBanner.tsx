@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, Monitor } from 'lucide-react';
+import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, Monitor, ScrollText } from 'lucide-react';
 import { useAudio } from '@/components/ui/AudioContext';
 import { useTheme } from '@/components/ui/ThemeContext';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
-export type ViewMode = 'ui' | 'agent';
+export type ViewMode = 'ui' | 'agent' | 'scroll';
 
 /* ── helpers ──────────────────────────────────────────────────────────────── */
 function pad(n: number) {
@@ -240,6 +240,94 @@ function SettingsPopover({
   );
 }
 
+/* ── ViewPopover ──────────────────────────────────────────────────────────── */
+const VIEW_OPTIONS: { id: ViewMode; label: string; icon: React.FC<{ size: number; strokeWidth: number }> }[] = [
+  { id: 'ui',     label: 'desktop', icon: Monitor    },
+  { id: 'agent',  label: 'agent',   icon: Bot        },
+  { id: 'scroll', label: 'scroll',  icon: ScrollText },
+];
+
+function ViewPopover({
+  anchorRef,
+  viewMode,
+  onViewModeChange,
+  onClose,
+}: {
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
+  viewMode: ViewMode;
+  onViewModeChange: (mode: ViewMode) => void;
+  onClose: () => void;
+}) {
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (
+        popoverRef.current && !popoverRef.current.contains(e.target as Node) &&
+        anchorRef.current  && !anchorRef.current.contains(e.target as Node)
+      ) {
+        onClose();
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [anchorRef, onClose]);
+
+  const rect = anchorRef.current?.getBoundingClientRect();
+  const top  = rect ? rect.bottom + 6 : 32;
+  const left = rect ? rect.left       : 0;
+
+  return (
+    <div
+      ref={popoverRef}
+      style={{
+        position:   'fixed',
+        top,
+        left,
+        zIndex:     10000,
+        background: 'var(--color-surface-dark)',
+        border:     BORDER,
+        minWidth:   160,
+        padding:    '6px 0',
+        fontFamily: 'var(--font-mono)',
+        fontSize:   '0.72rem',
+      }}
+    >
+      <div style={{ padding: '4px 12px 8px', color: 'var(--color-text-ui-subtle)', letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.6rem' }}>
+        view
+      </div>
+      {VIEW_OPTIONS.map(({ id, label, icon: Icon }) => {
+        const active = viewMode === id;
+        return (
+          <button
+            key={id}
+            onClick={() => { onViewModeChange(id); onClose(); }}
+            style={{
+              display:       'flex',
+              alignItems:    'center',
+              gap:            10,
+              width:         '100%',
+              padding:       '6px 12px',
+              background:    active ? 'rgba(255,255,255,0.07)' : 'none',
+              border:        'none',
+              cursor:        'pointer',
+              color:         active ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
+              textAlign:     'left',
+              fontFamily:    'inherit',
+              fontSize:      'inherit',
+              letterSpacing: '0.02em',
+            }}
+          >
+            <span style={{ color: 'var(--color-pink)', opacity: active ? 1 : 0, userSelect: 'none' }}>›</span>
+            <Icon size={11} strokeWidth={1.5} />
+            {label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ── StatusBar ────────────────────────────────────────────────────────────────
    Slim single-row bar pinned to the top of the Desktop.
    No slash-command hints. Date/time reads horizontally.
@@ -256,9 +344,13 @@ export function StatusBar({
   const [ts, setTs]               = useState(getTimestamp);
   const [hovered, setHovered]     = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showViewMenu, setShowViewMenu] = useState(false);
   const settingsRef               = useRef<HTMLButtonElement>(null);
+  const viewRef                   = useRef<HTMLButtonElement>(null);
   const { isMuted, toggleMute } = useAudio();
   const isMobile = useIsMobile();
+
+  const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
 
   useEffect(() => {
     const id = setInterval(() => setTs(getTimestamp()), 1_000);
@@ -310,7 +402,7 @@ export function StatusBar({
             <button
               ref={settingsRef}
               aria-label='Settings'
-              onClick={() => setShowSettings(v => !v)}
+              onClick={() => { setShowSettings(v => !v); setShowViewMenu(false); }}
               style={{
                 display: 'flex', alignItems: 'center', background: 'none', border: 'none',
                 padding: 0, cursor: 'pointer',
@@ -320,11 +412,11 @@ export function StatusBar({
               <SlidersHorizontal size={isMobile ? 20 : 13} strokeWidth={1.5} />
             </button>
 
-            {/* UI / Agent view toggle — icon-only */}
+            {/* View mode selector */}
             <button
-              aria-label={viewMode === 'agent' ? 'Switch to UI view' : 'Switch to agent view'}
-              onClick={() => onViewModeChange?.(viewMode === 'agent' ? 'ui' : 'agent')}
-              title={viewMode === 'agent' ? 'Switch to UI view' : 'Switch to agent view'}
+              ref={viewRef}
+              aria-label='Switch view'
+              onClick={() => { setShowViewMenu(v => !v); setShowSettings(false); }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -332,13 +424,10 @@ export function StatusBar({
                 border: 'none',
                 padding: 0,
                 cursor: 'pointer',
-                color: viewMode === 'agent' ? 'var(--color-stripe-purple)' : 'var(--color-text-ui-muted)',
+                color: viewMode !== 'ui' ? 'var(--color-text-ui)' : (showViewMenu ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)'),
               }}
             >
-              {viewMode === 'agent'
-                ? <Bot size={isMobile ? 20 : 13} strokeWidth={1.5} />
-                : <Monitor size={isMobile ? 20 : 13} strokeWidth={1.5} />
-              }
+              <ViewIcon size={isMobile ? 20 : 13} strokeWidth={1.5} />
             </button>
 
             <button
@@ -362,6 +451,14 @@ export function StatusBar({
         <SettingsPopover
           anchorRef={settingsRef}
           onClose={() => setShowSettings(false)}
+        />
+      )}
+      {showViewMenu && onViewModeChange && (
+        <ViewPopover
+          anchorRef={viewRef}
+          viewMode={viewMode}
+          onViewModeChange={onViewModeChange}
+          onClose={() => setShowViewMenu(false)}
         />
       )}
     </div>

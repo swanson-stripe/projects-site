@@ -8,14 +8,17 @@ import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
 import { FeaturesContent, type FeaturesHandle } from '@/components/sections/Features';
 import { AgentView } from '@/components/sections/AgentView';
+import { ScrollView } from '@/components/sections/ScrollView';
 import {
   EcosystemIcons,
+  EcoFilterButton,
   PartnerDetail,
   PARTNERS,
   ECO_CONTENT_W,
   ECO_CONTENT_H,
   type Partner,
   type EcosystemHandle,
+  type Category,
 } from '@/components/sections/Partners';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
@@ -151,6 +154,7 @@ export function Desktop() {
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [partnerOrigins,  setPartnerOrigins]  = useState<Record<string, { x: number; y: number }>>({});
   const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
+  const [ecoFilter,       setEcoFilter]       = useState<Category | null>(null);
 
   /* bring clicked window to front */
   const bringToFront = useCallback((id: WinId) => {
@@ -398,6 +402,9 @@ export function Desktop() {
       {/* ── Agent view — replaces window area when active ─────────── */}
       {viewMode === 'agent' && <AgentView />}
 
+      {/* ── Scroll view ───────────────────────────────────────────── */}
+      {viewMode === 'scroll' && <ScrollView />}
+
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div
         ref={windowAreaRef}
@@ -407,7 +414,7 @@ export function Desktop() {
           overflowX:     'hidden',
           overflowY:     isMobile ? 'auto' : 'hidden',
           scrollbarWidth:'none',
-          display:       viewMode === 'agent' ? 'none' : undefined,
+          display:       viewMode !== 'ui' ? 'none' : undefined,
         }}
         onClick={() => setSelectedIcon(null)}
       >
@@ -511,14 +518,12 @@ export function Desktop() {
                 onClose={() => handleClose(win.id)}
                 onMinimize={() => handleMinimize(win.id)}
                 onMaximize={() => handleMaximize(win.id)}
-                headerRight={(isEcosystem || isWhy) ? (
+                headerRight={isEcosystem ? (
+                  <EcoFilterButton activeFilter={ecoFilter} onFilter={setEcoFilter} />
+                ) : isWhy ? (
                   <button
                     aria-label='Shuffle'
-                    onClick={e => {
-                      e.stopPropagation();
-                      if (isEcosystem) ecoRef.current?.shuffle();
-                      if (isWhy)       featuresRef.current?.shuffle();
-                    }}
+                    onClick={e => { e.stopPropagation(); featuresRef.current?.shuffle(); }}
                     style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--color-text-ui-muted)' }}
                   >
                     <Shuffle size={10} strokeWidth={1.5} />
@@ -554,6 +559,7 @@ export function Desktop() {
                     onCrossDragStart={p => setDraggingPartner(p)}
                     onCrossDragMove={(x, y) => setGhostPos({ x, y })}
                     onCrossDragEnd={handleCrossDragEnd}
+                    activeFilter={ecoFilter}
                   />
                 )}
                 {win.id === 'treasure'  && <TreasureContent />}
@@ -1071,7 +1077,7 @@ function JoinContent() {
 
 /* ── Terminal window content: just the CLI ────────────────────────── */
 const TerminalContent = forwardRef<CliHandle>(function TerminalContent(_, ref) {
-  return <CliTerminal ref={ref} />;
+  return <CliTerminal ref={ref} installDemo autoSubmit />;
 });
 
 /* ── DesktopIcon ──────────────────────────────────────────────────── */
