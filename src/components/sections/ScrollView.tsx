@@ -268,7 +268,7 @@ export function ScrollView() {
   }, [wins, bringToFront]);
 
   /* open a partner detail window (or bring existing to front) */
-  const openPartner = useCallback((partner: Partner, iconOrigin?: { x: number; y: number }) => {
+  const openPartner = useCallback((partner: Partner, _iconOrigin?: { x: number; y: number }) => {
     const id: SWinId = `partner:${partner.name}`;
     setWins(prev => {
       const existing = prev.find(w => w.id === id);
@@ -276,12 +276,14 @@ export function ScrollView() {
         const maxZ = Math.max(...prev.map(w => w.zIndex));
         return prev.map(w => w.id === id ? { ...w, zIndex: maxZ + 1 } : w);
       }
-      const maxZ = Math.max(...prev.map(w => w.zIndex));
-      const vw   = typeof window !== 'undefined' ? window.innerWidth : 1280;
-      // position near icon origin or centered
-      const x = iconOrigin ? Math.min(iconOrigin.x - 190, vw - 400) : Math.round(vw / 2 - 190);
-      const y = iconOrigin ? iconOrigin.y + 16 : 120;
-      return [...prev, { id, x: Math.max(16, x), y: Math.max(16, y), w: 380, h: 360, zIndex: maxZ + 1 }];
+      const maxZ      = Math.max(...prev.map(w => w.zIndex));
+      const vw        = typeof window !== 'undefined' ? window.innerWidth  : 1280;
+      const vh        = typeof window !== 'undefined' ? window.innerHeight : 800;
+      const scrollTop = canvasRef.current?.parentElement?.scrollTop ?? 0;
+      const w = 380, h = 360;
+      const x = Math.round(vw / 2 - w / 2);
+      const y = Math.round(scrollTop + (vh / 2) - h / 2);
+      return [...prev, { id, x: Math.max(16, x), y: Math.max(16, y), w, h, zIndex: maxZ + 1 }];
     });
   }, []);
 
