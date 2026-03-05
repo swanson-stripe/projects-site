@@ -5,7 +5,7 @@
    desktop variant.
 ────────────────────────────────────────────────────────────────────────────── */
 
-import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -169,7 +169,7 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
 /* ── PurposeContent ──────────────────────────────────────────────────────── */
 function PurposeContent() {
   const MONO  = 'var(--font-mono)';
-  const P_STYLE: React.CSSProperties = {
+  const P_STYLE: CSSProperties = {
     fontFamily: MONO,
     fontSize:   '0.875rem',
     color:      'var(--color-text-ui-muted)',
