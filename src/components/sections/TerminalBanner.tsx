@@ -245,8 +245,8 @@ function SettingsPopover({
 
 /* ── ViewPopover ──────────────────────────────────────────────────────────── */
 const VIEW_OPTIONS: { id: ViewMode; label: string; icon: React.FC<{ size: number; strokeWidth: number }> }[] = [
-  { id: 'agent',  label: 'agent',   icon: Bot        },
   { id: 'scroll', label: 'scroll',  icon: ScrollText },
+  { id: 'agent',  label: 'agent',   icon: Bot        },
 ];
 
 function ViewPopover({
