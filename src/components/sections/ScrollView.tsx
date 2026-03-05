@@ -27,7 +27,7 @@ const VGAP     = 80;   // vertical gap between sections
 const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
-type SWinId = 'terminal' | 'ecosystem' | 'features' | `partner:${string}`;
+type SWinId = 'terminal' | 'ecosystem' | 'features' | 'purpose' | `partner:${string}`;
 
 interface SWinState {
   id:     SWinId;
@@ -55,11 +55,13 @@ function initialLayout(): SWinState[] {
   const ecoH      = 148; // title bar ~27 + 24 pad top/bottom + icons ~53 + 12px scrollbar track
 
   const featY     = ecoY + ecoH + VGAP;
+  const purposeY  = featY + 420 + VGAP; // 420 ≈ estimated features window height
 
   return [
-    { id: 'terminal',  x: termX, y: termY, w: termW,    h: termH, zIndex: 3 },
-    { id: 'ecosystem', x: left,  y: ecoY,  w: contentW, h: ecoH,  zIndex: 2 },
-    { id: 'features',  x: left,  y: featY, w: contentW, h: 'auto', zIndex: 1 },
+    { id: 'terminal',  x: termX, y: termY,    w: termW,    h: termH,  zIndex: 4 },
+    { id: 'ecosystem', x: left,  y: ecoY,     w: contentW, h: ecoH,   zIndex: 3 },
+    { id: 'features',  x: left,  y: featY,    w: contentW, h: 'auto', zIndex: 2 },
+    { id: 'purpose',   x: left,  y: purposeY, w: contentW, h: 'auto', zIndex: 1 },
   ];
 }
 
@@ -163,6 +165,43 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
     </div>
   );
 });
+
+/* ── PurposeContent ──────────────────────────────────────────────────────── */
+function PurposeContent() {
+  const MONO  = 'var(--font-mono)';
+  const P_STYLE: React.CSSProperties = {
+    fontFamily: MONO,
+    fontSize:   '0.875rem',
+    color:      'var(--color-text-ui-muted)',
+    lineHeight: 1.7,
+    margin:     0,
+  };
+  return (
+    <div style={{ padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', background: 'var(--color-surface)' }}>
+      <h2 style={{
+        fontFamily:    MONO,
+        fontSize:      '1rem',
+        fontWeight:    600,
+        color:         'var(--color-text-ui)',
+        margin:        0,
+        letterSpacing: '0.02em',
+      }}>
+        Opportunity
+      </h2>
+      <p style={P_STYLE}>
+        Infrastructure setup should be programmable, secure, and deterministic.
+      </p>
+      <p style={P_STYLE}>
+        Developers and AI agents should be able to connect, pay, and provision real services, receive real credentials, and deploy applications through a single, secure, and deterministic development experience without navigating dashboards or copying keys across tabs.
+      </p>
+      <p style={P_STYLE}>
+        This creates a new layer in the development stack: a programmable infrastructure{' '}
+        <span style={{ color: 'var(--color-pink)' }}>[fabric]</span>
+        {' '}that weaves third-party services directly into where developers and agents already work.
+      </p>
+    </div>
+  );
+}
 
 /* ── FeaturesGrid ────────────────────────────────────────────────────────── */
 const BORDER = '1px solid var(--color-border-accent)';
@@ -306,8 +345,9 @@ export const ScrollView = forwardRef<ScrollViewHandle>(function ScrollView(_, re
 
   function getTitle(id: SWinId): string {
     if (id === 'terminal')  return 'terminal';
-    if (id === 'ecosystem') return 'ecosystem.json';
-    if (id === 'features')  return 'what.md';
+    if (id === 'ecosystem') return 'ecosystem';
+    if (id === 'features')  return 'what';
+    if (id === 'purpose')   return 'purpose';
     if (id.startsWith('partner:')) return id.replace('partner:', '');
     return id;
   }
@@ -439,6 +479,7 @@ export const ScrollView = forwardRef<ScrollViewHandle>(function ScrollView(_, re
           const isTerminal  = win.id === 'terminal';
           const isEcosystem = win.id === 'ecosystem';
           const isFeatures  = win.id === 'features';
+          const isPurpose   = win.id === 'purpose';
           const isPartner   = win.id.startsWith('partner:');
           const bg = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
 
@@ -473,6 +514,7 @@ export const ScrollView = forwardRef<ScrollViewHandle>(function ScrollView(_, re
               );
             }
             if (isFeatures) return <FeaturesGrid cols={isMobile ? 1 : 2} />;
+            if (isPurpose)  return <PurposeContent />;
             if (partner) {
               return (
                 <PartnerDetail
