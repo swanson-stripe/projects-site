@@ -1,4 +1,4 @@
-import { useState, useImperativeHandle, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { InView } from '@/components/ui/in-view';
 import { motion } from 'motion/react';
 
@@ -116,22 +116,9 @@ export function Features() {
    Window-safe version: no InView / Intersection Observer — renders immediately.
    Used inside the why.md desktop window where the IO never fires.
 ─────────────────────────────────────────────────────────────────────────────── */
-export interface FeaturesHandle { shuffle: () => void; }
-
-export const FeaturesContent = forwardRef<FeaturesHandle>(function FeaturesContent(_, ref) {
-  const [items, setItems] = useState(FEATURES);
+export const FeaturesContent = forwardRef(function FeaturesContent() {
+  const items = FEATURES;
   const PAD = '1.25rem';
-
-  useImperativeHandle(ref, () => ({
-    shuffle: () => setItems(prev => {
-      const arr = [...prev];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }),
-  }));
 
   return (
     <div style={{

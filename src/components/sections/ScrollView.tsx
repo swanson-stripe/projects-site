@@ -6,7 +6,6 @@
 ────────────────────────────────────────────────────────────────────────────── */
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
-import { Shuffle } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
@@ -457,14 +456,6 @@ export function ScrollView() {
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
               headerRight={isEcosystem ? (
                 <EcoFilterButton activeFilter={ecoFilter} onFilter={setEcoFilter} />
-              ) : isFeatures ? (
-                <button
-                  aria-label='Shuffle'
-                  onClick={e => { e.stopPropagation(); /* no featuresRef here */ }}
-                  style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--color-text-ui-muted)' }}
-                >
-                  <Shuffle size={10} strokeWidth={1.5} />
-                </button>
               ) : undefined}
             >
               {content}
