@@ -140,8 +140,8 @@ const TEMPLATES: Template[] = [
     ],
   },
   {
-    id: 'ecommerce', price: 75,
-    desc: 'E-commerce with payments, storage, and tracking',
+    id: 'digital-storefront', price: 75,
+    desc: 'Digital storefront with payments, storage, and tracking',
     tags: ['hosting', 'payments', 'storage', 'auth'],
     services: [
       { name: 'Vercel',   category: 'hosting',   tier: 'pro',           cost: 20, envVars: 3 },
@@ -161,18 +161,6 @@ const TEMPLATES: Template[] = [
       { name: 'Clerk',   category: 'auth',         tier: 'free',      cost:  0, envVars: 4 },
       { name: 'Inngest', category: 'background jobs', tier: 'basic',  cost:  5, envVars: 2 },
       { name: 'Sentry',  category: 'monitoring',  tier: 'developer', cost: 26, envVars: 2 },
-    ],
-  },
-  {
-    id: 'content-platform', price: 85,
-    desc: 'Content platform with media storage and email',
-    tags: ['hosting', 'storage', 'auth', 'email'],
-    services: [
-      { name: 'Vercel',    category: 'hosting',  tier: 'pro',    cost: 20, envVars: 3 },
-      { name: 'Supabase',  category: 'storage',  tier: 'pro',    cost: 25, envVars: 5 },
-      { name: 'Clerk',     category: 'auth',      tier: 'growth', cost: 25, envVars: 4 },
-      { name: 'Stripe',    category: 'payments',  tier: 'usage',  cost:  0, envVars: 3 },
-      { name: 'SendGrid',  category: 'email',     tier: 'essentials', cost: 20, envVars: 2 },
     ],
   },
 ];
@@ -662,15 +650,17 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
   }
 
   if (line.t === 'choice') {
+    // lkey format: '└ 1' for first/active item, '  2' for subsequent items
+    const isActive = line.lkey?.trimStart().startsWith('└');
     return (
       <motion.div
         initial={ANIM_INIT_NEW}
         animate={ANIM_TARGET}
         transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-        style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em', marginBottom: '0.15em', lineHeight: 1.75 }}
+        style={{ display: 'flex', alignItems: 'baseline', gap: '0.6em', marginBottom: '0.15em', lineHeight: 1.75 }}
       >
-        <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right' }}>{line.lkey}</span>
-        <span style={{ color: MUTED }}>{line.text}</span>
+        <span style={{ color: DIM, userSelect: 'none', minWidth: '3.2em', fontFamily: 'inherit', whiteSpace: 'pre' }}>{line.lkey}</span>
+        <span style={{ color: isActive ? 'var(--color-text-ui)' : MUTED }}>{line.text}</span>
       </motion.div>
     );
   }
@@ -909,17 +899,19 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       const initMatch = val.match(/projects\s+init\s+(\S+)/i);
       if (initMatch) appNameRef.current = initMatch[1];
       historyRef.current.unshift(val);
-      const cmdLine: Line = { id: uid(), t: 'cmd',     text: val };
-      const stepId         = uid();
-      const spinnerId      = uid();
-      setLines(prev => [...prev,
-        cmdLine,
-        { id: stepId,    t: 'step',    text: 'installing stripe projects...' },
-        { id: spinnerId, t: 'spinner', text: '' },
-      ]);
+      const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
+      const stepId        = uid();
+      const spinnerId     = uid();
+      setLines(prev => [...prev, cmdLine]);
       setValue('');
       setSelStart(0);
-      setTimeout(() => runInstallFlow(stepId, spinnerId), 1800 + Math.random() * 600);
+      setTimeout(() => {
+        setLines(prev => [...prev,
+          { id: stepId,    t: 'step',    text: 'installing stripe projects...' },
+          { id: spinnerId, t: 'spinner', text: '' },
+        ]);
+        setTimeout(() => runInstallFlow(stepId, spinnerId), 1800 + Math.random() * 500);
+      }, 350);
       return;
     }
 
@@ -1022,19 +1014,21 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
      pendingChoiceRef handlers clear themselves when a valid key is received. */
 
   function runInstallFlow(stepId: number, spinnerId: number) {
-    setLines(prev => [
-      ...prev.filter(l => l.id !== stepId && l.id !== spinnerId),
-      { id: uid(), t: 'done',  text: 'stripe projects installed' },
-      { id: uid(), t: 'blank', text: '' },
-    ]);
+    // Update the step line in-place (no remove+re-add) so it doesn't jump,
+    // then drop only the spinner.
+    setLines(prev => prev
+      .filter(l => l.id !== spinnerId)
+      .map(l => l.id === stepId ? { ...l, t: 'done' as LT, text: 'stripe projects installed' } : l)
+      .concat([{ id: uid(), t: 'blank', text: '' }])
+    );
     setTimeout(showChoosePath, 400);
   }
 
   function showChoosePath() {
     setLines(prev => [...prev,
       { id: uid(), t: 'hint',   text: 'how do you want to build your tech stack?' },
-      { id: uid(), t: 'choice', lkey: '1', text: 'select from a template' },
-      { id: uid(), t: 'choice', lkey: '2', text: 'set up manually' },
+      { id: uid(), t: 'choice', lkey: '└ 1', text: 'select from a template' },
+      { id: uid(), t: 'choice', lkey: '  2', text: 'set up manually' },
     ]);
     pendingChoiceRef.current = (key: string) => {
       if (key === '1') {
