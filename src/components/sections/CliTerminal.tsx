@@ -36,12 +36,16 @@ interface Line {
   text: string;
   lkey?: string;   // key column for kv / col2 / choice / tpl lines
   initial?: boolean;
+  instant?: boolean; // skip entry animation (used when replacing a spinner)
   dim?: boolean;   // for raw lines that should use DIM color
 }
 
 /* ─── uid counter ────────────────────────────────────────────────── */
 let _uid = 100;
 const uid = () => _uid++;
+
+/* Mark every line in an array as instant (skip entry animation). */
+const instant = (lines: Line[]): Line[] => lines.map(l => ({ ...l, instant: true }));
 
 /* ─── slash command registry ─────────────────────────────────────── */
 interface SlashCommand { cmd: string; desc: string; isGroup?: boolean; }
@@ -548,9 +552,10 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
 };
 
 /* ─── stable animation targets ───────────────────────────────────── */
-const ANIM_TARGET     = { opacity: 1, y: 0 } as const;
-const ANIM_INIT_NEW   = { opacity: 0, y: 5 } as const;
-const ANIM_INIT_BOOT  = { opacity: 1 }        as const;
+const ANIM_TARGET      = { opacity: 1, y: 0 } as const;
+const ANIM_INIT_NEW    = { opacity: 0, y: 5 } as const;
+const ANIM_INIT_BOOT   = { opacity: 1 }        as const;
+const ANIM_INIT_INSTANT = { opacity: 1, y: 0 } as const; // no animation
 
 /* ─── welcome box ────────────────────────────────────────────────── */
 function WelcomeBox() {
@@ -627,7 +632,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
   if (line.t === 'welcome') {
     return (
       <motion.div
-        initial={line.initial ? ANIM_INIT_BOOT : ANIM_INIT_NEW}
+        initial={line.instant ? ANIM_INIT_INSTANT : line.initial ? ANIM_INIT_BOOT : ANIM_INIT_NEW}
         animate={ANIM_TARGET}
         transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
       >
@@ -674,7 +679,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
     const overflowTags = tpl.tags.length - MAX_TAGS;
     return (
       <motion.div
-        initial={ANIM_INIT_NEW}
+        initial={line.instant ? ANIM_INIT_INSTANT : ANIM_INIT_NEW}
         animate={ANIM_TARGET}
         transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
         style={{ marginBottom: '0.5em' }}
@@ -706,7 +711,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
 
   return (
     <motion.div
-      initial={line.initial ? ANIM_INIT_BOOT : ANIM_INIT_NEW}
+      initial={line.instant ? ANIM_INIT_INSTANT : line.initial ? ANIM_INIT_BOOT : ANIM_INIT_NEW}
       animate={ANIM_TARGET}
       transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
       style={{
@@ -933,7 +938,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     setValue('');
     setSelStart(0);
     setTimeout(() => {
-      setLines(prev => [...prev.filter(l => l.id !== spinnerId), ...response]);
+      setLines(prev => [...prev.filter(l => l.id !== spinnerId), ...instant(response)]);
     }, 1400 + Math.random() * 1200);
   }, [value, installDemo]);
 
@@ -1097,18 +1102,20 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       const costLabel = svc.cost === 0 ? '$0/mo' : `$${svc.cost}/mo`;
       setLines(prev => [
         ...prev.filter(l => l.id !== stepId && l.id !== spinId),
-        { id: uid(), t: 'step',  text: `provisioning ${svc.name}.` },
-        { id: uid(), t: 'sub',   text: 'allocated resources' },
-        { id: uid(), t: 'sub',   text: `configured ${svc.category} instance` },
-        { id: uid(), t: 'sub',   text: 'generated credentials' },
-        { id: uid(), t: 'sub',   text: 'updated stack configuration' },
-        { id: uid(), t: 'blank', text: '' },
-        { id: uid(), t: 'done',  text: `${svc.name} provisioned and added to your project.` },
-        { id: uid(), t: 'add',   text: `account created · ${svc.tier} tier · ${costLabel}` },
-        { id: uid(), t: 'add',   text: `injected ${svc.envVars} environment variables` },
-        { id: uid(), t: 'mod',   text: 'modified stack.yaml' },
-        { id: uid(), t: 'mod',   text: 'modified .env' },
-        { id: uid(), t: 'blank', text: '' },
+        ...instant([
+          { id: uid(), t: 'step',  text: `provisioning ${svc.name}.` },
+          { id: uid(), t: 'sub',   text: 'allocated resources' },
+          { id: uid(), t: 'sub',   text: `configured ${svc.category} instance` },
+          { id: uid(), t: 'sub',   text: 'generated credentials' },
+          { id: uid(), t: 'sub',   text: 'updated stack configuration' },
+          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'done',  text: `${svc.name} provisioned and added to your project.` },
+          { id: uid(), t: 'add',   text: `account created · ${svc.tier} tier · ${costLabel}` },
+          { id: uid(), t: 'add',   text: `injected ${svc.envVars} environment variables` },
+          { id: uid(), t: 'mod',   text: 'modified stack.yaml' },
+          { id: uid(), t: 'mod',   text: 'modified .env' },
+          { id: uid(), t: 'blank', text: '' },
+        ]),
       ]);
       setTimeout(() => provisionNext(services, idx + 1), 500);
     }, 1500 + Math.random() * 700);
