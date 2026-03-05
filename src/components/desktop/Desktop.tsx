@@ -8,7 +8,7 @@ import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
 import { FeaturesContent, type FeaturesHandle } from '@/components/sections/Features';
 import { AgentView } from '@/components/sections/AgentView';
-import { ScrollView, type ScrollViewHandle } from '@/components/sections/ScrollView';
+import { ScrollView } from '@/components/sections/ScrollView';
 import {
   EcosystemIcons,
   EcoFilterButton,
@@ -135,12 +135,12 @@ export function Desktop() {
     (typeof window !== 'undefined' && window.innerWidth < 768) ? mobileInitialWindows() : initialWindows()
   );
   const [viewMode, setViewMode]       = useState<ViewMode>('scroll');
-  const [feedbackKey, setFeedbackKey] = useState(0);
-  const ecoRef                        = useRef<EcosystemHandle>(null);
-  const cliRef                        = useRef<CliHandle>(null);
-  const featuresRef                   = useRef<FeaturesHandle>(null);
-  const windowAreaRef                 = useRef<HTMLDivElement>(null);
-  const scrollViewRef                 = useRef<ScrollViewHandle>(null);
+  const [feedbackKey, setFeedbackKey]   = useState(0);
+  const [scrollViewKey, setScrollViewKey] = useState(0);
+  const ecoRef                          = useRef<EcosystemHandle>(null);
+  const cliRef                          = useRef<CliHandle>(null);
+  const featuresRef                     = useRef<FeaturesHandle>(null);
+  const windowAreaRef                   = useRef<HTMLDivElement>(null);
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [partnerOrigins,  setPartnerOrigins]  = useState<Record<string, { x: number; y: number }>>({});
   const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
@@ -293,7 +293,7 @@ export function Desktop() {
       <StatusBar
         onReset={() => {
           if (viewMode === 'scroll') {
-            scrollViewRef.current?.resetLayout();
+            setScrollViewKey(k => k + 1);
           } else {
             setWins(isMobile ? mobileInitialWindows() : initialWindows());
           }
@@ -306,7 +306,7 @@ export function Desktop() {
       {viewMode === 'agent' && <AgentView />}
 
       {/* ── Scroll view ───────────────────────────────────────────── */}
-      {viewMode === 'scroll' && <ScrollView ref={scrollViewRef} />}
+      {viewMode === 'scroll' && <ScrollView key={scrollViewKey} />}
 
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div

@@ -5,7 +5,7 @@
    desktop variant.
 ────────────────────────────────────────────────────────────────────────────── */
 
-import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type CSSProperties, type ForwardedRef } from 'react';
+import { useState, useCallback, useRef, type CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -257,11 +257,7 @@ function FeaturesGrid({ cols }: { cols: 1 | 2 }) {
 }
 
 /* ── ScrollView ──────────────────────────────────────────────────────────── */
-export interface ScrollViewHandle {
-  resetLayout: () => void;
-}
-
-export const ScrollView = forwardRef(function ScrollView(_: object, ref: ForwardedRef<ScrollViewHandle>) {
+export function ScrollView() {
   const isMobile = useIsMobile();
   const [wins, setWins]     = useState<SWinState[]>(() => initialLayout());
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
@@ -271,10 +267,6 @@ export const ScrollView = forwardRef(function ScrollView(_: object, ref: Forward
   const canvasRef = useRef<HTMLDivElement>(null);
   const cliRef    = useRef<CliHandle>(null);
   const ecoRef    = useRef<EcoStripHandle>(null);
-
-  useImperativeHandle(ref, () => ({
-    resetLayout: () => setWins(initialLayout()),
-  }));
 
   const heroText = heroTextPos();
 
