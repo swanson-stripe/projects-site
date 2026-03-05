@@ -443,7 +443,7 @@ export function ScrollView() {
                       background:   'var(--color-pink)', opacity: 0.1, pointerEvents: 'none',
                     }} />
                   )}
-                  <CliTerminal ref={cliRef} installDemo />
+                  <CliTerminal ref={cliRef} installDemo autoSubmit />
                 </div>
               );
             }

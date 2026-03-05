@@ -96,8 +96,7 @@ const SLASH_COMMANDS: SlashCommand[] = [
 ];
 
 /* ─── install-demo constants ─────────────────────────────────────── */
-const INSTALL_CMD = 'brew install stripe-cli';
-const INIT_CMD    = 'stripe projects init my-app';
+const INSTALL_CMD = 'npx @stripe/projects init my-app';
 
 /* ─── template data ──────────────────────────────────────────────── */
 interface TplService {
@@ -887,7 +886,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   /* auto-submit first install command on mount */
   useEffect(() => {
     if (!autoSubmit || !installDemo) return;
-    const t = setTimeout(() => submitRef.current(INSTALL_CMD), 2000);
+    const t = setTimeout(() => submitRef.current(INSTALL_CMD), 1000);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // intentionally runs once on mount
@@ -903,28 +902,10 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const val = (override ?? value).trim();
     if (!val) return;
 
-    /* ── demo step 1: install.sh → spinner → welcome table ── */
+    /* ── demo step 1: npx @stripe/projects init → interactive install flow ── */
     if (installDemo && demoStepRef.current === 0) {
-      demoStepRef.current = 1; // block re-entry immediately
-      const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
-      const spinnerId = uid();
-      setLines([cmdLine, { id: spinnerId, t: 'spinner', text: '' }]);
-      setValue('');
-      setSelStart(0);
-      setTimeout(() => {
-        const blank:   Line = { id: uid(), t: 'blank',   text: '' };
-        const welcome: Line = { id: uid(), t: 'welcome', text: '' };
-        setLines(prev => [...prev.filter(l => l.id !== spinnerId), blank, welcome]);
-        setValue(INIT_CMD);
-        setSelStart(INIT_CMD.length);
-      }, 1600 + Math.random() * 900);
-      return;
-    }
-
-    /* ── demo step 2: stripe projects init → interactive install flow ── */
-    if (installDemo && demoStepRef.current === 1) {
-      demoStepRef.current = 2;
-      // extract app name: last token of "stripe projects init <name>"
+      demoStepRef.current = 1;
+      // extract app name: last token of "projects init <name>"
       const initMatch = val.match(/projects\s+init\s+(\S+)/i);
       if (initMatch) appNameRef.current = initMatch[1];
       historyRef.current.unshift(val);
@@ -1072,7 +1053,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
           { id: uid(), t: 'hint',  text: 'run services add <name> to provision services individually' },
           { id: uid(), t: 'blank', text: '' },
         ]);
-        demoStepRef.current = 3; // normal terminal mode
+        demoStepRef.current = 2; // normal terminal mode
       }
       // invalid key → do nothing, ref stays set
     };
