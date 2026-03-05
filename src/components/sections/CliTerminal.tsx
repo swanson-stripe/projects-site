@@ -909,12 +909,17 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       const initMatch = val.match(/projects\s+init\s+(\S+)/i);
       if (initMatch) appNameRef.current = initMatch[1];
       historyRef.current.unshift(val);
-      const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
-      const spinnerId = uid();
-      setLines(prev => [...prev, cmdLine, { id: spinnerId, t: 'spinner', text: '' }]);
+      const cmdLine: Line = { id: uid(), t: 'cmd',     text: val };
+      const stepId         = uid();
+      const spinnerId      = uid();
+      setLines(prev => [...prev,
+        cmdLine,
+        { id: stepId,    t: 'step',    text: 'installing stripe projects...' },
+        { id: spinnerId, t: 'spinner', text: '' },
+      ]);
       setValue('');
       setSelStart(0);
-      setTimeout(() => runInstallFlow(spinnerId), 1600 + Math.random() * 900);
+      setTimeout(() => runInstallFlow(stepId, spinnerId), 1800 + Math.random() * 600);
       return;
     }
 
@@ -1016,22 +1021,13 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
      All setLines calls use functional updates so no stale closures.
      pendingChoiceRef handlers clear themselves when a valid key is received. */
 
-  function runInstallFlow(initialSpinnerId: number) {
-    const stepId   = uid();
-    const spin1Id  = uid();
+  function runInstallFlow(stepId: number, spinnerId: number) {
     setLines(prev => [
-      ...prev.filter(l => l.id !== initialSpinnerId),
-      { id: stepId,  t: 'step',    text: 'installing stripe projects...' },
-      { id: spin1Id, t: 'spinner', text: '' },
+      ...prev.filter(l => l.id !== stepId && l.id !== spinnerId),
+      { id: uid(), t: 'done',  text: 'stripe projects installed' },
+      { id: uid(), t: 'blank', text: '' },
     ]);
-    setTimeout(() => {
-      setLines(prev => [
-        ...prev.filter(l => l.id !== stepId && l.id !== spin1Id),
-        { id: uid(), t: 'done',  text: 'stripe projects installed' },
-        { id: uid(), t: 'blank', text: '' },
-      ]);
-      setTimeout(showChoosePath, 400);
-    }, 1800 + Math.random() * 600);
+    setTimeout(showChoosePath, 400);
   }
 
   function showChoosePath() {
