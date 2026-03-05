@@ -29,7 +29,7 @@ const MOBILE_MARGIN      = 12;
 const MOBILE_GAP         = 12;
 
 /* ── types ────────────────────────────────────────────────────────── */
-type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'treasure' | 'users' | 'feedback' | 'join';
+type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'users' | 'feedback' | 'join';
 type WinId  = CoreId | `partner:${string}`;
 
 const CORE_IDS: CoreId[] = ['terminal', 'install', 'why', 'ecosystem'];
@@ -49,7 +49,6 @@ function getTitle(id: WinId): string {
   if (id === 'install')   return 'install.sh';
   if (id === 'why')       return 'what.md';
   if (id === 'ecosystem') return 'ecosystem.json';
-  if (id === 'treasure')  return 'treasure';
   if (id === 'users')     return 'users.log';
   if (id === 'feedback')  return 'feedback';
   if (id === 'join')      return 'join.md';
@@ -84,7 +83,6 @@ function initialWindows(): WinState[] {
   // Install sits in the top-right, starting where the terminal ends + a gap
   const installX = Math.max(ww + 40, vw - iw - m);
 
-  const tw = 420, th = 560;
   const uw = 440, uh = 520;
 
   return [
@@ -96,10 +94,8 @@ function initialWindows(): WinState[] {
     { id: 'why',       x: m + 20,         y: areaH - wh - m,   w: Math.floor(ww * 0.75),    h: wh,    zIndex: 2 },
     // ecosystem — bottom-right
     { id: 'ecosystem', x: vw - ECO_W - m, y: areaH - ECO_H - m, w: ECO_W, h: ECO_H, zIndex: 1 },
-    // treasure  — centered
-    { id: 'treasure',  x: Math.round(vw / 2 - tw / 2), y: Math.round((areaH - th) / 2), w: tw, h: th, zIndex: 5 },
-    // users     — slightly offset from treasure
-    { id: 'users',     x: Math.round(vw / 2 - uw / 2 + 50), y: Math.round((areaH - uh) / 2 + 50), w: uw, h: uh, zIndex: 6 },
+    // users     — centered
+    { id: 'users',     x: Math.round(vw / 2 - uw / 2), y: Math.round((areaH - uh) / 2), w: uw, h: uh, zIndex: 5 },
   ];
 }
 
@@ -114,7 +110,6 @@ function mobileInitialWindows(): WinState[] {
     { id: 'ecosystem', h: ECO_CONTENT_H + 39 },
     // Terminal boot sequence is ~450px of content; give the output area enough room.
     { id: 'terminal',  h: 560 },
-    { id: 'treasure',  h: 560 },
     { id: 'users',     h: 520 },
   ];
 
@@ -388,7 +383,6 @@ export function Desktop() {
                     activeFilter={ecoFilter}
                   />
                 )}
-                {win.id === 'treasure'  && <TreasureContent />}
                 {win.id === 'users'     && <UsersContent />}
                 {win.id === 'feedback'  && <FeedbackContent key={feedbackKey} />}
                 {win.id === 'join'      && <JoinContent />}
@@ -404,109 +398,6 @@ export function Desktop() {
         </AnimatePresence>
         </div>{/* end inner canvas */}
       </div>
-    </div>
-  );
-}
-
-/* ── Treasure window content ──────────────────────────────────────── */
-function TreasureContent() {
-  return (
-    <div style={{
-      padding:       '1.75rem 1.5rem',
-      fontFamily:    'var(--font-mono)',
-      display:       'flex',
-      flexDirection: 'column',
-      gap:           '1.25rem',
-      overflowY:     'auto',
-    }}>
-      {/* icon */}
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <img
-          src='/contest.png'
-          alt='contest'
-          draggable={false}
-          style={{ width: 128, height: 128, imageRendering: 'pixelated' }}
-        />
-      </div>
-
-      {/* heading */}
-      <h2 style={{
-        margin:      0,
-        fontSize:    '0.9rem',
-        fontWeight:  700,
-        color:       'var(--color-text-ui)',
-        lineHeight:  1.35,
-        textAlign:   'center',
-      }}>
-        Enter to win a mac mini + openclaw + stripe projects credits
-      </h2>
-
-      {/* divider */}
-      <div style={{ height: 1, background: 'var(--color-border-accent)' }} />
-
-      {/* subheading */}
-      <p style={{
-        margin:       0,
-        fontSize:     '0.62rem',
-        textTransform:'uppercase',
-        letterSpacing:'0.12em',
-        color:        'var(--color-text-ui-subtle)',
-      }}>
-        How to enter
-      </p>
-
-      {/* steps */}
-      <ol style={{
-        margin:     0,
-        padding:    0,
-        listStyle:  'none',
-        display:    'flex',
-        flexDirection: 'column',
-        gap:        '0.6rem',
-      }}>
-        {[
-          'install stripe projects',
-          'run stripe projects init',
-          'submit the slash command /contest',
-        ].map((step, i) => (
-          <li key={i} style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem' }}>
-            <span style={{
-              flexShrink: 0,
-              fontSize:   '0.65rem',
-              color:      'var(--color-pink)',
-              minWidth:   '1ch',
-            }}>
-              {i + 1}.
-            </span>
-            <span style={{ fontSize: '0.78rem', color: 'var(--color-text-ui)', lineHeight: 1.5 }}>
-              {step}
-            </span>
-          </li>
-        ))}
-      </ol>
-
-      {/* divider */}
-      <div style={{ height: 1, background: 'var(--color-border-accent)' }} />
-
-      {/* body */}
-      <p style={{
-        margin:     0,
-        fontSize:   '0.72rem',
-        color:      'var(--color-text-ui-muted)',
-        lineHeight: 1.7,
-      }}>
-        That's it. The email associated with your Stripe account will be entered into the contest.
-      </p>
-      <p style={{
-        margin:     0,
-        fontSize:   '0.72rem',
-        color:      'var(--color-text-ui-subtle)',
-        lineHeight: 1.7,
-        fontStyle:  'italic',
-      }}>
-        10 total winners will be randomly chosen.{' '}
-        <a href="https://stripe.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Read more about the rules and terms.</a>
-      </p>
     </div>
   );
 }
