@@ -364,7 +364,7 @@ export function ScrollView() {
         }}>
           <h1 style={{
             fontSize:   isMobile ? '1.75rem' : 'clamp(1.6rem, 2.2vw, 2.25rem)',
-            fontWeight:  800,
+            fontWeight:  700,
             color:      'var(--color-text-ui)',
             lineHeight:  1.15,
             fontFamily: 'var(--font-mono)',
