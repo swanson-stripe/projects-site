@@ -261,7 +261,7 @@ export interface ScrollViewHandle {
   resetLayout: () => void;
 }
 
-export const ScrollView = forwardRef<ScrollViewHandle>(function ScrollView(_, ref) {
+export const ScrollView = forwardRef<ScrollViewHandle, object>(function ScrollView(_, ref) {
   const isMobile = useIsMobile();
   const [wins, setWins]     = useState<SWinState[]>(() => initialLayout());
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
