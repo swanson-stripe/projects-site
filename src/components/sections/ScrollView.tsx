@@ -22,9 +22,9 @@ import { FEATURES } from '@/components/sections/Features';
 
 /* ── layout constants ────────────────────────────────────────────────────── */
 const PAD      = 32;   // horizontal padding on both sides of content
-const HGAP     = 28;   // horizontal gap between hero text and terminal
+const HGAP     = 80;   // horizontal gap between hero text and terminal
 const VGAP     = 80;   // vertical gap between sections
-const MAX_W    = 1200; // max content width
+const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
 type SWinId = 'terminal' | 'ecosystem' | 'features' | `partner:${string}`;
@@ -355,45 +355,50 @@ export function ScrollView() {
       >
         {/* hero headline — not a window, positioned left of terminal */}
         <div style={{
-          position:       'absolute',
-          left:            heroText.x,
-          top:             heroText.y,
-          width:           heroText.w,
-          height:          heroText.h,
-          display:        'flex',
-          flexDirection:  'column',
-          justifyContent: 'center',
-          gap:            '1.25rem',
-          paddingRight:    16,
-          pointerEvents:  'none',
+          position:      'absolute',
+          left:           heroText.x,
+          top:            heroText.y,
+          width:          heroText.w,
+          height:         heroText.h,
+          display:       'flex',
+          flexDirection: 'column',
+          paddingRight:   16,
+          paddingBottom:  16,
+          pointerEvents: 'none',
         }}>
-          <h1 style={{
-            fontSize:   isMobile ? '1.75rem' : 'clamp(1.6rem, 2.2vw, 2.25rem)',
-            fontWeight:  700,
-            color:      'var(--color-text-ui)',
-            lineHeight:  1.15,
-            fontFamily: 'var(--font-mono)',
-            margin:      0,
-          }}>
-            From idea to production.<br />
-            One command.<br />
-            Real infrastructure.
-          </h1>
-          <p style={{
-            fontSize:   '0.875rem',
-            color:      'var(--color-text-ui-muted)',
-            fontFamily: 'var(--font-mono)',
-            margin:      0,
-            lineHeight:  1.65,
-          }}>
-            Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts — securely, deterministically, and without lock-in.
-          </p>
+          {/* h1 + description centred vertically in the available space */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '1.25rem' }}>
+            <h1 style={{
+              fontSize:   isMobile ? '1.75rem' : 'clamp(1.6rem, 2.2vw, 2.25rem)',
+              fontWeight:  700,
+              color:      'var(--color-text-ui)',
+              lineHeight:  1.15,
+              fontFamily: 'var(--font-mono)',
+              margin:      0,
+            }}>
+              From idea to production.<br />
+              One command.<br />
+              Real infrastructure.
+            </h1>
+            <p style={{
+              fontSize:   '0.875rem',
+              color:      'var(--color-text-ui-muted)',
+              fontFamily: 'var(--font-mono)',
+              margin:      0,
+              lineHeight:  1.65,
+            }}>
+              Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts — securely, deterministically, and without lock-in.
+            </p>
+          </div>
+
+          {/* button pinned to the bottom of the hero block, aligned left */}
           <a
             href='https://stripe.com/docs'
             target='_blank'
             rel='noopener noreferrer'
             style={{
               display:        'inline-flex',
+              alignSelf:      'flex-start',
               alignItems:     'center',
               gap:            '0.4rem',
               fontFamily:     'var(--font-mono)',
