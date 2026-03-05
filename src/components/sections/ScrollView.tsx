@@ -385,6 +385,35 @@ export function ScrollView() {
           }}>
             Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts — securely, deterministically, and without lock-in.
           </p>
+          <a
+            href='https://stripe.com/docs'
+            target='_blank'
+            rel='noopener noreferrer'
+            style={{
+              display:        'inline-flex',
+              alignItems:     'center',
+              gap:            '0.4rem',
+              fontFamily:     'var(--font-mono)',
+              fontSize:       '0.75rem',
+              color:          'var(--color-text-ui)',
+              border:         '1px solid var(--color-border-accent)',
+              padding:        '0.4rem 0.85rem',
+              textDecoration: 'none',
+              letterSpacing:  '0.04em',
+              pointerEvents:  'auto',
+              transition:     'border-color 0.15s, color 0.15s',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
+              (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
+              (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
+            }}
+          >
+            View docs
+          </a>
         </div>
 
         {/* windows */}
