@@ -685,7 +685,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em', lineHeight: 1.75 }}>
           <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right' }}>{line.lkey}</span>
           <span style={{ color: PINK,                          minWidth: '17ch' }}>{tpl.id}</span>
-          <span style={{ color: 'var(--color-yellow)', minWidth: '7ch' }}>${tpl.price}/mo</span>
+          <span style={{ color: PINK, minWidth: '7ch' }}>${tpl.price}/mo</span>
           <span style={{ color: MUTED }}>{tpl.desc}</span>
         </div>
       </motion.div>
