@@ -134,7 +134,7 @@ export function Desktop() {
   const [wins, setWins]               = useState<WinState[]>(() =>
     (typeof window !== 'undefined' && window.innerWidth < 768) ? mobileInitialWindows() : initialWindows()
   );
-  const [viewMode, setViewMode]       = useState<ViewMode>('ui');
+  const [viewMode, setViewMode]       = useState<ViewMode>('scroll');
   const [feedbackKey, setFeedbackKey] = useState(0);
   const ecoRef                        = useRef<EcosystemHandle>(null);
   const cliRef                        = useRef<CliHandle>(null);

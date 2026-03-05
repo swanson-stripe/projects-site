@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, Monitor, ScrollText } from 'lucide-react';
+import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, ScrollText } from 'lucide-react';
 import { useAudio } from '@/components/ui/AudioContext';
 import { useTheme } from '@/components/ui/ThemeContext';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
-export type ViewMode = 'ui' | 'agent' | 'scroll';
+export type ViewMode = 'agent' | 'scroll';
 
 /* ── helpers ──────────────────────────────────────────────────────────────── */
 function pad(n: number) {
@@ -245,7 +245,6 @@ function SettingsPopover({
 
 /* ── ViewPopover ──────────────────────────────────────────────────────────── */
 const VIEW_OPTIONS: { id: ViewMode; label: string; icon: React.FC<{ size: number; strokeWidth: number }> }[] = [
-  { id: 'ui',     label: 'desktop', icon: Monitor    },
   { id: 'agent',  label: 'agent',   icon: Bot        },
   { id: 'scroll', label: 'scroll',  icon: ScrollText },
 ];
@@ -355,7 +354,7 @@ export function StatusBar({
   const { isMuted, toggleMute } = useAudio();
   const isMobile = useIsMobile();
 
-  const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
+  const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? ScrollText;
 
   useEffect(() => {
     const id = setInterval(() => setTs(getTimestamp()), 1_000);
@@ -430,7 +429,7 @@ export function StatusBar({
                   border: 'none',
                   padding: 0,
                   cursor: 'pointer',
-                  color: viewMode !== 'ui' ? 'var(--color-text-ui)' : (showViewMenu ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)'),
+                  color: 'var(--color-text-ui-muted)',
                 }}
               >
                 <ViewIcon size={isMobile ? 20 : 13} strokeWidth={1.5} />
