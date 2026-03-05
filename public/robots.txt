@@ -1,43 +1,36 @@
 # robots.txt — projects by stripe
 # https://www.robotstxt.org/robotstxt.html
 
-# Allow all standard crawlers
+# Disallow all crawlers until public launch
 User-agent: *
-Allow: /
+Disallow: /
 
-# AI training crawlers — allowed; llms.txt provides curated context
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: ChatGPT-User
-Allow: /
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: Claude-Web
-Allow: /
+Disallow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
 User-agent: PerplexityBot
-Allow: /
+Disallow: /
 
 User-agent: Applebot-Extended
-Allow: /
+Disallow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 User-agent: cohere-ai
-Allow: /
+Disallow: /
 
 User-agent: meta-externalagent
-Allow: /
-
-# Agent discovery files
-# For LLM-friendly content, see: /llms.txt
-# For full markdown content, see: /index.html.md
-
-Sitemap: /sitemap.xml
+Disallow: /
