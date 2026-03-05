@@ -6,6 +6,7 @@
 ────────────────────────────────────────────────────────────────────────────── */
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
@@ -114,16 +115,16 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
 
   return (
     <div style={{
-      display:        'flex',
-      overflowX:      'auto',
-      scrollbarWidth: 'thin',
-      scrollbarColor: 'var(--color-border-accent) transparent',
-      padding:        '24px 32px',
-      gap:             40,
-      height:         '100%',
-      boxSizing:      'border-box',
-      alignItems:     'center',
-      background:     'var(--color-bg)',
+      display:         'flex',
+      overflowX:       'auto',
+      scrollbarWidth:  'thin',
+      scrollbarColor:  'var(--color-border-accent) transparent',
+      padding:         '24px 32px',
+      justifyContent:  'space-between',
+      height:          '100%',
+      boxSizing:       'border-box',
+      alignItems:      'center',
+      background:      'var(--color-bg)',
     }}>
       {visible.map(partner => (
         <div
@@ -415,6 +416,7 @@ export function ScrollView() {
             }}
           >
             View docs
+            <ArrowUpRight size={14} strokeWidth={2} />
           </a>
         </div>
 
