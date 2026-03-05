@@ -381,7 +381,7 @@ export function ScrollView() {
             margin:      0,
             lineHeight:  1.65,
           }}>
-            description copy will go here
+            Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts — securely, deterministically, and without lock-in.
           </p>
         </div>
 
