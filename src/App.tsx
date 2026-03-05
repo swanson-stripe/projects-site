@@ -2,6 +2,7 @@ import { Desktop } from '@/components/desktop/Desktop';
 import { AudioProvider } from '@/components/ui/AudioContext';
 import { ThemeProvider } from '@/components/ui/ThemeContext';
 import { useDynamicFavicon } from '@/hooks/useDynamicFavicon';
+import { PasswordGate } from '@/components/PasswordGate';
 
 function AppInner() {
   useDynamicFavicon();
@@ -12,7 +13,9 @@ export default function App() {
   return (
     <ThemeProvider>
       <AudioProvider>
-        <AppInner />
+        <PasswordGate>
+          <AppInner />
+        </PasswordGate>
       </AudioProvider>
     </ThemeProvider>
   );

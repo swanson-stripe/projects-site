@@ -164,11 +164,14 @@ function Cell({
 function SettingsPopover({
   anchorRef,
   onClose,
+  gateMode = false,
 }: {
   anchorRef: React.RefObject<HTMLButtonElement | null>;
   onClose: () => void;
+  gateMode?: boolean;
 }) {
-  const { theme, setTheme, themes } = useTheme();
+  const { theme, setTheme, themes: allThemes } = useTheme();
+  const themes = gateMode ? allThemes.filter(t => t.id !== 'stripedotdev') : allThemes;
   const popoverRef = useRef<HTMLDivElement>(null);
 
   /* close on outside click */
@@ -336,10 +339,12 @@ export function StatusBar({
   onReset,
   viewMode = 'ui',
   onViewModeChange,
+  gateMode = false,
 }: {
   onReset?: () => void;
   viewMode?: ViewMode;
   onViewModeChange?: (mode: ViewMode) => void;
+  gateMode?: boolean;
 }) {
   const [ts, setTs]               = useState(getTimestamp);
   const [hovered, setHovered]     = useState(false);
@@ -377,7 +382,7 @@ export function StatusBar({
           <div className='flex items-center' style={{ gap: 6 }}>
             <DotSpinner isAnimating={hovered} />
             <span className='font-bold' style={{ color: 'var(--color-text-ui)' }}>projects</span>
-            <span>by stripe</span>
+            {!gateMode && <span>by stripe</span>}
           </div>
         </Cell>
 
@@ -413,30 +418,34 @@ export function StatusBar({
             </button>
 
             {/* View mode selector */}
-            <button
-              ref={viewRef}
-              aria-label='Switch view'
-              onClick={() => { setShowViewMenu(v => !v); setShowSettings(false); }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer',
-                color: viewMode !== 'ui' ? 'var(--color-text-ui)' : (showViewMenu ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)'),
-              }}
-            >
-              <ViewIcon size={isMobile ? 20 : 13} strokeWidth={1.5} />
-            </button>
+            {!gateMode && (
+              <button
+                ref={viewRef}
+                aria-label='Switch view'
+                onClick={() => { setShowViewMenu(v => !v); setShowSettings(false); }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  color: viewMode !== 'ui' ? 'var(--color-text-ui)' : (showViewMenu ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)'),
+                }}
+              >
+                <ViewIcon size={isMobile ? 20 : 13} strokeWidth={1.5} />
+              </button>
+            )}
 
-            <button
-              aria-label='Reset desktop layout'
-              onClick={onReset}
-              style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-ui-muted)', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-            >
-              <RotateCcw size={isMobile ? 20 : 13} strokeWidth={1.5} />
-            </button>
+            {!gateMode && (
+              <button
+                aria-label='Reset desktop layout'
+                onClick={onReset}
+                style={{ display: 'flex', alignItems: 'center', color: 'var(--color-text-ui-muted)', background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+              >
+                <RotateCcw size={isMobile ? 20 : 13} strokeWidth={1.5} />
+              </button>
+            )}
 
             {!isMobile && (
               <span style={{ letterSpacing: '0.04em' }}>
@@ -451,6 +460,7 @@ export function StatusBar({
         <SettingsPopover
           anchorRef={settingsRef}
           onClose={() => setShowSettings(false)}
+          gateMode={gateMode}
         />
       )}
       {showViewMenu && onViewModeChange && (
