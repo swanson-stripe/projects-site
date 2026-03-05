@@ -1020,6 +1020,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       { id: uid(), t: 'choice', lkey: '└ 1', text: 'select from a template' },
       { id: uid(), t: 'choice', lkey: '  2', text: 'set up manually' },
     ]);
+    inputRef.current?.focus();
     pendingChoiceRef.current = (key: string) => {
       if (key === '1') {
         pendingChoiceRef.current = null;
@@ -1047,6 +1048,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         id: uid(), t: 'tpl' as LT, lkey: String(i + 1), text: '',
       })),
     ]);
+    inputRef.current?.focus();
     pendingChoiceRef.current = (key: string) => {
       const idx = parseInt(key) - 1;
       if (idx >= 0 && idx < TEMPLATES.length) {
