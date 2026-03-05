@@ -23,7 +23,7 @@ import { FEATURES } from '@/components/sections/Features';
 /* ── layout constants ────────────────────────────────────────────────────── */
 const PAD      = 32;   // horizontal padding on both sides of content
 const HGAP     = 28;   // horizontal gap between hero text and terminal
-const VGAP     = 40;   // vertical gap between sections
+const VGAP     = 80;   // vertical gap between sections
 const MAX_W    = 1200; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
