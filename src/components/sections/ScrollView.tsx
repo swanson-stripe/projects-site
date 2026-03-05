@@ -182,33 +182,35 @@ function FeaturesGrid({ cols }: { cols: 1 | 2 }) {
         return (
           <div key={f.title} style={{
             display:       'flex',
-            flexDirection: 'row',
-            gap:           '1rem',
-            alignItems:    'flex-start',
+            flexDirection: 'column',
+            gap:           '0.5rem',
             padding:       '1.25rem',
             borderBottom:  isLastRow  ? undefined : BORDER,
             borderRight:   isRightCol ? undefined : (cols === 2 ? BORDER : undefined),
             background:    'var(--color-surface)',
           }}>
-            <img
-              src={f.image} alt={f.title} draggable={false}
-              style={{ width: 96, height: 96, flexShrink: 0, objectFit: 'cover' }}
-            />
-            <div style={{ minWidth: 0 }}>
-              <h3 style={{
-                fontSize:   '0.82rem', fontWeight: 700,
-                color:      'var(--color-text-ui)',
-                margin:     '0 0 0.3rem', fontFamily: 'var(--font-mono)',
-              }}>
-                {f.title}
-              </h3>
-              <p style={{
-                fontSize:   '0.78rem', color: 'var(--color-text-ui-muted)',
-                lineHeight:  1.6, margin: 0, fontFamily: 'var(--font-mono)',
-              }}>
-                {f.description}
-              </p>
-            </div>
+            <h3 style={{
+              fontSize:   '0.82rem', fontWeight: 700,
+              color:      'var(--color-text-ui)',
+              margin:      0, fontFamily: 'var(--font-mono)',
+              lineHeight:  1.3,
+            }}>
+              {f.title}
+            </h3>
+            <p style={{
+              fontSize:   '0.78rem', color: 'var(--color-text-ui-muted)',
+              lineHeight:  1.6, margin: 0, fontFamily: 'var(--font-mono)',
+            }}>
+              {f.description}
+            </p>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              {f.bullets.map((b, bi) => (
+                <li key={bi} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
+                  <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem', fontFamily: 'var(--font-mono)' }}>›</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.55, fontFamily: 'var(--font-mono)' }}>{b}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         );
       })}

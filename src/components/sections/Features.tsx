@@ -1,68 +1,45 @@
 import { useState, useImperativeHandle, forwardRef } from 'react';
-import { Terminal, Server, Bot, KeyRound, CreditCard, Link2 } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 import { motion } from 'motion/react';
 
 export const FEATURES = [
   {
-    icon: Terminal,
-    image: '/what-hopping.png',
-    title: 'No dashboard hopping',
+    title: 'Move from local to live in one command',
     description:
-      'Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. With just one command, you can provision a complete, working stack directly from your CLI.',
-    iconBg: 'rgba(245,158,11,0.1)',
-    iconBorder: 'rgba(245,158,11,0.2)',
-    iconColor: '#f59e0b',
+      'Provision hosting, databases, auth, and monitoring across providers from your terminal — and get a production environment in minutes.',
+    bullets: [
+      'Projects provisions resources and returns ready-to-use keys.',
+      'Launch or hand off to an agent to deploy your app automatically.',
+    ],
   },
   {
-    icon: Server,
-    image: '/what-infra.png',
-    title: 'Real infrastructure without lock-in',
+    title: 'Automated secure credentials',
     description:
-      'We provision real services, not sandboxes. You maintain direct, unintermediated relationships with every provider — the accounts are in your name, the credentials are yours, and if you ever leave, you keep everything.',
-    iconBg: 'rgba(99,91,255,0.1)',
-    iconBorder: 'rgba(99,91,255,0.2)',
-    iconColor: '#635bff',
+      'Projects return deterministic, agent-readable credentials into a controlled secret store so agents can act safely and humans can audit access.',
+    bullets: [
+      'Real keys are provisioned directly in your provider accounts and written to your secret store — no raw keys leaked into the open.',
+      'Credentials are agent-readable and auditable, enabling reliable agent workflows.',
+      'Centralized secrets reduce orphaned resources and credential sprawl.',
+    ],
   },
   {
-    icon: Bot,
-    image: '/what-agent.png',
-    title: 'Built for AI-assisted development',
+    title: 'No vendor lock-in',
     description:
-      'AI agents can write great code, but they historically couldn\'t provision the infrastructure to run it. This tool is machine-readable and tool-callable, giving coding agents the ability to reliably provision and wire up real infrastructure.',
-    iconBg: 'rgba(0,179,212,0.1)',
-    iconBorder: 'rgba(0,179,212,0.2)',
-    iconColor: '#00b3d4',
+      'Services are configured in your own provider accounts — full portability, and direct provider relationships.',
+    bullets: [
+      'Link to existing provider accounts or create new accounts automatically; Projects provisions into your accounts, preserving ownership.',
+      'Opt into unified billing or use provider billing directly.',
+    ],
   },
   {
-    icon: KeyRound,
-    image: '/what-hub.png',
-    title: 'A central hub for keys and secrets',
+    title: 'Deploy with confidence',
     description:
-      'Stop scattering API keys across multiple dashboards and local files. One secure, central place to manage credentials and environment variables across your entire stack, automatically injected into your project environment.',
-    iconBg: 'rgba(34,197,94,0.1)',
-    iconBorder: 'rgba(34,197,94,0.2)',
-    iconColor: '#22c55e',
-  },
-  {
-    icon: CreditCard,
-    image: '/what-upgrade.png',
-    title: 'Seamless upgrades',
-    description:
-      'Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. One payment method, one place to pay — and your agent can handle it all on your behalf.',
-    iconBg: 'rgba(244,63,94,0.1)',
-    iconBorder: 'rgba(244,63,94,0.2)',
-    iconColor: '#f43f5e',
-  },
-  {
-    icon: Link2,
-    image: '/what-stack.png',
-    title: 'Bring your existing stack',
-    description:
-      'You don\'t have to start from scratch. Easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.',
-    iconBg: 'rgba(251,146,60,0.1)',
-    iconBorder: 'rgba(251,146,60,0.2)',
-    iconColor: '#fb923c',
+      'Deterministic provisioning, usage visibility, and centralized billing options reduce deployment toil and make releases predictable.',
+    bullets: [
+      'Side-by-side pricing and real-time usage let you monitor consumption and prevent surprises.',
+      "One-time payment setup with tokenized payment credentials (Stripe's Shared Payment Token) simplifies upgrades across providers.",
+      'Deterministic provisioning reduces deployment failures common with AI-assisted workflows.',
+    ],
   },
 ];
 
@@ -89,7 +66,7 @@ export function Features() {
           </h2>
         </InView>
 
-        <div className='flex flex-col gap-3'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
           {FEATURES.map((feature, i) => (
             <InView
               key={feature.title}
@@ -104,38 +81,28 @@ export function Features() {
               }}
             >
               <motion.div
-                className='group relative rounded-2xl p-6 h-full overflow-hidden cursor-default'
+                className='group relative rounded-2xl p-6 h-full overflow-hidden cursor-default flex flex-col gap-3'
                 style={{
                   border: '1px solid var(--color-border)',
                   background: 'var(--color-surface)',
                 }}
-                whileHover={{
-                  borderColor: 'var(--color-border-strong)',
-                  y: -2,
-                }}
+                whileHover={{ borderColor: 'var(--color-border-strong)', y: -2 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Icon */}
-                <div
-                  className='w-10 h-10 rounded-xl flex items-center justify-center mb-5'
-                  style={{
-                    background: feature.iconBg,
-                    border: `1px solid ${feature.iconBorder}`,
-                    color: feature.iconColor,
-                  }}
-                >
-                  <feature.icon className='w-4.5 h-4.5' />
-                </div>
-
-                <h3 className='text-base font-semibold text-white mb-2'>
+                <h3 className='text-base font-semibold text-white'>
                   {feature.title}
                 </h3>
-                <p
-                  className='text-base leading-relaxed'
-                  style={{ color: 'var(--color-text-muted)' }}
-                >
+                <p className='text-base leading-relaxed' style={{ color: 'var(--color-text-muted)' }}>
                   {feature.description}
                 </p>
+                <ul className='flex flex-col gap-1 mt-1' style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {feature.bullets.map((b, bi) => (
+                    <li key={bi} className='flex gap-2 items-baseline text-sm' style={{ color: 'var(--color-text-muted)' }}>
+                      <span style={{ color: 'var(--color-pink)', flexShrink: 0 }}>›</span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             </InView>
           ))}
@@ -167,45 +134,46 @@ export const FeaturesContent = forwardRef<FeaturesHandle>(function FeaturesConte
   }));
 
   return (
-    <div style={{ padding: PAD, overflowY: 'auto', scrollbarWidth: 'none', fontFamily: 'var(--font-mono)' }}>
-      <h2 style={{
-        fontSize: '1rem', fontWeight: 700, color: 'var(--color-text-ui)',
-        marginBottom: PAD, lineHeight: 1.3, textAlign: 'center',
-      }}>
-        From idea to production.<br />One command. Real infrastructure.
-      </h2>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: PAD }}>
-        {items.map(f => (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      overflowY: 'auto',
+      scrollbarWidth: 'none',
+      fontFamily: 'var(--font-mono)',
+    }}>
+      {items.map((f, i) => {
+        const isLastRow  = i >= items.length - 2;
+        const isRightCol = i % 2 === 1;
+        return (
           <div
             key={f.title}
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '0.875rem',
-              alignItems: 'flex-start',
-              border: '1px solid var(--color-border-accent)',
-              padding: '0.875rem',
-              background: 'var(--color-surface)',
+              padding:      '1.25rem',
+              borderBottom: isLastRow  ? undefined : '1px solid var(--color-border-accent)',
+              borderRight:  isRightCol ? undefined : '1px solid var(--color-border-accent)',
+              background:   'var(--color-surface)',
+              display:      'flex',
+              flexDirection:'column',
+              gap:          '0.5rem',
             }}
           >
-            <img
-              src={f.image}
-              alt={f.title}
-              draggable={false}
-              style={{ width: 140, height: 140, flexShrink: 0, objectFit: 'cover' }}
-            />
-            <div>
-              <h3 style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: '0 0 0.25rem' }}>
-                {f.title}
-              </h3>
-              <p style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--color-text-ui)', lineHeight: 1.55, margin: 0 }}>
-                {f.description}
-              </p>
-            </div>
+            <h3 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: 0, lineHeight: 1.3 }}>
+              {f.title}
+            </h3>
+            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.6, margin: 0 }}>
+              {f.description}
+            </p>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+              {f.bullets.map((b, bi) => (
+                <li key={bi} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
+                  <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.55 }}>{b}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 });
