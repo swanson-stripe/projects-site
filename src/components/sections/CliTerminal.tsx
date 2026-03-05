@@ -144,7 +144,7 @@ const TEMPLATES: Template[] = [
     ],
   },
   {
-    id: 'digital-storefront', price: 75,
+    id: 'storefront', price: 75,
     desc: 'Digital storefront with payments, storage, and tracking',
     tags: ['hosting', 'payments', 'storage', 'auth'],
     services: [
@@ -674,9 +674,6 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
     const tplIdx = parseInt(line.lkey ?? '1') - 1;
     const tpl    = TEMPLATES[tplIdx];
     if (!tpl) return null;
-    const MAX_TAGS = 3;
-    const visibleTags  = tpl.tags.slice(0, MAX_TAGS);
-    const overflowTags = tpl.tags.length - MAX_TAGS;
     return (
       <motion.div
         initial={line.instant ? ANIM_INIT_INSTANT : ANIM_INIT_NEW}
@@ -684,24 +681,12 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
         style={{ marginBottom: '0.5em' }}
       >
-        {/* row 1: number · name · price · description */}
+        {/* number · name · price · description */}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em', lineHeight: 1.75 }}>
           <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right' }}>{line.lkey}</span>
           <span style={{ color: PINK,                          minWidth: '17ch' }}>{tpl.id}</span>
-          <span style={{ color: '#4ade80', minWidth: '7ch' }}>${tpl.price}/mo</span>
+          <span style={{ color: 'var(--color-yellow)', minWidth: '7ch' }}>${tpl.price}/mo</span>
           <span style={{ color: MUTED }}>{tpl.desc}</span>
-        </div>
-        {/* row 2: tags */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4em', paddingLeft: '2.3em', paddingBottom: '0.15em' }}>
-          {visibleTags.map(tag => (
-            <span key={tag} style={{
-              fontSize: '0.72em', color: DIM, border: `1px solid ${DIM}`,
-              padding: '0.05em 0.45em', lineHeight: 1.6,
-            }}>{tag}</span>
-          ))}
-          {overflowTags > 0 && (
-            <span style={{ fontSize: '0.72em', color: DIM }}>+{overflowTags}</span>
-          )}
         </div>
       </motion.div>
     );
