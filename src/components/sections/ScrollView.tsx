@@ -218,7 +218,11 @@ function FeaturesGrid({ cols }: { cols: 1 | 2 }) {
 }
 
 /* ── ScrollView ──────────────────────────────────────────────────────────── */
-export function ScrollView() {
+export interface ScrollViewHandle {
+  resetLayout: () => void;
+}
+
+export const ScrollView = forwardRef<ScrollViewHandle>(function ScrollView(_, ref) {
   const isMobile = useIsMobile();
   const [wins, setWins]     = useState<SWinState[]>(() => initialLayout());
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
@@ -228,6 +232,10 @@ export function ScrollView() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const cliRef    = useRef<CliHandle>(null);
   const ecoRef    = useRef<EcoStripHandle>(null);
+
+  useImperativeHandle(ref, () => ({
+    resetLayout: () => setWins(initialLayout()),
+  }));
 
   const heroText = heroTextPos();
 

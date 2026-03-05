@@ -8,7 +8,7 @@ import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
 import { FeaturesContent, type FeaturesHandle } from '@/components/sections/Features';
 import { AgentView } from '@/components/sections/AgentView';
-import { ScrollView } from '@/components/sections/ScrollView';
+import { ScrollView, type ScrollViewHandle } from '@/components/sections/ScrollView';
 import {
   EcosystemIcons,
   EcoFilterButton,
@@ -140,6 +140,7 @@ export function Desktop() {
   const cliRef                        = useRef<CliHandle>(null);
   const featuresRef                   = useRef<FeaturesHandle>(null);
   const windowAreaRef                 = useRef<HTMLDivElement>(null);
+  const scrollViewRef                 = useRef<ScrollViewHandle>(null);
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [partnerOrigins,  setPartnerOrigins]  = useState<Record<string, { x: number; y: number }>>({});
   const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
@@ -290,7 +291,13 @@ export function Desktop() {
 
       {/* ── Global status bar — always on top ─────────────────────── */}
       <StatusBar
-        onReset={() => setWins(isMobile ? mobileInitialWindows() : initialWindows())}
+        onReset={() => {
+          if (viewMode === 'scroll') {
+            scrollViewRef.current?.resetLayout();
+          } else {
+            setWins(isMobile ? mobileInitialWindows() : initialWindows());
+          }
+        }}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
       />
@@ -299,7 +306,7 @@ export function Desktop() {
       {viewMode === 'agent' && <AgentView />}
 
       {/* ── Scroll view ───────────────────────────────────────────── */}
-      {viewMode === 'scroll' && <ScrollView />}
+      {viewMode === 'scroll' && <ScrollView ref={scrollViewRef} />}
 
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div
