@@ -534,7 +534,7 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   cmd:     { prefix: '›',  prefixColor: PINK,       textColor: 'var(--color-text-ui)',  indent: false },
   step:    { prefix: '•',  prefixColor: MUTED,      textColor: 'var(--color-text-ui)',  indent: false },
   sub:     { prefix: '↳',  prefixColor: DIM,        textColor: MUTED,                   indent: true  },
-  done:    { prefix: '✓',  prefixColor: 'var(--color-yellow)',  textColor: 'var(--color-text-ui)',  indent: false },
+  done:    { prefix: '✓',  prefixColor: PINK,  textColor: 'var(--color-text-ui)',  indent: false },
   url:     { prefix: '▸',  prefixColor: PINK,       textColor: PINK,                    indent: false },
   blank:   { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   kv:      { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
@@ -547,7 +547,7 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   spinner: { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   choice:  { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   tpl:     { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
-  add:     { prefix: '+',  prefixColor: 'var(--color-yellow)', textColor: MUTED, indent: true  },
+  add:     { prefix: '+',  prefixColor: PINK, textColor: MUTED, indent: true  },
   mod:     { prefix: '~',  prefixColor: 'var(--color-amber)',  textColor: MUTED, indent: true  },
 };
 
