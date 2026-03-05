@@ -3,9 +3,9 @@ import { motion } from 'motion/react';
 import { SlidersHorizontal } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 
-export type Category = 'payments' | 'auth' | 'database' | 'storage' | 'monitoring' | 'analytics' | 'ai' | 'hosting' | 'email';
+export type Category = 'payments' | 'auth' | 'database' | 'storage' | 'monitoring' | 'analytics' | 'ai' | 'hosting';
 
-export const CATEGORIES: Category[] = ['ai', 'analytics', 'auth', 'database', 'email', 'hosting', 'monitoring', 'payments', 'storage'];
+export const CATEGORIES: Category[] = ['ai', 'analytics', 'auth', 'database', 'hosting', 'monitoring', 'payments', 'storage'];
 
 export interface Partner {
   name:            string;
@@ -100,47 +100,11 @@ const VercelLogo: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-// Cloudflare — Simple Icons, brand colour #F38020
-const CloudflareLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='#F38020'>
-    <path d='M16.5088 16.8447c.1475-.5068.0908-.9707-.1553-1.3154-.2246-.3164-.6045-.499-1.0615-.5205l-8.6592-.1123a.1559.1559 0 0 1-.1333-.0713c-.0283-.042-.0351-.0986-.021-.1553.0278-.084.1123-.1484.2036-.1562l8.7359-.1123c1.0351-.0489 2.1601-.8868 2.5537-1.9136l.499-1.3013c.0215-.0561.0293-.1128.0147-.168-.5625-2.5463-2.835-4.4453-5.5499-4.4453-2.5039 0-4.6284 1.6177-5.3876 3.8614-.4927-.3658-1.1187-.5625-1.794-.499-1.2026.119-2.1665 1.083-2.2861 2.2856-.0283.31-.0069.6128.0635.894C1.5683 13.171 0 14.7754 0 16.752c0 .1748.0142.3515.0352.5273.0141.083.0844.1475.1689.1475h15.9814c.0909 0 .1758-.0645.2032-.1553l.12-.4268zm2.7568-5.5634c-.0771 0-.1611 0-.2383.0112-.0566 0-.1054.0415-.127.0976l-.3378 1.1744c-.1475.5068-.0918.9707.1543 1.3164.2256.3164.6055.498 1.0625.5195l1.8437.1133c.0557 0 .1055.0263.1329.0703.0283.043.0351.1074.0214.1562-.0283.084-.1132.1485-.204.1553l-1.921.1123c-1.041.0488-2.1582.8867-2.5527 1.914l-.1406.3585c-.0283.0713.0215.1416.0986.1416h6.5977c.0771 0 .1474-.0489.169-.126.1122-.4082.1757-.837.1757-1.2803 0-2.6025-2.125-4.727-4.7344-4.727'/>
-  </svg>
-);
-
-// Inngest — official icon mark from inngest.com favicon, white fill for dark backgrounds
-const InngestLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 192 192' fill='white'>
-    <path d='M21.4072 129.294C19.0746 129.294 16.9123 127.809 16.17 125.48C12.2674 113.258 15.1639 103.03 25.2893 93.2902L66.5214 54.0973C72.8173 48.0347 81.6973 46.4807 89.7012 50.0448C97.6725 53.5967 102.419 61.177 102.106 69.8471V74.061C102.106 77.0843 99.6441 79.5303 96.6097 79.5303C93.5753 79.5303 91.1129 77.0802 91.1129 74.061V69.7421C91.1129 69.6655 91.1129 69.5928 91.1169 69.5202C91.2914 65.3022 89.0845 61.7542 85.2104 60.0307C81.3363 58.3072 77.2066 59.0297 74.1641 61.9681C74.156 61.9762 74.1439 61.9883 74.1358 61.9964L32.9159 101.177C25.8816 107.946 24.0602 114.037 26.6565 122.166C27.5774 125.044 25.9749 128.12 23.0825 129.036C22.5268 129.21 21.9669 129.294 21.4152 129.294H21.4072Z'/>
-    <path d='M112.284 144.019C109.371 144.019 106.41 143.397 103.562 142.13C95.591 138.578 90.8447 130.998 91.1571 122.328V118.142C91.1571 115.119 93.6195 112.673 96.6539 112.673C99.6883 112.673 102.151 115.123 102.151 118.142V122.433C102.151 122.509 102.151 122.582 102.147 122.659C101.972 126.877 104.179 130.425 108.053 132.148C111.927 133.872 116.057 133.149 119.099 130.211L160.031 91.0136C167.195 84.1195 169.025 78.0569 166.335 70.0972C165.37 67.2314 166.915 64.1315 169.796 63.1668C172.676 62.2062 175.791 63.744 176.761 66.6098C180.797 78.5574 177.824 89.1165 167.67 98.8885L126.746 138.077C122.698 141.985 117.566 144.023 112.284 144.023V144.019Z'/>
-    <path d='M42.9197 143.918C39.6662 143.918 36.4209 143.333 33.3338 142.126C33.0336 142.009 32.7334 141.888 32.4373 141.758C29.6463 140.564 28.3603 137.347 29.5611 134.57C30.7619 131.793 33.9951 130.513 36.786 131.708C36.9727 131.789 37.1592 131.865 37.3458 131.938C42.8994 134.102 49.4266 132.818 54.392 128.592C54.6272 128.378 55.4021 127.655 55.5075 127.555L129.485 57.4512C129.485 57.4512 131.075 55.9578 131.42 55.6712C136.45 51.4532 142.162 48.9264 147.939 48.3654C149.164 48.2443 150.405 48.208 151.626 48.2524C154.356 48.3452 157.35 48.6358 160.604 50.1333C163.358 51.4048 164.559 54.654 163.281 57.3987C162.003 60.1394 158.738 61.3342 155.979 60.0627C154.576 59.4169 153.18 59.2514 151.237 59.1868C150.49 59.1586 149.748 59.1828 149.01 59.2555C145.472 59.5985 141.862 61.2373 138.56 63.9941C138.296 64.2323 137.237 65.2171 137.067 65.3746L63.0895 135.482C63.0895 135.482 61.8765 136.62 61.6088 136.85C56.2012 141.484 49.5442 143.918 42.9197 143.922V143.918Z'/>
-  </svg>
-);
-
-// SendGrid — Simple Icons, brand colour #1A82E2
-const SendGridLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='#1A82E2'>
-    <path d='M.8 24h13.6c.88 0 1.6-.72 1.6-1.6v-4.8c0-.88-.72-1.6-1.6-1.6H9.6c-.88 0-1.6-.72-1.6-1.6V9.6C8 8.72 7.28 8 6.4 8H1.6C.72 8 0 8.72 0 9.6v13.6c0 .44.36.8.8.8M23.2 0H9.6C8.72 0 8 .72 8 1.6v4.8C8 7.28 8.72 8 9.6 8h4.8c.88 0 1.6.72 1.6 1.6v4.8c0 .88.72 1.6 1.6 1.6h4.8c.88 0 1.6-.72 1.6-1.6V.8c0-.44-.36-.8-.8-.8'/>
-  </svg>
-);
-
-// Twilio — Simple Icons, brand colour #F22F46
-const TwilioLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='#F22F46'>
-    <path d='M12 0C5.381-.008.008 5.352 0 11.971V12c0 6.64 5.359 12 12 12c6.64 0 12-5.36 12-12c0-6.641-5.36-12-12-12m0 20.801c-4.846.015-8.786-3.904-8.801-8.75V12a8.777 8.777 0 0 1 8.75-8.801H12a8.776 8.776 0 0 1 8.801 8.75V12c.015 4.847-3.904 8.786-8.75 8.801zm5.44-11.76a2.49 2.49 0 0 1-2.481 2.479a2.49 2.49 0 0 1-2.479-2.479a2.49 2.49 0 0 1 2.479-2.481a2.493 2.493 0 0 1 2.481 2.481m0 5.919c0 1.36-1.12 2.48-2.481 2.48a2.49 2.49 0 0 1-2.479-2.48a2.49 2.49 0 0 1 2.479-2.479a2.49 2.49 0 0 1 2.481 2.479m-5.919 0c0 1.36-1.12 2.48-2.479 2.48a2.49 2.49 0 0 1-2.481-2.48a2.49 2.49 0 0 1 2.481-2.479a2.49 2.49 0 0 1 2.479 2.479m0-5.919a2.49 2.49 0 0 1-2.479 2.479a2.49 2.49 0 0 1-2.481-2.479A2.493 2.493 0 0 1 9.042 6.56a2.493 2.493 0 0 1 2.479 2.481'/>
-  </svg>
-);
-
-// ElevenLabs — Simple Icons, white (brand is black, inverted for dark bg)
-const ElevenLabsLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='white'>
-    <path d='M4.604 0v24h4.931V0zm9.86 0v24h4.933V0z'/>
-  </svg>
-);
-
-// OpenRouter — Simple Icons, white (brand is dark, inverted for dark bg)
-const OpenRouterLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='white'>
-    <path d='M16.778 1.844v1.919q-.569-.026-1.138-.032q-.708-.008-1.415.037c-1.93.126-4.023.728-6.149 2.237c-2.911 2.066-2.731 1.95-4.14 2.75c-.396.223-1.342.574-2.185.798c-.841.225-1.753.333-1.751.333v4.229s.768.108 1.61.333c.842.224 1.789.575 2.185.799c1.41.798 1.228.683 4.14 2.75c2.126 1.509 4.22 2.11 6.148 2.236c.88.058 1.716.041 2.555.005v1.918l7.222-4.168l-7.222-4.17v2.176c-.86.038-1.611.065-2.278.021c-1.364-.09-2.417-.357-3.979-1.465c-2.244-1.593-2.866-2.027-3.68-2.508c.889-.518 1.449-.906 3.822-2.59c1.56-1.109 2.614-1.377 3.978-1.466c.667-.044 1.418-.017 2.278.02v2.176L24 6.014Z'/>
+// Runloop — wordmark-style "rl" monogram, brand colour #4F7FFF
+const RunloopLogo: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <rect width='24' height='24' rx='5' fill='#4F7FFF'/>
+    <text x='4' y='17' fontFamily='monospace' fontWeight='700' fontSize='13' fill='white'>rl</text>
   </svg>
 );
 
@@ -208,40 +172,10 @@ export const PARTNERS: Partner[] = [
     cliCommand: 'projects service add vercel',
   },
   {
-    name: 'Cloudflare', category: 'hosting', url: 'https://cloudflare.com', logo: CloudflareLogo,
-    description: 'Edge network & security',
-    longDescription: 'Global edge network with Workers, Pages, R2 storage, D1 database, and built-in DDoS protection. Deploy compute at the edge in 300+ cities worldwide with zero cold starts.',
-    cliCommand: 'projects service add cloudflare',
-  },
-  {
-    name: 'Inngest', category: 'hosting', url: 'https://inngest.com', logo: InngestLogo, lightInvert: true,
-    description: 'Durable background functions',
-    longDescription: 'Write reliable background jobs, scheduled tasks, and multi-step workflows as plain TypeScript functions. Automatic retries, observability, and concurrency control with zero infrastructure.',
-    cliCommand: 'projects service add inngest',
-  },
-  {
-    name: 'SendGrid', category: 'email', url: 'https://sendgrid.com', logo: SendGridLogo,
-    description: 'Transactional email API',
-    longDescription: 'Send transactional emails — verification, receipts, password resets — through a battle-tested API trusted by over 80,000 businesses. Pre-wired with ready-to-use templates and delivery analytics.',
-    cliCommand: 'projects service add sendgrid',
-  },
-  {
-    name: 'Twilio', category: 'email', url: 'https://twilio.com', logo: TwilioLogo,
-    description: 'SMS, voice & email APIs',
-    longDescription: 'Add SMS notifications, voice calls, and two-factor authentication to your app with a single unified API. Reach users on any channel — phone, WhatsApp, or email — from day one.',
-    cliCommand: 'projects service add twilio',
-  },
-  {
-    name: 'ElevenLabs', category: 'ai', url: 'https://elevenlabs.io', logo: ElevenLabsLogo, lightInvert: true,
-    description: 'AI voice generation',
-    longDescription: 'Generate human-quality speech in 32 languages with ultra-low latency. Clone voices, build interactive voice agents, and stream audio in real time — all through a simple REST API.',
-    cliCommand: 'projects service add elevenlabs',
-  },
-  {
-    name: 'OpenRouter', category: 'ai', url: 'https://openrouter.ai', logo: OpenRouterLogo, lightInvert: true,
-    description: 'Unified LLM API gateway',
-    longDescription: 'Access 200+ AI models — GPT-4, Claude, Gemini, Llama, and more — through a single OpenAI-compatible API. Automatic fallbacks, cost optimization, and usage analytics built in.',
-    cliCommand: 'projects service add openrouter',
+    name: 'Runloop', category: 'ai', url: 'https://runloop.ai', logo: RunloopLogo,
+    description: 'AI dev infrastructure',
+    longDescription: 'Secure, scalable infrastructure for AI coding agents. Runloop provides sandboxed execution environments so agents can write, run, and test code safely without touching production systems.',
+    cliCommand: 'projects service add runloop',
   },
 ];
 
@@ -256,7 +190,6 @@ function getCategoryColor(category: Category): string {
     analytics:  '#F54E00',
     ai:         '#FF6B35',
     hosting:    '#00b3d4',
-    email:      '#009BDE',
   };
   return colors[category];
 }
