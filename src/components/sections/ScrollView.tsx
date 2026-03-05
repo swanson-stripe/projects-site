@@ -5,7 +5,7 @@
    desktop variant.
 ────────────────────────────────────────────────────────────────────────────── */
 
-import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type CSSProperties } from 'react';
+import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type CSSProperties, type ForwardedRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -261,7 +261,7 @@ export interface ScrollViewHandle {
   resetLayout: () => void;
 }
 
-export const ScrollView = forwardRef<ScrollViewHandle, object>(function ScrollView(_, ref) {
+export const ScrollView = forwardRef(function ScrollView(_: object, ref: ForwardedRef<ScrollViewHandle>) {
   const isMobile = useIsMobile();
   const [wins, setWins]     = useState<SWinState[]>(() => initialLayout());
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
