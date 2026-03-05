@@ -5,7 +5,7 @@
    desktop variant.
 ────────────────────────────────────────────────────────────────────────────── */
 
-import { useState, useCallback, useRef, type CSSProperties } from 'react';
+import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
