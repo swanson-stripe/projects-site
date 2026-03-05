@@ -22,7 +22,8 @@ import { FEATURES } from '@/components/sections/Features';
 
 /* ── layout constants ────────────────────────────────────────────────────── */
 const PAD      = 32;   // horizontal padding on both sides of content
-const GAP      = 28;   // vertical gap between sections
+const HGAP     = 28;   // horizontal gap between hero text and terminal
+const VGAP     = 40;   // vertical gap between sections
 const MAX_W    = 1200; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
@@ -45,15 +46,15 @@ function initialLayout(): SWinState[] {
   const contentW = maxW - PAD * 2;
 
   const heroTextW = Math.max(220, Math.floor(contentW * 0.40));
-  const termX     = left + heroTextW + GAP;
-  const termW     = contentW - heroTextW - GAP;
+  const termX     = left + heroTextW + HGAP;
+  const termW     = contentW - heroTextW - HGAP;
   const termY     = 48;
   const termH     = 440;
 
-  const ecoY      = termY + termH + GAP;
+  const ecoY      = termY + termH + VGAP;
   const ecoH      = 148; // title bar ~27 + 24 pad top/bottom + icons ~53 + 12px scrollbar track
 
-  const featY     = ecoY + ecoH + GAP;
+  const featY     = ecoY + ecoH + VGAP;
   const featH     = 580;
 
   return [
@@ -68,7 +69,7 @@ function heroTextPos() {
   const maxW = Math.min(vw, MAX_W);
   const left = Math.max(PAD, (vw - maxW) / 2 + PAD);
   const cW   = maxW - PAD * 2;
-  return { x: left, y: 48, w: Math.max(220, Math.floor(cW * 0.40)) };
+  return { x: left, y: 48, w: Math.max(220, Math.floor(cW * 0.40)), h: 440 };
 }
 
 function canvasMinH(wins: SWinState[]) {
@@ -351,16 +352,17 @@ export function ScrollView() {
       >
         {/* hero headline — not a window, positioned left of terminal */}
         <div style={{
-          position:      'absolute',
-          left:           heroText.x,
-          top:            heroText.y,
-          width:          heroText.w,
-          display:       'flex',
-          flexDirection: 'column',
-          gap:           '1.25rem',
-          paddingTop:     8,
-          paddingRight:   16,
-          pointerEvents: 'none',
+          position:       'absolute',
+          left:            heroText.x,
+          top:             heroText.y,
+          width:           heroText.w,
+          height:          heroText.h,
+          display:        'flex',
+          flexDirection:  'column',
+          justifyContent: 'center',
+          gap:            '1.25rem',
+          paddingRight:    16,
+          pointerEvents:  'none',
         }}>
           <h1 style={{
             fontSize:   isMobile ? '1.75rem' : 'clamp(1.6rem, 2.2vw, 2.25rem)',
