@@ -26,7 +26,8 @@ export interface WindowProps {
   x:             number;
   y:             number;
   w:             number;
-  h:             number;
+  /** Pass 'auto' to let the window shrink-wrap its content (no scrolling, no resize handles) */
+  h:             number | 'auto';
   zIndex:        number;
   isActive?:     boolean;
   isMaximized?:  boolean;
@@ -215,7 +216,7 @@ export function Window({
         left:            x,
         top:             y,
         width:           w,
-        height:          h,
+        height:          h === 'auto' ? undefined : h,
         zIndex,
         display:        'flex',
         flexDirection:  'column',
@@ -301,20 +302,20 @@ export function Window({
       {/* ── content area ────────────────────────────────────────── */}
       <div
         style={{
-          flex:          1,
-          overflow:      noScroll ? 'hidden' : 'auto',
-          overflowX:     noScroll ? 'hidden' : 'auto',
+          flex:          h === 'auto' ? undefined : 1,
+          overflow:      (noScroll || h === 'auto') ? 'hidden' : 'auto',
+          overflowX:     (noScroll || h === 'auto') ? 'hidden' : 'auto',
           scrollbarWidth:'none',
-          minHeight:     0,
-          display:       noScroll ? 'flex' : undefined,
-          flexDirection: noScroll ? 'column' : undefined,
+          minHeight:     h === 'auto' ? undefined : 0,
+          display:       (noScroll || h === 'auto') ? 'flex' : undefined,
+          flexDirection: (noScroll || h === 'auto') ? 'column' : undefined,
         }}
       >
         {children}
       </div>
 
       {/* ── resize handles ───────────────────────────────────────── */}
-      {!isMaximized && !isMobile && DIRS.map(dir => (
+      {!isMaximized && !isMobile && h !== 'auto' && DIRS.map(dir => (
         <div
           key={dir}
           style={{ position: 'absolute', zIndex: 3, ...HANDLE[dir] }}

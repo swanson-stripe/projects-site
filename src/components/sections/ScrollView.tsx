@@ -34,7 +34,7 @@ interface SWinState {
   x:      number;
   y:      number;
   w:      number;
-  h:      number;
+  h:      number | 'auto';
   zIndex: number;
 }
 
@@ -55,12 +55,11 @@ function initialLayout(): SWinState[] {
   const ecoH      = 148; // title bar ~27 + 24 pad top/bottom + icons ~53 + 12px scrollbar track
 
   const featY     = ecoY + ecoH + VGAP;
-  const featH     = 580;
 
   return [
     { id: 'terminal',  x: termX, y: termY, w: termW,    h: termH, zIndex: 3 },
     { id: 'ecosystem', x: left,  y: ecoY,  w: contentW, h: ecoH,  zIndex: 2 },
-    { id: 'features',  x: left,  y: featY, w: contentW, h: featH, zIndex: 1 },
+    { id: 'features',  x: left,  y: featY, w: contentW, h: 'auto', zIndex: 1 },
   ];
 }
 
@@ -73,7 +72,7 @@ function heroTextPos() {
 }
 
 function canvasMinH(wins: SWinState[]) {
-  return wins.reduce((m, w) => Math.max(m, w.y + w.h), 0) + 80;
+  return wins.reduce((m, w) => w.h === 'auto' ? m : Math.max(m, w.y + w.h), 0) + 80;
 }
 
 /* ── EcosystemScrollStrip ────────────────────────────────────────────────── */
@@ -246,7 +245,7 @@ export function ScrollView() {
   []);
 
   const handleResize = useCallback((id: SWinId, x: number, y: number, w: number, h: number) =>
-    setWins(prev => prev.map(win => win.id === id ? { ...win, x, y, w, h } : win)),
+    setWins(prev => prev.map(win => win.id === id && win.h !== 'auto' ? { ...win, x, y, w, h } : win)),
   []);
 
   /* cross-drag drop check — same logic as Desktop.tsx, accounting for scroll */
