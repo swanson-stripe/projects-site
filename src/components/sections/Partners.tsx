@@ -670,7 +670,6 @@ const CATEGORY_COLOR: Record<Category, string> = {
   analytics:  '#F54E00',
   ai:         '#FF6B35',
   hosting:    '#00b3d4',
-  email:      '#009BDE',
 };
 
 export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowMe?: (cmd: string) => void }) {

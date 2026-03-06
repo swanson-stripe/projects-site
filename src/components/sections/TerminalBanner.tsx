@@ -336,7 +336,7 @@ function ViewPopover({
 ─────────────────────────────────────────────────────────────────────────── */
 export function StatusBar({
   onReset,
-  viewMode = 'ui',
+  viewMode = 'scroll',
   onViewModeChange,
   gateMode = false,
 }: {

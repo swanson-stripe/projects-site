@@ -161,7 +161,7 @@ export function Window({
     e.stopPropagation();
     onFocus();
     const sx = e.clientX, sy = e.clientY;
-    const sw = w, sh = h, spx = x, spy = y;
+    const sw = w, sh = typeof h === 'number' ? h : MIN_H, spx = x, spy = y;
 
     function onMoveEv(ev: globalThis.PointerEvent) {
       const dx = ev.clientX - sx;

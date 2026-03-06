@@ -100,7 +100,6 @@ const SLASH_COMMANDS: SlashCommand[] = [
 ];
 
 /* ─── install-demo constants ─────────────────────────────────────── */
-const INSTALL_CMD  = 'npx @stripe/projects init my-app';
 const PREFILL_CMD  = 'projects init my-app';
 const INTRO_LINES: { text: string; delay: number }[] = [
   { text: 'One command, real infrastructure.',                                                                                                                      delay: 1000 },

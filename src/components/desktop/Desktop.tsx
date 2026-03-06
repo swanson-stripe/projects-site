@@ -6,7 +6,7 @@ import { GridBackground } from '@/components/ui/grid-background';
 import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
-import { FeaturesContent, type FeaturesHandle } from '@/components/sections/Features';
+import { FeaturesContent } from '@/components/sections/Features';
 import { AgentView } from '@/components/sections/AgentView';
 import { ScrollView } from '@/components/sections/ScrollView';
 import {
@@ -32,7 +32,6 @@ const MOBILE_GAP         = 12;
 type CoreId = 'terminal' | 'install' | 'why' | 'ecosystem' | 'users' | 'feedback' | 'join';
 type WinId  = CoreId | `partner:${string}`;
 
-const CORE_IDS: CoreId[] = ['terminal', 'install', 'why', 'ecosystem'];
 
 interface WinState {
   id:       WinId;
@@ -139,10 +138,9 @@ export function Desktop() {
   const [scrollViewKey, setScrollViewKey] = useState(0);
   const ecoRef                          = useRef<EcosystemHandle>(null);
   const cliRef                          = useRef<CliHandle>(null);
-  const featuresRef                     = useRef<FeaturesHandle>(null);
+  const featuresRef                     = useRef<{ shuffle?: () => void } | null>(null);
   const windowAreaRef                   = useRef<HTMLDivElement>(null);
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
-  const [partnerOrigins,  setPartnerOrigins]  = useState<Record<string, { x: number; y: number }>>({});
   const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
   const [ecoFilter,       setEcoFilter]       = useState<Category | null>(null);
 
@@ -210,9 +208,8 @@ export function Desktop() {
   }, [wins, bringToFront]);
 
   /* open a partner detail window — or bring to front if already open */
-  const openPartner = useCallback((partner: Partner, iconOrigin?: { x: number; y: number }) => {
+  const openPartner = useCallback((partner: Partner, _iconOrigin?: { x: number; y: number }) => {
     const id: WinId = `partner:${partner.name}`;
-    if (iconOrigin) setPartnerOrigins(prev => ({ ...prev, [id]: iconOrigin }));
     setWins(prev => {
       const existing = prev.find(w => w.id === id);
       if (existing) {
@@ -317,9 +314,8 @@ export function Desktop() {
           overflowX:     'hidden',
           overflowY:     isMobile ? 'auto' : 'hidden',
           scrollbarWidth:'none',
-          display:       viewMode !== 'ui' ? 'none' : undefined,
+          display:       'none',
         }}
-        onClick={() => setSelectedIcon(null)}
       >
         {/* ── Inner canvas — gives absolute-positioned children a scrollable height context */}
         <div style={{ position: 'relative', width: '100%', minHeight: isMobile ? mobileCanvasH : '100%' }}>

@@ -118,7 +118,6 @@ export function Features() {
 ─────────────────────────────────────────────────────────────────────────────── */
 export const FeaturesContent = forwardRef(function FeaturesContent() {
   const items = FEATURES;
-  const PAD = '1.25rem';
 
   return (
     <div style={{

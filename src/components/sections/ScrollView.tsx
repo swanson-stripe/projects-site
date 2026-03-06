@@ -5,7 +5,7 @@
    desktop variant.
 ────────────────────────────────────────────────────────────────────────────── */
 
-import { useState, useCallback, useRef, forwardRef, useImperativeHandle, type CSSProperties } from 'react';
+import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -14,7 +14,6 @@ import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import {
   PARTNERS,
   PartnerDetail,
-  EcoFilterButton,
   type Partner,
   type Category,
 } from '@/components/sections/Partners';
@@ -23,7 +22,6 @@ import { Footer } from '@/components/sections/Footer';
 
 /* ── layout constants ────────────────────────────────────────────────────── */
 const PAD      = 32;   // horizontal padding on both sides of content
-const HGAP     = 80;   // horizontal gap between hero text and terminal
 const VGAP     = 80;   // vertical gap between sections
 const MAX_W    = 1280; // max content width
 
@@ -40,7 +38,6 @@ interface SWinState {
 }
 
 /* ── initial window layout ───────────────────────────────────────────────── */
-const DOCS_BTN_W  = 138; // approximate px width of the "View docs ↗" button
 const INSTALL_GAP = 20;  // gap between docs button and install inline
 
 const CASCADE_H    = 320;
@@ -149,7 +146,7 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   activeFilter?:     Category | null;
   selectedIcon?:     string | null;
   onSelectIcon?:     (name: string | null) => void;
-}>(function EcosystemScrollStrip({ onCrossDragStart, onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
+}>(function EcosystemScrollStrip({ onCrossDragStart: _onCrossDragStart, onCrossDragMove: _onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
   useImperativeHandle(ref, () => ({
     resetIconPosition: (name: string) =>
       setOffsets(prev => ({ ...prev, [name]: { dx: 0, dy: 0 } })),
@@ -419,58 +416,6 @@ function InstallInline() {
   );
 }
 
-/* ── FeaturesGrid ────────────────────────────────────────────────────────── */
-const BORDER = '1px solid var(--color-border-accent)';
-
-function FeaturesGrid({ cols }: { cols: 1 | 2 }) {
-  return (
-    <div style={{
-      display:             'grid',
-      gridTemplateColumns: cols === 2 ? '1fr 1fr' : '1fr',
-      overflowY:           'auto',
-      scrollbarWidth:      'none',
-    }}>
-      {FEATURES.map((f, i) => {
-        const isLastRow  = cols === 2 ? i >= FEATURES.length - 2 : i === FEATURES.length - 1;
-        const isRightCol = cols === 2 && i % 2 === 1;
-        return (
-          <div key={f.title} style={{
-            display:       'flex',
-            flexDirection: 'column',
-            gap:           '0.5rem',
-            padding:       '1.25rem',
-            borderBottom:  isLastRow  ? undefined : BORDER,
-            borderRight:   isRightCol ? undefined : (cols === 2 ? BORDER : undefined),
-            background:    'var(--color-surface)',
-          }}>
-            <h3 style={{
-              fontSize:   '0.82rem', fontWeight: 700,
-              color:      'var(--color-text-ui)',
-              margin:      0, fontFamily: 'var(--font-mono)',
-              lineHeight:  1.3,
-            }}>
-              {f.title}
-            </h3>
-            <p style={{
-              fontSize:   '0.78rem', color: 'var(--color-text-ui-muted)',
-              lineHeight:  1.6, margin: 0, fontFamily: 'var(--font-mono)',
-            }}>
-              {f.description}
-            </p>
-            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-              {f.bullets.map((b, bi) => (
-                <li key={bi} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
-                  <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem', fontFamily: 'var(--font-mono)' }}>›</span>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.55, fontFamily: 'var(--font-mono)' }}>{b}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 /* ── AceDesktopIcon ──────────────────────────────────────────────────────── */
 const ACE_ICON_SEL = 48;
@@ -577,11 +522,10 @@ function AceDesktopIcon({
 
 /* ── ScrollView ──────────────────────────────────────────────────────────── */
 export function ScrollView() {
-  const isMobile = useIsMobile();
   const [wins, setWins]         = useState<SWinState[]>(() => initialLayout());
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [ghostPos, setGhostPos]               = useState<{ x: number; y: number } | null>(null);
-  const [ecoFilter, setEcoFilter]             = useState<Category | null>(null);
+  const [ecoFilter]                           = useState<Category | null>(null);
   const [selectedIcon, setSelectedIcon]       = useState<string | null>(null);
   const [acePosState, setAcePosState]         = useState(aceIconPos);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -619,7 +563,7 @@ export function ScrollView() {
     const winTop  = canvasTop  + term.y;
     if (
       clientX >= winLeft && clientX <= winLeft + term.w &&
-      clientY >= winTop  && clientY <= winTop  + term.h
+      clientY >= winTop  && clientY <= winTop  + (typeof term.h === 'number' ? term.h : 0)
     ) {
       cliRef.current?.submit(`projects service add ${partner.name.toLowerCase()}`);
       bringToFront('terminal');
