@@ -188,10 +188,10 @@ function SettingsPopover({
     return () => document.removeEventListener('mousedown', handleClick);
   }, [anchorRef, onClose]);
 
-  /* position below the anchor button */
-  const rect = anchorRef.current?.getBoundingClientRect();
-  const top  = rect ? rect.bottom + 6 : 32;
-  const left = rect ? rect.left       : 0;
+  /* position below the anchor button, right-aligned to avoid viewport clipping */
+  const rect  = anchorRef.current?.getBoundingClientRect();
+  const top   = rect ? rect.bottom + 6 : 32;
+  const right = rect ? window.innerWidth - rect.right : 0;
 
   return (
     <div
@@ -199,7 +199,7 @@ function SettingsPopover({
       style={{
         position:     'fixed',
         top,
-        left,
+        right,
         zIndex:       10000,
         background:   'var(--color-surface-dark)',
         border:       BORDER,
@@ -275,9 +275,9 @@ function ViewPopover({
     return () => document.removeEventListener('mousedown', handleClick);
   }, [anchorRef, onClose]);
 
-  const rect = anchorRef.current?.getBoundingClientRect();
-  const top  = rect ? rect.bottom + 6 : 32;
-  const left = rect ? rect.left       : 0;
+  const rect  = anchorRef.current?.getBoundingClientRect();
+  const top   = rect ? rect.bottom + 6 : 32;
+  const right = rect ? window.innerWidth - rect.right : 0;
 
   return (
     <div
@@ -285,7 +285,7 @@ function ViewPopover({
       style={{
         position:   'fixed',
         top,
-        left,
+        right,
         zIndex:     10000,
         background: 'var(--color-surface-dark)',
         border:     BORDER,
@@ -345,7 +345,6 @@ export function StatusBar({
   onViewModeChange?: (mode: ViewMode) => void;
   gateMode?: boolean;
 }) {
-  const [ts, setTs]               = useState(getTimestamp);
   const [hovered, setHovered]     = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showViewMenu, setShowViewMenu] = useState(false);
@@ -355,11 +354,6 @@ export function StatusBar({
   const isMobile = useIsMobile();
 
   const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? ScrollText;
-
-  useEffect(() => {
-    const id = setInterval(() => setTs(getTimestamp()), 1_000);
-    return () => clearInterval(id);
-  }, []);
 
   return (
     <div
@@ -380,8 +374,7 @@ export function StatusBar({
         <Cell grow>
           <div className='flex items-center' style={{ gap: 6 }}>
             <DotSpinner isAnimating={hovered} />
-            <span className='font-bold' style={{ color: 'var(--color-text-ui)' }}>projects</span>
-            {!gateMode && <span>by stripe</span>}
+            <span className='font-bold' style={{ color: 'var(--color-text-ui)' }}>stripe projects</span>
           </div>
         </Cell>
 
@@ -446,11 +439,6 @@ export function StatusBar({
               </button>
             )}
 
-            {!isMobile && (
-              <span style={{ letterSpacing: '0.04em' }}>
-                {ts.date}&nbsp;&nbsp;{ts.time}
-              </span>
-            )}
           </div>
         </Cell>
       </div>

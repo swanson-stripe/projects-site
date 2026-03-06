@@ -188,7 +188,7 @@ export function Hero() {
             className='inline-flex items-stretch mb-3'
             style={{
               border: '1px solid var(--color-border-accent)',
-              background: 'var(--color-bg)',
+              background: 'var(--color-overlay)',
             }}
           >
             {TABS.map((t, idx) => {
@@ -241,7 +241,7 @@ export function Hero() {
             className='relative'
             style={{
               border: '1px solid var(--color-border-accent)',
-              background: 'var(--color-bg)',
+              background: 'var(--color-overlay)',
             }}
           >
             {/* Pink 8px corner brackets */}

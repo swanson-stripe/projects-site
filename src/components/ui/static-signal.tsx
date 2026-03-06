@@ -98,7 +98,7 @@ export function StaticSignal() {
         const noiseFrames = 4 + Math.floor(Math.random() * 3);
         for (let f = 0; f < noiseFrames && !dead.current; f++) {
           setChars(noise(width));
-          await sleep(113);
+          await sleep(170);
         }
         if (dead.current) break;
 
@@ -122,7 +122,7 @@ export function StaticSignal() {
             if (resolving.has(i)) return { char: fullWord[i], state: 'resolving' };
             return { char: rg(), state: 'noise' };
           }));
-          await sleep(98);
+          await sleep(147);
         }
         if (dead.current) break;
 
@@ -154,7 +154,7 @@ export function StaticSignal() {
             if (fading.has(i)) return { char: fullWord[i], state: 'fading'   };
             return                    { char: fullWord[i], state: 'resolved' };
           }));
-          await sleep(83);
+          await sleep(125);
         }
         if (dead.current) break;
 
@@ -168,11 +168,11 @@ export function StaticSignal() {
           while (w !== nextWidth && !dead.current) {
             w += dir;
             setChars(noise(w));
-            await sleep(60);
+            await sleep(90);
           }
         } else {
           setChars(noise(width));
-          await sleep(90);
+          await sleep(135);
         }
 
         wi++;

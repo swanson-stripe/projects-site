@@ -100,7 +100,12 @@ const SLASH_COMMANDS: SlashCommand[] = [
 ];
 
 /* ─── install-demo constants ─────────────────────────────────────── */
-const INSTALL_CMD = 'npx @stripe/projects init my-app';
+const INSTALL_CMD  = 'npx @stripe/projects init my-app';
+const PREFILL_CMD  = 'projects init my-app';
+const INTRO_LINES: { text: string; delay: number }[] = [
+  { text: 'One command, real infrastructure.',                                                                                                                      delay: 1000 },
+  { text: 'Stripe projects will provision resources and return ready-to-use keys. Launch or hand off to an agent to deploy your app automatically.', delay: 2000 },
+];
 
 /* ─── template data ──────────────────────────────────────────────── */
 interface TplService {
@@ -195,7 +200,18 @@ function respond(input: string): Line[] {
   const lower = raw.toLowerCase();
 
   /* ── /help ── */
-  if (lower === '/help' || lower === 'help' || lower === '?') {
+  /* ── ? ── */
+  if (lower === '?') {
+    return [
+      { id: uid(), t: 'blank', text: '' },
+      { id: uid(), t: 'done',  text: 'Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts - securely, deterministically, and without lock-in.' },
+      { id: uid(), t: 'blank', text: '' },
+      { id: uid(), t: 'done',  text: 'Get started using the commands below.' },
+      { id: uid(), t: 'blank', text: '' },
+    ];
+  }
+
+  if (lower === '/help' || lower === 'help') {
     return [
       { id: uid(), t: 'blank',   text: '' },
       { id: uid(), t: 'section', text: 'usage' },
@@ -599,7 +615,7 @@ function WelcomeBox() {
         {/* row 3: commands  |  shortcuts */}
         <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr' }}>
           <div style={{ ...cell, ...vdiv, color: MUTED, whiteSpace: 'nowrap' }}>/ for commands</div>
-          <div style={{ ...cell, color: MUTED }}>? for shortcuts</div>
+          <div style={{ ...cell, color: MUTED }}>? for more info</div>
         </div>
       </div>
 
@@ -681,12 +697,28 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
         style={{ marginBottom: '0.5em' }}
       >
-        {/* number · name · price · description */}
+        {/* number · name · description */}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em', lineHeight: 1.75 }}>
-          <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right' }}>{line.lkey}</span>
-          <span style={{ color: PINK,                          minWidth: '17ch' }}>{tpl.id}</span>
-          <span style={{ color: PINK, minWidth: '7ch' }}>${tpl.price}/mo</span>
-          <span style={{ color: MUTED }}>{tpl.desc}</span>
+          <span style={{ color: DIM, userSelect: 'none', minWidth: '1.4em', textAlign: 'right', flexShrink: 0 }}>{line.lkey}</span>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.9em' }}>
+              <span style={{ color: PINK, minWidth: '17ch' }}>{tpl.id}</span>
+              <span style={{ color: MUTED }}>{tpl.desc}</span>
+            </div>
+            <div style={{ display: 'flex', gap: '0.4em', paddingLeft: 'calc(17ch + 0.9em)', marginTop: '0.1em', flexWrap: 'wrap' }}>
+              {tpl.services.map(svc => (
+                <span key={svc.name} style={{
+                  color:        DIM,
+                  fontSize:     '0.72em',
+                  border:       `1px solid ${DIM}`,
+                  padding:      '0 0.45em',
+                  lineHeight:   1.6,
+                  letterSpacing:'0.02em',
+                  whiteSpace:   'nowrap',
+                }}>{svc.name}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.div>
     );
@@ -721,7 +753,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
       )}
 
       {line.t === 'raw' ? (
-        <span style={{ color: line.dim ? DIM : textColor, whiteSpace: 'pre' }}>{line.text}</span>
+        <span style={{ color: line.dim ? DIM : textColor, whiteSpace: 'pre-wrap' }}>{line.text}</span>
       ) : line.t === 'col2' ? (
         <span style={{ display: 'inline-grid', gridTemplateColumns: '18em 1fr', gap: '1.5em', width: '100%' }}>
           <span style={{ color: PINK }}>{line.lkey}</span>
@@ -737,7 +769,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
           {line.text}
         </span>
       ) : line.t === 'hint' ? (
-        <span style={{ color: DIM, fontStyle: 'italic' }}>{line.text}</span>
+        <span style={{ color: DIM }}>{line.text}</span>
       ) : line.initial ? (
         <TextEffect as='span' per='word' preset='fade' speedReveal={2.5} style={{ color: textColor }}>
           {line.text}
@@ -816,10 +848,11 @@ export interface CliTerminalProps {
 export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false }, ref) {
   const isMobile                = useIsMobile();
   const [lines, setLines]       = useState<Line[]>([]);
-  const [value, setValue]       = useState(() => installDemo ? INSTALL_CMD : '');
+  const [value, setValue]       = useState('');
   const [menuIdx, setMenuIdx]   = useState(0);
-  const [selStart, setSelStart] = useState(() => installDemo ? INSTALL_CMD.length : 0);
-  const [focused, setFocused]   = useState(false);
+  const [selStart, setSelStart] = useState(0);
+  const [focused, setFocused]       = useState(false);
+  const [showEnterHint, setShowEnterHint] = useState(false);
   const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
   const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
   const appNameRef              = useRef('my-app'); // set from the init command
@@ -863,11 +896,25 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     return () => ts.forEach(clearTimeout);
   }, [installDemo]);
 
-  /* auto-submit first install command on mount */
+  /* cascade intro lines then prefill the prompt */
   useEffect(() => {
     if (!autoSubmit || !installDemo) return;
-    const t = setTimeout(() => submitRef.current(INSTALL_CMD), 1000);
-    return () => clearTimeout(t);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    INTRO_LINES.forEach(({ text, delay }) => {
+      timers.push(setTimeout(() => {
+        setLines(prev => [...prev, { id: uid(), t: 'done', text, initial: true }]);
+      }, delay));
+    });
+    // after the last intro line has appeared, prefill the prompt
+    const prefillDelay = INTRO_LINES[INTRO_LINES.length - 1].delay + 600;
+    timers.push(setTimeout(() => {
+      setValue(PREFILL_CMD);
+      setSelStart(PREFILL_CMD.length);
+      setFocused(true);
+      setShowEnterHint(true);
+      inputRef.current?.focus();
+    }, prefillDelay));
+    return () => timers.forEach(clearTimeout);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // intentionally runs once on mount
 
@@ -883,11 +930,10 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     if (!val) return;
 
     /* ── demo step 1: npx @stripe/projects init → interactive install flow ── */
-    if (installDemo && demoStepRef.current === 0) {
+    const initMatch = val.match(/(?:npx\s+@stripe\/projects\s+)?projects\s+init(?:\s+(\S+))?/i);
+    if (installDemo && demoStepRef.current === 0 && initMatch) {
       demoStepRef.current = 1;
-      // extract app name: last token of "projects init <name>"
-      const initMatch = val.match(/projects\s+init\s+(\S+)/i);
-      if (initMatch) appNameRef.current = initMatch[1];
+      if (initMatch[1]) appNameRef.current = initMatch[1];
       historyRef.current.unshift(val);
       const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
       const stepId        = uid();
@@ -895,6 +941,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       setLines(prev => [...prev, cmdLine]);
       setValue('');
       setSelStart(0);
+      setShowEnterHint(false);
       setTimeout(() => {
         setLines(prev => [...prev,
           { id: stepId,    t: 'step',    text: 'installing stripe projects...' },
@@ -916,9 +963,20 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       return;
     }
 
+    setShowEnterHint(false);
     const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
-    const spinnerId = uid();
     const response = respond(val);
+
+    // Informational lookups return instantly — no spinner, no delay
+    const isLookup = /^(\?|help|\/help|\/shortcuts|\/why|\/contest|\/services\s+list|\/services\s+status)$/i.test(val.trim());
+    if (isLookup) {
+      setLines(prev => [...prev, cmdLine, ...instant(response)]);
+      setValue('');
+      setSelStart(0);
+      return;
+    }
+
+    const spinnerId = uid();
     setLines(prev => [...prev, cmdLine, { id: spinnerId, t: 'spinner', text: '' }]);
     setValue('');
     setSelStart(0);
@@ -1140,6 +1198,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         <div style={{ position: 'relative' }}>
           {menuOpen && <SlashMenu items={menuItems} selectedIdx={menuIdx} />}
           <div
+            onClick={() => { inputRef.current?.focus(); }}
             style={{
               borderTop: BORDER,
               padding:   'clamp(0.6rem, 1.2vw, 0.9rem) clamp(0.75rem, 2.5vw, 2rem)',
@@ -1147,6 +1206,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
               alignItems:'center',
               gap:       '0.75rem',
               fontSize:  '14px',
+              cursor:    'text',
             }}
           >
             <span style={{ color: PINK, userSelect: 'none', flexShrink: 0 }}>›</span>
@@ -1177,8 +1237,8 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                         flexShrink: 0,
                       }}>{'\u00a0'}</span>
                     ) : (
-                      <span style={{ color: DIM, fontStyle: 'italic' }}>
-                        try: projects services add vercel
+                      <span style={{ color: DIM }}>
+                        projects add vercel
                       </span>
                     )}
                   </>
@@ -1255,11 +1315,8 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
             userSelect:     'none',
           }}
         >
-          <span>
-            <span style={{ color: 'var(--color-text-ui)' }}>projects status</span>
-            <span style={{ color: DIM }}>{' '}to view current stack</span>
-          </span>
-          <span>? for shortcuts</span>
+          {showEnterHint && <span>enter to submit</span>}
+          <span style={{ marginLeft: 'auto' }}>? for more info</span>
         </div>
       </div>
     </div>
