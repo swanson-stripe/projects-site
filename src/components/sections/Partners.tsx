@@ -24,7 +24,7 @@ export interface Partner {
 // Stripe: inlined from /public/stripe-logo.svg with brand fill
 const StripeLogo: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fillRule="evenodd" clipRule="evenodd" d="M0 16L16 12.6069V0L0 3.43278V16Z" fill="#726CF7" />
+    <path fillRule="evenodd" clipRule="evenodd" d="M0 16L16 12.6069V0L0 3.43278V16Z" fill="#533AFD" />
   </svg>
 );
 
