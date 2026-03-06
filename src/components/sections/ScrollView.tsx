@@ -620,7 +620,7 @@ export function ScrollView() {
   }, []);
 
   /* reset cascade windows back to the original staggered cascade */
-  const cascadeReset = useCallback(() => {
+  const cascadeReset = useCallback((activeId: SWinId) => {
     const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
     const maxW     = Math.min(vw, MAX_W);
     const left     = Math.max(PAD, (vw - maxW) / 2 + PAD);
@@ -630,18 +630,21 @@ export function ScrollView() {
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
-    setWins(prev => prev.map(w => {
-      const idx = ids.indexOf(w.id as SWinId);
-      if (idx === -1) return w;
-      return {
-        ...w,
-        x: left + idx * CASCADE_STEP,
-        y: baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
-        w: CASCADE_W,
-        h: CASCADE_H,
-        zIndex: ids.length - idx,
-      };
-    }));
+    setWins(prev => {
+      const globalMaxZ = Math.max(...prev.map(w => w.zIndex));
+      return prev.map(w => {
+        const idx = ids.indexOf(w.id as SWinId);
+        if (idx === -1) return w;
+        return {
+          ...w,
+          x: left + idx * CASCADE_STEP,
+          y: baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
+          w: CASCADE_W,
+          h: CASCADE_H,
+          zIndex: w.id === activeId ? globalMaxZ : ids.length - idx,
+        };
+      });
+    });
     setIsGridLayout(false);
   }, []);
 
@@ -931,7 +934,7 @@ export function ScrollView() {
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
               headerRight={isCascade && isActive ? (
                 <button
-                  onClick={e => { e.stopPropagation(); isGridLayout ? cascadeReset() : gridCascade(); }}
+                  onClick={e => { e.stopPropagation(); isGridLayout ? cascadeReset(win.id) : gridCascade(); }}
                   title={isGridLayout ? 'Reset cascade' : 'Arrange in grid'}
                   style={{
                     display:    'flex',
