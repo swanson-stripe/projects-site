@@ -145,7 +145,7 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   activeFilter?:     Category | null;
   selectedIcon?:     string | null;
   onSelectIcon?:     (name: string | null) => void;
-}>(function EcosystemScrollStrip({ onCrossDragStart: _onCrossDragStart, onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
+}>(function EcosystemScrollStrip({ onCrossDragStart: _onCrossDragStart, onCrossDragMove: _onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
   useImperativeHandle(ref, () => ({
     resetIconPosition: (name: string) =>
       setOffsets(prev => ({ ...prev, [name]: { dx: 0, dy: 0 } })),
