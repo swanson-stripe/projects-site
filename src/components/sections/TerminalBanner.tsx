@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, ScrollText } from 'lucide-react';
+import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Bot, Monitor } from 'lucide-react';
 import { useAudio } from '@/components/ui/AudioContext';
 import { useTheme } from '@/components/ui/ThemeContext';
 import { useIsMobile } from '@/hooks/useIsMobile';
@@ -245,7 +245,7 @@ function SettingsPopover({
 
 /* ── ViewPopover ──────────────────────────────────────────────────────────── */
 const VIEW_OPTIONS: { id: ViewMode; label: string; icon: React.FC<{ size: number; strokeWidth: number }> }[] = [
-  { id: 'scroll', label: 'scroll',  icon: ScrollText },
+  { id: 'scroll', label: 'human',   icon: Monitor    },
   { id: 'agent',  label: 'agent',   icon: Bot        },
 ];
 
@@ -353,7 +353,7 @@ export function StatusBar({
   const { isMuted, toggleMute } = useAudio();
   const isMobile = useIsMobile();
 
-  const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? ScrollText;
+  const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
 
   return (
     <div
