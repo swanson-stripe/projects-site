@@ -6,7 +6,7 @@
 ────────────────────────────────────────────────────────────────────────────── */
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, LayoutGrid } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
@@ -593,6 +593,30 @@ export function ScrollView() {
     setWins(prev => prev.filter(w => w.id !== id));
   }, []);
 
+  /* arrange cascade windows (feat:0–3 + purpose) in a 2-column grid */
+  const gridCascade = useCallback(() => {
+    const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    const maxW     = Math.min(vw, MAX_W);
+    const left     = Math.max(PAD, (vw - maxW) / 2 + PAD);
+    const contentW = maxW - PAD * 2;
+    const docsRowY = TERM_Y + TERM_H + 40;
+    const baseY    = docsRowY + 44 + VGAP + 96 + VGAP;
+    const gap      = 16;
+    const winW     = Math.floor((contentW - gap) / 2);
+    const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    setWins(prev => prev.map(w => {
+      const idx = ids.indexOf(w.id as SWinId);
+      if (idx === -1) return w;
+      return {
+        ...w,
+        x: left + (idx % 2) * (winW + gap),
+        y: baseY + Math.floor(idx / 2) * (CASCADE_H + gap),
+        w: winW,
+        h: CASCADE_H,
+      };
+    }));
+  }, []);
+
   /* ace icon drag — repositions the icon on the canvas */
   const startAceDrag = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
@@ -859,6 +883,8 @@ export function ScrollView() {
             return null;
           })();
 
+          const isCascade = isFeat || isPurpose;
+
           return (
             <Window
               key={win.id}
@@ -875,6 +901,26 @@ export function ScrollView() {
               onFocus={() => bringToFront(win.id)}
               onMove={(x, y) => handleMove(win.id, x, y)}
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
+              headerRight={isCascade && isActive ? (
+                <button
+                  onClick={e => { e.stopPropagation(); gridCascade(); }}
+                  title='Arrange in grid'
+                  style={{
+                    display:    'flex',
+                    alignItems: 'center',
+                    background: 'none',
+                    border:     'none',
+                    padding:     0,
+                    cursor:     'pointer',
+                    color:      'var(--color-surface-dark)',
+                    opacity:     0.7,
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
+                >
+                  <LayoutGrid size={10} strokeWidth={1.5} />
+                </button>
+              ) : undefined}
             >
               {content}
             </Window>
