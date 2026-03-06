@@ -940,7 +940,7 @@ export function ScrollView() {
                     border:     'none',
                     padding:     0,
                     cursor:     'pointer',
-                    color:      'var(--color-surface-dark)',
+                    color:      'var(--color-text-ui)',
                     opacity:     0.7,
                   }}
                   onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
