@@ -124,30 +124,30 @@ body {
   height: 3px;
 }
 
-/* ── Stripedotdev theme overrides ─────────────────────────────────── */
-[data-theme="stripedotdev"] {
-  --color-bg:              #0B2337;
-  --color-surface:         #0B2337;
-  --color-surface-2:       #0D2C44;
-  --color-surface-dark:    #011627;
-  --color-border:          #1A3A5A;
-  --color-border-accent:   #1A3A5A;
-  --color-border-strong:   #2A5075;
-  --color-pink:            #F6CB88;
-  --color-blue:            #779BEB;
-  --color-yellow:          #B7E688;
-  --color-purple:          #F6CB88;
-  --color-text-ui:         #C2C7D0;
-  --color-text-ui-muted:   rgba(194,199,208,0.5);
-  --color-text-ui-subtle:  rgba(194,199,208,0.3);
-  --color-text-secondary:  #8BA8C0;
-  --color-grid-hash:       #657C95;
+/* ── Default theme overrides ───────────────────────────────────────── */
+[data-theme="default"] {
+  --color-bg:              #061B31;
+  --color-surface:         #061B31;
+  --color-surface-2:       #0A2242;
+  --color-surface-dark:    #050E18;
+  --color-border:          #112844;
+  --color-border-accent:   #1A3554;
+  --color-border-strong:   #254668;
+  --color-pink:            #F44BCC;
+  --color-blue:            #533AFD;
+  --color-yellow:          #FFC01F;
+  --color-purple:          #533AFD;
+  --color-text-ui:         #F6F9FC;
+  --color-text-ui-muted:   rgba(246,249,252,0.5);
+  --color-text-ui-subtle:  rgba(246,249,252,0.3);
+  --color-text-secondary:  #8BAEC8;
+  --color-grid-hash:       #2A4A6A;
   --grid-hash-alpha:       1;
 }
 
-[data-theme="stripedotdev"] ::selection {
-  background: #779BEB;
-  color: #011627;
+[data-theme="default"] ::selection {
+  background: #F44BCC;
+  color: #050E18;
 }
 
 /* ── Helm theme overrides ──────────────────────────────────────────── */

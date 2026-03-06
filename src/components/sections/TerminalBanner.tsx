@@ -171,7 +171,7 @@ function SettingsPopover({
   gateMode?: boolean;
 }) {
   const { theme, setTheme, themes: allThemes } = useTheme();
-  const themes = gateMode ? allThemes.filter(t => t.id !== 'stripedotdev') : allThemes;
+  const themes = gateMode ? allThemes.filter(t => t.id !== 'default') : allThemes;
   const popoverRef = useRef<HTMLDivElement>(null);
 
   /* close on outside click */

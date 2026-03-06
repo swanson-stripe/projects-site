@@ -8,7 +8,7 @@ export interface ThemeDefinition {
 }
 
 export const THEMES: ThemeDefinition[] = [
-  { id: 'stripedotdev', label: 'stripedotdev',  accent: '#F6CB88' },
+  { id: 'default',      label: 'default',        accent: '#F44BCC' },
   { id: 'stripe-dev',   label: 'dark',          accent: '#AAE87B' },
   { id: 'midnight',     label: 'midnight',      accent: '#15BE53' },
   { id: 'cybervision',  label: 'cybervision',   accent: '#00FF66' },
@@ -23,14 +23,14 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: 'stripedotdev',
+  theme: 'default',
   setTheme: () => {},
   themes: THEMES,
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<string>(() => {
-    return localStorage.getItem('theme') ?? 'stripedotdev';
+    return localStorage.getItem('theme') ?? 'default';
   });
 
   useEffect(() => {
