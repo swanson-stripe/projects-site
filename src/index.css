@@ -133,10 +133,10 @@ body {
   --color-border:          #112844;
   --color-border-accent:   #1A3554;
   --color-border-strong:   #254668;
-  --color-pink:            #F44BCC;
-  --color-blue:            #533AFD;
+  --color-pink:            #533AFD;
+  --color-blue:            #F44BCC;
   --color-yellow:          #FFC01F;
-  --color-purple:          #533AFD;
+  --color-purple:          #F44BCC;
   --color-text-ui:         #F6F9FC;
   --color-text-ui-muted:   rgba(246,249,252,0.5);
   --color-text-ui-subtle:  rgba(246,249,252,0.3);
@@ -146,8 +146,8 @@ body {
 }
 
 [data-theme="default"] ::selection {
-  background: #F44BCC;
-  color: #050E18;
+  background: #533AFD;
+  color: #F6F9FC;
 }
 
 /* ── Helm theme overrides ──────────────────────────────────────────── */

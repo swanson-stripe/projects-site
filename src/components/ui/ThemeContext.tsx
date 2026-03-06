@@ -8,7 +8,7 @@ export interface ThemeDefinition {
 }
 
 export const THEMES: ThemeDefinition[] = [
-  { id: 'default',      label: 'default',        accent: '#F44BCC' },
+  { id: 'default',      label: 'default',        accent: '#533AFD' },
   { id: 'stripe-dev',   label: 'dark',          accent: '#AAE87B' },
   { id: 'midnight',     label: 'midnight',      accent: '#15BE53' },
   { id: 'cybervision',  label: 'cybervision',   accent: '#00FF66' },
