@@ -6,7 +6,7 @@
 ────────────────────────────────────────────────────────────────────────────── */
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
-import { ArrowUpRight, LayoutGrid } from 'lucide-react';
+import { ArrowUpRight, LayoutGrid, Columns3 } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
@@ -526,6 +526,7 @@ export function ScrollView() {
   const [ecoFilter]                           = useState<Category | null>(null);
   const [selectedIcon, setSelectedIcon]       = useState<string | null>(null);
   const [acePosState, setAcePosState]         = useState(aceIconPos);
+  const [isGridLayout, setIsGridLayout]       = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
   const cliRef    = useRef<CliHandle>(null);
   const ecoRef    = useRef<EcoStripHandle>(null);
@@ -615,6 +616,33 @@ export function ScrollView() {
         h: CASCADE_H,
       };
     }));
+    setIsGridLayout(true);
+  }, []);
+
+  /* reset cascade windows back to the original staggered cascade */
+  const cascadeReset = useCallback(() => {
+    const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    const maxW     = Math.min(vw, MAX_W);
+    const left     = Math.max(PAD, (vw - maxW) / 2 + PAD);
+    const contentW = maxW - PAD * 2;
+    const docsRowY = TERM_Y + TERM_H + 40;
+    const baseY    = docsRowY + 44 + VGAP + 96 + VGAP;
+    const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    const CASCADE_W    = Math.floor(contentW * 0.44);
+    const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
+    setWins(prev => prev.map(w => {
+      const idx = ids.indexOf(w.id as SWinId);
+      if (idx === -1) return w;
+      return {
+        ...w,
+        x: left + idx * CASCADE_STEP,
+        y: baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
+        w: CASCADE_W,
+        h: CASCADE_H,
+        zIndex: ids.length - idx,
+      };
+    }));
+    setIsGridLayout(false);
   }, []);
 
   /* ace icon drag — repositions the icon on the canvas */
@@ -903,8 +931,8 @@ export function ScrollView() {
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
               headerRight={isCascade && isActive ? (
                 <button
-                  onClick={e => { e.stopPropagation(); gridCascade(); }}
-                  title='Arrange in grid'
+                  onClick={e => { e.stopPropagation(); isGridLayout ? cascadeReset() : gridCascade(); }}
+                  title={isGridLayout ? 'Reset cascade' : 'Arrange in grid'}
                   style={{
                     display:    'flex',
                     alignItems: 'center',
@@ -918,7 +946,10 @@ export function ScrollView() {
                   onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
                   onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
                 >
-                  <LayoutGrid size={10} strokeWidth={1.5} />
+                  {isGridLayout
+                    ? <Columns3 size={10} strokeWidth={1.5} />
+                    : <LayoutGrid size={10} strokeWidth={1.5} />
+                  }
                 </button>
               ) : undefined}
             >
