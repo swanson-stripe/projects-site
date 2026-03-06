@@ -348,7 +348,7 @@ export function Desktop() {
                 ) : isWhy ? (
                   <button
                     aria-label='Shuffle'
-                    onClick={e => { e.stopPropagation(); featuresRef.current?.shuffle(); }}
+                    onClick={e => { e.stopPropagation(); featuresRef.current?.shuffle?.(); }}
                     style={{ display: 'flex', alignItems: 'center', background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--color-text-ui-muted)' }}
                   >
                     <Shuffle size={10} strokeWidth={1.5} />

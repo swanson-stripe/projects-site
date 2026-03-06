@@ -841,10 +841,12 @@ export interface CliTerminalProps {
   installDemo?: boolean;
   /** When true: auto-submit the pre-filled install command 2s after mount. */
   autoSubmit?: boolean;
+  /** When set, overrides the placeholder text with "projects add <name>" */
+  dragService?: string | null;
 }
 
 /* ─── main component ─────────────────────────────────────────────── */
-export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false }, ref) {
+export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false, dragService = null }, ref) {
   const isMobile                = useIsMobile();
   const [lines, setLines]       = useState<Line[]>([]);
   const [value, setValue]       = useState('');
@@ -1237,7 +1239,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                       }}>{'\u00a0'}</span>
                     ) : (
                       <span style={{ color: DIM }}>
-                        projects add vercel
+                        {dragService ? `projects add ${dragService.toLowerCase()}` : 'projects add vercel'}
                       </span>
                     )}
                   </>

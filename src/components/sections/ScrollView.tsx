@@ -7,7 +7,6 @@
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { useIsMobile } from '@/hooks/useIsMobile';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
@@ -146,7 +145,7 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   activeFilter?:     Category | null;
   selectedIcon?:     string | null;
   onSelectIcon?:     (name: string | null) => void;
-}>(function EcosystemScrollStrip({ onCrossDragStart: _onCrossDragStart, onCrossDragMove: _onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
+}>(function EcosystemScrollStrip({ onCrossDragStart: _onCrossDragStart, onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
   useImperativeHandle(ref, () => ({
     resetIconPosition: (name: string) =>
       setOffsets(prev => ({ ...prev, [name]: { dx: 0, dy: 0 } })),
@@ -176,10 +175,9 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
       if (!started) {
         started = true;
         setDragging(partner.name);
-        /* no onCrossDragStart — the real icon moves, no ghost needed */
+        _onCrossDragStart?.(partner);
       }
       setOffsets(prev => ({ ...prev, [partner.name]: { dx, dy } }));
-      /* no onCrossDragMove — ghost is suppressed */
     }
     function onUp(ev: PointerEvent) {
       if (started) {
@@ -818,7 +816,7 @@ export function ScrollView() {
                       background:   'var(--color-pink)', opacity: 0.1, pointerEvents: 'none',
                     }} />
                   )}
-                  <CliTerminal ref={cliRef} installDemo autoSubmit />
+                  <CliTerminal ref={cliRef} installDemo autoSubmit dragService={draggingPartner?.name ?? null} />
                 </div>
               );
             }
