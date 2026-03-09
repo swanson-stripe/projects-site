@@ -6,19 +6,16 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 /* ── constants ────────────────────────────────────────────────────── */
 const BORDER          = '1px solid var(--color-border-accent)';
 const PINK            = 'var(--color-pink)';
-const INACTIVE_CORNER = 'var(--color-text-ui-subtle)';
 const ACTIVE_BAR_BG   = 'var(--color-pink)';
 const ACTIVE_TITLE    = 'var(--color-surface-dark)';  // dark text on bright bar
 const INACTIVE_TITLE  = 'var(--color-text-ui-subtle)';
 const DOT_INACTIVE    = 'var(--color-border-accent)'; // all dots same as border when inactive
-const CORNER_PX       = 8;
 const MIN_W           = 280;
 const MIN_H           = 180;
 const GRIP            = 5; // resize handle thickness (px)
 
 /* ── types ────────────────────────────────────────────────────────── */
-type Corner = 'tl' | 'tr' | 'bl' | 'br';
-type Dir    = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+type Dir = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
 
 export interface WindowProps {
   title:         string;
@@ -69,31 +66,6 @@ function getDotColors(theme: string): [string, string, string] {
   return ['var(--color-purple)', 'var(--color-yellow)', 'var(--color-blue)'];
 }
 
-/* ── corner bracket ───────────────────────────────────────────────── */
-function CornerBracket({ corner, color }: { corner: Corner; color: string }) {
-  const isTop  = corner === 'tl' || corner === 'tr';
-  const isLeft = corner === 'tl' || corner === 'bl';
-  return (
-    <div
-      aria-hidden
-      style={{
-        position:     'absolute',
-        width:        CORNER_PX,
-        height:       CORNER_PX,
-        top:          isTop  ? -1 : undefined,
-        bottom:       !isTop ? -1 : undefined,
-        left:         isLeft  ? -1 : undefined,
-        right:        !isLeft ? -1 : undefined,
-        borderTop:    isTop  ? `1px solid ${color}` : undefined,
-        borderBottom: !isTop ? `1px solid ${color}` : undefined,
-        borderLeft:   isLeft  ? `1px solid ${color}` : undefined,
-        borderRight:  !isLeft ? `1px solid ${color}` : undefined,
-        zIndex:       10,
-        pointerEvents:'none',
-      }}
-    />
-  );
-}
 
 /* ── resize handle styles ─────────────────────────────────────────── */
 const HANDLE: Record<Dir, CSSProperties> = {
@@ -119,7 +91,6 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
   const { theme }   = useTheme();
   const isMobile    = useIsMobile();
   const dotColors   = getDotColors(theme);
-  const cornerColor = isActive ? PINK : INACTIVE_CORNER;
   const dotSize     = isMobile ? 16 : 10;
   const dotGap      = isMobile ? 10 : 6;
 

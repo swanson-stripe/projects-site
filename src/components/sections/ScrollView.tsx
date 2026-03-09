@@ -22,7 +22,6 @@ import { Footer } from '@/components/sections/Footer';
 
 /* ── layout constants ────────────────────────────────────────────────────── */
 const PAD      = 32;   // horizontal padding on both sides of content
-const VGAP     = 80;   // vertical gap between sections
 const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
