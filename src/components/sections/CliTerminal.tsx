@@ -205,7 +205,7 @@ function respond(input: string): Line[] {
       { id: uid(), t: 'blank', text: '' },
       { id: uid(), t: 'done',  text: 'Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts - securely, deterministically, and without lock-in.' },
       { id: uid(), t: 'blank', text: '' },
-      { id: uid(), t: 'done',  text: 'Get started using the commands below.' },
+      { id: uid(), t: 'done',  text: 'Get started by installing via npm or homebrew.' },
       { id: uid(), t: 'blank', text: '' },
     ];
   }
@@ -670,7 +670,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
   }
 
   if (line.t === 'choice') {
-    // lkey format: '└ 1' for first/active item, '  2' for subsequent items
+    // lkey format: '└ npm ' for first/active item, '  brew' / '      ' for others
     const isActive = line.lkey?.trimStart().startsWith('└');
     return (
       <motion.div
@@ -1075,20 +1075,21 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
   function showChoosePath() {
     setLines(prev => [...prev,
-      { id: uid(), t: 'hint',   text: 'how do you want to build your tech stack?' },
-      { id: uid(), t: 'choice', lkey: '└ 1', text: 'select from a template' },
-      { id: uid(), t: 'choice', lkey: '  2', text: 'set up manually' },
+      { id: uid(), t: 'hint',   text: 'how do you want to install?' },
+      { id: uid(), t: 'choice', lkey: '└ npm ', text: 'npx @stripe/projects init my-app' },
+      { id: uid(), t: 'choice', lkey: '  brew', text: 'brew install stripe-cli' },
+      { id: uid(), t: 'choice', lkey: '      ', text: 'stripe projects init my-app' },
     ]);
     inputRef.current?.focus();
     pendingChoiceRef.current = (key: string) => {
       if (key === '1') {
         pendingChoiceRef.current = null;
-        setLines(prev => [...prev, { id: uid(), t: 'cmd', text: '1' }]);
+        setLines(prev => [...prev, { id: uid(), t: 'cmd', text: 'npm' }]);
         setTimeout(showTemplates, 300);
       } else if (key === '2') {
         pendingChoiceRef.current = null;
         setLines(prev => [...prev,
-          { id: uid(), t: 'cmd',   text: '2' },
+          { id: uid(), t: 'cmd',   text: 'brew' },
           { id: uid(), t: 'blank', text: '' },
           { id: uid(), t: 'hint',  text: 'run services add <name> to provision services individually' },
           { id: uid(), t: 'blank', text: '' },
