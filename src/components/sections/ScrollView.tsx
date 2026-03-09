@@ -6,8 +6,9 @@
 ────────────────────────────────────────────────────────────────────────────── */
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle, useLayoutEffect } from 'react';
+import { flushSync } from 'react-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import { ArrowUpRight, LayoutGrid, Columns3 } from 'lucide-react';
+import { ArrowUpRight, LayoutGrid, Columns3, RotateCcw } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
@@ -44,8 +45,10 @@ const CASCADE_DOWN          = 28;  // vertical offset per window
 const MOBILE_CASCADE_ESTIMATE = 220; // initial y-spacing estimate; useLayoutEffect corrects before paint
 
 /* shared terminal dimensions — referenced by all layout helpers */
-const TERM_Y    = 40;
-const TERM_H    = 520;
+const HEADLINE_H = 120; // headline text height + gap below it
+const TERM_Y    = 80 + HEADLINE_H; // shifted down to leave room for headline above
+const TERM_H        = 360;
+const TERM_EXPAND   = Math.round(TERM_H * 0.3); // ~108 — added on first user submit
 const SECTION_GAP = 40; // consistent vertical gap between all major sections
 
 const MOBILE_PAD = 16;
@@ -558,8 +561,12 @@ export function ScrollView() {
   const [selectedIcon, setSelectedIcon]       = useState<string | null>(null);
   const [acePosState, setAcePosState]         = useState(aceIconPos);
   const [isGridLayout, setIsGridLayout]       = useState(true);
+  const [animateLayout, setAnimateLayout]     = useState(false);
+  const [expansionDelta, setExpansionDelta]   = useState(0);
   // Bottom y-coord of the last cascade window on mobile (set by useLayoutEffect)
   const [mobileCascadeBottom, setMobileCascadeBottom] = useState(0);
+  // Incrementing this key remounts CliTerminal, resetting it to page-load state
+  const [terminalKey, setTerminalKey]         = useState(0);
   const canvasRef    = useRef<HTMLDivElement>(null);
   const cliRef       = useRef<CliHandle>(null);
   const ecoRef       = useRef<EcoStripHandle>(null);
@@ -603,7 +610,7 @@ export function ScrollView() {
       clientX >= winLeft && clientX <= winLeft + term.w &&
       clientY >= winTop  && clientY <= winTop  + (typeof term.h === 'number' ? term.h : 0)
     ) {
-      cliRef.current?.submit(`projects service add ${partner.name.toLowerCase()}`);
+      cliRef.current?.submit(`stripe projects services add ${partner.name.toLowerCase()}`);
       bringToFront('terminal');
       ecoRef.current?.resetIconPosition(partner.name);
     }
@@ -735,6 +742,25 @@ export function ScrollView() {
     });
   }, []);
 
+  /* expand terminal ~30% on first user submit, sliding everything below it down */
+  const termExpandedRef = useRef(false);
+  const handleFirstTermSubmit = useCallback(() => {
+    if (termExpandedRef.current) return;
+    termExpandedRef.current = true;
+    const delta = TERM_EXPAND;
+    // Force a synchronous render so transition styles are in the DOM before
+    // the position update — this ensures the browser animates the change.
+    flushSync(() => setAnimateLayout(true));
+    setWins(prev => prev.map(w => {
+      if (w.id === 'terminal') return { ...w, h: (w.h as number) + delta };
+      // Floating windows (partner detail, ace) stay put; layout windows shift down.
+      if (w.id.startsWith('partner:') || w.id === 'ace') return w;
+      return { ...w, y: w.y + delta };
+    }));
+    setExpansionDelta(delta);
+    setTimeout(() => setAnimateLayout(false), 500);
+  }, []);
+
   // Restack mobile cascade windows to their actual rendered heights.
   // useLayoutEffect fires before the browser paints so the user never sees
   // the estimate-based initial positions.
@@ -855,15 +881,36 @@ export function ScrollView() {
         onClick={() => setSelectedIcon(null)}
         style={{ position: 'relative', width: '100%', minHeight: canvasH, zIndex: 1 }}
       >
+        {/* headline above terminal */}
+        <p style={{
+          position:      'absolute',
+          left:           heroRow.termX,
+          top:            TERM_Y - HEADLINE_H,
+          width:          heroRow.termW,
+          margin:         0,
+          fontFamily:    'var(--font-mono)',
+          fontSize:      isMobile ? '1.3rem' : '1.9rem',
+          fontWeight:     600,
+          lineHeight:     1.3,
+          color:         'var(--color-text-ui)',
+          textAlign:     'center',
+          userSelect:    'none',
+          pointerEvents: 'none',
+          zIndex:         2,
+        }}>
+          Your whole stack, provisioned instantly and managed centrally.
+        </p>
+
         {/* hero row — stacked on mobile, side-by-side on desktop */}
         <div style={{
           position:      'absolute',
           left:           heroRow.termX,
-          top:            heroRow.y,
+          top:            heroRow.y + expansionDelta,
           width:          heroRow.termW,
           display:       'flex',
           flexDirection:  isMobile ? 'column' : 'row',
           alignItems:     isMobile ? 'stretch' : 'stretch',
+          transition:     animateLayout ? 'top 0.4s cubic-bezier(0.4,0,0.2,1)' : undefined,
           gap:             isMobile ? 20 : INSTALL_GAP,
           zIndex:          2,
         }}>
@@ -952,6 +999,7 @@ export function ScrollView() {
                   zIndex={win.zIndex}
                   isActive={isActive}
                   background={bg}
+                  animateLayout={animateLayout}
                   onFocus={() => bringToFront(win.id)}
                   onMove={(x, y) => handleMove(win.id, x, y)}
                   onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
@@ -990,7 +1038,7 @@ export function ScrollView() {
                       background:   'var(--color-pink)', opacity: 0.1, pointerEvents: 'none',
                     }} />
                   )}
-                  <CliTerminal ref={cliRef} installDemo autoSubmit dragService={draggingPartner?.name ?? null} />
+                  <CliTerminal key={terminalKey} ref={cliRef} installDemo autoSubmit dragService={draggingPartner?.name ?? null} onFirstSubmit={handleFirstTermSubmit} />
                 </div>
               );
             }
@@ -1056,11 +1104,30 @@ export function ScrollView() {
               isActive={isActive}
               background={bg}
               noScroll={isTerminal}
+              animateLayout={animateLayout}
               onClose={(isPartner || isAce) ? () => closeWindow(win.id) : undefined}
               onFocus={() => bringToFront(win.id)}
               onMove={(x, y) => handleMove(win.id, x, y)}
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
-              headerRight={isCascade && isActive && !isMobile ? (
+              headerRight={isTerminal ? (
+                <button
+                  aria-label='Reset terminal'
+                  onClick={e => { e.stopPropagation(); setTerminalKey(k => k + 1); }}
+                  style={{
+                    display:    'flex',
+                    alignItems: 'center',
+                    background: 'none',
+                    border:     'none',
+                    padding:     0,
+                    cursor:     'pointer',
+                    color:      'var(--color-text-ui-muted)',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+                >
+                  <RotateCcw size={10} strokeWidth={1.5} />
+                </button>
+              ) : isCascade && isActive && !isMobile ? (
                 <button
                   onClick={e => { e.stopPropagation(); isGridLayout ? cascadeReset(win.id) : gridCascade(); }}
                   title={isGridLayout ? 'Reset cascade' : 'Arrange in grid'}

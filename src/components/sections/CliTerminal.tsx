@@ -100,7 +100,7 @@ const SLASH_COMMANDS: SlashCommand[] = [
 ];
 
 /* ─── install-demo constants ─────────────────────────────────────── */
-const PREFILL_CMD  = 'projects init my-app';
+const PREFILL_CMD  = 'stripe projects init my-app';
 const INTRO_LINES: { text: string; delay: number }[] = [
   { text: 'One command, real infrastructure.',                                                                                                                      delay: 1000 },
   { text: 'Stripe projects will provision resources and return ready-to-use keys. Launch or hand off to an agent to deploy your app automatically.', delay: 2000 },
@@ -205,8 +205,12 @@ function respond(input: string): Line[] {
       { id: uid(), t: 'blank', text: '' },
       { id: uid(), t: 'done',  text: 'Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts - securely, deterministically, and without lock-in.' },
       { id: uid(), t: 'blank', text: '' },
-      { id: uid(), t: 'done',  text: 'Get started by installing via npm or homebrew.' },
-      { id: uid(), t: 'blank', text: '' },
+      { id: uid(), t: 'done',   text: 'Get started by installing via npm or homebrew.' },
+      { id: uid(), t: 'blank',  text: '' },
+      { id: uid(), t: 'choice', lkey: '└ npm ', text: 'npx @stripe/projects init my-app' },
+      { id: uid(), t: 'choice', lkey: '  brew', text: 'brew install stripe-cli' },
+      { id: uid(), t: 'choice', lkey: '      ', text: 'stripe projects init my-app' },
+      { id: uid(), t: 'blank',  text: '' },
     ];
   }
 
@@ -491,8 +495,8 @@ function respond(input: string): Line[] {
     ];
   }
 
-  /* ── projects service add <name>  OR  /services add <name> ── */
-  const addMatch = raw.match(/^(?:projects\s+service(?:s)?\s+add|\/services\s+add)\s+(\S+)/i);
+  /* ── stripe projects services add <name>  OR  /services add <name> ── */
+  const addMatch = raw.match(/^(?:(?:stripe\s+)?projects\s+services?\s+add|\/services\s+add)\s+(\S+)/i);
   if (addMatch) {
     const svcSlug    = addMatch[1].toLowerCase();
     const partner    = PARTNERS.find(p => p.name.toLowerCase() === svcSlug);
@@ -500,13 +504,12 @@ function respond(input: string): Line[] {
     const category   = partner?.category ?? 'service';
     return [
       { id: uid(), t: 'blank', text: '' },
-      { id: uid(), t: 'step',  text: `provisioning ${displayName}...` },
+      { id: uid(), t: 'step',  text: `provisioning ${displayName} for ${category}...` },
       { id: uid(), t: 'sub',   text: 'allocating resources' },
       { id: uid(), t: 'sub',   text: `configuring ${category} instance` },
       { id: uid(), t: 'sub',   text: 'generating credentials' },
       { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
-      { id: uid(), t: 'blank', text: '' },
-      { id: uid(), t: 'hint',  text: 'run env list to view new credentials' },
+      { id: uid(), t: 'sub',   text: 'run env list to view new credentials' },
       { id: uid(), t: 'blank', text: '' },
     ];
   }
@@ -550,7 +553,7 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   step:    { prefix: '•',  prefixColor: MUTED,      textColor: 'var(--color-text-ui)',  indent: false },
   sub:     { prefix: '↳',  prefixColor: DIM,        textColor: MUTED,                   indent: true  },
   done:    { prefix: '✓',  prefixColor: PINK,  textColor: 'var(--color-text-ui)',  indent: false },
-  url:     { prefix: '▸',  prefixColor: PINK,       textColor: PINK,                    indent: false },
+  url:     { prefix: '→',  prefixColor: PINK,       textColor: PINK,                    indent: false },
   blank:   { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   kv:      { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
   section: { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
@@ -657,21 +660,10 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
   }
 
   if (line.t === 'spinner') {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.15 }}
-        style={{ marginBottom: '0.15em', lineHeight: 1.75 }}
-      >
-        <StaticSignal />
-      </motion.div>
-    );
+    return null;
   }
 
   if (line.t === 'choice') {
-    // lkey format: '└ npm ' for first/active item, '  brew' / '      ' for others
-    const isActive = line.lkey?.trimStart().startsWith('└');
     return (
       <motion.div
         initial={ANIM_INIT_NEW}
@@ -680,7 +672,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         style={{ display: 'flex', alignItems: 'baseline', gap: '0.6em', marginBottom: '0.15em', lineHeight: 1.75 }}
       >
         <span style={{ color: DIM, userSelect: 'none', minWidth: '3.2em', fontFamily: 'inherit', whiteSpace: 'pre' }}>{line.lkey}</span>
-        <span style={{ color: isActive ? 'var(--color-text-ui)' : MUTED }}>{line.text}</span>
+        <span style={{ color: 'var(--color-text-ui)' }}>{line.text}</span>
       </motion.div>
     );
   }
@@ -843,17 +835,22 @@ export interface CliTerminalProps {
   autoSubmit?: boolean;
   /** When set, overrides the placeholder text with "projects add <name>" */
   dragService?: string | null;
+  /** Called once on the first user-initiated submit */
+  onFirstSubmit?: () => void;
 }
 
 /* ─── main component ─────────────────────────────────────────────── */
-export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false, dragService = null }, ref) {
+export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false, dragService = null, onFirstSubmit }, ref) {
   const isMobile                = useIsMobile();
   const [lines, setLines]       = useState<Line[]>([]);
   const [value, setValue]       = useState('');
   const [menuIdx, setMenuIdx]   = useState(0);
   const [selStart, setSelStart] = useState(0);
-  const [focused, setFocused]       = useState(false);
-  const [showEnterHint, setShowEnterHint] = useState(false);
+  const [focused, setFocused]       = useState(!isMobile);
+  const [showEnterHint, setShowEnterHint]     = useState(false);
+  const [awaitingName, setAwaitingName]       = useState(installDemo);
+  const [placeholderService, setPlaceholderService] = useState('vercel');
+  const [pendingChoiceHint, setPendingChoiceHint]   = useState<string | null>(null);
   const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
   const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
   const appNameRef              = useRef('my-app'); // set from the init command
@@ -861,6 +858,10 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const inputRef                = useRef<HTMLInputElement>(null);
   const historyRef              = useRef<string[]>([]);
   const histIdxRef              = useRef(-1);
+  const submitCountRef          = useRef(0);  // total user submissions so far
+  const firstSubmitFiredRef     = useRef(false);
+  const onFirstSubmitRef        = useRef(onFirstSubmit);
+  useEffect(() => { onFirstSubmitRef.current = onFirstSubmit; }, [onFirstSubmit]);
 
   /* sync cursor position after browser processes events */
   const syncSel = useCallback(() => {
@@ -897,7 +898,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     return () => ts.forEach(clearTimeout);
   }, [installDemo]);
 
-  /* cascade intro lines then prefill the prompt */
+  /* cascade intro lines — naming phase handles the prompt pre-fill */
   useEffect(() => {
     if (!autoSubmit || !installDemo) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
@@ -906,18 +907,15 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         setLines(prev => [...prev, { id: uid(), t: 'done', text, initial: true }]);
       }, delay));
     });
-    // after the last intro line has appeared, prefill the prompt
-    const prefillDelay = INTRO_LINES[INTRO_LINES.length - 1].delay + 600;
-    timers.push(setTimeout(() => {
-      setValue(PREFILL_CMD);
-      setSelStart(PREFILL_CMD.length);
-      setFocused(true);
-      setShowEnterHint(true);
-      inputRef.current?.focus();
-    }, prefillDelay));
     return () => timers.forEach(clearTimeout);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // intentionally runs once on mount
+
+  /* focus input on mount so typing works immediately on desktop */
+  useEffect(() => {
+    if (!isMobile) inputRef.current?.focus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /* auto-scroll */
   useEffect(() => {
@@ -930,8 +928,37 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const val = (override ?? value).trim();
     if (!val) return;
 
+    submitCountRef.current += 1;
+    if (!firstSubmitFiredRef.current) {
+      // ? → expand immediately; anything else → wait for the second submission
+      if (val === '?' || submitCountRef.current >= 2) {
+        firstSubmitFiredRef.current = true;
+        onFirstSubmitRef.current?.();
+      }
+    }
+
+    /* ── naming phase: first interaction captures the project name ── */
+    if (awaitingName && val !== '?') {
+      const appName = val;
+      appNameRef.current = appName;
+      historyRef.current.unshift(val);
+      const initCmd = `stripe projects init ${appName}`;
+      setLines(prev => [...prev,
+        { id: uid(), t: 'cmd',   text: val },
+        { id: uid(), t: 'blank', text: '' },
+        { id: uid(), t: 'step',  text: `${appName} sounds cool. let's build with stripe projects.` },
+        { id: uid(), t: 'blank', text: '' },
+      ]);
+      setValue(initCmd);
+      setSelStart(initCmd.length);
+      setAwaitingName(false);
+      setShowEnterHint(true);
+      inputRef.current?.focus();
+      return;
+    }
+
     /* ── demo step 1: npx @stripe/projects init → interactive install flow ── */
-    const initMatch = val.match(/(?:npx\s+@stripe\/projects\s+)?projects\s+init(?:\s+(\S+))?/i);
+    const initMatch = val.match(/(?:npx\s+@stripe\/projects\s+|stripe\s+)?projects\s+init(?:\s+(\S+))?/i);
     if (installDemo && demoStepRef.current === 0 && initMatch) {
       demoStepRef.current = 1;
       if (initMatch[1]) appNameRef.current = initMatch[1];
@@ -943,6 +970,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       setValue('');
       setSelStart(0);
       setShowEnterHint(false);
+      setPendingChoiceHint(''); // blank placeholder during install animation
       setTimeout(() => {
         setLines(prev => [...prev,
           { id: stepId,    t: 'step',    text: 'installing stripe projects...' },
@@ -965,6 +993,33 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     }
 
     setShowEnterHint(false);
+
+    /* ── service add: cascade sub-items one by one ── */
+    const svcAddMatch = val.match(/^(?:(?:stripe\s+)?projects\s+services?\s+add|\/services\s+add)\s+(\S+)/i);
+    if (svcAddMatch) {
+      const svcSlug     = svcAddMatch[1].toLowerCase();
+      const partner     = PARTNERS.find(p => p.name.toLowerCase() === svcSlug);
+      const displayName = partner?.name ?? svcSlug;
+      const category    = partner?.category ?? 'service';
+      setLines(prev => [...prev,
+        { id: uid(), t: 'cmd',   text: val },
+        { id: uid(), t: 'blank', text: '' },
+        { id: uid(), t: 'step',  text: `provisioning ${displayName} for ${category}...` },
+      ]);
+      setValue('');
+      setSelStart(0);
+      const SUB_STEP = 280;
+      ['allocating resources', `configuring ${category} instance`, 'generating credentials'].forEach((text, i) => {
+        setTimeout(() => setLines(prev => [...prev, { id: uid(), t: 'sub', text }]), 400 + i * SUB_STEP);
+      });
+      setTimeout(() => setLines(prev => [...prev,
+        { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
+        { id: uid(), t: 'sub',   text: 'run env list to view new credentials' },
+        { id: uid(), t: 'blank', text: '' },
+      ]), 400 + 3 * SUB_STEP + 200);
+      return;
+    }
+
     const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
     const response = respond(val);
 
@@ -984,7 +1039,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     setTimeout(() => {
       setLines(prev => [...prev.filter(l => l.id !== spinnerId), ...instant(response)]);
     }, 1400 + Math.random() * 1200);
-  }, [value, installDemo]);
+  }, [value, installDemo, awaitingName]);
 
   /* keep submitRef current so the imperative handle always calls latest */
   useEffect(() => { submitRef.current = submit; }, [submit]);
@@ -1040,6 +1095,11 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
     if (e.key === 'Enter') {
       submit();
+    } else if (e.key === 'ArrowRight' && value === '' && !awaitingName && pendingChoiceHint === null && placeholder) {
+      // Fill input with the command placeholder so the user can edit/submit it
+      e.preventDefault();
+      setValue(placeholder);
+      setSelStart(placeholder.length);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       const next = Math.min(histIdxRef.current + 1, historyRef.current.length - 1);
@@ -1075,21 +1135,23 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
   function showChoosePath() {
     setLines(prev => [...prev,
-      { id: uid(), t: 'hint',   text: 'how do you want to install?' },
-      { id: uid(), t: 'choice', lkey: '└ npm ', text: 'npx @stripe/projects init my-app' },
-      { id: uid(), t: 'choice', lkey: '  brew', text: 'brew install stripe-cli' },
-      { id: uid(), t: 'choice', lkey: '      ', text: 'stripe projects init my-app' },
+      { id: uid(), t: 'hint',   text: 'how do you want to build?' },
+      { id: uid(), t: 'choice', lkey: '└ 1  ', text: 'use a starter template' },
+      { id: uid(), t: 'choice', lkey: '  2  ', text: 'start with a blank project' },
     ]);
+    setPendingChoiceHint('choose 1 or 2');
     inputRef.current?.focus();
     pendingChoiceRef.current = (key: string) => {
       if (key === '1') {
         pendingChoiceRef.current = null;
-        setLines(prev => [...prev, { id: uid(), t: 'cmd', text: 'npm' }]);
+        setPendingChoiceHint(''); // blank while showTemplates loads
+        setLines(prev => [...prev, { id: uid(), t: 'cmd', text: '1' }]);
         setTimeout(showTemplates, 300);
       } else if (key === '2') {
         pendingChoiceRef.current = null;
+        setPendingChoiceHint(null); // back to normal mode
         setLines(prev => [...prev,
-          { id: uid(), t: 'cmd',   text: 'brew' },
+          { id: uid(), t: 'cmd',   text: '2' },
           { id: uid(), t: 'blank', text: '' },
           { id: uid(), t: 'hint',  text: 'run services add <name> to provision services individually' },
           { id: uid(), t: 'blank', text: '' },
@@ -1108,11 +1170,13 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         id: uid(), t: 'tpl' as LT, lkey: String(i + 1), text: '',
       })),
     ]);
+    setPendingChoiceHint('choose a template');
     inputRef.current?.focus();
     pendingChoiceRef.current = (key: string) => {
       const idx = parseInt(key) - 1;
       if (idx >= 0 && idx < TEMPLATES.length) {
         pendingChoiceRef.current = null;
+        setPendingChoiceHint(''); // blank while provisioning runs
         const tpl = TEMPLATES[idx];
         setLines(prev => [...prev,
           { id: uid(), t: 'cmd',   text: key },
@@ -1126,7 +1190,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
   function provisionNext(services: TplService[], idx: number) {
     if (idx >= services.length) {
-      // Act 5: all done — use the app name and detect Vercel
+      // All done — show final summary and update placeholder to a non-duplicate service
       const name      = appNameRef.current;
       const hasVercel = services.some(s => s.name.toLowerCase() === 'vercel');
       const urlText   = hasVercel
@@ -1136,37 +1200,72 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         { id: uid(), t: 'done', text: 'automatically created and provisioned for you' },
         { id: uid(), t: 'url',  text: urlText },
       ]);
+      setPlaceholderService(pickSuggestedService(services.map(s => s.name)));
+      setPendingChoiceHint(null); // restore normal computed placeholder
       return;
     }
-    const svc     = services[idx];
-    const stepId  = uid();
-    const spinId  = uid();
+    const svc    = services[idx];
+    const stepId = uid();
+    const spinId = uid();
     setLines(prev => [...prev,
-      { id: stepId, t: 'step',    text: `provisioning ${svc.name}...` },
+      { id: stepId, t: 'step',    text: `provisioning ${svc.name} for ${svc.category}...` },
       { id: spinId, t: 'spinner', text: '' },
     ]);
     setTimeout(() => {
       const costLabel = svc.cost === 0 ? '$0/mo' : `$${svc.cost}/mo`;
+      const SUB_STEP  = 220;
+      const subs      = [
+        'allocated resources',
+        `configured ${svc.category} instance`,
+        'generated credentials',
+        'updated stack configuration',
+      ];
+      // Swap spinner → step header
       setLines(prev => [
         ...prev.filter(l => l.id !== stepId && l.id !== spinId),
-        ...instant([
-          { id: uid(), t: 'step',  text: `provisioning ${svc.name}.` },
-          { id: uid(), t: 'sub',   text: 'allocated resources' },
-          { id: uid(), t: 'sub',   text: `configured ${svc.category} instance` },
-          { id: uid(), t: 'sub',   text: 'generated credentials' },
-          { id: uid(), t: 'sub',   text: 'updated stack configuration' },
-          { id: uid(), t: 'blank', text: '' },
-          { id: uid(), t: 'done',  text: `${svc.name} provisioned and added to your project.` },
-          { id: uid(), t: 'add',   text: `account created · ${svc.tier} tier · ${costLabel}` },
-          { id: uid(), t: 'add',   text: `injected ${svc.envVars} environment variables` },
-          { id: uid(), t: 'mod',   text: 'modified stack.yaml' },
-          { id: uid(), t: 'mod',   text: 'modified .env' },
-          { id: uid(), t: 'blank', text: '' },
-        ]),
+        { id: uid(), t: 'step', instant: true, text: `provisioning ${svc.name} for ${svc.category}.` },
       ]);
-      setTimeout(() => provisionNext(services, idx + 1), 500);
+      // Cascade sub-items
+      subs.forEach((text, i) => {
+        setTimeout(() => setLines(prev => [...prev, { id: uid(), t: 'sub', text }]), (i + 1) * SUB_STEP);
+      });
+      // Summary block after subs
+      const summaryDelay = (subs.length + 1) * SUB_STEP;
+      setTimeout(() => {
+        setLines(prev => [...prev,
+          { id: uid(), t: 'blank', instant: true, text: '' },
+          { id: uid(), t: 'done',  instant: true, text: `${svc.name} provisioned and added to your project.` },
+          { id: uid(), t: 'add',   instant: true, text: `account created · ${svc.tier} tier · ${costLabel}` },
+          { id: uid(), t: 'add',   instant: true, text: `injected ${svc.envVars} environment variables` },
+          { id: uid(), t: 'mod',   instant: true, text: 'modified stack.yaml' },
+          { id: uid(), t: 'mod',   instant: true, text: 'modified .env' },
+          { id: uid(), t: 'blank', instant: true, text: '' },
+        ]);
+        setTimeout(() => provisionNext(services, idx + 1), 500);
+      }, summaryDelay);
     }, 1500 + Math.random() * 700);
   }
+
+  /* pick a suggested service not already in usedNames */
+  function pickSuggestedService(usedNames: string[]): string {
+    const used = new Set(usedNames.map(n => n.toLowerCase()));
+    const available = SERVICE_OPTIONS.filter(s => !used.has(s.name));
+    return available.length > 0
+      ? available[Math.floor(Math.random() * available.length)].name
+      : 'stripe';
+  }
+
+  /* current placeholder text — shared between render and onKeyDown.
+     null  → use computed service/name placeholder (normal mode)
+     ''    → show blank (between choice steps)
+     other → show that hint string */
+  const placeholder = pendingChoiceHint !== null
+    ? pendingChoiceHint
+    : awaitingName
+      ? 'give your project a name'
+      : dragService
+        ? `stripe projects services add ${dragService.toLowerCase()}`
+        : `stripe projects services add ${placeholderService}`;
 
   return (
     <div
@@ -1229,21 +1328,35 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                 }}
               >
                 {value === '' ? (
-                  /* placeholder / block cursor when empty */
-                  <>
-                    {focused ? (
-                      <span style={{
-                        display:    'inline-block',
-                        minWidth:   '0.6em',
-                        background: PINK,
-                        flexShrink: 0,
-                      }}>{'\u00a0'}</span>
-                    ) : (
-                      <span style={{ color: DIM }}>
-                        {dragService ? `projects add ${dragService.toLowerCase()}` : 'projects add vercel'}
-                      </span>
-                    )}
-                  </>
+                  /* placeholder area — always show pink cursor when focused */
+                  placeholder ? (
+                    /* normal: cursor on first char + dim rest */
+                    <>
+                      {focused ? (
+                        <>
+                          <span style={{
+                            display:    'inline-block',
+                            minWidth:   '0.6em',
+                            background: PINK,
+                            color:      'var(--color-surface-dark)',
+                            flexShrink: 0,
+                            textAlign:  'center',
+                          }}>{placeholder[0]}</span>
+                          <span style={{ color: DIM }}>{placeholder.slice(1)}</span>
+                        </>
+                      ) : (
+                        <span style={{ color: DIM }}>{placeholder}</span>
+                      )}
+                    </>
+                  ) : focused ? (
+                    /* blank placeholder but still show cursor block */
+                    <span style={{
+                      display:    'inline-block',
+                      minWidth:   '0.6em',
+                      background: PINK,
+                      flexShrink: 0,
+                    }}>&nbsp;</span>
+                  ) : null
                 ) : (
                   /* text before cursor | block cursor | text after cursor */
                   <>
@@ -1317,7 +1430,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
             userSelect:     'none',
           }}
         >
-          {showEnterHint && <span>enter to submit</span>}
+          {(showEnterHint || value.length > 0) && <span>enter to submit</span>}
           <span style={{ marginLeft: 'auto' }}>? for more info</span>
         </div>
       </div>

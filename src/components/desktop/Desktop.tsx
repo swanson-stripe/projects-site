@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, forwardRef, type CSSProperties } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { Shuffle } from 'lucide-react';
+import { Shuffle, RotateCcw } from 'lucide-react';
 import { Window } from './Window';
 import { GridBackground } from '@/components/ui/grid-background';
 import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
@@ -65,6 +65,8 @@ const ECO_TITLEBAR_H = 27;
 const ECO_W = ECO_CONTENT_W;
 const ECO_H = ECO_CONTENT_H + ECO_TITLEBAR_H;
 
+const HEADLINE_H = 120; // headline text height + gap beneath it
+
 function initialWindows(): WinState[] {
   const vw    = typeof window !== 'undefined' ? window.innerWidth  : 1440;
   const vh    = typeof window !== 'undefined' ? window.innerHeight : 900;
@@ -72,6 +74,7 @@ function initialWindows(): WinState[] {
 
   const ww = Math.floor(vw    * 0.55);
   const wh = Math.floor(areaH * 0.55);
+  const th = Math.floor(wh * 0.7); // terminal is ~30% shorter than the default window height
 
   // install width ~50% of base, height fixed to just contain its content
   const iw   = Math.floor(ww * 0.5);
@@ -85,8 +88,8 @@ function initialWindows(): WinState[] {
   const uw = 440, uh = 520;
 
   return [
-    // terminal  — top-left
-    { id: 'terminal',  x: m,         y: m,  w: ww, h: wh, zIndex: 3 },
+    // terminal  — top-left, shifted down to leave room for headline
+    { id: 'terminal',  x: m,         y: m * 2 + HEADLINE_H,  w: ww, h: th, zIndex: 3 },
     // install   — top-right, guaranteed right of terminal
     { id: 'install',   x: installX,  y: m,  w: iw, h: ih, zIndex: 4 },
     // what.md   — bottom-left
@@ -136,6 +139,7 @@ export function Desktop() {
   const [viewMode, setViewMode]       = useState<ViewMode>('scroll');
   const [feedbackKey, setFeedbackKey]   = useState(0);
   const [scrollViewKey, setScrollViewKey] = useState(0);
+  const [terminalKey, setTerminalKey]   = useState(0);
   const ecoRef                          = useRef<EcosystemHandle>(null);
   const cliRef                          = useRef<CliHandle>(null);
   const featuresRef                     = useRef<{ shuffle?: () => void } | null>(null);
@@ -201,7 +205,7 @@ export function Desktop() {
       clientX >= cli.x && clientX <= cli.x + cli.w &&
       clientY >= areaTop + cli.y && clientY <= areaTop + cli.y + cli.h
     ) {
-      cliRef.current?.submit(`projects service add ${partner.name.toLowerCase()}`);
+      cliRef.current?.submit(`stripe projects services add ${partner.name.toLowerCase()}`);
       bringToFront('terminal');
       ecoRef.current?.resetIconPosition(partner.name);
     }
@@ -320,6 +324,31 @@ export function Desktop() {
         {/* ── Inner canvas — gives absolute-positioned children a scrollable height context */}
         <div style={{ position: 'relative', width: '100%', minHeight: isMobile ? mobileCanvasH : '100%' }}>
 
+        {/* ── Headline above the terminal window ───────────────────── */}
+        {!isMobile && (() => {
+          const termWin = wins.find(w => w.id === 'terminal');
+          if (!termWin) return null;
+          return (
+            <p style={{
+              position:      'absolute',
+              left:           termWin.x,
+              top:            termWin.y - HEADLINE_H,
+              width:          termWin.w,
+              margin:         0,
+              fontFamily:    'var(--font-mono)',
+              fontSize:      '1.9rem',
+              fontWeight:     600,
+              lineHeight:     1.3,
+              color:         'var(--color-text-ui)',
+              textAlign:     'center',
+              userSelect:    'none',
+              pointerEvents: 'none',
+            }}>
+              Your whole stack, provisioned instantly and managed centrally.
+            </p>
+          );
+        })()}
+
         <AnimatePresence>
         {wins.map(win => {
             const partnerName = win.id.startsWith('partner:') ? win.id.slice('partner:'.length) : null;
@@ -343,7 +372,25 @@ export function Desktop() {
                 h={win.h}
                 zIndex={win.zIndex}
                 background={darkBg}
-                headerRight={isEcosystem ? (
+                headerRight={win.id === 'terminal' ? (
+                  <button
+                    aria-label='Reset terminal'
+                    onClick={e => { e.stopPropagation(); setTerminalKey(k => k + 1); }}
+                    style={{
+                      display:    'flex',
+                      alignItems: 'center',
+                      background: 'none',
+                      border:     'none',
+                      padding:     0,
+                      cursor:     'pointer',
+                      color:      'var(--color-text-ui-muted)',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+                  >
+                    <RotateCcw size={10} strokeWidth={1.5} />
+                  </button>
+                ) : isEcosystem ? (
                   <EcoFilterButton activeFilter={ecoFilter} onFilter={setEcoFilter} />
                 ) : isWhy ? (
                   <button
@@ -370,7 +417,7 @@ export function Desktop() {
                         pointerEvents:'none',
                       }} />
                     )}
-                    <TerminalContent ref={cliRef} />
+                    <TerminalContent key={terminalKey} ref={cliRef} />
                   </div>
                 )}
                 {win.id === 'install'   && <InstallWindow />}

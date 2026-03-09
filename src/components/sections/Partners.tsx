@@ -2,6 +2,7 @@ import { useState, useCallback, useRef, useEffect, forwardRef, useImperativeHand
 import { motion } from 'motion/react';
 import { SlidersHorizontal } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export type Category = 'payments' | 'auth' | 'database' | 'storage' | 'monitoring' | 'analytics' | 'ai' | 'hosting';
 
@@ -673,6 +674,7 @@ const CATEGORY_COLOR: Record<Category, string> = {
 };
 
 export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowMe?: (cmd: string) => void }) {
+  const isMobile = useIsMobile();
   const catColor = CATEGORY_COLOR[partner.category];
   return (
     <div style={{
@@ -730,25 +732,27 @@ export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowM
             {partner.cliCommand}
           </code>
         </div>
-        <button
-          onClick={() => onShowMe?.(partner.cliCommand)}
-          style={{
-            display:      'block',
-            width:        '100%',
-            padding:      '0.5rem 0.875rem',
-            background:   'transparent',
-            border:       'none',
-            borderTop:    '1px solid var(--color-border-accent)',
-            textAlign:    'left',
-            fontFamily:   'var(--font-mono)',
-            fontSize:     '0.72rem',
-            color:        'var(--color-pink)',
-            cursor:       onShowMe ? 'pointer' : 'default',
-            letterSpacing:'0.02em',
-          }}
-        >
-          show me →
-        </button>
+        {!isMobile && (
+          <button
+            onClick={() => onShowMe?.(partner.cliCommand)}
+            style={{
+              display:      'block',
+              width:        '100%',
+              padding:      '0.5rem 0.875rem',
+              background:   'transparent',
+              border:       'none',
+              borderTop:    '1px solid var(--color-border-accent)',
+              textAlign:    'left',
+              fontFamily:   'var(--font-mono)',
+              fontSize:     '0.72rem',
+              color:        'var(--color-pink)',
+              cursor:       onShowMe ? 'pointer' : 'default',
+              letterSpacing:'0.02em',
+            }}
+          >
+            show me →
+          </button>
+        )}
       </div>
     </div>
   );

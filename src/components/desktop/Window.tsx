@@ -39,11 +39,11 @@ export interface WindowProps {
   headerRight?:  ReactNode;
   /** Override the window background color */
   background?:   string;
+  /** When true, smoothly animate position/size changes (e.g. during layout rearrangement) */
+  animateLayout?: boolean;
   onFocus:       () => void;
   onMove:        (x: number, y: number) => void;
   onResize:      (x: number, y: number, w: number, h: number) => void;
-  /** Viewport coordinates of the icon that spawned this window — used as animation origin */
-  origin?:       { x: number; y: number };
 }
 
 /* ── traffic-light config ─────────────────────────────────────────── */
@@ -85,7 +85,8 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
   isActive = false, isMaximized = false, noScroll = false,
   onClose, onMinimize, onMaximize,
   headerRight, background = 'var(--color-surface-dark)',
-  onFocus, onMove, onResize, origin,
+  animateLayout = false,
+  onFocus, onMove, onResize,
 }: WindowProps, ref) {
   const { theme }   = useTheme();
   const isMobile    = useIsMobile();
@@ -153,29 +154,17 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
     window.addEventListener('pointerup',   onUp);
   }
 
-  const transformOrigin = origin
-    ? `${origin.x - x}px ${origin.y - y}px`
-    : 'top right';
-
   return (
     <motion.div
       variants={{
-        initial: { opacity: 0, scale: 0 },
+        initial: { opacity: 0 },
         animate: {
           opacity: 1,
-          scale: 1,
-          transition: {
-            opacity: { duration: 0.14, ease: 'easeOut' },
-            scale:   { type: 'spring', stiffness: 320, damping: 28 },
-          },
+          transition: { duration: 0.18, ease: 'easeOut' },
         },
         exit: {
           opacity: 0,
-          scale: 0,
-          transition: {
-            scale:   { duration: 0.3, ease: 'easeOut' },
-            opacity: { duration: 0.3, ease: 'easeOut' },
-          },
+          transition: { duration: 0.15, ease: 'easeOut' },
         },
       }}
       ref={ref as React.Ref<HTMLDivElement>}
@@ -193,9 +182,8 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
         flexDirection:  'column',
         border:          isActive ? `1px solid ${ACTIVE_BAR_BG}` : BORDER,
         background,
-        transformOrigin,
-        ...(isMaximized || isTransitioning ? {
-          transition: 'left 0.28s ease-in-out, top 0.28s ease-in-out, width 0.28s ease-in-out, height 0.28s ease-in-out',
+        ...(isMaximized || isTransitioning || animateLayout ? {
+          transition: 'left 0.4s cubic-bezier(0.4,0,0.2,1), top 0.4s cubic-bezier(0.4,0,0.2,1), width 0.4s cubic-bezier(0.4,0,0.2,1), height 0.4s cubic-bezier(0.4,0,0.2,1)',
         } : {}),
       }}
       onPointerDown={onFocus}
