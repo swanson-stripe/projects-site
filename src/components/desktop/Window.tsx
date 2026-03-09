@@ -5,7 +5,6 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 
 /* ── constants ────────────────────────────────────────────────────── */
 const BORDER          = '1px solid var(--color-border-accent)';
-const PINK            = 'var(--color-pink)';
 const ACTIVE_BAR_BG   = 'var(--color-pink)';
 const ACTIVE_TITLE    = 'var(--color-surface-dark)';  // dark text on bright bar
 const INACTIVE_TITLE  = 'var(--color-text-ui-subtle)';
