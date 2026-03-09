@@ -229,12 +229,6 @@ export function Window({
       }}
       onPointerDown={onFocus}
     >
-      {/* corner accents — pink when active, white 25% when inactive */}
-      <CornerBracket corner='tl' color={cornerColor} />
-      <CornerBracket corner='tr' color={cornerColor} />
-      <CornerBracket corner='bl' color={cornerColor} />
-      <CornerBracket corner='br' color={cornerColor} />
-
       {/* ── title bar ───────────────────────────────────────────── */}
       <div
         onPointerDown={isMaximized ? undefined : handleDragStart}
