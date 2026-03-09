@@ -65,20 +65,19 @@ function initialLayout(): SWinState[] {
   const ecoY = docsRowY + inlineEstH + VGAP;
   const ecoH = 96;
 
-  // 5 cascading windows: feat:0–feat:3 + purpose
-  // Windows span the full content width: step = (contentW - winW) / (n-1)
+  // 5 windows in a 2-column grid: feat:0–feat:3 + purpose
   const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
-  const CASCADE_W    = Math.floor(contentW * 0.44); // ~44% of content width each
-  const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (cascadeIds.length - 1));
-  const cascadeBaseY = ecoY + ecoH + VGAP;
+  const gridGap   = 16;
+  const gridWinW  = Math.floor((contentW - gridGap) / 2);
+  const gridBaseY = ecoY + ecoH + VGAP;
 
   const cascadeWins: SWinState[] = cascadeIds.map((id, i) => ({
     id,
-    x:      left + i * CASCADE_STEP,
-    y:      cascadeBaseY + (cascadeIds.length - 1 - i) * CASCADE_DOWN,
-    w:      CASCADE_W,
+    x:      left + (i % 2) * (gridWinW + gridGap),
+    y:      gridBaseY + Math.floor(i / 2) * (CASCADE_H + gridGap),
+    w:      gridWinW,
     h:      CASCADE_H,
-    zIndex: cascadeIds.length - i, // leftmost = highest, rightmost = lowest
+    zIndex: cascadeIds.length - i,
   }));
 
   return [
@@ -526,7 +525,7 @@ export function ScrollView() {
   const [ecoFilter]                           = useState<Category | null>(null);
   const [selectedIcon, setSelectedIcon]       = useState<string | null>(null);
   const [acePosState, setAcePosState]         = useState(aceIconPos);
-  const [isGridLayout, setIsGridLayout]       = useState(false);
+  const [isGridLayout, setIsGridLayout]       = useState(true);
   const canvasRef = useRef<HTMLDivElement>(null);
   const cliRef    = useRef<CliHandle>(null);
   const ecoRef    = useRef<EcoStripHandle>(null);
