@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import type React from 'react';
 import { useTheme } from './ThemeContext';
 
 const TILE         = 104;   // px between mark centres (halved from 208)
@@ -39,7 +40,7 @@ function accentColor(accent: [number, number, number]) {
   return `rgb(${accent[0]},${accent[1]},${accent[2]})`;
 }
 
-export function GridBackground() {
+export function GridBackground({ scrollEl }: { scrollEl?: React.RefObject<HTMLElement | null> } = {}) {
   const { theme }  = useTheme();
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const mouseRef   = useRef<{ x: number; y: number } | null>(null);
@@ -57,6 +58,12 @@ export function GridBackground() {
       const mouse = mouseRef.current;
       const { rgb: accent, alpha: baseAlpha, glowRgb } = getHashStyle();
 
+      // Scroll offset — shift pattern so grid appears to scroll with content
+      const scrollTop  = scrollEl?.current?.scrollTop  ?? 0;
+      const scrollLeft = scrollEl?.current?.scrollLeft ?? 0;
+      const shiftX = scrollLeft % TILE;
+      const shiftY = scrollTop  % TILE;
+
       // Resize bitmap to physical pixels
       canvas.width  = w * dpr;
       canvas.height = h * dpr;
@@ -65,13 +72,14 @@ export function GridBackground() {
       ctx.clearRect(0, 0, w, h);
 
       const offset = (TILE - MARK_SIZE) / 2;
-      const cols   = Math.ceil(w / TILE) + 1;
-      const rows   = Math.ceil(h / TILE) + 1;
+      // +2 cols/rows to cover the partial tile revealed by scrolling
+      const cols   = Math.ceil(w / TILE) + 2;
+      const rows   = Math.ceil(h / TILE) + 2;
 
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          const px = c * TILE + offset;   // top-left of mark
-          const py = r * TILE + offset;
+          const px = c * TILE + offset - shiftX;   // top-left of mark
+          const py = r * TILE + offset - shiftY;
 
           // Distance from mark centre to cursor
           let glow = 0;
@@ -121,15 +129,20 @@ export function GridBackground() {
       schedule();
     }
 
+    const scrollTarget = scrollEl?.current ?? null;
+    function onScroll() { schedule(); }
+
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseleave', onMouseLeave);
     window.addEventListener('resize', draw);
+    scrollTarget?.addEventListener('scroll', onScroll, { passive: true });
     draw();
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);
       window.removeEventListener('resize', draw);
+      scrollTarget?.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);

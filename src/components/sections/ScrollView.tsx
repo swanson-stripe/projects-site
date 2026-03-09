@@ -44,8 +44,9 @@ const CASCADE_H    = 320;
 const CASCADE_DOWN = 28; // vertical offset per window
 
 /* shared terminal dimensions — referenced by all layout helpers */
-const TERM_Y = 48;
-const TERM_H = 520;
+const TERM_Y    = 40;
+const TERM_H    = 520;
+const SECTION_GAP = 40; // consistent vertical gap between all major sections
 
 const MOBILE_PAD = 16;
 const MOBILE_BP  = 768;
@@ -64,17 +65,16 @@ function initialLayout(): SWinState[] {
   const termY  = TERM_Y;
   const termH  = TERM_H;
 
-  // hero row height: 2 stacked rows on mobile (~88px), single row on desktop (~44px)
-  const heroH  = mobile ? 88 : 44;
-  const gap    = mobile ? 24 : VGAP;
+  // hero row height: 2 stacked rows on mobile (install ~36 + 40gap + docs ~36 = 112px), single row desktop ~44px
+  const heroH  = mobile ? 112 : 44;
 
   // ecosystem: 4-col grid on mobile needs ~280px; single row on desktop ~96px
-  const ecoY   = termY + termH + 40 + heroH + gap;
+  const ecoY   = termY + termH + SECTION_GAP + heroH + SECTION_GAP;
   const ecoH   = mobile ? 280 : 96;
 
   const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
   const gridGap   = 16;
-  const gridBaseY = ecoY + ecoH + gap;
+  const gridBaseY = ecoY + ecoH + SECTION_GAP;
 
   const cascadeWins: SWinState[] = mobile
     // mobile: 1-column stack, full width
@@ -127,7 +127,7 @@ function aceIconPos() {
   const cW      = maxW - PAD * 2;
   const termW   = Math.min(720, Math.floor(cW * 0.62));
   const termX   = left + Math.floor((cW - termW) / 2);
-  const termY   = 48;
+  const termY   = TERM_Y;
   const termH   = 440;
   return {
     x: termX + Math.floor(termW  / 2) - 24,
@@ -137,7 +137,7 @@ function aceIconPos() {
 
 function canvasMinH(wins: SWinState[]) {
   // include auto-height windows with a minimum estimate so canvas scrolls far enough
-  return wins.reduce((m, w) => Math.max(m, w.y + (w.h === 'auto' ? 280 : w.h)), 0) + 120;
+  return wins.reduce((m, w) => Math.max(m, w.y + (w.h === 'auto' ? 280 : w.h)), 0) + 80;
 }
 
 /* ── EcosystemScrollStrip ────────────────────────────────────────────────── */
@@ -556,9 +556,10 @@ export function ScrollView() {
   const [selectedIcon, setSelectedIcon]       = useState<string | null>(null);
   const [acePosState, setAcePosState]         = useState(aceIconPos);
   const [isGridLayout, setIsGridLayout]       = useState(true);
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const cliRef    = useRef<CliHandle>(null);
-  const ecoRef    = useRef<EcoStripHandle>(null);
+  const canvasRef    = useRef<HTMLDivElement>(null);
+  const cliRef       = useRef<CliHandle>(null);
+  const ecoRef       = useRef<EcoStripHandle>(null);
+  const scrollElRef  = useRef<HTMLDivElement>(null);
 
   const heroRow = heroRowPos();
 
@@ -631,13 +632,12 @@ export function ScrollView() {
     const maxW     = Math.min(vw, MAX_W);
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
-    const heroH    = mobile ? 88 : 44;
-    const sectionGap = mobile ? 24 : VGAP;
-    const ecoH     = mobile ? 280 : 96;
-    const baseY    = TERM_Y + TERM_H + 40 + heroH + sectionGap + ecoH + sectionGap;
-    const gap      = 16;
+    const heroH  = mobile ? 112 : 44;
+    const ecoH   = mobile ? 280 : 96;
+    const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
+    const gap    = 16;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
-    const winW     = mobile ? contentW : Math.floor((contentW - gap) / 2);
+    const winW   = mobile ? contentW : Math.floor((contentW - gap) / 2);
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
       if (idx === -1) return w;
@@ -656,10 +656,9 @@ export function ScrollView() {
     const maxW     = Math.min(vw, MAX_W);
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
-    const heroH    = mobile ? 88 : 44;
-    const sectionGap = mobile ? 24 : VGAP;
-    const ecoH     = mobile ? 280 : 96;
-    const baseY    = TERM_Y + TERM_H + 40 + heroH + sectionGap + ecoH + sectionGap;
+    const heroH  = mobile ? 112 : 44;
+    const ecoH   = mobile ? 280 : 96;
+    const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
@@ -747,7 +746,7 @@ export function ScrollView() {
   }
 
   return (
-    <div style={{
+    <div ref={scrollElRef} style={{
       flex:          1,
       overflowY:     'auto',
       overflowX:     'hidden',
@@ -755,9 +754,9 @@ export function ScrollView() {
       background:    'var(--color-bg)',
       position:      'relative',
     }}>
-      {/* grid background — fixed so it tiles the viewport while content scrolls */}
+      {/* grid background — fixed to viewport but pattern offsets with scroll */}
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-        <GridBackground />
+        <GridBackground scrollEl={scrollElRef} />
       </div>
 
       {/* drag ghost */}
@@ -805,7 +804,7 @@ export function ScrollView() {
           display:       'flex',
           flexDirection:  isMobile ? 'column' : 'row',
           alignItems:     isMobile ? 'stretch' : 'stretch',
-          gap:             isMobile ? 8 : INSTALL_GAP,
+          gap:             isMobile ? SECTION_GAP : INSTALL_GAP,
           zIndex:          2,
         }}>
           <InstallInline />
