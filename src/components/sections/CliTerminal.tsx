@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TextEffect } from '@/components/ui/text-effect';
-import { StaticSignal } from '@/components/ui/static-signal';
+
 import { PARTNERS } from '@/components/sections/Partners';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
@@ -100,7 +100,6 @@ const SLASH_COMMANDS: SlashCommand[] = [
 ];
 
 /* ─── install-demo constants ─────────────────────────────────────── */
-const PREFILL_CMD  = 'stripe projects init my-app';
 const INTRO_LINES: { text: string; delay: number }[] = [
   { text: 'One command, real infrastructure.',                                                                                                                      delay: 1000 },
   { text: 'Stripe projects will provision resources and return ready-to-use keys. Launch or hand off to an agent to deploy your app automatically.', delay: 2000 },
