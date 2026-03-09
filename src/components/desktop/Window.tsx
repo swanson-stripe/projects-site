@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useTheme } from '@/components/ui/ThemeContext';
 import { useIsMobile } from '@/hooks/useIsMobile';
@@ -109,13 +109,13 @@ const HANDLE: Record<Dir, CSSProperties> = {
 const DIRS: Dir[] = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
 
 /* ── Window ───────────────────────────────────────────────────────── */
-export function Window({
+export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
   title, children, x, y, w, h, zIndex,
   isActive = false, isMaximized = false, noScroll = false,
   onClose, onMinimize, onMaximize,
   headerRight, background = 'var(--color-surface-dark)',
   onFocus, onMove, onResize, origin,
-}: WindowProps) {
+}: WindowProps, ref) {
   const { theme }   = useTheme();
   const isMobile    = useIsMobile();
   const dotColors   = getDotColors(theme);
@@ -208,6 +208,7 @@ export function Window({
           },
         },
       }}
+      ref={ref as React.Ref<HTMLDivElement>}
       initial='initial'
       animate='animate'
       exit='exit'
@@ -318,4 +319,4 @@ export function Window({
       ))}
     </motion.div>
   );
-}
+});

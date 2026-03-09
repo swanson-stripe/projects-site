@@ -5,7 +5,7 @@
    desktop variant.
 ────────────────────────────────────────────────────────────────────────────── */
 
-import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useState, useCallback, useRef, forwardRef, useImperativeHandle, useLayoutEffect } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { ArrowUpRight, LayoutGrid, Columns3 } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -40,8 +40,9 @@ interface SWinState {
 /* ── initial window layout ───────────────────────────────────────────────── */
 const INSTALL_GAP = 20;  // gap between docs button and install inline
 
-const CASCADE_H    = 320;
-const CASCADE_DOWN = 28; // vertical offset per window
+const CASCADE_H             = 320;
+const CASCADE_DOWN          = 28;  // vertical offset per window
+const MOBILE_CASCADE_ESTIMATE = 220; // initial y-spacing estimate; useLayoutEffect corrects before paint
 
 /* shared terminal dimensions — referenced by all layout helpers */
 const TERM_Y    = 40;
@@ -65,25 +66,25 @@ function initialLayout(): SWinState[] {
   const termY  = TERM_Y;
   const termH  = TERM_H;
 
-  // hero row height: 2 stacked rows on mobile (install ~36 + 40gap + docs ~36 = 112px), single row desktop ~44px
-  const heroH  = mobile ? 112 : 44;
+  // hero row height: 2 stacked rows on mobile (install ~47 + 20gap + docs ~47 = 114px), single row desktop ~44px
+  const heroH  = mobile ? 120 : 44;
 
-  // ecosystem: 4-col grid on mobile needs ~280px; single row on desktop ~96px
+  // ecosystem: 4-col grid on mobile needs ~320px (incl. window title bar); single row on desktop ~96px
   const ecoY   = termY + termH + SECTION_GAP + heroH + SECTION_GAP;
-  const ecoH   = mobile ? 280 : 96;
+  const ecoH   = mobile ? 320 : 96;
 
   const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
   const gridGap   = 16;
   const gridBaseY = ecoY + ecoH + SECTION_GAP;
 
   const cascadeWins: SWinState[] = mobile
-    // mobile: 1-column stack, full width
+    // mobile: 1-column stack, auto-height (useLayoutEffect restacks before paint)
     ? cascadeIds.map((id, i) => ({
         id,
         x:      left,
-        y:      gridBaseY + i * (CASCADE_H + gridGap),
+        y:      gridBaseY + i * (MOBILE_CASCADE_ESTIMATE + gridGap),
         w:      contentW,
-        h:      CASCADE_H,
+        h:      'auto' as const,
         zIndex: cascadeIds.length - i,
       }))
     // desktop: 2-column grid
@@ -367,8 +368,10 @@ const INSTALL_CMDS: Record<InstallTab, string> = {
 };
 
 function InstallInline() {
+  const isMobile            = useIsMobile();
   const [tab, setTab]       = useState<InstallTab>('npm');
   const [copied, setCopied] = useState(false);
+  const vPad = isMobile ? '0.8rem' : '0.4rem';
 
   const cmd = INSTALL_CMDS[tab];
 
@@ -391,7 +394,7 @@ function InstallInline() {
       minWidth:    0,
     }}>
       {/* tab selector */}
-      <div style={{ display: 'flex', gap: '1rem', flexShrink: 0, alignItems: 'center', padding: '0.4rem 0.85rem' }}>
+      <div style={{ display: 'flex', gap: '1rem', flexShrink: 0, alignItems: 'center', padding: `${vPad} 0.85rem` }}>
         {(['npm', 'brew'] as InstallTab[]).map(t => (
           <button
             key={t}
@@ -421,7 +424,7 @@ function InstallInline() {
         title='Click to copy'
         style={{
           flex:       1,
-          padding:    '0.4rem 0.85rem',
+          padding:    `${vPad} 0.85rem`,
           color:      copied ? 'var(--color-pink)' : 'var(--color-text-ui)',
           cursor:     'pointer',
           textAlign:  'left',
@@ -556,10 +559,17 @@ export function ScrollView() {
   const [selectedIcon, setSelectedIcon]       = useState<string | null>(null);
   const [acePosState, setAcePosState]         = useState(aceIconPos);
   const [isGridLayout, setIsGridLayout]       = useState(true);
+  // Bottom y-coord of the last cascade window on mobile (set by useLayoutEffect)
+  const [mobileCascadeBottom, setMobileCascadeBottom] = useState(0);
   const canvasRef    = useRef<HTMLDivElement>(null);
   const cliRef       = useRef<CliHandle>(null);
   const ecoRef       = useRef<EcoStripHandle>(null);
   const scrollElRef  = useRef<HTMLDivElement>(null);
+
+  // Refs to cascade window DOM elements — used to restack mobile auto-height windows
+  const cascadeElsRef = useRef<Map<SWinId, HTMLDivElement>>(new Map());
+  // Track last known heights to avoid redundant setWins calls
+  const lastCascadeHRef = useRef<number[]>([]);
 
   const heroRow = heroRowPos();
 
@@ -632,8 +642,8 @@ export function ScrollView() {
     const maxW     = Math.min(vw, MAX_W);
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
-    const heroH  = mobile ? 112 : 44;
-    const ecoH   = mobile ? 280 : 96;
+    const heroH  = mobile ? 120 : 44;
+    const ecoH   = mobile ? 320 : 96;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const gap    = 16;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
@@ -656,8 +666,8 @@ export function ScrollView() {
     const maxW     = Math.min(vw, MAX_W);
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
-    const heroH  = mobile ? 112 : 44;
-    const ecoH   = mobile ? 280 : 96;
+    const heroH  = mobile ? 120 : 44;
+    const ecoH   = mobile ? 320 : 96;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
@@ -726,8 +736,59 @@ export function ScrollView() {
     });
   }, []);
 
-  const maxZ     = Math.max(...wins.map(w => w.zIndex));
-  const canvasH  = canvasMinH(wins);
+  // Restack mobile cascade windows to their actual rendered heights.
+  // useLayoutEffect fires before the browser paints so the user never sees
+  // the estimate-based initial positions.
+  useLayoutEffect(() => {
+    if (!isMobile) return;
+
+    const CASCADE_IDS: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    const els = cascadeElsRef.current;
+
+    if (!CASCADE_IDS.every(id => els.has(id))) return;
+
+    const heights = CASCADE_IDS.map(id => els.get(id)!.offsetHeight);
+    if (heights.some(h => h === 0)) return;
+
+    // Skip if heights haven't changed since last restack
+    const last = lastCascadeHRef.current;
+    if (last.length === heights.length && heights.every((h, i) => h === last[i])) return;
+    lastCascadeHRef.current = heights;
+
+    const firstWin = wins.find(w => w.id === 'feat:0');
+    if (!firstWin) return;
+
+    let curY = firstWin.y;
+    let needsUpdate = false;
+    const updates: Array<{ id: SWinId; y: number }> = [];
+
+    for (let i = 0; i < CASCADE_IDS.length; i++) {
+      const id  = CASCADE_IDS[i];
+      const win = wins.find(w => w.id === id);
+      if (!win) return;
+      if (win.y !== curY) needsUpdate = true;
+      updates.push({ id, y: curY });
+      curY += heights[i] + 16;
+    }
+
+    // curY is now the y-coord just below the last cascade window (last bottom + 16px gap)
+    // Update the cascade bottom so the CTA buttons are positioned correctly
+    setMobileCascadeBottom(prev => prev === curY ? prev : curY);
+
+    if (!needsUpdate) return;
+
+    setWins(prev => prev.map(w => {
+      const upd = updates.find(u => u.id === w.id);
+      if (!upd || w.y === upd.y) return w;
+      return { ...w, y: upd.y };
+    }));
+  }, [isMobile, wins]);
+
+  const maxZ    = Math.max(...wins.map(w => w.zIndex));
+  // On mobile, size the canvas to fit the cascade + CTA buttons; elsewhere use the wins-based estimate
+  const canvasH = (isMobile && mobileCascadeBottom > 0)
+    ? mobileCascadeBottom + 120  // room for the CTA button row + padding
+    : canvasMinH(wins);
   const isDragging = !!draggingPartner;
 
   const FEAT_SHORT = ['local → live', 'credentials', 'no lock-in', 'confidence'];
@@ -804,7 +865,7 @@ export function ScrollView() {
           display:       'flex',
           flexDirection:  isMobile ? 'column' : 'row',
           alignItems:     isMobile ? 'stretch' : 'stretch',
-          gap:             isMobile ? SECTION_GAP : INSTALL_GAP,
+          gap:             isMobile ? 20 : INSTALL_GAP,
           zIndex:          2,
         }}>
           <InstallInline />
@@ -822,7 +883,7 @@ export function ScrollView() {
               color:          'var(--color-text-ui)',
               border:         '1px solid var(--color-border-accent)',
               background:     'var(--color-bg)',
-              padding:        '0.4rem 0.85rem',
+              padding:        isMobile ? '0.8rem 0.85rem' : '0.4rem 0.85rem',
               textDecoration: 'none',
               letterSpacing:  '0.04em',
               flexShrink:      0,
@@ -866,8 +927,42 @@ export function ScrollView() {
             ? PARTNERS.find(p => `partner:${p.name}` === win.id) ?? null
             : null;
 
-          /* ecosystem — bare icons on the canvas, no window chrome */
+          /* ecosystem — windowed on mobile, bare icons on desktop */
           if (isEcosystem) {
+            const ecoStrip = (
+              <EcosystemScrollStrip
+                ref={ecoRef}
+                onCrossDragStart={p => setDraggingPartner(p)}
+                onCrossDragMove={(x, y) => setGhostPos({ x, y })}
+                onCrossDragEnd={handleCrossDragEnd}
+                onOpen={openPartner}
+                activeFilter={ecoFilter}
+                selectedIcon={selectedIcon}
+                onSelectIcon={setSelectedIcon}
+              />
+            );
+            if (isMobile) {
+              return (
+                <Window
+                  key={win.id}
+                  title="services"
+                  x={win.x}
+                  y={win.y}
+                  w={win.w}
+                  h={win.h}
+                  zIndex={win.zIndex}
+                  isActive={isActive}
+                  background={bg}
+                  onFocus={() => bringToFront(win.id)}
+                  onMove={(x, y) => handleMove(win.id, x, y)}
+                  onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
+                >
+                  <div style={{ background: 'var(--color-surface)', height: '100%' }}>
+                    {ecoStrip}
+                  </div>
+                </Window>
+              );
+            }
             return (
               <div
                 key={win.id}
@@ -879,16 +974,7 @@ export function ScrollView() {
                   zIndex:    win.zIndex,
                 }}
               >
-                <EcosystemScrollStrip
-                  ref={ecoRef}
-                  onCrossDragStart={p => setDraggingPartner(p)}
-                  onCrossDragMove={(x, y) => setGhostPos({ x, y })}
-                  onCrossDragEnd={handleCrossDragEnd}
-                  onOpen={openPartner}
-                  activeFilter={ecoFilter}
-                  selectedIcon={selectedIcon}
-                  onSelectIcon={setSelectedIcon}
-                />
+                {ecoStrip}
               </div>
             );
           }
@@ -950,8 +1036,17 @@ export function ScrollView() {
 
           const isCascade = isFeat || isPurpose;
 
+          // On mobile, track cascade window elements so useLayoutEffect can restack them
+          const cascadeRef = (isCascade && isMobile)
+            ? (el: HTMLDivElement | null) => {
+                if (el) cascadeElsRef.current.set(win.id as SWinId, el);
+                else    cascadeElsRef.current.delete(win.id as SWinId);
+              }
+            : undefined;
+
           return (
             <Window
+              ref={cascadeRef}
               key={win.id}
               title={getTitle(win.id)}
               x={win.x}
@@ -994,6 +1089,72 @@ export function ScrollView() {
             </Window>
           );
         })}
+
+        {/* Mobile CTA row — shown below the cascade "what" windows */}
+        {isMobile && mobileCascadeBottom > 0 && (() => {
+          const btnStyle: React.CSSProperties = {
+            display:        'inline-flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            gap:            '0.4rem',
+            fontFamily:     'var(--font-mono)',
+            fontSize:       '0.75rem',
+            color:          'var(--color-text-ui)',
+            border:         '1px solid var(--color-border-accent)',
+            background:     'var(--color-bg)',
+            padding:        '0.8rem 0.85rem',
+            letterSpacing:  '0.04em',
+            textDecoration: 'none',
+            cursor:         'pointer',
+            flex:            1,
+            transition:     'border-color 0.15s, color 0.15s',
+          };
+          const hoverOn  = (e: React.MouseEvent<HTMLElement>) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-pink)';
+            (e.currentTarget as HTMLElement).style.color = 'var(--color-pink)';
+          };
+          const hoverOff = (e: React.MouseEvent<HTMLElement>) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-border-accent)';
+            (e.currentTarget as HTMLElement).style.color = 'var(--color-text-ui)';
+          };
+
+          // left/width match the mobile cascade windows
+          const vw       = typeof window !== 'undefined' ? window.innerWidth : 390;
+          const btnLeft  = MOBILE_PAD;
+          const btnWidth = vw - MOBILE_PAD * 2;
+
+          return (
+            <div style={{
+              position: 'absolute',
+              left:      btnLeft,
+              top:       mobileCascadeBottom + 16,
+              width:     btnWidth,
+              display:   'flex',
+              gap:        8,
+              zIndex:     1,
+            }}>
+              <button
+                style={btnStyle}
+                onClick={() => scrollElRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+                onMouseEnter={hoverOn}
+                onMouseLeave={hoverOff}
+              >
+                ↑ back to top
+              </button>
+              <a
+                href='https://stripe.com/docs'
+                target='_blank'
+                rel='noopener noreferrer'
+                style={btnStyle}
+                onMouseEnter={hoverOn}
+                onMouseLeave={hoverOff}
+              >
+                View docs
+                <ArrowUpRight size={14} strokeWidth={2} />
+              </a>
+            </div>
+          );
+        })()}
       </div>
 
       <Footer />
