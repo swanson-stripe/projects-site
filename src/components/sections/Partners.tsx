@@ -119,12 +119,6 @@ const RunloopLogo: React.FC<{ className?: string }> = ({ className }) => (
 
 export const PARTNERS: Partner[] = [
   {
-    name: 'Stripe', category: 'payments', url: 'https://stripe.com', logo: StripeLogo,
-    description: 'Payments infrastructure',
-    longDescription: 'Accept one-time payments, subscriptions, and invoices from day one. Stripe is pre-wired — no boilerplate required. Used by millions of businesses worldwide.',
-    cliCommand: 'projects service add stripe',
-  },
-  {
     name: 'PlanetScale', category: 'database', url: 'https://planetscale.com', logo: PlanetScaleLogo, lightInvert: true,
     description: 'Serverless MySQL platform',
     longDescription: 'MySQL-compatible serverless database with non-blocking schema changes, automatic sharding, and branching workflows built for modern development teams.',
@@ -189,6 +183,12 @@ export const PARTNERS: Partner[] = [
     description: 'AI dev infrastructure',
     longDescription: 'Secure, scalable infrastructure for AI coding agents. Runloop provides sandboxed execution environments so agents can write, run, and test code safely without touching production systems.',
     cliCommand: 'projects service add runloop',
+  },
+  {
+    name: 'Stripe', category: 'payments', url: 'https://stripe.com', logo: StripeLogo,
+    description: 'Payments infrastructure',
+    longDescription: 'Accept one-time payments, subscriptions, and invoices from day one. Stripe is pre-wired — no boilerplate required. Used by millions of businesses worldwide.',
+    cliCommand: 'projects service add stripe',
   },
 ];
 

@@ -220,7 +220,7 @@ export function Window({
         zIndex,
         display:        'flex',
         flexDirection:  'column',
-        border:          BORDER,
+        border:          isActive ? `1px solid ${ACTIVE_BAR_BG}` : BORDER,
         background,
         transformOrigin,
         ...(isMaximized || isTransitioning ? {

@@ -6,6 +6,7 @@
 ────────────────────────────────────────────────────────────────────────────── */
 
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { ArrowUpRight, LayoutGrid, Columns3 } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
@@ -46,56 +47,76 @@ const CASCADE_DOWN = 28; // vertical offset per window
 const TERM_Y = 48;
 const TERM_H = 520;
 
+const MOBILE_PAD = 16;
+const MOBILE_BP  = 768;
+
 function initialLayout(): SWinState[] {
   const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
+  const mobile   = vw < MOBILE_BP;
+  const mPad     = mobile ? MOBILE_PAD : PAD;
   const maxW     = Math.min(vw, MAX_W);
-  const left     = Math.max(PAD, (vw - maxW) / 2 + PAD);
-  const contentW = maxW - PAD * 2;
+  const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
+  const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
 
-  // terminal centered horizontally within the content area
-  const termW    = Math.min(720, Math.floor(contentW * 0.62));
-  const termX    = left + Math.floor((contentW - termW) / 2);
-  const termY    = TERM_Y;
-  const termH    = TERM_H;
+  // terminal: full width on mobile, centred 62% on desktop
+  const termW  = mobile ? contentW : Math.min(720, Math.floor(contentW * 0.62));
+  const termX  = mobile ? left : left + Math.floor((contentW - termW) / 2);
+  const termY  = TERM_Y;
+  const termH  = TERM_H;
 
-  // below terminal: docs button + inline install (no window)
-  const docsRowY   = termY + termH + 40;
-  const inlineEstH = 44;
+  // hero row height: 2 stacked rows on mobile (~88px), single row on desktop (~44px)
+  const heroH  = mobile ? 88 : 44;
+  const gap    = mobile ? 24 : VGAP;
 
-  const ecoY = docsRowY + inlineEstH + VGAP;
-  const ecoH = 96;
+  // ecosystem: 4-col grid on mobile needs ~280px; single row on desktop ~96px
+  const ecoY   = termY + termH + 40 + heroH + gap;
+  const ecoH   = mobile ? 280 : 96;
 
-  // 5 windows in a 2-column grid: feat:0–feat:3 + purpose
   const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
   const gridGap   = 16;
-  const gridWinW  = Math.floor((contentW - gridGap) / 2);
-  const gridBaseY = ecoY + ecoH + VGAP;
+  const gridBaseY = ecoY + ecoH + gap;
 
-  const cascadeWins: SWinState[] = cascadeIds.map((id, i) => ({
-    id,
-    x:      left + (i % 2) * (gridWinW + gridGap),
-    y:      gridBaseY + Math.floor(i / 2) * (CASCADE_H + gridGap),
-    w:      gridWinW,
-    h:      CASCADE_H,
-    zIndex: cascadeIds.length - i,
-  }));
+  const cascadeWins: SWinState[] = mobile
+    // mobile: 1-column stack, full width
+    ? cascadeIds.map((id, i) => ({
+        id,
+        x:      left,
+        y:      gridBaseY + i * (CASCADE_H + gridGap),
+        w:      contentW,
+        h:      CASCADE_H,
+        zIndex: cascadeIds.length - i,
+      }))
+    // desktop: 2-column grid
+    : (() => {
+        const winW = Math.floor((contentW - gridGap) / 2);
+        return cascadeIds.map((id, i) => ({
+          id,
+          x:      left + (i % 2) * (winW + gridGap),
+          y:      gridBaseY + Math.floor(i / 2) * (CASCADE_H + gridGap),
+          w:      winW,
+          h:      CASCADE_H,
+          zIndex: cascadeIds.length - i,
+        }));
+      })();
 
   return [
-    { id: 'terminal',  x: termX, y: termY, w: termW,     h: termH, zIndex: 10 },
-    { id: 'ecosystem', x: left,  y: ecoY,  w: contentW,  h: ecoH,  zIndex: 6  },
+    { id: 'terminal',  x: termX, y: termY, w: termW,    h: termH, zIndex: 10 },
+    { id: 'ecosystem', x: left,  y: ecoY,  w: contentW, h: ecoH,  zIndex: 6  },
     ...cascadeWins,
   ];
 }
 
-/* row below terminal: install inline (left) + docs button (right), spanning terminal width */
+/* position + dimensions of the hero row below the terminal */
 function heroRowPos() {
-  const vw    = typeof window !== 'undefined' ? window.innerWidth : 1280;
-  const maxW  = Math.min(vw, MAX_W);
-  const left  = Math.max(PAD, (vw - maxW) / 2 + PAD);
-  const cW    = maxW - PAD * 2;
-  const termW = Math.min(720, Math.floor(cW * 0.62));
-  const termX = left + Math.floor((cW - termW) / 2);
-  return { termX, termW, y: TERM_Y + TERM_H + 40 };
+  const vw     = typeof window !== 'undefined' ? window.innerWidth : 1280;
+  const mobile = vw < MOBILE_BP;
+  const mPad   = mobile ? MOBILE_PAD : PAD;
+  const maxW   = Math.min(vw, MAX_W);
+  const left   = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
+  const cW     = mobile ? vw - mPad * 2 : maxW - PAD * 2;
+  const termW  = mobile ? cW : Math.min(720, Math.floor(cW * 0.62));
+  const termX  = mobile ? left : left + Math.floor((cW - termW) / 2);
+  return { termX, termW, y: TERM_Y + TERM_H + 40, mobile };
 }
 
 /* position of the Ace desktop icon — centered behind the terminal window */
@@ -145,6 +166,8 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   selectedIcon?:     string | null;
   onSelectIcon?:     (name: string | null) => void;
 }>(function EcosystemScrollStrip({ onCrossDragStart: _onCrossDragStart, onCrossDragMove: _onCrossDragMove, onCrossDragEnd, onOpen, activeFilter, selectedIcon: controlledSelected, onSelectIcon }, ref) {
+  const isMobile = useIsMobile();
+
   useImperativeHandle(ref, () => ({
     resetIconPosition: (name: string) =>
       setOffsets(prev => ({ ...prev, [name]: { dx: 0, dy: 0 } })),
@@ -191,7 +214,13 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   }
 
   return (
-    <div style={{
+    <div style={isMobile ? {
+      display:             'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap:                  '8px',
+      padding:             '16px',
+      overflow:            'visible',
+    } : {
       display:        'flex',
       justifyContent: 'space-between',
       alignItems:     'center',
@@ -519,6 +548,7 @@ function AceDesktopIcon({
 
 /* ── ScrollView ──────────────────────────────────────────────────────────── */
 export function ScrollView() {
+  const isMobile = useIsMobile();
   const [wins, setWins]         = useState<SWinState[]>(() => initialLayout());
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [ghostPos, setGhostPos]               = useState<{ x: number; y: number } | null>(null);
@@ -596,24 +626,24 @@ export function ScrollView() {
   /* arrange cascade windows (feat:0–3 + purpose) in a 2-column grid */
   const gridCascade = useCallback(() => {
     const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    const mobile   = vw < MOBILE_BP;
+    const mPad     = mobile ? MOBILE_PAD : PAD;
     const maxW     = Math.min(vw, MAX_W);
-    const left     = Math.max(PAD, (vw - maxW) / 2 + PAD);
-    const contentW = maxW - PAD * 2;
-    const docsRowY = TERM_Y + TERM_H + 40;
-    const baseY    = docsRowY + 44 + VGAP + 96 + VGAP;
+    const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
+    const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
+    const heroH    = mobile ? 88 : 44;
+    const sectionGap = mobile ? 24 : VGAP;
+    const ecoH     = mobile ? 280 : 96;
+    const baseY    = TERM_Y + TERM_H + 40 + heroH + sectionGap + ecoH + sectionGap;
     const gap      = 16;
-    const winW     = Math.floor((contentW - gap) / 2);
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    const winW     = mobile ? contentW : Math.floor((contentW - gap) / 2);
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
       if (idx === -1) return w;
-      return {
-        ...w,
-        x: left + (idx % 2) * (winW + gap),
-        y: baseY + Math.floor(idx / 2) * (CASCADE_H + gap),
-        w: winW,
-        h: CASCADE_H,
-      };
+      const col = mobile ? 0 : idx % 2;
+      const row = mobile ? idx : Math.floor(idx / 2);
+      return { ...w, x: left + col * (winW + gap), y: baseY + row * (CASCADE_H + gap), w: winW, h: CASCADE_H };
     }));
     setIsGridLayout(true);
   }, []);
@@ -621,11 +651,15 @@ export function ScrollView() {
   /* reset cascade windows back to the original staggered cascade */
   const cascadeReset = useCallback((activeId: SWinId) => {
     const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    const mobile   = vw < MOBILE_BP;
+    const mPad     = mobile ? MOBILE_PAD : PAD;
     const maxW     = Math.min(vw, MAX_W);
-    const left     = Math.max(PAD, (vw - maxW) / 2 + PAD);
-    const contentW = maxW - PAD * 2;
-    const docsRowY = TERM_Y + TERM_H + 40;
-    const baseY    = docsRowY + 44 + VGAP + 96 + VGAP;
+    const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
+    const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
+    const heroH    = mobile ? 88 : 44;
+    const sectionGap = mobile ? 24 : VGAP;
+    const ecoH     = mobile ? 280 : 96;
+    const baseY    = TERM_Y + TERM_H + 40 + heroH + sectionGap + ecoH + sectionGap;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
@@ -636,9 +670,9 @@ export function ScrollView() {
         if (idx === -1) return w;
         return {
           ...w,
-          x: left + idx * CASCADE_STEP,
-          y: baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
-          w: CASCADE_W,
+          x: mobile ? left : left + idx * CASCADE_STEP,
+          y: mobile ? baseY + idx * (CASCADE_H + 16) : baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
+          w: mobile ? contentW : CASCADE_W,
           h: CASCADE_H,
           zIndex: w.id === activeId ? globalMaxZ : ids.length - idx,
         };
@@ -762,16 +796,17 @@ export function ScrollView() {
         onClick={() => setSelectedIcon(null)}
         style={{ position: 'relative', width: '100%', minHeight: canvasH, zIndex: 1 }}
       >
-        {/* hero row — install inline (left, flex:1) + docs button (right) */}
+        {/* hero row — stacked on mobile, side-by-side on desktop */}
         <div style={{
-          position:   'absolute',
-          left:        heroRow.termX,
-          top:         heroRow.y,
-          width:       heroRow.termW,
-          display:    'flex',
-          alignItems: 'stretch',
-          gap:         INSTALL_GAP,
-          zIndex:      2,
+          position:      'absolute',
+          left:           heroRow.termX,
+          top:            heroRow.y,
+          width:          heroRow.termW,
+          display:       'flex',
+          flexDirection:  isMobile ? 'column' : 'row',
+          alignItems:     isMobile ? 'stretch' : 'stretch',
+          gap:             isMobile ? 8 : INSTALL_GAP,
+          zIndex:          2,
         }}>
           <InstallInline />
           <a
@@ -781,6 +816,7 @@ export function ScrollView() {
             style={{
               display:        'inline-flex',
               alignItems:     'center',
+              justifyContent: isMobile ? 'center' : undefined,
               gap:            '0.4rem',
               fontFamily:     'var(--font-mono)',
               fontSize:       '0.75rem',
@@ -931,7 +967,7 @@ export function ScrollView() {
               onFocus={() => bringToFront(win.id)}
               onMove={(x, y) => handleMove(win.id, x, y)}
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}
-              headerRight={isCascade && isActive ? (
+              headerRight={isCascade && isActive && !isMobile ? (
                 <button
                   onClick={e => { e.stopPropagation(); isGridLayout ? cascadeReset(win.id) : gridCascade(); }}
                   title={isGridLayout ? 'Reset cascade' : 'Arrange in grid'}

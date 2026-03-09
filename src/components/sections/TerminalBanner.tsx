@@ -243,92 +243,11 @@ function SettingsPopover({
   );
 }
 
-/* ── ViewPopover ──────────────────────────────────────────────────────────── */
-const VIEW_OPTIONS: { id: ViewMode; label: string; icon: React.FC<{ size: number; strokeWidth: number }> }[] = [
-  { id: 'scroll', label: 'human',   icon: Monitor    },
-  { id: 'agent',  label: 'agent',   icon: Bot        },
+/* ── view toggle ──────────────────────────────────────────────────────────── */
+const VIEW_OPTIONS: { id: ViewMode; icon: React.FC<{ size: number; strokeWidth: number }> }[] = [
+  { id: 'scroll', icon: Monitor },
+  { id: 'agent',  icon: Bot     },
 ];
-
-function ViewPopover({
-  anchorRef,
-  viewMode,
-  onViewModeChange,
-  onClose,
-}: {
-  anchorRef: React.RefObject<HTMLButtonElement | null>;
-  viewMode: ViewMode;
-  onViewModeChange: (mode: ViewMode) => void;
-  onClose: () => void;
-}) {
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (
-        popoverRef.current && !popoverRef.current.contains(e.target as Node) &&
-        anchorRef.current  && !anchorRef.current.contains(e.target as Node)
-      ) {
-        onClose();
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [anchorRef, onClose]);
-
-  const rect  = anchorRef.current?.getBoundingClientRect();
-  const top   = rect ? rect.bottom + 6 : 32;
-  const right = rect ? window.innerWidth - rect.right : 0;
-
-  return (
-    <div
-      ref={popoverRef}
-      style={{
-        position:   'fixed',
-        top,
-        right,
-        zIndex:     10000,
-        background: 'var(--color-surface-dark)',
-        border:     BORDER,
-        minWidth:   160,
-        padding:    '6px 0',
-        fontFamily: 'var(--font-mono)',
-        fontSize:   '0.72rem',
-      }}
-    >
-      <div style={{ padding: '4px 12px 8px', color: 'var(--color-text-ui-subtle)', letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.6rem' }}>
-        view
-      </div>
-      {VIEW_OPTIONS.map(({ id, label, icon: Icon }) => {
-        const active = viewMode === id;
-        return (
-          <button
-            key={id}
-            onClick={() => { onViewModeChange(id); onClose(); }}
-            style={{
-              display:       'flex',
-              alignItems:    'center',
-              gap:            10,
-              width:         '100%',
-              padding:       '6px 12px',
-              background:    active ? 'rgba(255,255,255,0.07)' : 'none',
-              border:        'none',
-              cursor:        'pointer',
-              color:         active ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
-              textAlign:     'left',
-              fontFamily:    'inherit',
-              fontSize:      'inherit',
-              letterSpacing: '0.02em',
-            }}
-          >
-            <span style={{ color: 'var(--color-pink)', opacity: active ? 1 : 0, userSelect: 'none' }}>›</span>
-            <Icon size={11} strokeWidth={1.5} />
-            {label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
 
 /* ── StatusBar ────────────────────────────────────────────────────────────────
    Slim single-row bar pinned to the top of the Desktop.
@@ -347,13 +266,12 @@ export function StatusBar({
 }) {
   const [hovered, setHovered]     = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [showViewMenu, setShowViewMenu] = useState(false);
   const settingsRef               = useRef<HTMLButtonElement>(null);
-  const viewRef                   = useRef<HTMLButtonElement>(null);
   const { isMuted, toggleMute } = useAudio();
   const isMobile = useIsMobile();
 
-  const ViewIcon = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
+  const ViewIcon    = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
+  const nextMode    = viewMode === 'scroll' ? 'agent' : 'scroll';
 
   return (
     <div
@@ -399,7 +317,7 @@ export function StatusBar({
             <button
               ref={settingsRef}
               aria-label='Settings'
-              onClick={() => { setShowSettings(v => !v); setShowViewMenu(false); }}
+              onClick={() => setShowSettings(v => !v)}
               style={{
                 display: 'flex', alignItems: 'center', background: 'none', border: 'none',
                 padding: 0, cursor: 'pointer',
@@ -410,11 +328,10 @@ export function StatusBar({
             </button>
 
             {/* View mode selector */}
-            {!gateMode && (
+            {!gateMode && onViewModeChange && (
               <button
-                ref={viewRef}
-                aria-label='Switch view'
-                onClick={() => { setShowViewMenu(v => !v); setShowSettings(false); }}
+                aria-label={`Switch to ${nextMode} view`}
+                onClick={() => { onViewModeChange(nextMode); setShowSettings(false); }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -448,14 +365,6 @@ export function StatusBar({
           anchorRef={settingsRef}
           onClose={() => setShowSettings(false)}
           gateMode={gateMode}
-        />
-      )}
-      {showViewMenu && onViewModeChange && (
-        <ViewPopover
-          anchorRef={viewRef}
-          viewMode={viewMode}
-          onViewModeChange={onViewModeChange}
-          onClose={() => setShowViewMenu(false)}
         />
       )}
     </div>
