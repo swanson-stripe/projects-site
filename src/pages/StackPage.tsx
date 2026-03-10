@@ -209,7 +209,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'inherit' }}>
       {/* header row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: BORDER, padding: '0.55em 1.25em' }}>
-        <span style={{ fontSize: '0.8em', color: 'var(--color-blue)' }}>Homebrew</span>
+        <span style={{ fontSize: '0.8em', color: 'var(--color-blue)' }}>Install</span>
         <a
           href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install"
           target="_blank"
@@ -226,7 +226,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
           onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
           onMouseLeave={e => (e.currentTarget.style.color = DIM)}
         >
-          More <ArrowUpRight size={10} strokeWidth={1.5} />
+          See more <ArrowUpRight size={10} strokeWidth={1.5} />
         </a>
       </div>
 

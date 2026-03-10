@@ -362,7 +362,7 @@ function InstallInline() {
     }}>
       {/* homebrew label */}
       <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0, padding: `${vPad} 0.85rem`, whiteSpace: 'nowrap' }}>
-        <span style={{ color: 'var(--color-text-ui)' }}>Homebrew</span>
+        <span style={{ color: 'var(--color-text-ui)' }}>Install</span>
       </div>
 
       {/* divider — full height via alignItems:stretch on parent */}
@@ -414,7 +414,7 @@ function InstallInline() {
         onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
         onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
       >
-        More <ArrowUpRight size={10} strokeWidth={1.5} />
+        See more <ArrowUpRight size={10} strokeWidth={1.5} />
       </a>
     </div>
   );
