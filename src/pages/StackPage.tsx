@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
-import { StatusBar } from '@/components/sections/TerminalBanner';
+import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
 import { Window } from '@/components/desktop/Window';
+import { AgentView } from '@/components/sections/AgentView';
 import { PARTNERS } from '@/components/sections/Partners';
 import { lookupService, REGISTRY, type RegistryService } from '@/data/registry';
 import { useDynamicFavicon } from '@/hooks/useDynamicFavicon';
@@ -378,6 +379,7 @@ export function StackPage() {
 
   const [state, setState]   = useState<LoadState>({ status: 'loading' });
   const [activeWin, setActiveWin] = useState<'stack' | 'install' | null>('stack');
+  const [viewMode, setViewMode]   = useState<ViewMode>('scroll');
   const installRef = useRef<HTMLDivElement>(null);
   const [installH, setInstallH] = useState(0);
 
@@ -434,25 +436,28 @@ export function StackPage() {
         }}
       >
         <GridBackground />
-        <StatusBar onReset={handleReset} />
-        <div style={{
-          position: 'relative',
-          zIndex: 1,
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 16,
-          padding: '1.5rem 1rem',
-        }}>
-          <MobileCard title={stackTitle}>
-            <StackContent state={state} />
-          </MobileCard>
-          <MobileCard title="install.sh">
-            <InstallContent state={state} code={code ?? ''} />
-          </MobileCard>
-          <ViewDocsLink />
-        </div>
+        <StatusBar onReset={handleReset} viewMode={viewMode} onViewModeChange={setViewMode} />
+        {viewMode === 'agent' && <AgentView />}
+        {viewMode === 'scroll' && (
+          <div style={{
+            position: 'relative',
+            zIndex: 1,
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 16,
+            padding: '1.5rem 1rem',
+          }}>
+            <MobileCard title={stackTitle}>
+              <StackContent state={state} />
+            </MobileCard>
+            <MobileCard title="install.sh">
+              <InstallContent state={state} code={code ?? ''} />
+            </MobileCard>
+            <ViewDocsLink />
+          </div>
+        )}
       </div>
     );
   }
@@ -472,10 +477,12 @@ export function StackPage() {
       }}
     >
       <GridBackground />
-      <StatusBar onReset={handleReset} />
+      <StatusBar onReset={handleReset} viewMode={viewMode} onViewModeChange={setViewMode} />
+
+      {viewMode === 'agent' && <AgentView />}
 
       <div
-        style={{ position: 'relative', flex: 1, zIndex: 1 }}
+        style={{ position: 'relative', flex: 1, zIndex: 1, display: viewMode === 'agent' ? 'none' : undefined }}
         onPointerDown={(e) => {
           if (e.target === e.currentTarget) setActiveWin(null);
         }}
