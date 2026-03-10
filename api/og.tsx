@@ -72,6 +72,9 @@ export default async function handler(req: Request): Promise<Response> {
 
   /* ── home image ─────────────────────────────────────────────────── */
   if (type === 'home') {
+    const gridRows = [0, 1, 2, 3, 4, 5];
+    const gridCols = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
     return new ImageResponse(
       (
         <div style={{
@@ -79,44 +82,51 @@ export default async function handler(req: Request): Promise<Response> {
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
           fontFamily: 'SpaceMono',
+          position: 'relative',
         }}>
-          {/* Stripe brand mark */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
-            <div style={{
-              width: 22, height: 22, background: '#635BFF', borderRadius: 4,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <div style={{ width: 10, height: 10, background: 'rgba(255,255,255,0.9)', borderRadius: 2, display: 'flex' }} />
-            </div>
-            <span style={{ color: '#635BFF', fontSize: 13, letterSpacing: '0.18em' }}>STRIPE</span>
+          {/* Grid background */}
+          <div style={{
+            position: 'absolute', top: 48, left: 48,
+            display: 'flex', flexDirection: 'column',
+          }}>
+            {gridRows.map(r => (
+              <div key={r} style={{ display: 'flex', height: 104 }}>
+                {gridCols.map(c => (
+                  <div key={c} style={{
+                    width: 104, display: 'flex',
+                    alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <span style={{ color: 'rgba(255,255,255,0.13)', fontSize: 9 }}>+</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          {/* Braille logo mark */}
+          <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 36, marginBottom: 20, display: 'flex' }}>
+            ⡜
           </div>
 
           {/* Main title */}
-          <div style={{ color: WHITE, fontSize: 84, fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1, display: 'flex' }}>
-            projects
-          </div>
-
-          {/* Colored accent stripe */}
-          <div style={{ display: 'flex', gap: 6, marginTop: 24, marginBottom: 30 }}>
-            <div style={{ width: 52, height: 3, background: '#635BFF', borderRadius: 2, display: 'flex' }} />
-            <div style={{ width: 52, height: 3, background: PINK,     borderRadius: 2, display: 'flex' }} />
-            <div style={{ width: 52, height: 3, background: '#F5A623', borderRadius: 2, display: 'flex' }} />
-            <div style={{ width: 52, height: 3, background: '#4FF8D2', borderRadius: 2, display: 'flex' }} />
+          <div style={{
+            display: 'flex', gap: 24,
+            color: WHITE, fontSize: 84, fontWeight: 700,
+            letterSpacing: '-0.03em', lineHeight: 1,
+          }}>
+            <span>stripe</span>
+            <span>projects</span>
           </div>
 
           {/* Tagline */}
           <div style={{
-            color: MUTED, fontSize: 20, textAlign: 'center',
-            maxWidth: 560, lineHeight: 1.7, display: 'flex',
+            color: MUTED, fontSize: 40, textAlign: 'center',
+            maxWidth: 900, lineHeight: 1.5, display: 'flex',
             flexDirection: 'column', alignItems: 'center',
+            marginTop: 32,
           }}>
             <span>From idea to production.</span>
             <span>One command, real infrastructure.</span>
-          </div>
-
-          {/* URL */}
-          <div style={{ color: DIM, fontSize: 13, marginTop: 44, letterSpacing: '0.08em', display: 'flex' }}>
-            projects.dev
           </div>
         </div>
       ),
