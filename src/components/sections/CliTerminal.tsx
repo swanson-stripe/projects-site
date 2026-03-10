@@ -848,6 +848,8 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const [focused, setFocused]       = useState(!isMobile);
   const [showEnterHint, setShowEnterHint]     = useState(false);
   const [awaitingName, setAwaitingName]       = useState(installDemo);
+  const [normalMode, setNormalMode]           = useState(!installDemo);
+  const [footerAppName, setFooterAppName]     = useState('stack');
   const [placeholderService, setPlaceholderService] = useState('vercel');
   const [pendingChoiceHint, setPendingChoiceHint]   = useState<string | null>(null);
   const [commandPlaceholder, setCommandPlaceholder] = useState<string | null>(null);
@@ -953,6 +955,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     if (awaitingName && val !== '?') {
       const appName = val;
       appNameRef.current = appName;
+      setFooterAppName(appName);
       historyRef.current.unshift(val);
       const initCmd = `stripe projects init ${appName}`;
       setLines(prev => [...prev,
@@ -973,7 +976,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const initMatch = val.match(/(?:npx\s+@stripe\/projects\s+|stripe\s+)?projects\s+init(?:\s+(\S+))?/i);
     if (installDemo && demoStepRef.current === 0 && initMatch) {
       demoStepRef.current = 1;
-      if (initMatch[1]) appNameRef.current = initMatch[1];
+      if (initMatch[1]) { appNameRef.current = initMatch[1]; setFooterAppName(initMatch[1]); }
       historyRef.current.unshift(val);
       const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
       const stepId        = uid();
@@ -1163,8 +1166,15 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         e.preventDefault();
         window.open(stackUrlRef.current, '_blank', 'noopener,noreferrer');
         stackUrlRef.current = null;
+        setStackUrl(null);
         commandPlaceholderRef.current = null;
         setCommandPlaceholder(null);
+        return;
+      }
+      // In normal mode with empty input, run the export command
+      if (value === '' && normalMode) {
+        e.preventDefault();
+        submit(`stripe projects export ${footerAppName}`);
         return;
       }
       submit();
@@ -1230,6 +1240,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
           { id: uid(), t: 'blank', text: '' },
         ]);
         demoStepRef.current = 2; // normal terminal mode
+        setNormalMode(true);
       }
       // invalid key → do nothing, ref stays set
     };
@@ -1276,6 +1287,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       setCommandPlaceholder(exportCmd);
       setPlaceholderService(pickSuggestedService(services.map(s => s.name)));
       setPendingChoiceHint(null);
+      setNormalMode(true);
       return;
     }
     const svc    = services[idx];
@@ -1507,7 +1519,11 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
             userSelect:     'none',
           }}
         >
-          {(showEnterHint || value.length > 0) && <span>enter to submit</span>}
+          {(showEnterHint || value.length > 0)
+            ? <span>enter to submit</span>
+            : normalMode
+              ? <span>stripe projects export {footerAppName}</span>
+              : null}
           <span style={{ marginLeft: 'auto' }}>? for more info</span>
         </div>
       </div>
