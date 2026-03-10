@@ -250,7 +250,6 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
           display: 'block',
           width: '100%',
           padding: '1.1em 1.25em',
-          borderBottom: BORDER,
           background: 'none',
           border: 'none',
           borderBottom: BORDER,
