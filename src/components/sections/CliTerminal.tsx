@@ -536,17 +536,6 @@ function respond(input: string): Line[] {
     return []; // handled separately in submit()
   }
 
-  /* ── projects export ── */
-  if (raw.match(/^(?:stripe\s+)?projects\s+export/i)) {
-    return [
-      { id: uid(), t: 'blank',   text: '' },
-      { id: uid(), t: 'step',    text: 'paste this command in your stripe cli:' },
-      { id: uid(), t: 'blank',   text: '' },
-      { id: uid(), t: 'url',     text: 'stripe projects config a1hS88GH74HHf' },
-      { id: uid(), t: 'blank',   text: '' },
-    ];
-  }
-
   /* ── fallback ── */
   return [
     { id: uid(), t: 'blank', text: '' },
@@ -865,6 +854,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
   const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
   const appNameRef              = useRef('my-app'); // set from the init command
+  const sessionServicesRef      = useRef<string[]>([]); // services added in this session
   const outputRef               = useRef<HTMLDivElement>(null);
   const inputRef                = useRef<HTMLInputElement>(null);
   const historyRef              = useRef<string[]>([]);
@@ -1015,6 +1005,9 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const svcAddMatch = val.match(/^(?:(?:stripe\s+)?projects\s+services?\s+add|\/services\s+add)\s+(\S+)/i);
     if (svcAddMatch) {
       const svcSlug     = svcAddMatch[1].toLowerCase();
+      if (!sessionServicesRef.current.includes(svcSlug)) {
+        sessionServicesRef.current.push(svcSlug);
+      }
       const partner     = PARTNERS.find(p => p.name.toLowerCase() === svcSlug);
       const displayName = partner?.name ?? svcSlug;
       const category    = partner?.category ?? 'service';
@@ -1037,11 +1030,57 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       return;
     }
 
+    /* ── projects export: async URL generation ── */
+    const exportMatch = val.match(/^(?:stripe\s+)?projects\s+export(?:\s+(\S+))?/i);
+    if (exportMatch) {
+      const exportAppName = exportMatch[1] ?? appNameRef.current;
+      const services = [...sessionServicesRef.current];
+      historyRef.current.unshift(val);
+      histIdxRef.current = -1;
+      setShowEnterHint(false);
+      const exportCmdLine: Line = { id: uid(), t: 'cmd', text: val };
+      const exportSpinnerId = uid();
+      setLines(prev => [...prev,
+        exportCmdLine,
+        { id: uid(),          t: 'blank',   text: '' },
+        { id: uid(),          t: 'step',    text: 'generating stack url...' },
+        { id: exportSpinnerId, t: 'spinner', text: '' },
+      ]);
+      setValue('');
+      setSelStart(0);
+      fetch('/api/stacks/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ appName: exportAppName, services }),
+      })
+        .then(r => r.ok ? r.json() as Promise<{ code: string }> : Promise.reject(r))
+        .then(({ code }) => {
+          const url = `https://projects.dev/${code}`;
+          setLines(prev => prev.filter(l => l.id !== exportSpinnerId).concat([
+            { id: uid(), t: 'done',  text: 'your stack is ready',                         instant: true },
+            { id: uid(), t: 'blank', text: '',                                             instant: true },
+            { id: uid(), t: 'url',   text: url,                                            instant: true },
+            { id: uid(), t: 'blank', text: '',                                             instant: true },
+            { id: uid(), t: 'step',  text: 'or run this command in your stripe cli:',     instant: true },
+            { id: uid(), t: 'blank', text: '',                                             instant: true },
+            { id: uid(), t: 'url',   text: `stripe projects init --from ${url}`,          instant: true },
+            { id: uid(), t: 'blank', text: '',                                             instant: true },
+          ]));
+        })
+        .catch(() => {
+          setLines(prev => prev.filter(l => l.id !== exportSpinnerId).concat([
+            { id: uid(), t: 'err',   text: 'could not generate stack url. try again.',    instant: true },
+            { id: uid(), t: 'blank', text: '',                                             instant: true },
+          ]));
+        });
+      return;
+    }
+
     const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
     const response = respond(val);
 
     // Informational lookups return instantly — no spinner, no delay
-    const isLookup = /^(\?|help|\/help|\/shortcuts|\/why|\/contest|\/services\s+list|\/services\s+status|(?:stripe\s+)?projects\s+export\S*)/i.test(val.trim());
+    const isLookup = /^(\?|help|\/help|\/shortcuts|\/why|\/contest|\/services\s+list|\/services\s+status)/i.test(val.trim());
     if (isLookup) {
       setLines(prev => [...prev, cmdLine, ...instant(response)]);
       setValue('');
