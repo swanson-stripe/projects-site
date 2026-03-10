@@ -45,8 +45,8 @@ const CASCADE_DOWN          = 28;  // vertical offset per window
 const MOBILE_CASCADE_ESTIMATE = 220; // initial y-spacing estimate; useLayoutEffect corrects before paint
 
 /* shared terminal dimensions — referenced by all layout helpers */
-const HEADLINE_H = 120; // headline text height + gap below it
-const TERM_Y    = 80 + HEADLINE_H; // shifted down to leave room for headline above
+const HEADLINE_H = 100; // headline text height + gap below it
+const TERM_Y    = 40 + HEADLINE_H; // shifted down to leave room for headline above
 const TERM_H        = 360;
 const TERM_EXPAND   = Math.round(TERM_H * 0.3); // ~108 — added on first user submit
 const SECTION_GAP = 40; // consistent vertical gap between all major sections
@@ -75,7 +75,7 @@ function initialLayout(): SWinState[] {
   const ecoY   = termY + termH + SECTION_GAP + heroH + SECTION_GAP;
   const ecoH   = mobile ? 320 : 96;
 
-  const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+  const cascadeIds: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
   const gridGap   = 16;
   const gridBaseY = ecoY + ecoH + SECTION_GAP;
 
@@ -652,7 +652,7 @@ export function ScrollView() {
     const ecoH   = mobile ? 320 : 96;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const gap    = 16;
-    const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    const ids: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const winW   = mobile ? contentW : Math.floor((contentW - gap) / 2);
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
@@ -675,7 +675,7 @@ export function ScrollView() {
     const heroH  = mobile ? 120 : 44;
     const ecoH   = mobile ? 320 : 96;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
-    const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    const ids: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
     setWins(prev => {
@@ -767,7 +767,7 @@ export function ScrollView() {
   useLayoutEffect(() => {
     if (!isMobile) return;
 
-    const CASCADE_IDS: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3', 'purpose'];
+    const CASCADE_IDS: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const els = cascadeElsRef.current;
 
     if (!CASCADE_IDS.every(id => els.has(id))) return;

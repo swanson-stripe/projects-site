@@ -537,6 +537,17 @@ function respond(input: string): Line[] {
     return []; // handled separately in submit()
   }
 
+  /* ── projects export ── */
+  if (raw.match(/^(?:stripe\s+)?projects\s+export/i)) {
+    return [
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'step',    text: 'paste this command in your stripe cli:' },
+      { id: uid(), t: 'blank',   text: '' },
+      { id: uid(), t: 'url',     text: 'stripe projects config a1hS88GH74HHf' },
+      { id: uid(), t: 'blank',   text: '' },
+    ];
+  }
+
   /* ── fallback ── */
   return [
     { id: uid(), t: 'blank', text: '' },
@@ -850,6 +861,8 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const [awaitingName, setAwaitingName]       = useState(installDemo);
   const [placeholderService, setPlaceholderService] = useState('vercel');
   const [pendingChoiceHint, setPendingChoiceHint]   = useState<string | null>(null);
+  const [commandPlaceholder, setCommandPlaceholder] = useState<string | null>(null);
+  const commandPlaceholderRef = useRef<string | null>(null);
   const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
   const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
   const appNameRef              = useRef('my-app'); // set from the init command
@@ -926,6 +939,12 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const submit = useCallback((override?: string) => {
     const val = (override ?? value).trim();
     if (!val) return;
+
+    // Clear any post-flow command placeholder on submit
+    if (commandPlaceholderRef.current !== null) {
+      commandPlaceholderRef.current = null;
+      setCommandPlaceholder(null);
+    }
 
     submitCountRef.current += 1;
     if (!firstSubmitFiredRef.current) {
@@ -1023,7 +1042,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const response = respond(val);
 
     // Informational lookups return instantly — no spinner, no delay
-    const isLookup = /^(\?|help|\/help|\/shortcuts|\/why|\/contest|\/services\s+list|\/services\s+status)$/i.test(val.trim());
+    const isLookup = /^(\?|help|\/help|\/shortcuts|\/why|\/contest|\/services\s+list|\/services\s+status|(?:stripe\s+)?projects\s+export\S*)/i.test(val.trim());
     if (isLookup) {
       setLines(prev => [...prev, cmdLine, ...instant(response)]);
       setValue('');
@@ -1189,18 +1208,19 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
   function provisionNext(services: TplService[], idx: number) {
     if (idx >= services.length) {
-      // All done — show final summary and update placeholder to a non-duplicate service
-      const name      = appNameRef.current;
-      const hasVercel = services.some(s => s.name.toLowerCase() === 'vercel');
-      const urlText   = hasVercel
-        ? `${name}-project.vercel.app`
-        : `${name} running at localhost:9999`;
+      // All done — show final summary and update placeholder to export command
+      const name        = appNameRef.current;
+      const serviceList = services.map(s => s.name.toLowerCase()).join(', ');
       setLines(prev => [...prev,
-        { id: uid(), t: 'done', text: 'automatically created and provisioned for you' },
-        { id: uid(), t: 'url',  text: urlText },
+        { id: uid(), t: 'done',  text: `${name} is fully provisioned` },
+        { id: uid(), t: 'sub',   text: `running ${serviceList}` },
+        { id: uid(), t: 'sub',   text: 'stripe projects status to view tech stack' },
       ]);
+      const exportCmd = `stripe projects export ${name}`;
+      commandPlaceholderRef.current = exportCmd;
+      setCommandPlaceholder(exportCmd);
       setPlaceholderService(pickSuggestedService(services.map(s => s.name)));
-      setPendingChoiceHint(null); // restore normal computed placeholder
+      setPendingChoiceHint(null);
       return;
     }
     const svc    = services[idx];
@@ -1255,12 +1275,15 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   }
 
   /* current placeholder text — shared between render and onKeyDown.
-     null  → use computed service/name placeholder (normal mode)
-     ''    → show blank (between choice steps)
-     other → show that hint string */
+     pendingChoiceHint null  → use computed service/name placeholder (normal mode)
+     pendingChoiceHint ''    → show blank (between choice steps)
+     pendingChoiceHint other → show that choice hint
+     commandPlaceholder      → override with a specific command suggestion */
   const placeholder = pendingChoiceHint !== null
     ? pendingChoiceHint
-    : awaitingName
+    : commandPlaceholder !== null
+      ? commandPlaceholder
+      : awaitingName
       ? 'give your project a name'
       : dragService
         ? `stripe projects services add ${dragService.toLowerCase()}`
