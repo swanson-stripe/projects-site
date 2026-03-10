@@ -168,54 +168,54 @@ export default async function handler(req: Request): Promise<Response> {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontFamily: 'SpaceMono',
         }}>
-          {/* Window card */}
+          {/* Window card — 90% of width */}
           <div style={{
-            width: 580,
+            width: 1080,
             display: 'flex', flexDirection: 'column',
             border: `1px solid ${BORDER}`,
-            borderRadius: 6,
+            borderRadius: 10,
           }}>
 
             {/* Purple header */}
             <div style={{
               background: HEADER_BG,
-              padding: '11px 16px',
+              padding: '18px 28px',
               display: 'flex',
               alignItems: 'center',
-              borderRadius: '5px 5px 0 0',
+              borderRadius: '9px 9px 0 0',
             }}>
               {/* Traffic lights */}
-              <div style={{ display: 'flex', gap: 6 }}>
-                <div style={{ width: 12, height: 12, background: '#FF5F57', borderRadius: 6, display: 'flex' }} />
-                <div style={{ width: 12, height: 12, background: '#FEBC2E', borderRadius: 6, display: 'flex' }} />
-                <div style={{ width: 12, height: 12, background: '#28C840', borderRadius: 6, display: 'flex' }} />
+              <div style={{ display: 'flex', gap: 10 }}>
+                <div style={{ width: 20, height: 20, background: '#FF5F57', borderRadius: 10, display: 'flex' }} />
+                <div style={{ width: 20, height: 20, background: '#FEBC2E', borderRadius: 10, display: 'flex' }} />
+                <div style={{ width: 20, height: 20, background: '#28C840', borderRadius: 10, display: 'flex' }} />
               </div>
               {/* Centered title */}
               <div style={{
                 flex: 1, display: 'flex', justifyContent: 'center',
-                color: 'rgba(255,255,255,0.9)', fontSize: 12,
+                color: 'rgba(255,255,255,0.9)', fontSize: 20,
                 letterSpacing: '0.1em',
               }}>
                 {windowTitle}
               </div>
               {/* Spacer to balance traffic lights */}
-              <div style={{ width: 48, display: 'flex' }} />
+              <div style={{ width: 80, display: 'flex' }} />
             </div>
 
             {/* Body */}
             <div style={{
               background: CARD_BG,
-              padding: '20px',
+              padding: '32px 36px',
               display: 'flex', flexDirection: 'column',
-              borderRadius: '0 0 5px 5px',
+              borderRadius: '0 0 9px 9px',
             }}>
               {/* App name */}
-              <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 16 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
-                  <span style={{ color: PINK, fontSize: 15 }}>→</span>
-                  <span style={{ color: WHITE, fontWeight: 700, fontSize: 17 }}>{appName}</span>
+              <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 24 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
+                  <span style={{ color: PINK, fontSize: 26 }}>→</span>
+                  <span style={{ color: WHITE, fontWeight: 700, fontSize: 30 }}>{appName}</span>
                 </div>
-                <div style={{ color: '#4b5563', fontSize: 12, paddingLeft: 24, display: 'flex' }}>
+                <div style={{ color: '#4b5563', fontSize: 20, paddingLeft: 40, display: 'flex' }}>
                   {providerCount} provider{providerCount !== 1 ? 's' : ''} · generated {date}
                 </div>
               </div>
@@ -230,28 +230,28 @@ export default async function handler(req: Request): Promise<Response> {
                 const isLast   = i === displayServices.length - 1;
                 return (
                   <div key={svc} style={{
-                    display: 'flex', alignItems: 'center', gap: 10,
-                    padding: '10px 0',
+                    display: 'flex', alignItems: 'center', gap: 18,
+                    padding: '16px 0',
                     borderBottom: isLast ? 'none' : `1px solid ${BORDER}`,
                   }}>
-                    <span style={{ color: WHITE, fontSize: 13, width: 88, flexShrink: 0, display: 'flex' }}>
+                    <span style={{ color: WHITE, fontSize: 22, width: 160, flexShrink: 0, display: 'flex' }}>
                       {svc}
                     </span>
                     <span style={{
-                      fontSize: 10,
+                      fontSize: 16,
                       border: `1px solid ${catColor}`,
                       color: catColor,
-                      padding: '2px 6px',
+                      padding: '3px 10px',
                       letterSpacing: '0.04em',
                       display: 'flex',
                       flexShrink: 0,
                     }}>
                       {info?.category ?? ''}
                     </span>
-                    <span style={{ color: MUTED, fontSize: 11, flex: 1, display: 'flex' }}>
+                    <span style={{ color: MUTED, fontSize: 19, flex: 1, display: 'flex' }}>
                       {info?.description ?? ''}
                     </span>
-                    <span style={{ color: DIM, fontSize: 11, display: 'flex' }}>↗</span>
+                    <span style={{ color: DIM, fontSize: 19, display: 'flex' }}>↗</span>
                   </div>
                 );
               })}
