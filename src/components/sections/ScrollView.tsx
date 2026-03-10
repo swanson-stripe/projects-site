@@ -335,22 +335,15 @@ function SingleFeatureContent({ feature }: { feature: typeof FEATURES[0] }) {
 }
 
 /* ── InstallInline ───────────────────────────────────────────────────────── */
-type InstallTab = 'npm' | 'brew';
-const INSTALL_CMDS: Record<InstallTab, string> = {
-  npm:  'npx @stripe/projects init my-app',
-  brew: 'brew install stripe-cli\nstripe projects init my-app',
-};
+const BREW_CMD = 'brew install stripe/stripe-cli/stripe\nstripe plugin install projects';
 
 function InstallInline() {
   const isMobile            = useIsMobile();
-  const [tab, setTab]       = useState<InstallTab>('npm');
   const [copied, setCopied] = useState(false);
   const vPad = isMobile ? '0.8rem' : '0.4rem';
 
-  const cmd = INSTALL_CMDS[tab];
-
   const handleCopy = () => {
-    navigator.clipboard.writeText(cmd);
+    navigator.clipboard.writeText(BREW_CMD);
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
@@ -367,26 +360,10 @@ function InstallInline() {
       boxSizing:  'border-box',
       minWidth:    0,
     }}>
-      {/* tab selector */}
-      <div style={{ display: 'flex', gap: '1rem', flexShrink: 0, alignItems: 'center', padding: `${vPad} 0.85rem` }}>
-        {(['npm', 'brew'] as InstallTab[]).map(t => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            style={{
-              display:    'flex',
-              alignItems: 'center',
-              gap:        '0.3em',
-              cursor:     'pointer',
-              color:      t === tab ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
-              transition: 'color 0.15s',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <span style={{ color: 'var(--color-pink)', opacity: t === tab ? 1 : 0 }}>›</span>
-            {t === 'npm' ? 'npm' : 'Homebrew'}
-          </button>
-        ))}
+      {/* homebrew label */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.3em', flexShrink: 0, padding: `${vPad} 0.85rem`, whiteSpace: 'nowrap' }}>
+        <span style={{ color: 'var(--color-pink)', userSelect: 'none' }}>›</span>
+        <span style={{ color: 'var(--color-text-ui)' }}>Homebrew</span>
       </div>
 
       {/* divider — full height via alignItems:stretch on parent */}
@@ -412,9 +389,34 @@ function InstallInline() {
       >
         {copied
           ? 'Copied!'
-          : cmd.split('\n').map((line, i) => <div key={i}>{line}</div>)
+          : BREW_CMD.split('\n').map((line, i) => <div key={i}>{line}</div>)
         }
       </button>
+
+      {/* divider */}
+      <div style={{ width: 1, background: 'var(--color-border-accent)', flexShrink: 0 }} />
+
+      {/* more link */}
+      <a
+        href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display:    'inline-flex',
+          alignItems: 'center',
+          gap:        '0.2em',
+          flexShrink:  0,
+          padding:    `${vPad} 0.85rem`,
+          color:      'var(--color-text-ui-muted)',
+          textDecoration: 'none',
+          whiteSpace: 'nowrap',
+          transition: 'color 0.15s',
+        }}
+        onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+        onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+      >
+        More <ArrowUpRight size={10} strokeWidth={1.5} />
+      </a>
     </div>
   );
 }
