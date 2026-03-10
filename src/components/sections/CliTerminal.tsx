@@ -102,6 +102,7 @@ const SLASH_COMMANDS: SlashCommand[] = [
 /* ─── install-demo constants ─────────────────────────────────────── */
 const INTRO_LINES: { text: string; delay: number }[] = [
   { text: 'Stripe projects will provision resources and return ready-to-use keys. Launch or hand off to an agent to deploy your app automatically.', delay: 1000 },
+  { text: 'Try building your own stack here, and take it with you to your CLI.', delay: 400 },
 ];
 
 /* ─── template data ──────────────────────────────────────────────── */
