@@ -324,7 +324,7 @@ function ViewDocsLink({ width }: { width?: number }) {
         fontFamily: 'inherit',
         fontSize: '0.75em',
         letterSpacing: '0.04em',
-        color: 'var(--color-border-accent)',
+        color: MUTED,
         border: '1px solid var(--color-border-accent)',
         background: 'var(--color-bg)',
         padding: '0.55em 0.85em',
@@ -337,7 +337,7 @@ function ViewDocsLink({ width }: { width?: number }) {
       }}
       onMouseLeave={e => {
         e.currentTarget.style.borderColor = 'var(--color-border-accent)';
-        e.currentTarget.style.color = 'var(--color-border-accent)';
+        e.currentTarget.style.color = MUTED;
       }}
     >
       View docs <ArrowUpRight size={11} strokeWidth={1.5} />
