@@ -77,15 +77,13 @@ function ProviderLogo({ name }: { name: string }) {
   }
   const needsInvert = partner.lightInvert && theme !== 'default';
   return (
-    <partner.logo
-      className=""
-      style={{
-        width: 16,
-        height: 16,
-        flexShrink: 0,
-        filter: needsInvert ? 'invert(1)' : undefined,
-      } as React.CSSProperties}
-    />
+    <div style={{
+      width: 16, height: 16, flexShrink: 0, display: 'flex',
+      alignItems: 'center', justifyContent: 'center',
+      filter: needsInvert ? 'invert(1)' : undefined,
+    }}>
+      <partner.logo className="w-full h-full" />
+    </div>
   );
 }
 
