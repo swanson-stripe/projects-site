@@ -23,8 +23,6 @@ type LoadState =
   | { status: 'expired' }
   | { status: 'error' };
 
-type Tab = 'npm' | 'brew';
-
 const PINK   = 'var(--color-pink)';
 const MUTED  = 'var(--color-text-ui-muted)';
 const DIM    = 'var(--color-text-ui-subtle)';
@@ -34,10 +32,7 @@ const STACK_W   = 480;
 const INSTALL_W = 380;
 const WIN_GAP   = 20;
 
-const COMMANDS: Record<Tab, string> = {
-  npm:  'npx @stripe/projects init my-app',
-  brew: 'brew install stripe/stripe-cli/stripe\nstripe plugin install projects',
-};
+const BREW_COMMAND = 'brew install stripe/stripe-cli/stripe\nstripe plugin install projects';
 
 /* ── category badge ────────────────────────────────────────────────── */
 const CATEGORY_COLORS: Record<string, string> = {
@@ -195,12 +190,11 @@ function StackContent({ state }: { state: LoadState }) {
 
 /* ── install window content ────────────────────────────────────────── */
 function InstallContent({ state, code }: { state: LoadState; code: string }) {
-  const [tab, setTab]         = useState<Tab>('npm');
-  const [copied, setCopied]   = useState(false);
+  const [copied, setCopied]         = useState(false);
   const [copiedInit, setCopiedInit] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(COMMANDS[tab]);
+    navigator.clipboard.writeText(BREW_COMMAND);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -211,43 +205,31 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
     setTimeout(() => setCopiedInit(false), 2000);
   };
 
-  const TABS: { id: Tab; label: string }[] = [
-    { id: 'npm',  label: 'npm'      },
-    { id: 'brew', label: 'Homebrew' },
-  ];
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'inherit' }}>
-      {/* tab bar */}
-      <div style={{ display: 'flex', borderBottom: BORDER }}>
-        {TABS.map((t, idx) => {
-          const active = tab === t.id;
-          return (
-            <button
-              key={t.id}
-              onClick={() => { setTab(t.id); setCopied(false); }}
-              style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.4em',
-                padding: '0.55em 0',
-                fontFamily: 'inherit',
-                fontSize: '0.8em',
-                cursor: 'pointer',
-                background: 'none',
-                border: 'none',
-                borderLeft: idx > 0 ? BORDER : undefined,
-                color: active ? 'var(--color-blue)' : DIM,
-                transition: 'color 0.15s',
-              }}
-            >
-              <span style={{ opacity: active ? 1 : 0, userSelect: 'none' }}>›</span>
-              {t.label}
-            </button>
-          );
-        })}
+      {/* header row */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: BORDER, padding: '0.55em 1.25em' }}>
+        <span style={{ fontSize: '0.8em', color: 'var(--color-blue)' }}>
+          <span style={{ userSelect: 'none' }}>› </span>Homebrew
+        </span>
+        <a
+          href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.2em',
+            fontSize: '0.75em',
+            color: DIM,
+            textDecoration: 'none',
+            transition: 'color 0.15s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+          onMouseLeave={e => (e.currentTarget.style.color = DIM)}
+        >
+          More <ArrowUpRight size={10} strokeWidth={1.5} />
+        </a>
       </div>
 
       {/* command — click to copy */}
@@ -270,7 +252,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
           transition: 'color 0.15s',
         }}
       >
-        {COMMANDS[tab].split('\n').map((line, i) => <div key={i}>{line}</div>)}
+        {BREW_COMMAND.split('\n').map((line, i) => <div key={i}>{line}</div>)}
       </button>
 
       {/* init command — only show once stack is loaded */}
