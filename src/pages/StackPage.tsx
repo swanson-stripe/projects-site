@@ -305,8 +305,8 @@ function ViewDocsLink({ width }: { width?: number }) {
         fontFamily: 'inherit',
         fontSize: '0.75em',
         letterSpacing: '0.04em',
-        color: 'var(--color-text-ui)',
-        border: BORDER,
+        color: 'var(--color-border-accent)',
+        border: '1px solid var(--color-border-accent)',
         background: 'var(--color-bg)',
         padding: '0.55em 0.85em',
         textDecoration: 'none',
@@ -317,8 +317,8 @@ function ViewDocsLink({ width }: { width?: number }) {
         e.currentTarget.style.color = 'var(--color-pink)';
       }}
       onMouseLeave={e => {
-        e.currentTarget.style.borderColor = '';
-        e.currentTarget.style.color = 'var(--color-text-ui)';
+        e.currentTarget.style.borderColor = 'var(--color-border-accent)';
+        e.currentTarget.style.color = 'var(--color-border-accent)';
       }}
     >
       View docs <ArrowUpRight size={11} strokeWidth={1.5} />
