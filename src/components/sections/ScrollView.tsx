@@ -898,7 +898,7 @@ export function ScrollView() {
           pointerEvents: 'none',
           zIndex:         2,
         }}>
-          Your whole stack, provisioned instantly and managed centrally.
+          From idea to production.{isMobile ? ' ' : <br />}One command, real infrastructure.
         </p>
 
         {/* hero row — stacked on mobile, side-by-side on desktop */}
