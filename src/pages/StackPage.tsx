@@ -139,14 +139,13 @@ function WindowShell({ title, children }: { title: string; children: React.React
 
 /* ── main page ─────────────────────────────────────────────────────── */
 export function StackPage() {
-  const { id } = useParams<{ id: string }>();
+  const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
-  const code = `STACK-${id}`;
 
   const [state, setState] = useState<LoadState>({ status: 'loading' });
 
   useEffect(() => {
-    if (!id) { navigate('/'); return; }
+    if (!code?.startsWith('STACK-')) { navigate('/'); return; }
 
     fetch(`/api/stacks/${code}`)
       .then(async res => {
@@ -156,7 +155,7 @@ export function StackPage() {
         setState({ status: 'ok', data });
       })
       .catch(() => setState({ status: 'error' }));
-  }, [code, id, navigate]);
+  }, [code, navigate]);
 
   /* enrich services with registry data */
   const enriched = state.status === 'ok'

@@ -16,7 +16,7 @@ export default function App() {
     <ThemeProvider>
       <AudioProvider>
         <Routes>
-          <Route path="/STACK-:id" element={<StackPage />} />
+          <Route path="/:code" element={<StackPage />} />
           <Route
             path="*"
             element={
