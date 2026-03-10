@@ -195,13 +195,20 @@ function StackContent({ state }: { state: LoadState }) {
 
 /* ── install window content ────────────────────────────────────────── */
 function InstallContent({ state, code }: { state: LoadState; code: string }) {
-  const [tab, setTab]       = useState<Tab>('npm');
-  const [copied, setCopied] = useState(false);
+  const [tab, setTab]         = useState<Tab>('npm');
+  const [copied, setCopied]   = useState(false);
+  const [copiedInit, setCopiedInit] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(COMMANDS[tab]);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyInit = () => {
+    navigator.clipboard.writeText(`stripe projects init --from https://projects.dev/${code}`);
+    setCopiedInit(true);
+    setTimeout(() => setCopiedInit(false), 2000);
   };
 
   const TABS: { id: Tab; label: string }[] = [
@@ -268,20 +275,32 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
 
       {/* init command — only show once stack is loaded */}
       {state.status === 'ok' && (
-        <div style={{ padding: '0.85em 1.25em' }}>
-          <div style={{ color: PINK, fontSize: '0.75em', marginBottom: '0.5em' }}>
+        <div style={{ borderTop: BORDER }}>
+          <div style={{ padding: '0.6em 1.25em 0.3em', color: 'var(--color-blue)', fontSize: '0.75em' }}>
             run this in your stripe cli:
           </div>
-          <div style={{
-            color: 'var(--color-text-ui)',
-            fontSize: '0.78em',
-            letterSpacing: '0.02em',
-            userSelect: 'all',
-            wordBreak: 'break-all',
-            lineHeight: 1.5,
-          }}>
+          <button
+            onClick={handleCopyInit}
+            title={copiedInit ? 'Copied!' : 'Click to copy'}
+            style={{
+              display: 'block',
+              width: '100%',
+              padding: '0.3em 1.25em 0.85em',
+              background: 'none',
+              border: 'none',
+              textAlign: 'left',
+              cursor: 'pointer',
+              color: copiedInit ? 'var(--color-yellow)' : 'var(--color-text-ui)',
+              fontSize: '0.78em',
+              letterSpacing: '0.02em',
+              wordBreak: 'break-all',
+              lineHeight: 1.5,
+              fontFamily: 'inherit',
+              transition: 'color 0.15s',
+            }}
+          >
             stripe projects init --from https://projects.dev/{code}
-          </div>
+          </button>
         </div>
       )}
 
