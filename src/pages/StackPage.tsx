@@ -343,6 +343,23 @@ function MobileCard({ title, children }: { title: string; children: React.ReactN
   );
 }
 
+/* ── initial window positions ──────────────────────────────────────── */
+function defaultPositions() {
+  if (typeof window === 'undefined') {
+    return {
+      stack:   { x: 60, y: 80 },
+      install: { x: 60 + STACK_W + WIN_GAP, y: 80 },
+    };
+  }
+  const totalW = STACK_W + WIN_GAP + INSTALL_W;
+  const x = Math.max(20, Math.round((window.innerWidth - totalW) / 2));
+  const y = Math.max(20, Math.round(window.innerHeight / 2 - 180));
+  return {
+    stack:   { x, y },
+    install: { x: x + STACK_W + WIN_GAP, y },
+  };
+}
+
 /* ── main page ─────────────────────────────────────────────────────── */
 export function StackPage() {
   useDynamicFavicon();
@@ -354,22 +371,15 @@ export function StackPage() {
   const [state, setState]   = useState<LoadState>({ status: 'loading' });
   const [activeWin, setActiveWin] = useState<'stack' | 'install' | null>('stack');
 
-  /* initial positions — both windows centered together */
-  const [stackPos, setStackPos] = useState(() => {
-    if (typeof window === 'undefined') return { x: 60, y: 80 };
-    const totalW = STACK_W + WIN_GAP + INSTALL_W;
-    const x = Math.max(20, Math.round((window.innerWidth - totalW) / 2));
-    const y = Math.max(20, Math.round(window.innerHeight / 2 - 180));
-    return { x, y };
-  });
+  const [stackPos,   setStackPos]   = useState(() => defaultPositions().stack);
+  const [installPos, setInstallPos] = useState(() => defaultPositions().install);
 
-  const [installPos, setInstallPos] = useState(() => {
-    if (typeof window === 'undefined') return { x: 60 + STACK_W + WIN_GAP, y: 80 };
-    const totalW = STACK_W + WIN_GAP + INSTALL_W;
-    const x = Math.max(20, Math.round((window.innerWidth - totalW) / 2)) + STACK_W + WIN_GAP;
-    const y = Math.max(20, Math.round(window.innerHeight / 2 - 180));
-    return { x, y };
-  });
+  function handleReset() {
+    const pos = defaultPositions();
+    setStackPos(pos.stack);
+    setInstallPos(pos.install);
+    setActiveWin('stack');
+  }
 
   useEffect(() => {
     if (!code?.startsWith('STACK-')) { navigate('/'); return; }
@@ -405,7 +415,7 @@ export function StackPage() {
         }}
       >
         <GridBackground />
-        <StatusBar gateMode />
+        <StatusBar onReset={handleReset} />
         <div style={{
           position: 'relative',
           zIndex: 1,
@@ -442,7 +452,7 @@ export function StackPage() {
       }}
     >
       <GridBackground />
-      <StatusBar gateMode />
+      <StatusBar onReset={handleReset} />
 
       <div
         style={{ position: 'relative', flex: 1, zIndex: 1 }}
