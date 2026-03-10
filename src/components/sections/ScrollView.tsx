@@ -26,7 +26,7 @@ const PAD      = 32;   // horizontal padding on both sides of content
 const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
-type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'purpose' | 'ace' | `partner:${string}`;
+type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | `partner:${string}`;
 
 interface SWinState {
   id:     SWinId;
@@ -75,7 +75,7 @@ function initialLayout(): SWinState[] {
   const ecoY   = termY + termH + SECTION_GAP + heroH + SECTION_GAP;
   const ecoH   = mobile ? 320 : 96;
 
-  const cascadeIds: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
+  const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
   const gridGap   = 16;
   const gridBaseY = ecoY + ecoH + SECTION_GAP;
 
@@ -300,34 +300,6 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
     </div>
   );
 });
-
-/* ── PurposeContent ──────────────────────────────────────────────────────── */
-function PurposeContent() {
-  return (
-    <div style={{
-      padding:       '1.25rem',
-      display:       'flex',
-      flexDirection: 'column',
-      gap:           '0.65rem',
-      background:    'var(--color-surface)',
-      height:        '100%',
-      overflowY:     'auto',
-      scrollbarWidth:'none',
-      boxSizing:     'border-box',
-      fontFamily:    'var(--font-mono)',
-    }}>
-      <h3 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: 0, lineHeight: 1.35 }}>
-        Infrastructure setup should be programmable, secure, and deterministic.
-      </h3>
-      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.65, margin: 0 }}>
-        Developers and AI agents should be able to connect, pay, and provision real services, receive real credentials, and deploy applications through a single, secure, and deterministic development experience without navigating dashboards or copying keys across tabs.
-      </p>
-      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.65, margin: 0 }}>
-        This creates a new layer in the development stack: a programmable infrastructure that weaves third-party services directly into where developers and agents already work.
-      </p>
-    </div>
-  );
-}
 
 /* ── SingleFeatureContent ────────────────────────────────────────────────── */
 function SingleFeatureContent({ feature }: { feature: typeof FEATURES[0] }) {
@@ -652,7 +624,7 @@ export function ScrollView() {
     const ecoH   = mobile ? 320 : 96;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const gap    = 16;
-    const ids: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
+    const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const winW   = mobile ? contentW : Math.floor((contentW - gap) / 2);
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
@@ -675,7 +647,7 @@ export function ScrollView() {
     const heroH  = mobile ? 120 : 44;
     const ecoH   = mobile ? 320 : 96;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
-    const ids: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
+    const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
     setWins(prev => {
@@ -767,7 +739,7 @@ export function ScrollView() {
   useLayoutEffect(() => {
     if (!isMobile) return;
 
-    const CASCADE_IDS: SWinId[] = ['purpose', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
+    const CASCADE_IDS: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const els = cascadeElsRef.current;
 
     if (!CASCADE_IDS.every(id => els.has(id))) return;
@@ -821,7 +793,6 @@ export function ScrollView() {
   function getTitle(id: SWinId): string {
     if (id === 'terminal')  return 'terminal';
     if (id === 'ecosystem') return 'ecosystem';
-    if (id === 'purpose')   return 'purpose';
     if (id === 'ace')       return 'Ace';
     if (id.startsWith('feat:')) {
       const i = parseInt(id.slice(5));
@@ -889,7 +860,7 @@ export function ScrollView() {
           width:          heroRow.termW,
           margin:         0,
           fontFamily:    'var(--font-mono)',
-          fontSize:      isMobile ? '1.3rem' : '1.9rem',
+          fontSize:      isMobile ? '1.3rem' : 'clamp(1.2rem, 2.5vw, 1.9rem)',
           fontWeight:     600,
           lineHeight:     1.3,
           color:         'var(--color-text-ui)',
@@ -965,7 +936,6 @@ export function ScrollView() {
           const isTerminal  = win.id === 'terminal';
           const isEcosystem = win.id === 'ecosystem';
           const isFeat      = win.id.startsWith('feat:');
-          const isPurpose   = win.id === 'purpose';
           const isPartner   = win.id.startsWith('partner:');
           const bg = isActive ? 'var(--color-bg)' : 'var(--color-surface-dark)';
 
@@ -1046,7 +1016,6 @@ export function ScrollView() {
               const idx = parseInt(win.id.slice(5));
               return <SingleFeatureContent feature={FEATURES[idx]} />;
             }
-            if (isPurpose)  return <PurposeContent />;
             if (isAce) {
               return (
                 <div style={{
@@ -1081,7 +1050,7 @@ export function ScrollView() {
             return null;
           })();
 
-          const isCascade = isFeat || isPurpose;
+          const isCascade = isFeat;
 
           // On mobile, track cascade window elements so useLayoutEffect can restack them
           const cascadeRef = (isCascade && isMobile)
