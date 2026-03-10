@@ -1166,7 +1166,6 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         e.preventDefault();
         window.open(stackUrlRef.current, '_blank', 'noopener,noreferrer');
         stackUrlRef.current = null;
-        setStackUrl(null);
         commandPlaceholderRef.current = null;
         setCommandPlaceholder(null);
         return;
