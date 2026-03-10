@@ -275,8 +275,8 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
 
       {/* init command — only show once stack is loaded */}
       {state.status === 'ok' && (
-        <div style={{ borderTop: BORDER }}>
-          <div style={{ padding: '0.6em 1.25em 0.3em', color: 'var(--color-blue)', fontSize: '0.75em' }}>
+        <div>
+          <div style={{ padding: '0.6em 1.25em 0.5em', color: 'var(--color-blue)', fontSize: '0.75em' }}>
             then run this in your stripe cli:
           </div>
           <button
@@ -285,9 +285,10 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
             style={{
               display: 'block',
               width: '100%',
-              padding: '0.3em 1.25em 0.85em',
+              padding: '0.6em 1.25em 0.85em',
               background: 'none',
               border: 'none',
+              borderTop: BORDER,
               textAlign: 'left',
               cursor: 'pointer',
               color: copiedInit ? 'var(--color-yellow)' : 'var(--color-text-ui)',
