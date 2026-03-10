@@ -74,6 +74,24 @@ const SERVICE_ARG_CMDS = [
   '/services inspect',
 ] as const;
 
+const TYPEAHEAD_COMMANDS = [
+  'stripe projects',
+  'stripe projects init ',
+  'stripe projects export <appname>',
+  'stripe projects services list',
+  'stripe projects services add',
+  'stripe projects services status',
+  'stripe projects services inspect',
+  'stripe projects status',
+  'stripe projects templates list',
+  'stripe projects templates use',
+  'stripe projects costs',
+  'stripe projects themes',
+  'stripe projects theme ',
+  '--help',
+  '--version',
+];
+
 const SLASH_COMMANDS: SlashCommand[] = [
   { cmd: '/help',                   desc: 'show command reference'                },
   { cmd: '/partners',               desc: 'list all integrations'                 },
@@ -893,6 +911,17 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     : [];
   const menuOpen = menuItems.length > 0;
 
+  /* typeahead ghost-text suggestion — null when suppressed */
+  const typeaheadSuggestion: string | null = (() => {
+    if (!value || value.startsWith('/') || menuOpen || pendingChoiceHint !== null || awaitingName) return null;
+    const lower = value.toLowerCase();
+    const match = TYPEAHEAD_COMMANDS.find(cmd => {
+      const resolved = cmd.replace('<appname>', appNameRef.current);
+      return resolved.toLowerCase().startsWith(lower) && resolved.toLowerCase() !== lower;
+    });
+    return match ? match.replace('<appname>', appNameRef.current) : null;
+  })();
+
   /* reset menu selection when filtered list changes */
   useEffect(() => { setMenuIdx(0); }, [value]);
 
@@ -1468,6 +1497,9 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                       <span style={{ color: 'var(--color-text-ui)' }}>{value[selStart] ?? ''}</span>
                     )}
                     <span style={{ color: 'var(--color-text-ui)' }}>{value.slice(selStart + 1)}</span>
+                    {typeaheadSuggestion && (
+                      <span style={{ color: DIM }}>{typeaheadSuggestion.slice(value.length)}</span>
+                    )}
                   </>
                 )}
               </div>
