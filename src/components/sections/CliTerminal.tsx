@@ -28,7 +28,7 @@ const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
 /* ─── types ──────────────────────────────────────────────────────── */
-type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2' | 'welcome' | 'spinner' | 'choice' | 'tpl' | 'add' | 'mod';
+type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'urlsub' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2' | 'welcome' | 'spinner' | 'choice' | 'tpl' | 'add' | 'mod';
 
 interface Line {
   id: number;
@@ -552,6 +552,7 @@ const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: s
   sub:     { prefix: '↳',  prefixColor: DIM,        textColor: MUTED,                   indent: true  },
   done:    { prefix: '✓',  prefixColor: PINK,  textColor: 'var(--color-text-ui)',  indent: false },
   url:     { prefix: '→',  prefixColor: PINK,       textColor: PINK,                    indent: false },
+  urlsub:  { prefix: '↳',  prefixColor: DIM,        textColor: PINK,                    indent: true  },
   blank:   { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   kv:      { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
   section: { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
@@ -929,10 +930,14 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const val = (override ?? value).trim();
     if (!val) return;
 
-    // Clear any post-flow command placeholder on submit
+    // Clear any post-flow command placeholder and stack URL on submit
     if (commandPlaceholderRef.current !== null) {
       commandPlaceholderRef.current = null;
       setCommandPlaceholder(null);
+    }
+    if (stackUrlRef.current !== null) {
+      stackUrlRef.current = null;
+      setStackUrl(null);
     }
 
     submitCountRef.current += 1;
@@ -1022,11 +1027,14 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       ['allocating resources', `configuring ${category} instance`, 'generating credentials'].forEach((text, i) => {
         setTimeout(() => setLines(prev => [...prev, { id: uid(), t: 'sub', text }]), 400 + i * SUB_STEP);
       });
-      setTimeout(() => setLines(prev => [...prev,
-        { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
-        { id: uid(), t: 'sub',   text: 'run env list to view new credentials' },
-        { id: uid(), t: 'blank', text: '' },
-      ]), 400 + 3 * SUB_STEP + 200);
+      setTimeout(() => {
+        setLines(prev => [...prev,
+          { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
+          { id: uid(), t: 'sub',   text: 'run env list to view new credentials' },
+          { id: uid(), t: 'blank', text: '' },
+        ]);
+        setPlaceholderService(pickSuggestedService(sessionServicesRef.current));
+      }, 400 + 3 * SUB_STEP + 200);
       return;
     }
 
@@ -1057,15 +1065,16 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         .then(({ code }) => {
           const url = `https://projects.dev/${code}`;
           setLines(prev => prev.filter(l => l.id !== exportSpinnerId).concat([
-            { id: uid(), t: 'done',  text: 'your stack is ready',                         instant: true },
-            { id: uid(), t: 'blank', text: '',                                             instant: true },
-            { id: uid(), t: 'url',   text: url,                                            instant: true },
-            { id: uid(), t: 'blank', text: '',                                             instant: true },
-            { id: uid(), t: 'step',  text: 'or run this command in your stripe cli:',     instant: true },
-            { id: uid(), t: 'blank', text: '',                                             instant: true },
-            { id: uid(), t: 'url',   text: `stripe projects init --from ${url}`,          instant: true },
-            { id: uid(), t: 'blank', text: '',                                             instant: true },
+            { id: uid(), t: 'done',   text: 'your stack is ready',                      instant: true },
+            { id: uid(), t: 'urlsub', text: url,                                         instant: true },
+            { id: uid(), t: 'sub',    text: 'or run this command in your stripe cli:',   instant: true },
+            { id: uid(), t: 'sub',    text: `stripe projects init --from ${url}`,        instant: true },
+            { id: uid(), t: 'blank',  text: '',                                          instant: true },
           ]));
+          stackUrlRef.current = url;
+          setStackUrl(url);
+          commandPlaceholderRef.current = 'enter to open URL';
+          setCommandPlaceholder('enter to open URL');
         })
         .catch(() => {
           setLines(prev => prev.filter(l => l.id !== exportSpinnerId).concat([
@@ -1150,6 +1159,16 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     }
 
     if (e.key === 'Enter') {
+      // If a stack URL is pending and the input is empty, open the URL in a new tab
+      if (value === '' && stackUrlRef.current) {
+        e.preventDefault();
+        window.open(stackUrlRef.current, '_blank', 'noopener,noreferrer');
+        stackUrlRef.current = null;
+        setStackUrl(null);
+        commandPlaceholderRef.current = null;
+        setCommandPlaceholder(null);
+        return;
+      }
       submit();
     } else if (e.key === 'ArrowRight' && value === '' && !awaitingName && pendingChoiceHint === null && placeholder) {
       // Fill input with the command placeholder so the user can edit/submit it
