@@ -242,53 +242,47 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
         })}
       </div>
 
-      {/* command */}
-      <div style={{ padding: '1.1em 1.25em', borderBottom: BORDER }}>
-        <div style={{ fontSize: '0.82em', color: 'var(--color-text-ui)', lineHeight: 1.7 }}>
-          {COMMANDS[tab].split('\n').map((line, i) => <div key={i}>{line}</div>)}
-        </div>
-      </div>
-
-      {/* copy */}
-      <div style={{ padding: '0.5em 1.25em', borderBottom: BORDER, display: 'flex', justifyContent: 'center' }}>
-        <button
-          onClick={handleCopy}
-          style={{
-            fontFamily: 'inherit',
-            fontSize: '0.8em',
-            color: copied ? 'var(--color-yellow)' : PINK,
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            transition: 'color 0.15s',
-          }}
-        >
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
-      </div>
+      {/* command — click to copy */}
+      <button
+        onClick={handleCopy}
+        title={copied ? 'Copied!' : 'Click to copy'}
+        style={{
+          display: 'block',
+          width: '100%',
+          padding: '1.1em 1.25em',
+          borderBottom: BORDER,
+          background: 'none',
+          border: 'none',
+          borderBottom: BORDER,
+          textAlign: 'left',
+          cursor: 'pointer',
+          color: copied ? 'var(--color-yellow)' : 'var(--color-text-ui)',
+          fontSize: '0.82em',
+          lineHeight: 1.7,
+          fontFamily: 'inherit',
+          transition: 'color 0.15s',
+        }}
+      >
+        {COMMANDS[tab].split('\n').map((line, i) => <div key={i}>{line}</div>)}
+      </button>
 
       {/* init command — only show once stack is loaded */}
       {state.status === 'ok' && (
-        <>
-          <div style={{ padding: '0.85em 1.25em', borderBottom: BORDER }}>
-            <div style={{ color: DIM, fontSize: '0.75em', marginBottom: '0.5em' }}>
-              run this in your stripe cli:
-            </div>
-            <div style={{
-              background: 'var(--color-surface)',
-              border: BORDER,
-              padding: '0.5em 0.75em',
-              color: PINK,
-              fontSize: '0.78em',
-              letterSpacing: '0.02em',
-              userSelect: 'all',
-              wordBreak: 'break-all',
-              lineHeight: 1.5,
-            }}>
-              stripe projects init --from https://projects.dev/{code}
-            </div>
+        <div style={{ padding: '0.85em 1.25em', borderBottom: BORDER }}>
+          <div style={{ color: PINK, fontSize: '0.75em', marginBottom: '0.5em' }}>
+            run this in your stripe cli:
           </div>
-        </>
+          <div style={{
+            color: 'var(--color-text-ui)',
+            fontSize: '0.78em',
+            letterSpacing: '0.02em',
+            userSelect: 'all',
+            wordBreak: 'break-all',
+            lineHeight: 1.5,
+          }}>
+            stripe projects init --from https://projects.dev/{code}
+          </div>
+        </div>
       )}
 
       {/* view docs */}
