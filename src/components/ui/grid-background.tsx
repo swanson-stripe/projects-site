@@ -2,13 +2,24 @@ import { useEffect, useRef } from 'react';
 import type React from 'react';
 import { useTheme } from './ThemeContext';
 
-const TILE         = 104;   // px between mark centres (halved from 208)
-const MARK_SIZE    = 9;     // hash mark size in CSS px (matches SVG viewBox)
-const GLOW_RADIUS  = 130;   // px — distance at which glow starts
-const NORMAL_ALPHA = 0.12;
+const TILE           = 104;   // px between mark centres (halved from 208)
+const MARK_SIZE      = 9;     // mark size in CSS px
+const GLOW_RADIUS    = 130;   // px — distance at which glow starts
+const NORMAL_ALPHA   = 0.12;
+const ANGLE_THRESHOLD = Math.tan(15 * Math.PI / 180); // ~0.268 — cone for — and |
 
-// Path from hash.svg (9×9 viewBox) — drawn directly so we can tint it
-const HASH_PATH = new Path2D('M5 4H9V5H5V9H4V5H0V4H4V0H5V4Z');
+// Returns the box-drawing character for a mark at (dx, dy) relative to the cursor.
+// dx = markCenterX - cursorX, dy = markCenterY - cursorY
+function getGridChar(dx: number, dy: number): string {
+  const ax = Math.abs(dx);
+  const ay = Math.abs(dy);
+  if (ax > 0 && ay / ax < ANGLE_THRESHOLD) return '\u2014'; // —
+  if (ay > 0 && ax / ay < ANGLE_THRESHOLD) return '|';
+  if (dx < 0 && dy < 0) return '\u250c'; // ┌
+  if (dx > 0 && dy < 0) return '\u2510'; // ┐
+  if (dx > 0 && dy > 0) return '\u2518'; // ┘
+  return '\u2514'; // └
+}
 
 // Parse a CSS hex color (#RRGGBB or #RGB) into [r, g, b]
 function parseHex(hex: string): [number, number, number] {
@@ -76,23 +87,31 @@ export function GridBackground({ scrollEl }: { scrollEl?: React.RefObject<HTMLEl
       const cols   = Math.ceil(w / TILE) + 2;
       const rows   = Math.ceil(h / TILE) + 2;
 
+      // Text rendering settings — set once before the loop
+      ctx.font         = `${MARK_SIZE}px monospace`;
+      ctx.textAlign    = 'center';
+      ctx.textBaseline = 'middle';
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const px = c * TILE + offset - shiftX;   // top-left of mark
           const py = r * TILE + offset - shiftY;
+          const cx = px + MARK_SIZE / 2;            // mark centre x
+          const cy = py + MARK_SIZE / 2;            // mark centre y
 
-          // Distance from mark centre to cursor
+          // Distance from mark centre to cursor + directional character
           let glow = 0;
+          let char = '+';
           if (mouse) {
-            const dx   = px + MARK_SIZE / 2 - mouse.x;
-            const dy   = py + MARK_SIZE / 2 - mouse.y;
+            const dx   = cx - mouse.x;
+            const dy   = cy - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             glow = Math.max(0, 1 - dist / GLOW_RADIUS);
             glow = glow * glow; // quadratic — tighter falloff
+            char = getGridChar(dx, dy);
           }
 
           ctx.save();
-          ctx.translate(px, py);
 
           ctx.globalAlpha = baseAlpha + (1 - baseAlpha) * glow;
 
@@ -108,7 +127,7 @@ export function GridBackground({ scrollEl }: { scrollEl?: React.RefObject<HTMLEl
             ctx.fillStyle = accentColor(accent);
           }
 
-          ctx.fill(HASH_PATH);
+          ctx.fillText(char, cx, cy);
           ctx.restore();
         }
       }
