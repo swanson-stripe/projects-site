@@ -277,7 +277,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
       {state.status === 'ok' && (
         <div style={{ borderTop: BORDER }}>
           <div style={{ padding: '0.6em 1.25em 0.3em', color: 'var(--color-blue)', fontSize: '0.75em' }}>
-            run this in your stripe cli:
+            then run this in your stripe cli:
           </div>
           <button
             onClick={handleCopyInit}
