@@ -361,8 +361,7 @@ function InstallInline() {
       minWidth:    0,
     }}>
       {/* homebrew label */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.3em', flexShrink: 0, padding: `${vPad} 0.85rem`, whiteSpace: 'nowrap' }}>
-        <span style={{ color: 'var(--color-pink)', userSelect: 'none' }}>›</span>
+      <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0, padding: `${vPad} 0.85rem`, whiteSpace: 'nowrap' }}>
         <span style={{ color: 'var(--color-text-ui)' }}>Homebrew</span>
       </div>
 

@@ -209,9 +209,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
     <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'inherit' }}>
       {/* header row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: BORDER, padding: '0.55em 1.25em' }}>
-        <span style={{ fontSize: '0.8em', color: 'var(--color-blue)' }}>
-          <span style={{ userSelect: 'none' }}>› </span>Homebrew
-        </span>
+        <span style={{ fontSize: '0.8em', color: 'var(--color-blue)' }}>Homebrew</span>
         <a
           href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install"
           target="_blank"
