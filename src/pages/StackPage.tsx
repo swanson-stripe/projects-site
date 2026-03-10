@@ -30,7 +30,7 @@ const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
 const STACK_W   = 480;
-const INSTALL_W = 280;
+const INSTALL_W = 380;
 const WIN_GAP   = 20;
 
 const COMMANDS: Record<Tab, string> = {
