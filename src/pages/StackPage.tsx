@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
@@ -285,29 +285,33 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
         </div>
       )}
 
-      {/* view docs */}
-      <div style={{ padding: '0.6em 1.25em', display: 'flex', justifyContent: 'flex-end' }}>
-        <a
-          href="https://stripe.com/docs/projects"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25em',
-            fontFamily: 'inherit',
-            fontSize: '0.8em',
-            color: MUTED,
-            textDecoration: 'none',
-            transition: 'color 0.15s',
-          }}
-          onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
-          onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
-        >
-          View docs <ArrowUpRight size={11} strokeWidth={1.5} />
-        </a>
-      </div>
     </div>
+  );
+}
+
+/* ── view docs link ─────────────────────────────────────────────────── */
+function ViewDocsLink({ style }: { style?: React.CSSProperties }) {
+  return (
+    <a
+      href="https://stripe.com/docs/projects"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '0.25em',
+        fontFamily: 'inherit',
+        fontSize: '0.8em',
+        color: MUTED,
+        textDecoration: 'none',
+        transition: 'color 0.15s',
+        ...style,
+      }}
+      onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+      onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+    >
+      View docs <ArrowUpRight size={11} strokeWidth={1.5} />
+    </a>
   );
 }
 
@@ -364,6 +368,17 @@ export function StackPage() {
 
   const [state, setState]   = useState<LoadState>({ status: 'loading' });
   const [activeWin, setActiveWin] = useState<'stack' | 'install' | null>('stack');
+  const installRef = useRef<HTMLDivElement>(null);
+  const [installH, setInstallH] = useState(0);
+
+  useEffect(() => {
+    if (!installRef.current) return;
+    const obs = new ResizeObserver(entries => {
+      setInstallH(entries[0].contentRect.height);
+    });
+    obs.observe(installRef.current);
+    return () => obs.disconnect();
+  }, []);
 
   const [stackPos,   setStackPos]   = useState(() => defaultPositions().stack);
   const [installPos, setInstallPos] = useState(() => defaultPositions().install);
@@ -426,6 +441,7 @@ export function StackPage() {
           <MobileCard title="install.sh">
             <InstallContent state={state} code={code ?? ''} />
           </MobileCard>
+          <ViewDocsLink />
         </div>
       </div>
     );
@@ -473,6 +489,7 @@ export function StackPage() {
 
         {/* install window */}
         <Window
+          ref={installRef}
           title="install.sh"
           x={installPos.x}
           y={installPos.y}
@@ -487,6 +504,22 @@ export function StackPage() {
         >
           <InstallContent state={state} code={code ?? ''} />
         </Window>
+
+        {/* view docs — floats below the install window */}
+        {installH > 0 && (
+          <div style={{
+            position: 'absolute',
+            left: installPos.x,
+            top: installPos.y + installH + 10,
+            width: INSTALL_W,
+            display: 'flex',
+            justifyContent: 'flex-end',
+            pointerEvents: 'none',
+            zIndex: 5,
+          }}>
+            <ViewDocsLink style={{ pointerEvents: 'auto' }} />
+          </div>
+        )}
       </div>
     </div>
   );
