@@ -267,7 +267,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
 
       {/* init command — only show once stack is loaded */}
       {state.status === 'ok' && (
-        <div style={{ padding: '0.85em 1.25em', borderBottom: BORDER }}>
+        <div style={{ padding: '0.85em 1.25em' }}>
           <div style={{ color: PINK, fontSize: '0.75em', marginBottom: '0.5em' }}>
             run this in your stripe cli:
           </div>
@@ -288,26 +288,37 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
   );
 }
 
-/* ── view docs link ─────────────────────────────────────────────────── */
-function ViewDocsLink({ style }: { style?: React.CSSProperties }) {
+/* ── view docs button ───────────────────────────────────────────────── */
+function ViewDocsLink({ width }: { width?: number }) {
   return (
     <a
       href="https://stripe.com/docs/projects"
       target="_blank"
       rel="noopener noreferrer"
       style={{
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'center',
-        gap: '0.25em',
+        justifyContent: 'center',
+        gap: '0.4em',
+        width: width ? `${width}px` : '100%',
         fontFamily: 'inherit',
-        fontSize: '0.8em',
-        color: MUTED,
+        fontSize: '0.75em',
+        letterSpacing: '0.04em',
+        color: 'var(--color-text-ui)',
+        border: BORDER,
+        background: 'var(--color-bg)',
+        padding: '0.55em 0.85em',
         textDecoration: 'none',
-        transition: 'color 0.15s',
-        ...style,
+        transition: 'border-color 0.15s, color 0.15s',
       }}
-      onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
-      onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'var(--color-pink)';
+        e.currentTarget.style.color = 'var(--color-pink)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = '';
+        e.currentTarget.style.color = 'var(--color-text-ui)';
+      }}
     >
       View docs <ArrowUpRight size={11} strokeWidth={1.5} />
     </a>
@@ -510,13 +521,9 @@ export function StackPage() {
             position: 'absolute',
             left: installPos.x,
             top: installPos.y + installH + 10,
-            width: INSTALL_W,
-            display: 'flex',
-            justifyContent: 'flex-end',
-            pointerEvents: 'none',
             zIndex: 5,
           }}>
-            <ViewDocsLink style={{ pointerEvents: 'auto' }} />
+            <ViewDocsLink width={INSTALL_W} />
           </div>
         )}
       </div>
