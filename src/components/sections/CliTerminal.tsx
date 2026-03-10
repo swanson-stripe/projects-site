@@ -850,6 +850,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const [showEnterHint, setShowEnterHint]     = useState(false);
   const [awaitingName, setAwaitingName]       = useState(installDemo);
   const [normalMode, setNormalMode]           = useState(!installDemo);
+  const [hasAddedService, setHasAddedService] = useState(!installDemo);
   const [footerAppName, setFooterAppName]     = useState('stack');
   const [placeholderService, setPlaceholderService] = useState('vercel');
   const [pendingChoiceHint, setPendingChoiceHint]   = useState<string | null>(null);
@@ -1016,6 +1017,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       const svcSlug     = svcAddMatch[1].toLowerCase();
       if (!sessionServicesRef.current.includes(svcSlug)) {
         sessionServicesRef.current.push(svcSlug);
+        setHasAddedService(true);
       }
       const partner     = PARTNERS.find(p => p.name.toLowerCase() === svcSlug);
       const displayName = partner?.name ?? svcSlug;
@@ -1521,7 +1523,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         >
           {(showEnterHint || value.length > 0)
             ? <span>enter to submit</span>
-            : normalMode
+            : (normalMode && hasAddedService)
               ? <span>stripe projects export {footerAppName}</span>
               : null}
           <span style={{ marginLeft: 'auto' }}>? for more info</span>
