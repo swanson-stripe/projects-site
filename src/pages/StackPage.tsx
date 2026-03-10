@@ -36,7 +36,7 @@ const WIN_GAP   = 20;
 
 const COMMANDS: Record<Tab, string> = {
   npm:  'npx @stripe/projects init my-app',
-  brew: 'brew install stripe-cli\nstripe projects init my-app',
+  brew: 'brew install stripe/stripe-cli/stripe\nstripe plugin install projects',
 };
 
 /* ── category badge ────────────────────────────────────────────────── */
