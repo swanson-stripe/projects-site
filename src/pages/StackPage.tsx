@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { StatusBar } from '@/components/sections/TerminalBanner';
 import { Window } from '@/components/desktop/Window';
+import { PARTNERS } from '@/components/sections/Partners';
 import { lookupService, REGISTRY, type RegistryService } from '@/data/registry';
+import { useDynamicFavicon } from '@/hooks/useDynamicFavicon';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { useTheme } from '@/components/ui/ThemeContext';
 
 interface StackData {
   appName: string;
@@ -18,11 +22,21 @@ type LoadState =
   | { status: 'expired' }
   | { status: 'error' };
 
-const PINK  = 'var(--color-pink)';
-const MUTED = 'var(--color-text-ui-muted)';
-const DIM   = 'var(--color-text-ui-subtle)';
+type Tab = 'npm' | 'brew';
+
+const PINK   = 'var(--color-pink)';
+const MUTED  = 'var(--color-text-ui-muted)';
+const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
-const WIN_W  = 560;
+
+const STACK_W   = 480;
+const INSTALL_W = 280;
+const WIN_GAP   = 20;
+
+const COMMANDS: Record<Tab, string> = {
+  npm:  'npx @stripe/projects init my-app',
+  brew: 'brew install stripe-cli\nstripe projects init my-app',
+};
 
 /* ── category badge ────────────────────────────────────────────────── */
 const CATEGORY_COLORS: Record<string, string> = {
@@ -54,8 +68,29 @@ function CategoryBadge({ category }: { category: string }) {
   );
 }
 
+/* ── provider logo ─────────────────────────────────────────────────── */
+function ProviderLogo({ name }: { name: string }) {
+  const { theme } = useTheme();
+  const partner = PARTNERS.find(p => p.name.toLowerCase() === name.toLowerCase());
+  if (!partner) {
+    return <span style={{ color: PINK, fontSize: '0.75em' }}>✓</span>;
+  }
+  const needsInvert = partner.lightInvert && theme !== 'default';
+  return (
+    <partner.logo
+      className=""
+      style={{
+        width: 16,
+        height: 16,
+        flexShrink: 0,
+        filter: needsInvert ? 'invert(1)' : undefined,
+      } as React.CSSProperties}
+    />
+  );
+}
+
 /* ── service row ───────────────────────────────────────────────────── */
-function ServiceRow({ svc, info }: { svc: string; info: RegistryService | undefined }) {
+function ProviderRow({ svc, info, isLast }: { svc: string; info: RegistryService | undefined; isLast: boolean }) {
   const name = info?.name ?? svc;
   const desc = info?.description ?? '';
   const url  = info?.url;
@@ -67,9 +102,11 @@ function ServiceRow({ svc, info }: { svc: string; info: RegistryService | undefi
       alignItems: 'center',
       gap: '0.75em',
       padding: '0.65em 0',
-      borderBottom: BORDER,
+      borderBottom: isLast ? 'none' : BORDER,
     }}>
-      <span style={{ color: PINK, minWidth: '1em', fontFamily: 'inherit' }}>✓</span>
+      <span style={{ display: 'flex', alignItems: 'center', width: 16, flexShrink: 0 }}>
+        <ProviderLogo name={svc} />
+      </span>
       <span style={{ color: 'var(--color-text-ui)', fontFamily: 'inherit', minWidth: '10ch' }}>
         {name}
       </span>
@@ -85,7 +122,7 @@ function ServiceRow({ svc, info }: { svc: string; info: RegistryService | undefi
           style={{ color: DIM, display: 'flex', alignItems: 'center', flexShrink: 0 }}
           aria-label={`Open ${name}`}
         >
-          <ExternalLink size={11} strokeWidth={1.5} />
+          <ArrowUpRight size={13} strokeWidth={1.5} />
         </a>
       )}
     </div>
@@ -93,8 +130,8 @@ function ServiceRow({ svc, info }: { svc: string; info: RegistryService | undefi
 }
 
 /* ── stack window content ──────────────────────────────────────────── */
-function StackContent({ state, code }: { state: LoadState; code: string }) {
-  const fallbackServices = REGISTRY.slice(0, 5);
+function StackContent({ state }: { state: LoadState }) {
+  const fallbackProviders = REGISTRY.slice(0, 5);
 
   if (state.status === 'loading') {
     return (
@@ -126,9 +163,12 @@ function StackContent({ state, code }: { state: LoadState; code: string }) {
   }
 
   const enriched = state.data.services.map(s => ({ svc: s, info: lookupService(s) }));
+  const rows = enriched.length > 0
+    ? enriched
+    : fallbackProviders.map(p => ({ svc: p.name, info: p }));
 
   return (
-    <div style={{ padding: '1.25em 1.25em 1em', fontFamily: 'inherit' }}>
+    <div style={{ padding: '1.25em 1.25em 1.25em', fontFamily: 'inherit' }}>
       {/* header */}
       <div style={{ marginBottom: '1.25em' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6em', marginBottom: '0.35em' }}>
@@ -138,57 +178,200 @@ function StackContent({ state, code }: { state: LoadState; code: string }) {
           </span>
         </div>
         <div style={{ color: DIM, fontSize: '0.82em', paddingLeft: '1.4em' }}>
-          {enriched.length} service{enriched.length !== 1 ? 's' : ''}
+          {rows.length} provider{rows.length !== 1 ? 's' : ''}
           {' · '}
           generated {new Date(state.data.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </div>
       </div>
 
-      {/* service list */}
+      {/* provider list */}
       <div style={{ borderTop: BORDER }}>
-        {enriched.length > 0
-          ? enriched.map(({ svc, info }) => (
-              <ServiceRow key={svc} svc={svc} info={info} />
-            ))
-          : fallbackServices.map(svc => (
-              <ServiceRow key={svc.name} svc={svc.name} info={svc} />
-            ))
-        }
+        {rows.map(({ svc, info }, i) => (
+          <ProviderRow key={svc} svc={svc} info={info} isLast={i === rows.length - 1} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── install window content ────────────────────────────────────────── */
+function InstallContent({ state, code }: { state: LoadState; code: string }) {
+  const [tab, setTab]       = useState<Tab>('npm');
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(COMMANDS[tab]);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const TABS: { id: Tab; label: string }[] = [
+    { id: 'npm',  label: 'npm'      },
+    { id: 'brew', label: 'Homebrew' },
+  ];
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'inherit' }}>
+      {/* tab bar */}
+      <div style={{ display: 'flex', borderBottom: BORDER }}>
+        {TABS.map((t, idx) => {
+          const active = tab === t.id;
+          return (
+            <button
+              key={t.id}
+              onClick={() => { setTab(t.id); setCopied(false); }}
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.4em',
+                padding: '0.55em 0',
+                fontFamily: 'inherit',
+                fontSize: '0.8em',
+                cursor: 'pointer',
+                background: 'none',
+                border: 'none',
+                borderLeft: idx > 0 ? BORDER : undefined,
+                color: active ? 'var(--color-blue)' : DIM,
+                transition: 'color 0.15s',
+              }}
+            >
+              <span style={{ opacity: active ? 1 : 0, userSelect: 'none' }}>›</span>
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* init command */}
-      <div style={{ marginTop: '1.25em', paddingTop: '1em', borderTop: BORDER }}>
-        <div style={{ color: DIM, fontSize: '0.8em', marginBottom: '0.4em' }}>
-          run this in your stripe cli:
-        </div>
-        <div style={{
-          background: 'var(--color-surface)',
-          border: BORDER,
-          padding: '0.55em 0.85em',
-          color: PINK,
-          fontSize: '0.88em',
-          letterSpacing: '0.02em',
-          userSelect: 'all',
-          wordBreak: 'break-all',
-        }}>
-          stripe projects init --from https://projects.dev/{code}
+      {/* command */}
+      <div style={{ padding: '1.1em 1.25em', borderBottom: BORDER }}>
+        <div style={{ fontSize: '0.82em', color: 'var(--color-text-ui)', lineHeight: 1.7 }}>
+          {COMMANDS[tab].split('\n').map((line, i) => <div key={i}>{line}</div>)}
         </div>
       </div>
+
+      {/* copy */}
+      <div style={{ padding: '0.5em 1.25em', borderBottom: BORDER, display: 'flex', justifyContent: 'center' }}>
+        <button
+          onClick={handleCopy}
+          style={{
+            fontFamily: 'inherit',
+            fontSize: '0.8em',
+            color: copied ? 'var(--color-yellow)' : PINK,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'color 0.15s',
+          }}
+        >
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+
+      {/* init command — only show once stack is loaded */}
+      {state.status === 'ok' && (
+        <>
+          <div style={{ padding: '0.85em 1.25em', borderBottom: BORDER }}>
+            <div style={{ color: DIM, fontSize: '0.75em', marginBottom: '0.5em' }}>
+              run this in your stripe cli:
+            </div>
+            <div style={{
+              background: 'var(--color-surface)',
+              border: BORDER,
+              padding: '0.5em 0.75em',
+              color: PINK,
+              fontSize: '0.78em',
+              letterSpacing: '0.02em',
+              userSelect: 'all',
+              wordBreak: 'break-all',
+              lineHeight: 1.5,
+            }}>
+              stripe projects init --from https://projects.dev/{code}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* view docs */}
+      <div style={{ padding: '0.6em 1.25em', display: 'flex', justifyContent: 'flex-end' }}>
+        <a
+          href="https://stripe.com/docs/projects"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.25em',
+            fontFamily: 'inherit',
+            fontSize: '0.8em',
+            color: MUTED,
+            textDecoration: 'none',
+            transition: 'color 0.15s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+          onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+        >
+          View docs <ArrowUpRight size={11} strokeWidth={1.5} />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ── mobile card shell ─────────────────────────────────────────────── */
+function MobileCard({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{
+      border: BORDER,
+      background: 'var(--color-surface-dark)',
+      width: '100%',
+      maxWidth: 520,
+    }}>
+      <div style={{
+        padding: '0.45em 0.75em',
+        borderBottom: BORDER,
+        fontSize: '0.6rem',
+        textTransform: 'uppercase',
+        letterSpacing: '0.12em',
+        color: DIM,
+        textAlign: 'center',
+        fontFamily: 'inherit',
+      }}>
+        {title}
+      </div>
+      {children}
     </div>
   );
 }
 
 /* ── main page ─────────────────────────────────────────────────────── */
 export function StackPage() {
-  const { code } = useParams<{ code: string }>();
-  const navigate  = useNavigate();
+  useDynamicFavicon();
 
-  const [state, setState] = useState<LoadState>({ status: 'loading' });
-  const [isActive, setIsActive] = useState(true);
-  const [pos, setPos] = useState(() => ({
-    x: typeof window !== 'undefined' ? Math.max(20, Math.round(window.innerWidth  / 2 - WIN_W / 2)) : 100,
-    y: typeof window !== 'undefined' ? Math.max(20, Math.round(window.innerHeight / 2 - 200))       : 80,
-  }));
+  const { code }  = useParams<{ code: string }>();
+  const navigate  = useNavigate();
+  const isMobile  = useIsMobile();
+
+  const [state, setState]   = useState<LoadState>({ status: 'loading' });
+  const [activeWin, setActiveWin] = useState<'stack' | 'install' | null>('stack');
+
+  /* initial positions — both windows centered together */
+  const [stackPos, setStackPos] = useState(() => {
+    if (typeof window === 'undefined') return { x: 60, y: 80 };
+    const totalW = STACK_W + WIN_GAP + INSTALL_W;
+    const x = Math.max(20, Math.round((window.innerWidth - totalW) / 2));
+    const y = Math.max(20, Math.round(window.innerHeight / 2 - 180));
+    return { x, y };
+  });
+
+  const [installPos, setInstallPos] = useState(() => {
+    if (typeof window === 'undefined') return { x: 60 + STACK_W + WIN_GAP, y: 80 };
+    const totalW = STACK_W + WIN_GAP + INSTALL_W;
+    const x = Math.max(20, Math.round((window.innerWidth - totalW) / 2)) + STACK_W + WIN_GAP;
+    const y = Math.max(20, Math.round(window.innerHeight / 2 - 180));
+    return { x, y };
+  });
 
   useEffect(() => {
     if (!code?.startsWith('STACK-')) { navigate('/'); return; }
@@ -203,49 +386,104 @@ export function StackPage() {
       .catch(() => setState({ status: 'error' }));
   }, [code, navigate]);
 
-  const title =
+  const stackTitle =
     state.status === 'ok'      ? `${state.data.appName}.stack` :
     state.status === 'expired' ? 'expired.txt' :
     state.status === 'error'   ? 'error.txt' :
     'loading…';
 
+  /* ── mobile layout ─────────────────────────────────────────────── */
+  if (isMobile) {
+    return (
+      <div
+        className="font-mono"
+        style={{
+          position: 'relative',
+          width: '100%',
+          minHeight: '100vh',
+          background: 'var(--color-bg)',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <GridBackground />
+        <StatusBar gateMode />
+        <div style={{
+          position: 'relative',
+          zIndex: 1,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 16,
+          padding: '1.5rem 1rem',
+        }}>
+          <MobileCard title={stackTitle}>
+            <StackContent state={state} />
+          </MobileCard>
+          <MobileCard title="install.sh">
+            <InstallContent state={state} code={code ?? ''} />
+          </MobileCard>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── desktop layout ────────────────────────────────────────────── */
   return (
     <div
       className="font-mono"
       style={{
         position: 'relative',
-        width:    '100vw',
-        height:   '100vh',
+        width: '100vw',
+        height: '100vh',
         overflow: 'hidden',
         background: 'var(--color-bg)',
-        display:  'flex',
+        display: 'flex',
         flexDirection: 'column',
       }}
     >
       <GridBackground />
       <StatusBar gateMode />
 
-      {/* desktop area — click outside window to deactivate */}
       <div
         style={{ position: 'relative', flex: 1, zIndex: 1 }}
         onPointerDown={(e) => {
-          if (e.target === e.currentTarget) setIsActive(false);
+          if (e.target === e.currentTarget) setActiveWin(null);
         }}
       >
+        {/* stack window */}
         <Window
-          title={title}
-          x={pos.x}
-          y={pos.y}
-          w={WIN_W}
+          title={stackTitle}
+          x={stackPos.x}
+          y={stackPos.y}
+          w={STACK_W}
           h="auto"
-          zIndex={10}
-          isActive={isActive}
-          onFocus={() => setIsActive(true)}
-          onMove={(x, y) => setPos({ x, y })}
-          onResize={(x, y) => setPos({ x, y })}
+          zIndex={activeWin === 'stack' ? 20 : 10}
+          isActive={activeWin === 'stack'}
+          onFocus={() => setActiveWin('stack')}
+          onMove={(x, y) => setStackPos({ x, y })}
+          onResize={(x, y) => setStackPos({ x, y })}
           onClose={() => navigate('/')}
         >
-          <StackContent state={state} code={code ?? ''} />
+          <StackContent state={state} />
+        </Window>
+
+        {/* install window */}
+        <Window
+          title="install.sh"
+          x={installPos.x}
+          y={installPos.y}
+          w={INSTALL_W}
+          h="auto"
+          zIndex={activeWin === 'install' ? 20 : 10}
+          isActive={activeWin === 'install'}
+          onFocus={() => setActiveWin('install')}
+          onMove={(x, y) => setInstallPos({ x, y })}
+          onResize={(x, y) => setInstallPos({ x, y })}
+          onClose={() => navigate('/')}
+        >
+          <InstallContent state={state} code={code ?? ''} />
         </Window>
       </div>
     </div>
