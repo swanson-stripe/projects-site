@@ -225,7 +225,7 @@ export default async function handler(req: Request): Promise<Response> {
                     borderBottom: isLast ? 'none' : `1px solid ${BORDER}`,
                   }}>
                     <span style={{ color: WHITE, fontSize: 13, width: 88, flexShrink: 0, display: 'flex' }}>
-                      {info?.name ?? svc}
+                      {svc}
                     </span>
                     <span style={{
                       fontSize: 10,
