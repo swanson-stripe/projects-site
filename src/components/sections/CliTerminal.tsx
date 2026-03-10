@@ -938,7 +938,6 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     }
     if (stackUrlRef.current !== null) {
       stackUrlRef.current = null;
-      setStackUrl(null);
     }
 
     submitCountRef.current += 1;
@@ -1073,7 +1072,6 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
             { id: uid(), t: 'blank',  text: '',                                          instant: true },
           ]));
           stackUrlRef.current = url;
-          setStackUrl(url);
           commandPlaceholderRef.current = 'enter to open URL';
           setCommandPlaceholder('enter to open URL');
         })
@@ -1165,7 +1163,6 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         e.preventDefault();
         window.open(stackUrlRef.current, '_blank', 'noopener,noreferrer');
         stackUrlRef.current = null;
-        setStackUrl(null);
         commandPlaceholderRef.current = null;
         setCommandPlaceholder(null);
         return;
