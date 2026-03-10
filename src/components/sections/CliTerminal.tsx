@@ -852,7 +852,6 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const [pendingChoiceHint, setPendingChoiceHint]   = useState<string | null>(null);
   const [commandPlaceholder, setCommandPlaceholder] = useState<string | null>(null);
   const commandPlaceholderRef = useRef<string | null>(null);
-  const [stackUrl, setStackUrl] = useState<string | null>(null);
   const stackUrlRef = useRef<string | null>(null);
   const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
   const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
