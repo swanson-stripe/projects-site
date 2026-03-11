@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect, forwardRef, useImperativeHandle, type PointerEvent as RPE } from 'react';
 import { motion } from 'motion/react';
-import { SlidersHorizontal } from 'lucide-react';
+import { ArrowUpRight, SlidersHorizontal } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
@@ -810,6 +810,62 @@ export function Partners() {
             </motion.a>
           ))}
         </div>
+
+        {/* Provider footer strip */}
+        <InView
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
+          transition={{ duration: 0.5, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            marginTop: '0.75rem',
+            border: '1px solid var(--color-border-accent)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.72rem',
+            letterSpacing: '0.02em',
+          }}
+        >
+          <div style={{
+            padding: '0.65rem 1rem',
+            color: 'var(--color-text-ui-muted)',
+            borderRight: '1px solid var(--color-border-accent)',
+          }}>
+            More providers on the way
+          </div>
+          <a
+            href='mailto:projects@stripe.com?subject=Provider%20Partnership'
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3em',
+              padding: '0.65rem 1rem',
+              color: 'var(--color-text-ui-muted)',
+              borderRight: '1px solid var(--color-border-accent)',
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+          >
+            Provider? Join us <ArrowUpRight size={10} strokeWidth={1.5} />
+          </a>
+          <a
+            href='mailto:projects@stripe.com?subject=Provider%20Suggestion'
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3em',
+              padding: '0.65rem 1rem',
+              color: 'var(--color-text-ui-muted)',
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+          >
+            Want a provider? Suggest <ArrowUpRight size={10} strokeWidth={1.5} />
+          </a>
+        </InView>
       </div>
     </section>
   );
