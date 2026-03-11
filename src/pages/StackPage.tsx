@@ -306,7 +306,7 @@ function ViewDocsLink({ width }: { width?: number }) {
         fontFamily: 'inherit',
         fontSize: '0.75em',
         letterSpacing: '0.04em',
-        color: MUTED,
+        color: 'var(--color-text-ui)',
         border: '1px solid var(--color-border-accent)',
         background: 'var(--color-bg)',
         padding: '0.55em 0.85em',
@@ -319,7 +319,7 @@ function ViewDocsLink({ width }: { width?: number }) {
       }}
       onMouseLeave={e => {
         e.currentTarget.style.borderColor = 'var(--color-border-accent)';
-        e.currentTarget.style.color = MUTED;
+        e.currentTarget.style.color = 'var(--color-text-ui)';
       }}
     >
       View docs <ArrowUpRight size={11} strokeWidth={1.5} />
@@ -525,6 +525,7 @@ export function StackPage() {
           h="auto"
           zIndex={activeWin === 'install' ? 20 : 10}
           isActive={activeWin === 'install'}
+          background='var(--color-bg)'
           onFocus={() => setActiveWin('install')}
           onMove={(x, y) => setInstallPos({ x, y })}
           onResize={(x, y) => setInstallPos({ x, y })}
@@ -538,7 +539,7 @@ export function StackPage() {
           <div style={{
             position: 'absolute',
             left: installPos.x,
-            top: installPos.y + installH + 10,
+            top: installPos.y + installH + 40,
             zIndex: 5,
           }}>
             <ViewDocsLink width={INSTALL_W} />
