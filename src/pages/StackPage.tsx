@@ -362,12 +362,13 @@ function defaultPositions(stackH = 0) {
       install: { x: 60, y: 80 + sH + VERTICAL_GAP },
     };
   }
-  const totalH = sH + VERTICAL_GAP + 180;
-  const x = Math.max(20, Math.round((window.innerWidth  - STACK_W) / 2));
-  const y = Math.max(20, Math.round((window.innerHeight - totalH) / 2));
+  const totalH   = sH + VERTICAL_GAP + 180;
+  const stackX   = Math.max(20, Math.round((window.innerWidth  - STACK_W)   / 2));
+  const installX = Math.max(20, Math.round((window.innerWidth  - INSTALL_W) / 2));
+  const y        = Math.max(20, Math.round((window.innerHeight - totalH) * 0.25));
   return {
-    stack:   { x, y },
-    install: { x, y: y + sH + VERTICAL_GAP },
+    stack:   { x: stackX,   y },
+    install: { x: installX, y: y + sH + VERTICAL_GAP },
   };
 }
 
