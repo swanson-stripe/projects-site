@@ -55,7 +55,7 @@ export default async function middleware(req: Request): Promise<Response> {
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
     return ogHtml({
-      title: 'projects',
+      title: 'stripe projects',
       description: 'From idea to production. One command, real infrastructure.',
       imageUrl: `${SITE_URL}/api/og?type=home`,
       pageUrl: SITE_URL,
