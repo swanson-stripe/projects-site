@@ -292,7 +292,7 @@ export function StatusBar({
         <Cell grow>
           <div className='flex items-center' style={{ gap: 6 }}>
             <DotSpinner isAnimating={hovered} />
-            <span className='font-bold' style={{ color: 'var(--color-text-ui)' }}>stripe projects</span>
+            <span className='font-bold' style={{ color: 'var(--color-text-ui)' }}>{gateMode ? 'projects' : 'stripe projects'}</span>
           </div>
         </Cell>
 

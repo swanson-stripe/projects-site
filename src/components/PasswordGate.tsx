@@ -3,6 +3,7 @@ import { GridBackground } from '@/components/ui/grid-background';
 import { StatusBar } from '@/components/sections/TerminalBanner';
 import { Window } from '@/components/desktop/Window';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useDynamicFavicon } from '@/hooks/useDynamicFavicon';
 
 const PASSWORD    = 'fabric_';
 const STORAGE_KEY = 'pw_auth';
@@ -23,6 +24,7 @@ function centerPos(statusbarH: number) {
 function GateScreen({ onAuth }: { onAuth: () => void }) {
   const isMobile    = useIsMobile();
   const statusbarH  = isMobile ? 52 : 40;
+  useDynamicFavicon();
 
   const [pos, setPos]     = useState(() => centerPos(statusbarH));
   const [input, setInput] = useState('');
