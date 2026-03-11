@@ -827,7 +827,7 @@ export function Partners() {
           }}
         >
           <span style={{ color: 'var(--color-text-ui-muted)' }}>
-            More providers on the way
+            More providers are on the way
           </span>
           {[
             { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
