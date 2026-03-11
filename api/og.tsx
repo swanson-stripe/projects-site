@@ -103,19 +103,14 @@ export default async function handler(req: Request): Promise<Response> {
             ))}
           </div>
 
-          {/* Braille logo mark */}
-          <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 36, marginBottom: 20, display: 'flex' }}>
-            ⡜
-          </div>
-
-          {/* Main title */}
+          {/* Main title with inline braille mark */}
           <div style={{
-            display: 'flex', gap: 24,
+            display: 'flex', alignItems: 'baseline', gap: 24,
             color: WHITE, fontSize: 84, fontWeight: 700,
             letterSpacing: '-0.03em', lineHeight: 1,
           }}>
-            <span>stripe</span>
-            <span>projects</span>
+            <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 60, fontWeight: 400 }}>⡜</span>
+            <span>stripe projects</span>
           </div>
 
           {/* Tagline */}

@@ -77,7 +77,7 @@ export default async function middleware(req: Request): Promise<Response> {
         const date = new Date(data.createdAt).toLocaleDateString('en-US', {
           month: 'short', day: 'numeric', year: 'numeric',
         });
-        title = `${data.appName} · projects`;
+        title = `${data.appName} · stripe projects`;
         description = `${providerCount} provider${providerCount !== 1 ? 's' : ''} · generated ${date}`;
       }
     } catch {
