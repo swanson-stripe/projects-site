@@ -103,14 +103,13 @@ export default async function handler(req: Request): Promise<Response> {
             ))}
           </div>
 
-          {/* Main title with inline braille mark */}
+          {/* Main title */}
           <div style={{
-            display: 'flex', alignItems: 'baseline', gap: 24,
+            display: 'flex',
             color: WHITE, fontSize: 84, fontWeight: 700,
             letterSpacing: '-0.03em', lineHeight: 1,
           }}>
-            <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 60, fontWeight: 400 }}>⡜</span>
-            <span>stripe projects</span>
+            stripe projects
           </div>
 
           {/* Tagline */}
