@@ -816,16 +816,17 @@ export function Partners() {
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           style={{
-            display:       'flex',
-            alignItems:    'center',
-            gap:           '0.5rem',
-            marginTop:     '0.75rem',
-            fontFamily:    'var(--font-mono)',
-            fontSize:      '0.72rem',
-            letterSpacing: '0.02em',
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            gap:            '20px',
+            marginTop:      '0.75rem',
+            fontFamily:     'var(--font-mono)',
+            fontSize:       '0.72rem',
+            letterSpacing:  '0.02em',
           }}
         >
-          <span style={{ flex: 1, color: 'var(--color-text-ui-muted)' }}>
+          <span style={{ color: 'var(--color-text-ui-muted)' }}>
             More providers on the way
           </span>
           {[

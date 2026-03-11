@@ -991,15 +991,16 @@ export function ScrollView() {
                 {ecoStrip}
                 {/* provider footer strip */}
                 <div style={{
-                  display:     'flex',
-                  alignItems:  'center',
-                  gap:         '0.5rem',
-                  marginTop:   '0.5rem',
-                  fontFamily:  'var(--font-mono)',
-                  fontSize:    '0.72rem',
+                  display:       'flex',
+                  alignItems:    'center',
+                  justifyContent:'center',
+                  gap:           '20px',
+                  marginTop:     '0.5rem',
+                  fontFamily:    'var(--font-mono)',
+                  fontSize:      '0.72rem',
                   letterSpacing: '0.02em',
                 }}>
-                  <span style={{ flex: 1, color: 'var(--color-text-ui-muted)' }}>
+                  <span style={{ color: 'var(--color-text-ui-muted)' }}>
                     More providers on the way
                   </span>
                   {[
