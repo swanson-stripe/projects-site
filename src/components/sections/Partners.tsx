@@ -381,11 +381,16 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
       }
     }
 
-    /* ── focus container when an icon is clicked ──────────────── */
-    function handleIconClick(e: React.MouseEvent, idx: number) {
+    /* ── single click opens the detail window ──────────────────── */
+    function handleIconClick(e: React.MouseEvent, idx: number, partner: typeof order[number]) {
       e.stopPropagation();
       setSelected(idx);
       containerRef.current?.focus();
+      const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+      onOpen(partner, {
+        x: rect.left + rect.width  / 2,
+        y: rect.top  + rect.height / 2,
+      });
     }
 
     // when filtering, show only matching partners at fresh grid positions
@@ -422,14 +427,7 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
                 visibility:  isDragging ? 'hidden' : 'visible',
               }}
               onPointerDown={e => startDrag(e, partner.name)}
-              onClick={e => handleIconClick(e, idx)}
-              onDoubleClick={e => {
-                const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
-                onOpen(partner, {
-                  x: rect.left + rect.width  / 2,
-                  y: rect.top  + rect.height / 2,
-                });
-              }}
+              onClick={e => handleIconClick(e, idx, partner)}
             >
               {/* highlight — corner brackets only when selected, no fill */}
               <div style={{
@@ -514,9 +512,6 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
                 e.stopPropagation();
                 setSelected(joinIdx);
                 containerRef.current?.focus();
-              }}
-              onDoubleClick={e => {
-                if (isShuffling) return;
                 const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
                 onOpenJoin?.({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
               }}

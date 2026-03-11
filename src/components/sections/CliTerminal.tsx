@@ -76,10 +76,10 @@ const SERVICE_ARG_CMDS = [
 
 const TYPEAHEAD_COMMANDS = [
   'stripe projects',
-  'stripe projects init ',
+  'stripe projects init app-name',
   'stripe projects export <appname>',
   'stripe projects services list',
-  'stripe projects services add',
+  ...SERVICE_OPTIONS.map(s => `stripe projects services add ${s.name}`),
   'stripe projects services status',
   'stripe projects services inspect',
   'stripe projects status',
@@ -87,7 +87,7 @@ const TYPEAHEAD_COMMANDS = [
   'stripe projects templates use',
   'stripe projects costs',
   'stripe projects themes',
-  'stripe projects theme ',
+  'stripe projects theme default',
   '--help',
   '--version',
 ];
@@ -119,8 +119,8 @@ const SLASH_COMMANDS: SlashCommand[] = [
 
 /* ─── install-demo constants ─────────────────────────────────────── */
 const INTRO_LINES: { text: string; delay: number }[] = [
-  { text: 'Stripe projects will provision resources and return ready-to-use keys. Launch or hand off to an agent to deploy your app automatically.', delay: 1000 },
-  { text: 'Try building your own stack here, and take it with you to your CLI.', delay: 400 },
+  { text: 'Stripe projects will provision resources and return ready-to-use keys. Launch or hand off to an agent to deploy your app automatically.', delay: 400 },
+  { text: 'Try building your own stack here, and take it with you to your CLI.', delay: 1000 },
 ];
 
 /* ─── template data ──────────────────────────────────────────────── */
@@ -285,7 +285,7 @@ function respond(input: string): Line[] {
       { id: uid(), t: 'col2', lkey: 'railway',     text: 'cloud deployment'      },
       { id: uid(), t: 'col2', lkey: 'vercel',      text: 'frontend hosting'      },
       { id: uid(), t: 'blank',   text: '' },
-      { id: uid(), t: 'hint',    text: 'run services add <name> to provision any integration' },
+      { id: uid(), t: 'hint',    text: 'run stripe projects services add [name] to provision any integration' },
       { id: uid(), t: 'blank',   text: '' },
     ];
   }
@@ -473,7 +473,7 @@ function respond(input: string): Line[] {
       { id: uid(), t: 'col2', lkey: 'chroma',      text: 'ai · vector database'                  },
       { id: uid(), t: 'col2', lkey: 'stripe',      text: 'payments · billing & subscriptions'    },
       { id: uid(), t: 'blank',   text: '' },
-      { id: uid(), t: 'hint',    text: 'run services add <name> to provision any service' },
+      { id: uid(), t: 'hint',    text: 'run stripe projects services add [name] to provision any service' },
       { id: uid(), t: 'blank',   text: '' },
     ];
   }
@@ -614,7 +614,16 @@ function WelcomeBox() {
         {/* row 1: ·  projects  |  v1.0.1  |  powered by stripe */}
         <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', borderBottom: BORDER }}>
           <div style={{ ...cell, ...vdiv, display: 'flex', alignItems: 'center', gap: '0.45em' }}>
-            <span style={{ color: PINK }}>⡜</span>
+            {/* 2×4 dot grid — font-independent replacement for braille ⡜ */}
+            <div aria-hidden style={{
+              display: 'grid', gridTemplateColumns: '2px 2px', gridAutoRows: '2px',
+              gap: '2px', flexShrink: 0,
+            }}>
+              {/* DOT_ORDER: [1,4, 2,5, 3,6, 7,8] — lit: 3,4,5,7 */}
+              {[false, true, false, true, true, false, true, false].map((on, i) => (
+                <div key={i} style={{ width: 2, height: 2, background: on ? PINK : 'transparent' }} />
+              ))}
+            </div>
             <span style={{ color: 'var(--color-text-ui)' }}>projects</span>
           </div>
           <div style={{ ...cell, ...vdiv, color: MUTED }}>v 1.0.1</div>
@@ -761,7 +770,12 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         </span>
       )}
 
-      {line.t === 'raw' ? (
+      {line.t === 'sub' && line.lkey ? (
+        <>
+          <span style={{ color: PINK }}>{line.lkey}</span>
+          <span style={{ color: MUTED }}>{line.text}</span>
+        </>
+      ) : line.t === 'raw' ? (
         <span style={{ color: line.dim ? DIM : textColor, whiteSpace: 'pre-wrap' }}>{line.text}</span>
       ) : line.t === 'col2' ? (
         <span style={{ display: 'inline-grid', gridTemplateColumns: '18em 1fr', gap: '1.5em', width: '100%' }}>
@@ -1040,6 +1054,40 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
     setShowEnterHint(false);
 
+    /* ── services list: show current stack ── */
+    const svcListMatch = /^(?:(?:stripe\s+)?projects\s+)?services\s+list$/i.test(val.trim());
+    if (svcListMatch) {
+      const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
+      const services = sessionServicesRef.current;
+      const appName  = appNameRef.current;
+      let outputLines: Line[];
+      if (services.length === 0) {
+        outputLines = [
+          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'hint',  text: `no services provisioned for ${appName} yet` },
+          { id: uid(), t: 'hint',  text: 'type stripe projects services add [provider] to get started' },
+          { id: uid(), t: 'blank', text: '' },
+        ];
+      } else {
+        outputLines = [
+          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'done',  text: `current stack for ${appName}` },
+          ...services.map(name => {
+            const svc      = SERVICE_OPTIONS.find(s => s.name === name);
+            const category = svc ? svc.desc.split(' · ')[0] : 'service';
+            return { id: uid(), t: 'sub' as LT, text: `${name}  for ${category}` };
+          }),
+          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'hint',  text: 'type stripe projects services add [provider] to add a provider' },
+          { id: uid(), t: 'blank', text: '' },
+        ];
+      }
+      setLines(prev => [...prev, ...instant([cmdLine, ...outputLines])]);
+      setValue('');
+      setSelStart(0);
+      return;
+    }
+
     /* ── service add: cascade sub-items one by one ── */
     const svcAddMatch = val.match(/^(?:(?:stripe\s+)?projects\s+services?\s+add|\/services\s+add)\s+(\S+)/i);
     if (svcAddMatch) {
@@ -1065,7 +1113,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       setTimeout(() => {
         setLines(prev => [...prev,
           { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
-          { id: uid(), t: 'sub',   text: 'run env list to view new credentials' },
+          { id: uid(), t: 'sub',   lkey: 'stripe projects export', text: ' to get your stack' },
           { id: uid(), t: 'blank', text: '' },
         ]);
         setPlaceholderService(pickSuggestedService(sessionServicesRef.current));
@@ -1209,11 +1257,22 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         return;
       }
       submit();
-    } else if (e.key === 'ArrowRight' && value === '' && !awaitingName && pendingChoiceHint === null && placeholder) {
-      // Fill input with the command placeholder so the user can edit/submit it
+    } else if (e.key === 'Tab' && typeaheadSuggestion) {
       e.preventDefault();
-      setValue(placeholder);
-      setSelStart(placeholder.length);
+      setValue(typeaheadSuggestion);
+      setSelStart(typeaheadSuggestion.length);
+    } else if (e.key === 'ArrowRight') {
+      if (value === '' && !awaitingName && pendingChoiceHint === null && placeholder) {
+        // Fill input with the command placeholder so the user can edit/submit it
+        e.preventDefault();
+        setValue(placeholder);
+        setSelStart(placeholder.length);
+      } else if (typeaheadSuggestion && selStart >= value.length - 1) {
+        // Accept typeahead ghost-text suggestion
+        e.preventDefault();
+        setValue(typeaheadSuggestion);
+        setSelStart(typeaheadSuggestion.length);
+      }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       const next = Math.min(histIdxRef.current + 1, historyRef.current.length - 1);
@@ -1267,7 +1326,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         setLines(prev => [...prev,
           { id: uid(), t: 'cmd',   text: '2' },
           { id: uid(), t: 'blank', text: '' },
-          { id: uid(), t: 'hint',  text: 'run services add <name> to provision services individually' },
+          { id: uid(), t: 'hint',  text: 'run stripe projects services add [name] to provision services individually' },
           { id: uid(), t: 'blank', text: '' },
         ]);
         demoStepRef.current = 2; // normal terminal mode
@@ -1385,7 +1444,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       ? 'give your project a name'
       : dragService
         ? `stripe projects services add ${dragService.toLowerCase()}`
-        : `stripe projects services add ${placeholderService}`;
+        : `stripe projects services list`;
 
   return (
     <div
@@ -1490,7 +1549,10 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                         flexShrink: 0,
                         textAlign:  'center',
                       }}>
-                        {value[selStart] ?? '\u00a0'}
+                        {/* at end of input with typeahead: show first ghost char in cursor block */}
+                        {typeaheadSuggestion && selStart >= value.length
+                          ? typeaheadSuggestion[value.length]
+                          : (value[selStart] ?? '\u00a0')}
                       </span>
                     ) : (
                       /* unfocused: no cursor, just show char normally */
@@ -1498,7 +1560,12 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                     )}
                     <span style={{ color: 'var(--color-text-ui)' }}>{value.slice(selStart + 1)}</span>
                     {typeaheadSuggestion && (
-                      <span style={{ color: DIM }}>{typeaheadSuggestion.slice(value.length)}</span>
+                      <span style={{ color: DIM }}>
+                        {/* skip the first ghost char when it's already shown inside the cursor block */}
+                        {selStart >= value.length
+                          ? typeaheadSuggestion.slice(value.length + 1)
+                          : typeaheadSuggestion.slice(value.length)}
+                      </span>
                     )}
                   </>
                 )}

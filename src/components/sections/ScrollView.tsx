@@ -145,7 +145,7 @@ function canvasMinH(wins: SWinState[]) {
 
 /* ── EcosystemScrollStrip ────────────────────────────────────────────────── */
 // Bare horizontal row of partner icons — no window wrapper.
-// Single click selects (pink corner brackets), double click opens detail.
+// Single click opens detail (and selects with pink corner brackets).
 type EcoStripHandle = { resetIconPosition: (name: string) => void };
 
 const ICON_SEL = 48; // highlight box size
@@ -241,10 +241,6 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
             onClick={e => {
               e.stopPropagation();
               if (isDrag) return; // suppress click after drag
-              onSelectIcon?.(isSel ? null : partner.name);
-            }}
-            onDoubleClick={e => {
-              e.stopPropagation();
               onSelectIcon?.(partner.name);
               const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
               onOpen?.(partner, { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });

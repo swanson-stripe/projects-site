@@ -15,11 +15,23 @@ export function useDynamicFavicon() {
     if (!ctx) return;
 
     ctx.clearRect(0, 0, SIZE, SIZE);
-    ctx.fillStyle    = accent;
-    ctx.font         = `${SIZE * 0.9}px sans-serif`;
-    ctx.textAlign    = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('⡜', SIZE / 2, SIZE / 2);
+
+    // 2×4 dot grid matching the WelcomeBox logo — no font dependency
+    const DOT = SIZE * 0.14;   // dot size
+    const GAP = SIZE * 0.08;   // gap between dots
+    const COLS = 2, ROWS = 4;
+    const gridW = COLS * DOT + (COLS - 1) * GAP;
+    const gridH = ROWS * DOT + (ROWS - 1) * GAP;
+    const ox = (SIZE - gridW) / 2;
+    const oy = (SIZE - gridH) / 2;
+    // lit dots: (col=1,row=0), (col=1,row=1), (col=0,row=2), (col=0,row=3)
+    const lit: [number, number][] = [[1,0],[1,1],[0,2],[0,3]];
+    ctx.fillStyle = accent;
+    for (const [col, row] of lit) {
+      const rx = Math.round(ox + col * (DOT + GAP));
+      const ry = Math.round(oy + row * (DOT + GAP));
+      ctx.fillRect(rx, ry, Math.round(DOT), Math.round(DOT));
+    }
 
     const dataUrl = canvas.toDataURL('image/png');
     let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
