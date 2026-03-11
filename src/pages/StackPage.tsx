@@ -28,9 +28,10 @@ const MUTED  = 'var(--color-text-ui-muted)';
 const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
-const STACK_W   = 480;
-const INSTALL_W = 380;
-const WIN_GAP   = 20;
+const STACK_W          = 480;
+const INSTALL_W        = 380;
+const VERTICAL_GAP     = 40;
+const STACK_ESTIMATED_H = 200;
 
 const BREW_COMMAND = 'brew install stripe/stripe-cli/stripe\nstripe plugin install projects';
 
@@ -353,19 +354,20 @@ function MobileCard({ title, children }: { title: string; children: React.ReactN
 }
 
 /* ── initial window positions ──────────────────────────────────────── */
-function defaultPositions() {
+function defaultPositions(stackH = 0) {
+  const sH = stackH || STACK_ESTIMATED_H;
   if (typeof window === 'undefined') {
     return {
       stack:   { x: 60, y: 80 },
-      install: { x: 60 + STACK_W + WIN_GAP, y: 80 },
+      install: { x: 60, y: 80 + sH + VERTICAL_GAP },
     };
   }
-  const totalW = STACK_W + WIN_GAP + INSTALL_W;
-  const x = Math.max(20, Math.round((window.innerWidth - totalW) / 2));
-  const y = Math.max(20, Math.round(window.innerHeight / 2 - 180));
+  const totalH = sH + VERTICAL_GAP + 180;
+  const x = Math.max(20, Math.round((window.innerWidth  - STACK_W) / 2));
+  const y = Math.max(20, Math.round((window.innerHeight - totalH) / 2));
   return {
     stack:   { x, y },
-    install: { x: x + STACK_W + WIN_GAP, y },
+    install: { x, y: y + sH + VERTICAL_GAP },
   };
 }
 
@@ -380,14 +382,21 @@ export function StackPage() {
   const [state, setState]   = useState<LoadState>({ status: 'loading' });
   const [activeWin, setActiveWin] = useState<'stack' | 'install' | null>('stack');
   const [viewMode, setViewMode]   = useState<ViewMode>('scroll');
+  const stackRef   = useRef<HTMLDivElement>(null);
   const installRef = useRef<HTMLDivElement>(null);
+  const [stackH,   setStackH]   = useState(0);
   const [installH, setInstallH] = useState(0);
 
   useEffect(() => {
+    if (!stackRef.current) return;
+    const obs = new ResizeObserver(entries => setStackH(entries[0].contentRect.height));
+    obs.observe(stackRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!installRef.current) return;
-    const obs = new ResizeObserver(entries => {
-      setInstallH(entries[0].contentRect.height);
-    });
+    const obs = new ResizeObserver(entries => setInstallH(entries[0].contentRect.height));
     obs.observe(installRef.current);
     return () => obs.disconnect();
   }, []);
@@ -396,7 +405,7 @@ export function StackPage() {
   const [installPos, setInstallPos] = useState(() => defaultPositions().install);
 
   function handleReset() {
-    const pos = defaultPositions();
+    const pos = defaultPositions(stackH);
     setStackPos(pos.stack);
     setInstallPos(pos.install);
     setActiveWin('stack');
@@ -489,6 +498,7 @@ export function StackPage() {
       >
         {/* stack window */}
         <Window
+          ref={stackRef}
           title={stackTitle}
           x={stackPos.x}
           y={stackPos.y}
