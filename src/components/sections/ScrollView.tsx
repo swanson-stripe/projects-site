@@ -73,7 +73,7 @@ function initialLayout(): SWinState[] {
 
   // ecosystem: 4-col grid on mobile needs ~320px (incl. window title bar); single row on desktop ~96px
   const ecoY   = termY + termH + SECTION_GAP + heroH + SECTION_GAP;
-  const ecoH   = mobile ? 320 : 96;
+  const ecoH   = mobile ? 320 : 148;
 
   const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
   const gridGap   = 16;
@@ -618,7 +618,7 @@ export function ScrollView() {
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
     const heroH  = mobile ? 120 : 44;
-    const ecoH   = mobile ? 320 : 96;
+    const ecoH   = mobile ? 320 : 148;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const gap    = 16;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
@@ -642,7 +642,7 @@ export function ScrollView() {
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
     const heroH  = mobile ? 120 : 44;
-    const ecoH   = mobile ? 320 : 96;
+    const ecoH   = mobile ? 320 : 148;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
