@@ -227,7 +227,7 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
           onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
           onMouseLeave={e => (e.currentTarget.style.color = DIM)}
         >
-          See more <ArrowUpRight size={10} strokeWidth={1.5} />
+          more install options <ArrowUpRight size={10} strokeWidth={1.5} />
         </a>
       </div>
 
