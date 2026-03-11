@@ -28,8 +28,8 @@ const MUTED  = 'var(--color-text-ui-muted)';
 const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
-const STACK_W          = 480;
-const INSTALL_W        = 380;
+const STACK_W          = 560;
+const INSTALL_W        = 560;
 const VERTICAL_GAP     = 40;
 const STACK_ESTIMATED_H = 200;
 
