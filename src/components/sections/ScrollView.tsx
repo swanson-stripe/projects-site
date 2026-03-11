@@ -989,6 +989,36 @@ export function ScrollView() {
                 }}
               >
                 {ecoStrip}
+                {/* 3-cell provider footer strip */}
+                <div style={{
+                  display:             'grid',
+                  gridTemplateColumns: '1fr 1fr 1fr',
+                  border:              '1px solid var(--color-border-accent)',
+                  fontFamily:          'var(--font-mono)',
+                  fontSize:            '0.72rem',
+                  letterSpacing:       '0.02em',
+                  marginTop:           '0.5rem',
+                }}>
+                  <div style={{ padding: '0.55rem 0.85rem', color: 'var(--color-text-ui-muted)', borderRight: '1px solid var(--color-border-accent)' }}>
+                    More providers on the way
+                  </div>
+                  <a
+                    href='mailto:projects@stripe.com?subject=Provider%20Partnership'
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3em', padding: '0.55rem 0.85rem', color: 'var(--color-text-ui-muted)', borderRight: '1px solid var(--color-border-accent)', textDecoration: 'none', transition: 'color 0.15s' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+                  >
+                    Provider? Join us <ArrowUpRight size={10} strokeWidth={1.5} />
+                  </a>
+                  <a
+                    href='mailto:projects@stripe.com?subject=Provider%20Suggestion'
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3em', padding: '0.55rem 0.85rem', color: 'var(--color-text-ui-muted)', textDecoration: 'none', transition: 'color 0.15s' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
+                  >
+                    Want a provider? Suggest <ArrowUpRight size={10} strokeWidth={1.5} />
+                  </a>
+                </div>
               </div>
             );
           }
