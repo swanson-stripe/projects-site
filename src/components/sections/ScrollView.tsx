@@ -73,7 +73,7 @@ function initialLayout(): SWinState[] {
 
   // ecosystem: 4-col grid on mobile needs ~320px (incl. window title bar); single row on desktop ~96px
   const ecoY   = termY + termH + SECTION_GAP + heroH + SECTION_GAP;
-  const ecoH   = mobile ? 320 : 148;
+  const ecoH   = mobile ? 320 : 130;
 
   const cascadeIds: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
   const gridGap   = 16;
@@ -618,7 +618,7 @@ export function ScrollView() {
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
     const heroH  = mobile ? 120 : 44;
-    const ecoH   = mobile ? 320 : 148;
+    const ecoH   = mobile ? 320 : 130;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const gap    = 16;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
@@ -642,7 +642,7 @@ export function ScrollView() {
     const left     = mobile ? mPad : Math.max(PAD, (vw - maxW) / 2 + PAD);
     const contentW = mobile ? vw - mPad * 2 : maxW - PAD * 2;
     const heroH  = mobile ? 120 : 44;
-    const ecoH   = mobile ? 320 : 148;
+    const ecoH   = mobile ? 320 : 130;
     const baseY  = TERM_Y + TERM_H + SECTION_GAP + heroH + SECTION_GAP + ecoH + SECTION_GAP;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
@@ -989,35 +989,51 @@ export function ScrollView() {
                 }}
               >
                 {ecoStrip}
-                {/* 3-cell provider footer strip */}
+                {/* provider footer strip */}
                 <div style={{
-                  display:             'grid',
-                  gridTemplateColumns: '1fr 1fr 1fr',
-                  border:              '1px solid var(--color-border-accent)',
-                  fontFamily:          'var(--font-mono)',
-                  fontSize:            '0.72rem',
-                  letterSpacing:       '0.02em',
-                  marginTop:           '0.5rem',
+                  display:     'flex',
+                  alignItems:  'center',
+                  gap:         '0.5rem',
+                  marginTop:   '0.5rem',
+                  fontFamily:  'var(--font-mono)',
+                  fontSize:    '0.72rem',
+                  letterSpacing: '0.02em',
                 }}>
-                  <div style={{ padding: '0.55rem 0.85rem', color: 'var(--color-text-ui-muted)', borderRight: '1px solid var(--color-border-accent)' }}>
+                  <span style={{ flex: 1, color: 'var(--color-text-ui-muted)' }}>
                     More providers on the way
-                  </div>
-                  <a
-                    href='mailto:projects@stripe.com?subject=Provider%20Partnership'
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3em', padding: '0.55rem 0.85rem', color: 'var(--color-text-ui-muted)', borderRight: '1px solid var(--color-border-accent)', textDecoration: 'none', transition: 'color 0.15s' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
-                  >
-                    Provider? Join us <ArrowUpRight size={10} strokeWidth={1.5} />
-                  </a>
-                  <a
-                    href='mailto:projects@stripe.com?subject=Provider%20Suggestion'
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3em', padding: '0.55rem 0.85rem', color: 'var(--color-text-ui-muted)', textDecoration: 'none', transition: 'color 0.15s' }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
-                  >
-                    Want a provider? Suggest <ArrowUpRight size={10} strokeWidth={1.5} />
-                  </a>
+                  </span>
+                  {[
+                    { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
+                    { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
+                  ].map(({ href, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      style={{
+                        display:        'inline-flex',
+                        alignItems:     'center',
+                        gap:            '0.3em',
+                        padding:        '0.4rem 0.85rem',
+                        color:          'var(--color-text-ui)',
+                        border:         '1px solid var(--color-border-accent)',
+                        background:     'var(--color-bg)',
+                        textDecoration: 'none',
+                        letterSpacing:  '0.04em',
+                        flexShrink:     0,
+                        transition:     'border-color 0.15s, color 0.15s',
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
+                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
+                        (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
+                      }}
+                    >
+                      {label} <ArrowUpRight size={10} strokeWidth={1.5} />
+                    </a>
+                  ))}
                 </div>
               </div>
             );

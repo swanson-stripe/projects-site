@@ -816,55 +816,50 @@ export function Partners() {
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
-            marginTop: '0.75rem',
-            border: '1px solid var(--color-border-accent)',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.72rem',
+            display:       'flex',
+            alignItems:    'center',
+            gap:           '0.5rem',
+            marginTop:     '0.75rem',
+            fontFamily:    'var(--font-mono)',
+            fontSize:      '0.72rem',
             letterSpacing: '0.02em',
           }}
         >
-          <div style={{
-            padding: '0.65rem 1rem',
-            color: 'var(--color-text-ui-muted)',
-            borderRight: '1px solid var(--color-border-accent)',
-          }}>
+          <span style={{ flex: 1, color: 'var(--color-text-ui-muted)' }}>
             More providers on the way
-          </div>
-          <a
-            href='mailto:projects@stripe.com?subject=Provider%20Partnership'
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.3em',
-              padding: '0.65rem 1rem',
-              color: 'var(--color-text-ui-muted)',
-              borderRight: '1px solid var(--color-border-accent)',
-              textDecoration: 'none',
-              transition: 'color 0.15s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
-          >
-            Provider? Join us <ArrowUpRight size={10} strokeWidth={1.5} />
-          </a>
-          <a
-            href='mailto:projects@stripe.com?subject=Provider%20Suggestion'
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.3em',
-              padding: '0.65rem 1rem',
-              color: 'var(--color-text-ui-muted)',
-              textDecoration: 'none',
-              transition: 'color 0.15s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-text-ui-muted)')}
-          >
-            Want a provider? Suggest <ArrowUpRight size={10} strokeWidth={1.5} />
-          </a>
+          </span>
+          {[
+            { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
+            { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
+          ].map(({ href, label }) => (
+            <a
+              key={label}
+              href={href}
+              style={{
+                display:        'inline-flex',
+                alignItems:     'center',
+                gap:            '0.3em',
+                padding:        '0.5rem 0.85rem',
+                color:          'var(--color-text-ui)',
+                border:         '1px solid var(--color-border-accent)',
+                background:     'var(--color-bg)',
+                textDecoration: 'none',
+                letterSpacing:  '0.04em',
+                flexShrink:     0,
+                transition:     'border-color 0.15s, color 0.15s',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
+              }}
+            >
+              {label} <ArrowUpRight size={10} strokeWidth={1.5} />
+            </a>
+          ))}
         </InView>
       </div>
     </section>
