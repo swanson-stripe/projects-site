@@ -11,6 +11,7 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 import { ArrowUpRight, LayoutGrid, Columns3, RotateCcw } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
+import { JoinContent } from '@/components/desktop/Desktop';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import {
   PARTNERS,
@@ -26,7 +27,7 @@ const PAD      = 32;   // horizontal padding on both sides of content
 const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
-type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | `partner:${string}`;
+type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | 'join' | `partner:${string}`;
 
 interface SWinState {
   id:     SWinId;
@@ -609,6 +610,30 @@ export function ScrollView() {
     setWins(prev => prev.filter(w => w.id !== id));
   }, []);
 
+  const openJoin = useCallback(() => {
+    const id: SWinId = 'join';
+    setWins(prev => {
+      const existing = prev.find(w => w.id === id);
+      if (existing) {
+        const maxZ = Math.max(...prev.map(w => w.zIndex));
+        return prev.map(w => w.id === id ? { ...w, zIndex: maxZ + 1 } : w);
+      }
+      const maxZ      = Math.max(...prev.map(w => w.zIndex));
+      const vw        = typeof window !== 'undefined' ? window.innerWidth  : 1280;
+      const vh        = typeof window !== 'undefined' ? window.innerHeight : 800;
+      const scrollTop = canvasRef.current?.parentElement?.scrollTop ?? 0;
+      const w = 420, h = 420;
+      return [...prev, {
+        id,
+        x: Math.round(vw / 2 - w / 2),
+        y: Math.round(scrollTop + (vh / 2) - h / 2),
+        w,
+        h,
+        zIndex: maxZ + 1,
+      }];
+    });
+  }, []);
+
   /* arrange cascade windows (feat:0–3 + purpose) in a 2-column grid */
   const gridCascade = useCallback(() => {
     const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
@@ -791,6 +816,7 @@ export function ScrollView() {
     if (id === 'terminal')  return 'terminal';
     if (id === 'ecosystem') return 'ecosystem';
     if (id === 'ace')       return 'Ace';
+    if (id === 'join')      return 'join the ecosystem';
     if (id.startsWith('feat:')) {
       const i = parseInt(id.slice(5));
       return FEAT_SHORT[i] ?? id;
@@ -1006,12 +1032,43 @@ export function ScrollView() {
                   <div style={{ display: 'flex', gap: '20px' }}>
                     {[
                       { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
-                      { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
-                    ].map(({ href, label }) => (
-                      <a
-                        key={label}
-                        href={href}
-                        style={{
+                    { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest', suggest: true },
+                  ].map(({ href, label, suggest }) => suggest ? (
+                    <button
+                      key={label}
+                      onClick={openJoin}
+                      style={{
+                        display:        'inline-flex',
+                        alignItems:     'center',
+                        gap:            '0.3em',
+                        padding:        '0.4rem 0.85rem',
+                        color:          'var(--color-text-ui)',
+                        border:         '1px solid var(--color-border-accent)',
+                        background:     'var(--color-bg)',
+                        textDecoration: 'none',
+                        letterSpacing:  '0.04em',
+                        flexShrink:     0,
+                        fontFamily:     'var(--font-mono)',
+                        fontSize:       '0.72rem',
+                        cursor:         'pointer',
+                        transition:     'border-color 0.15s, color 0.15s',
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-pink)';
+                        (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-pink)';
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-accent)';
+                        (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-ui)';
+                      }}
+                    >
+                      {label} <ArrowUpRight size={10} strokeWidth={1.5} />
+                    </button>
+                  ) : (
+                    <a
+                      key={label}
+                      href={href}
+                      style={{
                           display:        'inline-flex',
                           alignItems:     'center',
                           gap:            '0.3em',
@@ -1042,7 +1099,8 @@ export function ScrollView() {
             );
           }
 
-          const isAce = win.id === 'ace';
+          const isJoin = win.id === 'join';
+          const isAce  = win.id === 'ace';
 
           const content = (() => {
             if (isTerminal) {
@@ -1085,6 +1143,7 @@ export function ScrollView() {
                 </div>
               );
             }
+            if (isJoin) return <JoinContent />;
             if (partner) {
               return (
                 <PartnerDetail
@@ -1120,7 +1179,7 @@ export function ScrollView() {
               background={bg}
               noScroll={isTerminal}
               animateLayout={animateLayout}
-              onClose={(isPartner || isAce) ? () => closeWindow(win.id) : undefined}
+              onClose={(isPartner || isAce || isJoin) ? () => closeWindow(win.id) : undefined}
               onFocus={() => bringToFront(win.id)}
               onMove={(x, y) => handleMove(win.id, x, y)}
               onResize={(x, y, w, h) => handleResize(win.id, x, y, w, h)}

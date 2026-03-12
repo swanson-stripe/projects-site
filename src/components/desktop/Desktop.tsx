@@ -682,7 +682,7 @@ function FeedbackContent() {
 /* ── Join window content ──────────────────────────────────────────── */
 const JOIN_CATEGORIES = ['payments', 'auth', 'database', 'storage', 'monitoring', 'analytics', 'ai', 'hosting', 'other'] as const;
 
-function JoinContent() {
+export function JoinContent() {
   const [category, setCategory] = useState('');
   const [name,     setName]     = useState('');
   const [url,      setUrl]      = useState('');
