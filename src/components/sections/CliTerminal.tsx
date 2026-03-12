@@ -515,7 +515,16 @@ function respond(input: string): Line[] {
   /* ── stripe projects services add <name>  OR  /services add <name> ── */
   const addMatch = raw.match(/^(?:(?:stripe\s+)?projects\s+services?\s+add|\/services\s+add)\s+(\S+)/i);
   if (addMatch) {
-    const svcSlug    = addMatch[1].toLowerCase();
+    const svcSlug = addMatch[1].toLowerCase();
+    const known   = SERVICE_OPTIONS.find(s => s.name === svcSlug);
+    if (!known) {
+      return [
+        { id: uid(), t: 'blank', text: '' },
+        { id: uid(), t: 'err',   text: `unknown service: ${svcSlug}` },
+        { id: uid(), t: 'hint',  text: `available: ${SERVICE_OPTIONS.map(s => s.name).join(', ')}` },
+        { id: uid(), t: 'blank', text: '' },
+      ];
+    }
     const partner    = PARTNERS.find(p => p.name.toLowerCase() === svcSlug);
     const displayName = partner?.name ?? svcSlug;
     const category   = partner?.category ?? 'service';
@@ -1091,7 +1100,20 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     /* ── service add: cascade sub-items one by one ── */
     const svcAddMatch = val.match(/^(?:(?:stripe\s+)?projects\s+services?\s+add|\/services\s+add)\s+(\S+)/i);
     if (svcAddMatch) {
-      const svcSlug     = svcAddMatch[1].toLowerCase();
+      const svcSlug = svcAddMatch[1].toLowerCase();
+      const known   = SERVICE_OPTIONS.find(s => s.name === svcSlug);
+      if (!known) {
+        setLines(prev => [...prev,
+          { id: uid(), t: 'cmd',   text: val },
+          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'err',   text: `unknown service: ${svcSlug}` },
+          { id: uid(), t: 'hint',  text: `available: ${SERVICE_OPTIONS.map(s => s.name).join(', ')}` },
+          { id: uid(), t: 'blank', text: '' },
+        ]);
+        setValue('');
+        setSelStart(0);
+        return;
+      }
       if (!sessionServicesRef.current.includes(svcSlug)) {
         sessionServicesRef.current.push(svcSlug);
         setHasAddedService(true);
