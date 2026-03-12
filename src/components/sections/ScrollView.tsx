@@ -622,7 +622,7 @@ export function ScrollView() {
       const vw        = typeof window !== 'undefined' ? window.innerWidth  : 1280;
       const vh        = typeof window !== 'undefined' ? window.innerHeight : 800;
       const scrollTop = canvasRef.current?.parentElement?.scrollTop ?? 0;
-      const w = 420, h = 420;
+      const w = 420, h = 320;
       return [...prev, {
         id,
         x: Math.round(vw / 2 - w / 2),

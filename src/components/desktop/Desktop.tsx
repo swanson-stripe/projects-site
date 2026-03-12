@@ -182,7 +182,7 @@ export function Desktop() {
       const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
       const areaH     = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
       const w         = isMobile ? vw - MOBILE_MARGIN * 2 : (id === 'feedback' || id === 'join' ? 420 : 440);
-      const h         = id === 'feedback' ? 380 : id === 'join' ? 420 : 520;
+      const h         = id === 'feedback' ? 380 : id === 'join' ? 320 : 520;
       return [...prev, {
         id,
         x: isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - w / 2),
@@ -686,12 +686,11 @@ export function JoinContent() {
   const [category, setCategory] = useState('');
   const [name,     setName]     = useState('');
   const [url,      setUrl]      = useState('');
-  const [email,    setEmail]    = useState('');
   const [status,   setStatus]   = useState<'idle' | 'sending' | 'sent'>('idle');
   const [thanked,  setThanked]  = useState(false);
 
   async function handleSubmit() {
-    if (!category || !name.trim() || !url.trim() || !email.trim() || status !== 'idle') return;
+    if (!category || !name.trim() || !url.trim() || status !== 'idle') return;
     setStatus('sending');
     await new Promise(r => setTimeout(r, 1200));
     setStatus('sent');
@@ -758,11 +757,7 @@ export function JoinContent() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', fontFamily: 'var(--font-mono)' }}>
-      <div style={{ flex: 1, overflowY: 'auto', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-
-        <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65 }}>
-          Become a part of the Projects ecosystem.
-        </p>
+      <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <p style={labelStyle}>Category</p>
@@ -779,10 +774,10 @@ export function JoinContent() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <p style={labelStyle}>Name</p>
+          <p style={labelStyle}>Project or company</p>
           <input
             type="text"
-            placeholder="Your project or company"
+            placeholder="Name"
             value={name}
             onChange={e => setName(e.target.value)}
             style={inputStyle}
@@ -796,17 +791,6 @@ export function JoinContent() {
             placeholder="https://"
             value={url}
             onChange={e => setUrl(e.target.value)}
-            style={inputStyle}
-          />
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <p style={labelStyle}>Contact Email</p>
-          <input
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSubmit(); }}
             style={inputStyle}
           />
