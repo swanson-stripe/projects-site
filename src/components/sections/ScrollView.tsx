@@ -16,6 +16,7 @@ import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import {
   PARTNERS,
   PartnerDetail,
+  shufflePartners,
   type Partner,
   type Category,
 } from '@/components/sections/Partners';
@@ -184,7 +185,8 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   const [offsets, setOffsets]   = useState<Record<string, { dx: number; dy: number }>>({});
   const [dragging, setDragging] = useState<string | null>(null);
 
-  const visible = activeFilter ? PARTNERS.filter(p => p.category === activeFilter) : PARTNERS;
+  const [shuffled] = useState(() => shufflePartners(PARTNERS));
+  const visible = activeFilter ? shuffled.filter(p => p.category === activeFilter) : shuffled;
 
   function startDrag(e: React.PointerEvent<HTMLDivElement>, partner: Partner) {
     if (e.button !== 0) return;
@@ -277,7 +279,7 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
               ))}
               <div
                 style={{ width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                className={partner.lightInvert ? 'logo-on-light' : ''}
+                className={[partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}
               >
                 <partner.logo className='w-full h-full object-contain' />
               </div>
@@ -1031,8 +1033,8 @@ export function ScrollView() {
                   </span>
                   <div style={{ display: 'flex', gap: '20px' }}>
                     {[
-                      { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
-                    { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest', suggest: true },
+                      { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
+                    { href: 'mailto:provider-request@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest', suggest: true },
                   ].map(({ href, label, suggest }) => suggest ? (
                     <button
                       key={label}

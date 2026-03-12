@@ -18,6 +18,8 @@ export interface Partner {
   cliCommand:      string;
   /** logo is white on transparent — needs invert on light themes */
   lightInvert?:    boolean;
+  /** logo uses a brand colour that should become white on dark themes */
+  darkWhite?:      boolean;
 }
 
 /* ── Logos — official marks, no background boxes ─────────────────────────── */
@@ -162,7 +164,7 @@ export const PARTNERS: Partner[] = [
     cliCommand: 'projects service add clerk',
   },
   {
-    name: 'PostHog', category: 'analytics', url: 'https://posthog.com', logo: PostHogLogo,
+    name: 'PostHog', category: 'analytics', url: 'https://posthog.com', logo: PostHogLogo, darkWhite: true,
     description: 'Product analytics',
     longDescription: 'Self-hostable product analytics with event capture, session replay, feature flags, and A/B testing. Everything you need to understand and improve your product.',
     cliCommand: 'projects service add posthog',
@@ -206,6 +208,19 @@ function getCategoryColor(category: Category): string {
     hosting:    '#00b3d4',
   };
   return colors[category];
+}
+
+/* ── helpers ─────────────────────────────────────────────────────────────── */
+
+/** Fisher-Yates shuffle keeping Stripe pinned as the last element. */
+export function shufflePartners(partners: Partner[]): Partner[] {
+  const stripe = partners.find(p => p.name === 'Stripe');
+  const rest   = partners.filter(p => p.name !== 'Stripe');
+  for (let i = rest.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rest[i], rest[j]] = [rest[j], rest[i]];
+  }
+  return stripe ? [...rest, stripe] : rest;
 }
 
 /* ── EcosystemIcons ──────────────────────────────────────────────────────────
@@ -253,8 +268,8 @@ export interface EcosystemIconsProps {
 
 export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
   function EcosystemIcons({ onOpen, onOpenJoin, onCrossDragStart, onCrossDragMove, onCrossDragEnd, activeFilter }, ref) {
-    const [order,        setOrder]        = useState<Partner[]>(PARTNERS);
-    const [positions,    setPositions]    = useState(() => makeGridPositions(PARTNERS));
+    const [order,        setOrder]        = useState<Partner[]>(() => shufflePartners(PARTNERS));
+    const [positions,    setPositions]    = useState(() => makeGridPositions(shufflePartners(PARTNERS)));
     const [dragging,     setDragging]     = useState<string | null>(null);
     const [selected,     setSelected]     = useState<number | null>(null);
     const [displaySlots, setDisplaySlots] = useState<Partner[]>(PARTNERS);
@@ -457,7 +472,7 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
                   ));
                 })()}
                 <div style={{ width: ICON_BOX, height: ICON_BOX, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                     className={partner.lightInvert ? 'logo-on-light' : ''}>
+                     className={[partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
                   <partner.logo className='w-full h-full object-contain' />
                 </div>
               </div>
@@ -685,7 +700,7 @@ export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowM
           width: 44, height: 44, flexShrink: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           border: '1px solid var(--color-border-accent)', background: 'var(--color-surface)',
-        }} className={partner.lightInvert ? 'logo-on-light' : ''}>
+        }} className={[partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
           <partner.logo className='w-7 h-7 object-contain' />
         </div>
         <div>
@@ -800,7 +815,7 @@ export function Partners() {
                 className='absolute top-3 right-3 w-1.5 h-1.5 rounded-full'
                 style={{ background: getCategoryColor(partner.category) }}
               />
-              <div className={`w-10 h-10 flex items-center justify-center${partner.lightInvert ? ' logo-on-light' : ''}`}>
+              <div className={['w-10 h-10 flex items-center justify-center', partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
                 <partner.logo className='w-10 h-10 object-contain' />
               </div>
               <div>
@@ -831,8 +846,8 @@ export function Partners() {
           </span>
           <div style={{ display: 'flex', gap: '20px' }}>
             {[
-              { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
-              { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
+              { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
+              { href: 'mailto:provider-request@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
             ].map(({ href, label }) => (
               <a
                 key={label}
