@@ -44,7 +44,6 @@ const INSTALL_GAP = 20;  // gap between docs button and install inline
 
 const CASCADE_DOWN          = 28;  // vertical offset per window in cascade mode
 const FEAT_H                = 180; // desktop fixed height — title + description, no bullets
-const HOW_H                 = 240; // desktop fixed height — how it works (paragraph + bullets)
 
 const MOBILE_CASCADE_ESTIMATE = 220; // initial y-spacing estimate; useLayoutEffect corrects before paint
 
@@ -87,18 +86,17 @@ function initialLayout(): SWinState[] {
   // Width of a single "what" window (half the content area on desktop)
   const gridWinW = Math.floor((contentW - gridGap) / 2);
 
-  // Per-window desktop height; row 0 uses the taller of the two windows
-  function desktopH(id: SWinId): number {
-    if (id === 'howitworks') return HOW_H;
-    return FEAT_H;
-  }
-  // Desktop row y offsets — row 0 height = max(purpose, howitworks)
-  const row0H = Math.max(FEAT_H, HOW_H);
+  // purpose + howitworks use h:'auto' everywhere; useLayoutEffect equalizes them on desktop.
+  // For the initial desktop estimate, use a generous row 0 height so rows 1-2 start below.
+  const ROW0_ESTIMATE = 300; // refined by useLayoutEffect before first paint isn't possible on desktop,
+                              // but the windows auto-size so content is never clipped
   function desktopRowY(row: number): number {
     if (row === 0) return gridBaseY;
-    if (row === 1) return gridBaseY + row0H + gridGap;
-    return gridBaseY + row0H + gridGap + FEAT_H + gridGap;
+    if (row === 1) return gridBaseY + ROW0_ESTIMATE + gridGap;
+    return gridBaseY + ROW0_ESTIMATE + gridGap + FEAT_H + gridGap;
   }
+
+  const isInfoWin = (id: SWinId) => id === 'purpose' || id === 'howitworks';
 
   const cascadeWins: SWinState[] = mobile
     // mobile: 1-column stack, auto-height (useLayoutEffect restacks before paint)
@@ -110,13 +108,13 @@ function initialLayout(): SWinState[] {
         h:      'auto' as const,
         zIndex: cascadeIds.length - i,
       }))
-    // desktop: 2-column grid, per-window fixed heights
+    // desktop: 2-column grid; info windows auto-height, feat windows fixed
     : cascadeIds.map((id, i) => ({
         id,
         x:      left + (i % 2) * (gridWinW + gridGap),
         y:      desktopRowY(Math.floor(i / 2)),
         w:      gridWinW,
-        h:      desktopH(id),
+        h:      isInfoWin(id) ? ('auto' as const) : FEAT_H,
         zIndex: cascadeIds.length - i,
       }));
 
@@ -719,16 +717,17 @@ export function ScrollView() {
     const gap      = 16;
     const ids: SWinId[] = ['purpose', 'howitworks', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const winW     = mobile ? contentW : Math.floor((contentW - gap) / 2);
-    const row0H    = Math.max(FEAT_H, HOW_H);
+    const ROW0_EST = 300; // estimate; useLayoutEffect corrects desktop row 0 before paint is infeasible here
     function rowY(row: number) {
-      if (mobile) return baseY + (ids.indexOf(ids[row * 2]) / 2) * (FEAT_H + gap);
+      if (mobile) return baseY + row * (FEAT_H + gap);
       if (row === 0) return baseY;
-      if (row === 1) return baseY + row0H + gap;
-      return baseY + row0H + gap + FEAT_H + gap;
+      if (row === 1) return baseY + ROW0_EST + gap;
+      return baseY + ROW0_EST + gap + FEAT_H + gap;
     }
-    function winH(id: SWinId) {
+    function winH(id: SWinId): number | 'auto' {
+      const isInfo = id === 'purpose' || id === 'howitworks';
       if (mobile) return FEAT_H;
-      return id === 'howitworks' ? HOW_H : FEAT_H;
+      return isInfo ? 'auto' : FEAT_H;
     }
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
@@ -759,7 +758,8 @@ export function ScrollView() {
       return prev.map(w => {
         const idx = ids.indexOf(w.id as SWinId);
         if (idx === -1) return w;
-        const ch = w.id === 'howitworks' ? HOW_H : FEAT_H;
+        const isInfo = w.id === 'purpose' || w.id === 'howitworks';
+        const ch: number | 'auto' = (!mobile && isInfo) ? 'auto' : FEAT_H;
         return {
           ...w,
           x: mobile ? left : left + idx * CASCADE_STEP,
@@ -838,51 +838,87 @@ export function ScrollView() {
     setTimeout(() => setAnimateLayout(false), 500);
   }, []);
 
-  // Restack mobile cascade windows to their actual rendered heights.
-  // useLayoutEffect fires before the browser paints so the user never sees
-  // the estimate-based initial positions.
+  // Mobile: restack all 6 cascade windows to their actual rendered heights.
+  // Desktop: equalize purpose + howitworks to the taller one, then reposition rows 1-2.
+  // useLayoutEffect fires before the browser paints so the user never sees off estimates.
   useLayoutEffect(() => {
-    if (!isMobile) return;
-
-    const STACK_IDS: SWinId[] = ['purpose', 'howitworks', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const els = cascadeElsRef.current;
 
-    if (!STACK_IDS.every(id => els.has(id))) return;
+    if (isMobile) {
+      const STACK_IDS: SWinId[] = ['purpose', 'howitworks', 'feat:0', 'feat:1', 'feat:2', 'feat:3'];
+      if (!STACK_IDS.every(id => els.has(id))) return;
 
-    const heights = STACK_IDS.map(id => els.get(id)!.offsetHeight);
-    if (heights.some(h => h === 0)) return;
+      const heights = STACK_IDS.map(id => els.get(id)!.offsetHeight);
+      if (heights.some(h => h === 0)) return;
 
-    // Skip if heights haven't changed since last restack
-    const last = lastCascadeHRef.current;
-    if (last.length === heights.length && heights.every((h, i) => h === last[i])) return;
-    lastCascadeHRef.current = heights;
+      const last = lastCascadeHRef.current;
+      if (last.length === heights.length && heights.every((h, i) => h === last[i])) return;
+      lastCascadeHRef.current = heights;
 
-    const firstWin = wins.find(w => w.id === 'purpose');
-    if (!firstWin) return;
+      const firstWin = wins.find(w => w.id === 'purpose');
+      if (!firstWin) return;
 
-    let curY = firstWin.y;
-    let needsUpdate = false;
-    const updates: Array<{ id: SWinId; y: number }> = [];
+      let curY = firstWin.y;
+      let needsUpdate = false;
+      const updates: Array<{ id: SWinId; y: number }> = [];
 
-    for (let i = 0; i < STACK_IDS.length; i++) {
-      const id  = STACK_IDS[i];
-      const win = wins.find(w => w.id === id);
-      if (!win) return;
-      if (win.y !== curY) needsUpdate = true;
-      updates.push({ id, y: curY });
-      curY += heights[i] + 16;
+      for (let i = 0; i < STACK_IDS.length; i++) {
+        const id  = STACK_IDS[i];
+        const win = wins.find(w => w.id === id);
+        if (!win) return;
+        if (win.y !== curY) needsUpdate = true;
+        updates.push({ id, y: curY });
+        curY += heights[i] + 16;
+      }
+
+      setMobileCascadeBottom(prev => prev === curY ? prev : curY);
+
+      if (!needsUpdate) return;
+      setWins(prev => prev.map(w => {
+        const upd = updates.find(u => u.id === w.id);
+        if (!upd || w.y === upd.y) return w;
+        return { ...w, y: upd.y };
+      }));
+
+    } else {
+      // Desktop: equalize purpose + howitworks, then fix rows 1-2 y positions
+      const INFO_IDS: SWinId[] = ['purpose', 'howitworks'];
+      if (!INFO_IDS.every(id => els.has(id))) return;
+
+      const [ph, hwh] = INFO_IDS.map(id => els.get(id)!.offsetHeight);
+      if (!ph || !hwh) return;
+
+      const last = lastCascadeHRef.current;
+      if (last.length === 2 && last[0] === ph && last[1] === hwh) return;
+      lastCascadeHRef.current = [ph, hwh];
+
+      const equalH = Math.max(ph, hwh);
+      const purposeWin = wins.find(w => w.id === 'purpose');
+      if (!purposeWin) return;
+      const gridBaseY = purposeWin.y;
+      const gap = 16;
+      const row1Y = gridBaseY + equalH + gap;
+      const row2Y = row1Y + FEAT_H + gap;
+
+      const targetY: Partial<Record<string, number>> = {
+        purpose: gridBaseY, howitworks: gridBaseY,
+        'feat:0': row1Y, 'feat:1': row1Y,
+        'feat:2': row2Y, 'feat:3': row2Y,
+      };
+
+      setWins(prev => {
+        let changed = false;
+        const next = prev.map(w => {
+          const newY = targetY[w.id];
+          const isInfo = w.id === 'purpose' || w.id === 'howitworks';
+          if (newY === undefined) return w;
+          if (w.y === newY && (!isInfo || w.h === equalH)) return w;
+          changed = true;
+          return { ...w, y: newY, ...(isInfo ? { h: equalH } : {}) };
+        });
+        return changed ? next : prev;
+      });
     }
-
-    // curY is just below the last window — CTA buttons go here
-    setMobileCascadeBottom(prev => prev === curY ? prev : curY);
-
-    if (!needsUpdate) return;
-
-    setWins(prev => prev.map(w => {
-      const upd = updates.find(u => u.id === w.id);
-      if (!upd || w.y === upd.y) return w;
-      return { ...w, y: upd.y };
-    }));
   }, [isMobile, wins]);
 
   const maxZ    = Math.max(...wins.map(w => w.zIndex));
@@ -1239,9 +1275,10 @@ export function ScrollView() {
           })();
 
           const isCascade = isFeat || win.id === 'purpose' || win.id === 'howitworks';
+          const isInfoWin = win.id === 'purpose' || win.id === 'howitworks';
 
-          // On mobile, track all cascade window elements so useLayoutEffect can restack them
-          const cascadeRef = (isCascade && isMobile)
+          // On mobile, track all cascade windows; on desktop, track only the auto-height info windows
+          const cascadeRef = (isMobile ? isCascade : isInfoWin)
             ? (el: HTMLDivElement | null) => {
                 if (el) cascadeElsRef.current.set(win.id as SWinId, el);
                 else    cascadeElsRef.current.delete(win.id as SWinId);
