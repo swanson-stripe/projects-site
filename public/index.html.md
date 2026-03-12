@@ -40,23 +40,17 @@ stripe projects service add <service-name>
 
 ## Features
 
-### No Dashboard Hopping
-Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. With just one command, you can provision a complete, working stack (hosting, database, auth, and more) directly from your CLI.
+### From Local to Live in One Command
+Go from local development to a running production stack in minutes. One command provisions everything your app needs across providers.
 
-### Real Infrastructure Without Lock-In
-We provision real services, not sandboxes. More importantly, you maintain direct, unintermediated relationships with every provider. The accounts are in your name, the credentials are yours, and if you ever choose to leave, you keep everything with zero migration friction.
+### Automated Secure Credentials
+Receive real credentials directly to a secret store—no copying keys across tabs. Agent-readable and auditable by default.
 
-### Built for AI-Assisted Development
-AI agents can write great code, but they historically couldn't provision the infrastructure to run it. This tool is machine-readable and tool-callable, giving coding agents (like Claude Code or Cursor) the ability to reliably provision and wire up real infrastructure, turning generated code into a fully functioning app.
+### No Vendor Lock-In
+Keep full ownership of every account. Services are provisioned directly in your provider accounts—with the freedom to leave anytime.
 
-### A Central Hub for Keys and Secrets
-Stop scattering API keys across multiple dashboards and local files. Gain one secure, central place to manage credentials and environment variables across your entire stack, which are automatically injected directly into your project environment.
-
-### Seamless Upgrades
-Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. One payment method, one place to pay — and your agent can handle it all on your behalf.
-
-### Bring Your Existing Stack
-You don't have to start entirely from scratch. You can easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.
+### Deploy with Confidence
+Provision the same environment every time. Centralized billing and real-time usage visibility across providers means no surprises.
 
 ---
 

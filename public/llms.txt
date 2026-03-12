@@ -18,12 +18,10 @@ stripe projects init
 
 ## Features
 
-- **No dashboard hopping** — Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. Provision a complete, working stack with one command directly from your CLI.
-- **Real infrastructure without lock-in** — We provision real services, not sandboxes. You maintain direct relationships with every provider — accounts in your name, credentials yours to keep.
-- **Built for AI-assisted development** — Machine-readable and tool-callable, giving coding agents (like Claude Code or Cursor) the ability to reliably provision and wire up real infrastructure.
-- **A central hub for keys and secrets** — One secure, central place to manage credentials and environment variables across your entire stack, automatically injected into your project environment.
-- **Seamless upgrades** — Manage paid plan selections and billing across multiple providers without leaving your workflow. One payment method, one place to pay — and your agent can handle it on your behalf.
-- **Bring your existing stack** — Link existing third-party service accounts and initialize projects on your current Stripe account, bringing established infrastructure under one control plane.
+- **From local to live in one command** — Go from local development to a running production stack in minutes. One command provisions everything your app needs across providers.
+- **Automated secure credentials** — Receive real credentials directly to a secret store—no copying keys across tabs. Agent-readable and auditable by default.
+- **No vendor lock-in** — Keep full ownership of every account. Services are provisioned directly in your provider accounts—with the freedom to leave anytime.
+- **Deploy with confidence** — Provision the same environment every time. Centralized billing and real-time usage visibility across providers means no surprises.
 
 ## Ecosystem — Supported Services
 

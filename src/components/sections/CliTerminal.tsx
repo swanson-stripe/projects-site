@@ -220,7 +220,7 @@ function respond(input: string): Line[] {
   if (lower === '?') {
     return [
       { id: uid(), t: 'blank', text: '' },
-      { id: uid(), t: 'done',  text: 'Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. Developers and AI agents can connect, pay, and provision hosting, databases, AI, auth, messaging and more, directly in their own cloud accounts - securely, deterministically, and without lock-in.' },
+      { id: uid(), t: 'done',  text: 'Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. One command provisions real services across providers, in accounts you own.' },
       { id: uid(), t: 'blank', text: '' },
       { id: uid(), t: 'done',   text: 'Get started by installing via npm or homebrew.' },
       { id: uid(), t: 'blank',  text: '' },

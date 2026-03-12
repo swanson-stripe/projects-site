@@ -6,34 +6,24 @@
 
 const FEATURES = [
   {
-    title: 'No dashboard hopping',
+    title: 'From local to live in one command',
     description:
-      'Eliminate the "dashboard maze" of dozens of sign-ups, configuration steps, and API key hunts. With just one command, you can provision a complete, working stack directly from your CLI.',
+      'Go from local development to a running production stack in minutes. One command provisions everything your app needs across providers.',
   },
   {
-    title: 'Real infrastructure without lock-in',
+    title: 'Automated secure credentials',
     description:
-      'We provision real services, not sandboxes. You maintain direct, unintermediated relationships with every provider — the accounts are in your name, the credentials are yours, and if you ever leave, you keep everything.',
+      'Receive real credentials directly to a secret store—no copying keys across tabs. Agent-readable and auditable by default.',
   },
   {
-    title: 'Built for AI-assisted development',
+    title: 'No vendor lock-in',
     description:
-      "AI agents can write great code, but they historically couldn't provision the infrastructure to run it. This tool is machine-readable and tool-callable, giving coding agents the ability to reliably provision and wire up real infrastructure.",
+      'Keep full ownership of every account. Services are provisioned directly in your provider accounts—with the freedom to leave anytime.',
   },
   {
-    title: 'A central hub for keys and secrets',
+    title: 'Deploy with confidence',
     description:
-      'Stop scattering API keys across multiple dashboards and local files. One secure, central place to manage credentials and environment variables across your entire stack, automatically injected into your project environment.',
-  },
-  {
-    title: 'Seamless upgrades',
-    description:
-      'Manage paid plan selections and billing upgrades across multiple providers without ever leaving your workflow. One payment method, one place to pay — and your agent can handle it all on your behalf.',
-  },
-  {
-    title: 'Bring your existing stack',
-    description:
-      "You don't have to start from scratch. Easily link your existing third-party service accounts and initialize projects on your current Stripe account, bringing your established infrastructure under one coherent control plane.",
+      'Provision the same environment every time. Centralized billing and real-time usage visibility across providers means no surprises.',
   },
 ];
 

@@ -4,9 +4,9 @@ import { motion } from 'motion/react';
 
 export const FEATURES = [
   {
-    title: 'Move from local to live in one command',
+    title: 'From local to live in one command',
     description:
-      'Provision hosting, databases, auth, and monitoring across providers from your terminal — and get a production environment in minutes.',
+      'Go from local development to a running production stack in minutes. One command provisions everything your app needs across providers.',
     bullets: [
       'Projects provisions resources and returns ready-to-use keys.',
       'Launch or hand off to an agent to deploy your app automatically.',
@@ -15,7 +15,7 @@ export const FEATURES = [
   {
     title: 'Automated secure credentials',
     description:
-      'Projects return deterministic, agent-readable credentials into a controlled secret store so agents can act safely and humans can audit access.',
+      'Receive real credentials directly to a secret store—no copying keys across tabs. Agent-readable and auditable by default.',
     bullets: [
       'Real keys are provisioned directly in your provider accounts and written to your secret store — no raw keys leaked into the open.',
       'Credentials are agent-readable and auditable, enabling reliable agent workflows.',
@@ -25,7 +25,7 @@ export const FEATURES = [
   {
     title: 'No vendor lock-in',
     description:
-      'Services are configured in your own provider accounts — full portability, and direct provider relationships.',
+      'Keep full ownership of every account. Services are provisioned directly in your provider accounts—with the freedom to leave anytime.',
     bullets: [
       'Link to existing provider accounts or create new accounts automatically; Projects provisions into your accounts, preserving ownership.',
       'Opt into unified billing or use provider billing directly.',
@@ -34,7 +34,7 @@ export const FEATURES = [
   {
     title: 'Deploy with confidence',
     description:
-      'Deterministic provisioning, usage visibility, and centralized billing options reduce deployment toil and make releases predictable.',
+      'Provision the same environment every time. Centralized billing and real-time usage visibility across providers means no surprises.',
     bullets: [
       'Side-by-side pricing and real-time usage let you monitor consumption and prevent surprises.',
       "One-time payment setup with tokenized payment credentials (Stripe's Shared Payment Token) simplifies upgrades across providers.",
