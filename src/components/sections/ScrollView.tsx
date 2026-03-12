@@ -28,7 +28,7 @@ const PAD      = 32;   // horizontal padding on both sides of content
 const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
-type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | 'join' | `partner:${string}`;
+type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | 'join' | 'purpose' | 'howitworks' | `partner:${string}`;
 
 interface SWinState {
   id:     SWinId;
@@ -42,8 +42,15 @@ interface SWinState {
 /* ── initial window layout ───────────────────────────────────────────────── */
 const INSTALL_GAP = 20;  // gap between docs button and install inline
 
-const CASCADE_H             = 320;
+const CASCADE_H             = 320; // mobile / narrow fallback
 const CASCADE_DOWN          = 28;  // vertical offset per window
+
+/** Tighter height on wide desktops — wider windows wrap less, so content is shorter. */
+function desktopCascadeH(winW: number): number {
+  if (winW >= 500) return 260;
+  if (winW >= 400) return 285;
+  return CASCADE_H;
+}
 const MOBILE_CASCADE_ESTIMATE = 220; // initial y-spacing estimate; useLayoutEffect corrects before paint
 
 /* shared terminal dimensions — referenced by all layout helpers */
@@ -55,6 +62,12 @@ const SECTION_GAP = 40; // consistent vertical gap between all major sections
 
 const MOBILE_PAD = 16;
 const MOBILE_BP  = 768;
+const TABLET_BP  = 1024; // info windows go full-width at or below this breakpoint
+
+const INFO_GAP     = 80;  // gap between cascade (feat) windows and the info windows below
+const INFO_WIN_GAP = 80;  // gap between the purpose and how-it-works windows
+const PURPOSE_H    = 170; // desktop fixed height for purpose.md window
+const HOWITWORKS_H = 260; // desktop fixed height for how-it-works.md window
 
 function initialLayout(): SWinState[] {
   const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
@@ -81,6 +94,10 @@ function initialLayout(): SWinState[] {
   const gridGap   = 16;
   const gridBaseY = ecoY + ecoH + SECTION_GAP;
 
+  // Width of a single "what" window (half the content area on desktop)
+  const gridWinW = Math.floor((contentW - gridGap) / 2);
+  const ch = mobile ? CASCADE_H : desktopCascadeH(gridWinW);
+
   const cascadeWins: SWinState[] = mobile
     // mobile: 1-column stack, auto-height (useLayoutEffect restacks before paint)
     ? cascadeIds.map((id, i) => ({
@@ -92,22 +109,33 @@ function initialLayout(): SWinState[] {
         zIndex: cascadeIds.length - i,
       }))
     // desktop: 2-column grid
-    : (() => {
-        const winW = Math.floor((contentW - gridGap) / 2);
-        return cascadeIds.map((id, i) => ({
-          id,
-          x:      left + (i % 2) * (winW + gridGap),
-          y:      gridBaseY + Math.floor(i / 2) * (CASCADE_H + gridGap),
-          w:      winW,
-          h:      CASCADE_H,
-          zIndex: cascadeIds.length - i,
-        }));
-      })();
+    : cascadeIds.map((id, i) => ({
+        id,
+        x:      left + (i % 2) * (gridWinW + gridGap),
+        y:      gridBaseY + Math.floor(i / 2) * (ch + gridGap),
+        w:      gridWinW,
+        h:      ch,
+        zIndex: cascadeIds.length - i,
+      }));
+
+  // Info windows (purpose + howitworks) — centered, 2/3 width on desktop, full width on tablet/mobile
+  const cascadeBottomDesktop = gridBaseY + 2 * (ch + gridGap) - gridGap;
+  const mobileCascadeEstBottom = gridBaseY + cascadeIds.length * (MOBILE_CASCADE_ESTIMATE + gridGap) - gridGap;
+
+  const infoNarrow = mobile || vw < TABLET_BP; // full-width on tablet and smaller
+  const infoW = infoNarrow ? contentW : Math.floor(contentW * 2 / 3);
+  const infoX = infoNarrow ? left : left + Math.floor((contentW - infoW) / 2);
+  const purposeY    = (mobile ? mobileCascadeEstBottom : cascadeBottomDesktop) + INFO_GAP;
+  const howitworksY = mobile
+    ? purposeY + MOBILE_CASCADE_ESTIMATE + INFO_WIN_GAP  // estimate; useLayoutEffect corrects
+    : purposeY + PURPOSE_H + INFO_WIN_GAP;
 
   return [
-    { id: 'terminal',  x: termX, y: termY, w: termW,    h: termH, zIndex: 10 },
-    { id: 'ecosystem', x: left,  y: ecoY,  w: contentW, h: ecoH,  zIndex: 6  },
+    { id: 'terminal',   x: termX,  y: termY,        w: termW,    h: termH,                                    zIndex: 10 },
+    { id: 'ecosystem',  x: left,   y: ecoY,         w: contentW, h: ecoH,                                     zIndex: 6  },
     ...cascadeWins,
+    { id: 'purpose',    x: infoX,  y: purposeY,    w: infoW,    h: mobile ? ('auto' as const) : PURPOSE_H,    zIndex: 1  },
+    { id: 'howitworks', x: infoX,  y: howitworksY, w: infoW,    h: mobile ? ('auto' as const) : HOWITWORKS_H, zIndex: 1  },
   ];
 }
 
@@ -300,6 +328,68 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   );
 });
 
+/* ── PurposeContent ──────────────────────────────────────────────────────── */
+function PurposeContent() {
+  return (
+    <div style={{
+      padding:       '1.25rem',
+      background:    'var(--color-surface)',
+      height:        '100%',
+      overflowY:     'auto',
+      scrollbarWidth:'none',
+      display:       'flex',
+      flexDirection: 'column',
+      gap:           '0.65rem',
+      fontFamily:    'var(--font-mono)',
+      boxSizing:     'border-box',
+    }}>
+      <h3 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: 0, lineHeight: 1.35 }}>
+        Code generation got fast. Infrastructure didn't.
+      </h3>
+      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
+        Developers still spend hours switching between dashboards, copying credentials, and configuring services by hand. Stripe Projects makes that work programmable.
+      </p>
+    </div>
+  );
+}
+
+/* ── HowItWorksContent ───────────────────────────────────────────────────── */
+const HOW_IT_WORKS_BULLETS = [
+  'Choose the services your app needs—hosting, databases, auth, observability, analytics, and more.',
+  'Run one CLI command from your terminal, or let an agent run it.',
+  'Stripe Projects creates provider accounts, provisions resources, and returns agent-readable credentials to your secret store.',
+  'Deploy your app—everything is configured and auditable.',
+];
+
+function HowItWorksContent() {
+  return (
+    <div style={{
+      padding:       '1.25rem',
+      background:    'var(--color-surface)',
+      height:        '100%',
+      overflowY:     'auto',
+      scrollbarWidth:'none',
+      display:       'flex',
+      flexDirection: 'column',
+      gap:           '0.65rem',
+      fontFamily:    'var(--font-mono)',
+      boxSizing:     'border-box',
+    }}>
+      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
+        Declare the services your app needs, then run a single CLI command—or let an agent run it. Stripe Projects provisions resources in provider accounts you own and injects credentials into your secret store. Everything is configured, auditable, and ready to deploy.
+      </p>
+      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+        {HOW_IT_WORKS_BULLETS.map((b, i) => (
+          <li key={i} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
+            <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui)', lineHeight: 1.55 }}>{b}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 /* ── SingleFeatureContent ────────────────────────────────────────────────── */
 function SingleFeatureContent({ feature }: { feature: typeof FEATURES[0] }) {
   return (
@@ -318,14 +408,14 @@ function SingleFeatureContent({ feature }: { feature: typeof FEATURES[0] }) {
       <h3 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: 0, lineHeight: 1.35 }}>
         {feature.title}
       </h3>
-      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.65, margin: 0 }}>
+      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
         {feature.description}
       </p>
       <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
         {feature.bullets.map((b, bi) => (
           <li key={bi} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
             <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.55 }}>{b}</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui)', lineHeight: 1.55 }}>{b}</span>
           </li>
         ))}
       </ul>
@@ -543,6 +633,8 @@ export function ScrollView() {
   const cliRef       = useRef<CliHandle>(null);
   const ecoRef       = useRef<EcoStripHandle>(null);
   const scrollElRef  = useRef<HTMLDivElement>(null);
+  // Lock canvas height to the initial layout so dragging/resizing windows never changes page height.
+  const initialCanvasH = useRef(canvasMinH(initialLayout()));
 
   // Refs to cascade window DOM elements — used to restack mobile auto-height windows
   const cascadeElsRef = useRef<Map<SWinId, HTMLDivElement>>(new Map());
@@ -650,12 +742,13 @@ export function ScrollView() {
     const gap    = 16;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const winW   = mobile ? contentW : Math.floor((contentW - gap) / 2);
+    const ch     = mobile ? CASCADE_H : desktopCascadeH(winW);
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
       if (idx === -1) return w;
       const col = mobile ? 0 : idx % 2;
       const row = mobile ? idx : Math.floor(idx / 2);
-      return { ...w, x: left + col * (winW + gap), y: baseY + row * (CASCADE_H + gap), w: winW, h: CASCADE_H };
+      return { ...w, x: left + col * (winW + gap), y: baseY + row * (ch + gap), w: winW, h: ch };
     }));
     setIsGridLayout(true);
   }, []);
@@ -674,6 +767,7 @@ export function ScrollView() {
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
+    const ch           = mobile ? CASCADE_H : desktopCascadeH(CASCADE_W);
     setWins(prev => {
       const globalMaxZ = Math.max(...prev.map(w => w.zIndex));
       return prev.map(w => {
@@ -682,9 +776,9 @@ export function ScrollView() {
         return {
           ...w,
           x: mobile ? left : left + idx * CASCADE_STEP,
-          y: mobile ? baseY + idx * (CASCADE_H + 16) : baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
+          y: mobile ? baseY + idx * (ch + 16) : baseY + (ids.length - 1 - idx) * CASCADE_DOWN,
           w: mobile ? contentW : CASCADE_W,
-          h: CASCADE_H,
+          h: ch,
           zIndex: w.id === activeId ? globalMaxZ : ids.length - idx,
         };
       });
@@ -757,18 +851,20 @@ export function ScrollView() {
     setTimeout(() => setAnimateLayout(false), 500);
   }, []);
 
-  // Restack mobile cascade windows to their actual rendered heights.
+  // Restack mobile cascade windows (and info windows below them) to their actual rendered heights.
   // useLayoutEffect fires before the browser paints so the user never sees
   // the estimate-based initial positions.
   useLayoutEffect(() => {
     if (!isMobile) return;
 
     const CASCADE_IDS: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
+    const INFO_IDS:    SWinId[] = ['purpose', 'howitworks'];
+    const ALL_IDS = [...CASCADE_IDS, ...INFO_IDS];
     const els = cascadeElsRef.current;
 
-    if (!CASCADE_IDS.every(id => els.has(id))) return;
+    if (!ALL_IDS.every(id => els.has(id))) return;
 
-    const heights = CASCADE_IDS.map(id => els.get(id)!.offsetHeight);
+    const heights = ALL_IDS.map(id => els.get(id)!.offsetHeight);
     if (heights.some(h => h === 0)) return;
 
     // Skip if heights haven't changed since last restack
@@ -783,6 +879,7 @@ export function ScrollView() {
     let needsUpdate = false;
     const updates: Array<{ id: SWinId; y: number }> = [];
 
+    // Stack cascade (feat) windows with 16px gap
     for (let i = 0; i < CASCADE_IDS.length; i++) {
       const id  = CASCADE_IDS[i];
       const win = wins.find(w => w.id === id);
@@ -792,8 +889,20 @@ export function ScrollView() {
       curY += heights[i] + 16;
     }
 
-    // curY is now the y-coord just below the last cascade window (last bottom + 16px gap)
-    // Update the cascade bottom so the CTA buttons are positioned correctly
+    // 80px gap before the info windows (subtract the 16px already added, add 80)
+    curY = curY - 16 + INFO_GAP;
+
+    // Stack info windows with INFO_WIN_GAP gap
+    for (let i = 0; i < INFO_IDS.length; i++) {
+      const id  = INFO_IDS[i];
+      const win = wins.find(w => w.id === id);
+      if (!win) return;
+      if (win.y !== curY) needsUpdate = true;
+      updates.push({ id, y: curY });
+      curY += heights[CASCADE_IDS.length + i] + INFO_WIN_GAP;
+    }
+
+    // curY is now just below the last info window — CTA buttons go here
     setMobileCascadeBottom(prev => prev === curY ? prev : curY);
 
     if (!needsUpdate) return;
@@ -809,16 +918,18 @@ export function ScrollView() {
   // On mobile, size the canvas to fit the cascade + CTA buttons; elsewhere use the wins-based estimate
   const canvasH = (isMobile && mobileCascadeBottom > 0)
     ? mobileCascadeBottom + 120  // room for the CTA button row + padding
-    : canvasMinH(wins);
+    : initialCanvasH.current;
   const isDragging = !!draggingPartner;
 
   const FEAT_SHORT = ['local → live', 'credentials', 'no lock-in', 'confidence'];
 
   function getTitle(id: SWinId): string {
-    if (id === 'terminal')  return 'terminal';
-    if (id === 'ecosystem') return 'ecosystem';
-    if (id === 'ace')       return 'Ace';
-    if (id === 'join')      return 'suggest a provider';
+    if (id === 'terminal')   return 'terminal';
+    if (id === 'ecosystem')  return 'ecosystem';
+    if (id === 'ace')        return 'Ace';
+    if (id === 'join')       return 'suggest a provider';
+    if (id === 'purpose')    return 'purpose';
+    if (id === 'howitworks') return 'how it works';
     if (id.startsWith('feat:')) {
       const i = parseInt(id.slice(5));
       return FEAT_SHORT[i] ?? id;
@@ -1033,8 +1144,8 @@ export function ScrollView() {
                   </span>
                   <div style={{ display: 'flex', gap: '20px' }}>
                     {[
-                      { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
-                    { href: 'mailto:provider-request@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest', suggest: true },
+                      { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Become a provider' },
+                    { href: 'mailto:provider-request@stripe.com?subject=Provider%20Suggestion',  label: 'Suggest a provider', suggest: true },
                   ].map(({ href, label, suggest }) => suggest ? (
                     <button
                       key={label}
@@ -1122,6 +1233,8 @@ export function ScrollView() {
               const idx = parseInt(win.id.slice(5));
               return <SingleFeatureContent feature={FEATURES[idx]} />;
             }
+            if (win.id === 'purpose')    return <PurposeContent />;
+            if (win.id === 'howitworks') return <HowItWorksContent />;
             if (isAce) {
               return (
                 <div style={{
@@ -1157,10 +1270,11 @@ export function ScrollView() {
             return null;
           })();
 
+          const isInfo    = win.id === 'purpose' || win.id === 'howitworks';
           const isCascade = isFeat;
 
-          // On mobile, track cascade window elements so useLayoutEffect can restack them
-          const cascadeRef = (isCascade && isMobile)
+          // On mobile, track cascade + info window elements so useLayoutEffect can restack them
+          const cascadeRef = ((isCascade || isInfo) && isMobile)
             ? (el: HTMLDivElement | null) => {
                 if (el) cascadeElsRef.current.set(win.id as SWinId, el);
                 else    cascadeElsRef.current.delete(win.id as SWinId);
