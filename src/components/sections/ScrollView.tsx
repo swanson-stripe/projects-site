@@ -388,7 +388,7 @@ function HowItWorksContent({ onTryItOut }: { onTryItOut?: () => void }) {
 function SingleFeatureContent({ feature }: { feature: typeof FEATURES[0] }) {
   return (
     <div style={{
-      padding:       '1.25rem',
+      padding:       '1.25rem 1.25rem 1.75rem',
       background:    'var(--color-surface)',
       height:        '100%',
       overflowY:     'auto',
@@ -1132,9 +1132,6 @@ export function ScrollView() {
                   fontSize:       '0.72rem',
                   letterSpacing:  '0.02em',
                 }}>
-                  <span style={{ color: 'var(--color-text-ui-muted)' }}>
-                    More providers are on the way
-                  </span>
                   <div style={{ display: 'flex', gap: '20px' }}>
                     {[
                       { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Become a provider' },
