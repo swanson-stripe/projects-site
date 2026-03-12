@@ -817,10 +817,10 @@ export function Partners() {
           transition={{ duration: 0.5, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
           style={{
             display:        'flex',
+            flexDirection:  'column',
             alignItems:     'center',
-            justifyContent: 'center',
-            gap:            '20px',
-            marginTop:      '0.75rem',
+            gap:            '12px',
+            marginTop:      '40px',
             fontFamily:     'var(--font-mono)',
             fontSize:       '0.72rem',
             letterSpacing:  '0.02em',
@@ -829,38 +829,40 @@ export function Partners() {
           <span style={{ color: 'var(--color-text-ui-muted)' }}>
             More providers are on the way
           </span>
-          {[
-            { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
-            { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
-          ].map(({ href, label }) => (
-            <a
-              key={label}
-              href={href}
-              style={{
-                display:        'inline-flex',
-                alignItems:     'center',
-                gap:            '0.3em',
-                padding:        '0.5rem 0.85rem',
-                color:          'var(--color-text-ui)',
-                border:         '1px solid var(--color-border-accent)',
-                background:     'var(--color-bg)',
-                textDecoration: 'none',
-                letterSpacing:  '0.04em',
-                flexShrink:     0,
-                transition:     'border-color 0.15s, color 0.15s',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
-                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
-                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
-              }}
-            >
-              {label} <ArrowUpRight size={10} strokeWidth={1.5} />
-            </a>
-          ))}
+          <div style={{ display: 'flex', gap: '20px' }}>
+            {[
+              { href: 'mailto:projects@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
+              { href: 'mailto:projects@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
+            ].map(({ href, label }) => (
+              <a
+                key={label}
+                href={href}
+                style={{
+                  display:        'inline-flex',
+                  alignItems:     'center',
+                  gap:            '0.3em',
+                  padding:        '0.5rem 0.85rem',
+                  color:          'var(--color-text-ui)',
+                  border:         '1px solid var(--color-border-accent)',
+                  background:     'var(--color-bg)',
+                  textDecoration: 'none',
+                  letterSpacing:  '0.04em',
+                  flexShrink:     0,
+                  transition:     'border-color 0.15s, color 0.15s',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
+                  (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
+                  (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
+                }}
+              >
+                {label} <ArrowUpRight size={10} strokeWidth={1.5} />
+              </a>
+            ))}
+          </div>
         </InView>
       </div>
     </section>
