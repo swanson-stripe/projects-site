@@ -690,7 +690,7 @@ export function JoinContent() {
   const [thanked,  setThanked]  = useState(false);
 
   async function handleSubmit() {
-    if (!category || !name.trim() || !url.trim() || status !== 'idle') return;
+    if (!name.trim() || !url.trim() || status !== 'idle') return;
     setStatus('sending');
     await new Promise(r => setTimeout(r, 1200));
     setStatus('sent');

@@ -816,7 +816,7 @@ export function ScrollView() {
     if (id === 'terminal')  return 'terminal';
     if (id === 'ecosystem') return 'ecosystem';
     if (id === 'ace')       return 'Ace';
-    if (id === 'join')      return 'join the ecosystem';
+    if (id === 'join')      return 'suggest a provider';
     if (id.startsWith('feat:')) {
       const i = parseInt(id.slice(5));
       return FEAT_SHORT[i] ?? id;
