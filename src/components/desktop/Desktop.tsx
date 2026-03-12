@@ -276,7 +276,7 @@ export function Desktop() {
           }}
         >
           <div style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-               className={draggingPartner.lightInvert ? 'logo-on-light' : ''}>
+               className={[draggingPartner.lightInvert && 'logo-on-light', draggingPartner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
             <draggingPartner.logo className='w-full h-full object-contain' />
           </div>
           <span style={{
@@ -692,7 +692,12 @@ export function JoinContent() {
   async function handleSubmit() {
     if (!name.trim() || !url.trim() || status !== 'idle') return;
     setStatus('sending');
-    await new Promise(r => setTimeout(r, 1200));
+    const subject = encodeURIComponent('Provider Suggestion');
+    const body = encodeURIComponent(
+      `Category: ${category || 'not specified'}\nName: ${name.trim()}\nURL: ${url.trim()}`
+    );
+    window.location.href = `mailto:provider-request@stripe.com?subject=${subject}&body=${body}`;
+    await new Promise(r => setTimeout(r, 800));
     setStatus('sent');
     await new Promise(r => setTimeout(r, 800));
     setThanked(true);

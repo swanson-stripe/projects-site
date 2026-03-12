@@ -857,7 +857,7 @@ export function ScrollView() {
         >
           <div
             style={{ width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            className={draggingPartner.lightInvert ? 'logo-on-light' : ''}
+            className={[draggingPartner.lightInvert && 'logo-on-light', draggingPartner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}
           >
             <draggingPartner.logo className='w-full h-full object-contain' />
           </div>

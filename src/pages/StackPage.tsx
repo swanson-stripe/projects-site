@@ -72,12 +72,16 @@ function ProviderLogo({ name }: { name: string }) {
   if (!partner) {
     return <span style={{ color: PINK, fontSize: '0.75em' }}>✓</span>;
   }
-  const needsInvert = partner.lightInvert && theme !== 'default';
+  const isLightTheme = theme === 'vaporwave' || theme === '配色事典';
+  const filter =
+    partner.lightInvert && isLightTheme  ? 'invert(1)' :
+    partner.darkWhite   && !isLightTheme ? 'brightness(0) invert(1)' :
+    undefined;
   return (
     <div style={{
       width: 16, height: 16, flexShrink: 0, display: 'flex',
       alignItems: 'center', justifyContent: 'center',
-      filter: needsInvert ? 'invert(1)' : undefined,
+      filter,
     }}>
       <partner.logo className="w-full h-full" />
     </div>

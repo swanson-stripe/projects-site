@@ -1450,7 +1450,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     <div
       className='font-mono'
       style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
-      onClick={() => inputRef.current?.focus()}
+      onClick={() => { if (!window.getSelection()?.toString()) inputRef.current?.focus(); }}
     >
       {/* ── output area ──────────────────────────────────────────── */}
       <div
@@ -1478,7 +1478,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         <div style={{ position: 'relative' }}>
           {menuOpen && <SlashMenu items={menuItems} selectedIdx={menuIdx} />}
           <div
-            onClick={() => { inputRef.current?.focus(); }}
+            onClick={() => { if (!window.getSelection()?.toString()) inputRef.current?.focus(); }}
             style={{
               borderTop: BORDER,
               padding:   'clamp(0.6rem, 1.2vw, 0.9rem) clamp(0.75rem, 2.5vw, 2rem)',
