@@ -42,15 +42,10 @@ interface SWinState {
 /* ── initial window layout ───────────────────────────────────────────────── */
 const INSTALL_GAP = 20;  // gap between docs button and install inline
 
-const CASCADE_H             = 320; // mobile / narrow fallback
-const CASCADE_DOWN          = 28;  // vertical offset per window
+const CASCADE_H             = 320; // mobile auto-height estimate (useLayoutEffect corrects)
+const CASCADE_DOWN          = 28;  // vertical offset per window in cascade mode
+const FEAT_H                = 180; // desktop fixed height — title + description, no bullets
 
-/** Tighter height on wide desktops — wider windows wrap less, so content is shorter. */
-function desktopCascadeH(winW: number): number {
-  if (winW >= 500) return 260;
-  if (winW >= 400) return 285;
-  return CASCADE_H;
-}
 const MOBILE_CASCADE_ESTIMATE = 220; // initial y-spacing estimate; useLayoutEffect corrects before paint
 
 /* shared terminal dimensions — referenced by all layout helpers */
@@ -93,7 +88,6 @@ function initialLayout(): SWinState[] {
 
   // Width of a single "what" window (half the content area on desktop)
   const gridWinW = Math.floor((contentW - gridGap) / 2);
-  const ch = mobile ? CASCADE_H : desktopCascadeH(gridWinW);
 
   const cascadeWins: SWinState[] = mobile
     // mobile: 1-column stack, auto-height (useLayoutEffect restacks before paint)
@@ -105,18 +99,18 @@ function initialLayout(): SWinState[] {
         h:      'auto' as const,
         zIndex: cascadeIds.length - i,
       }))
-    // desktop: 2-column grid
+    // desktop: 2-column grid, fixed height sized for title + description
     : cascadeIds.map((id, i) => ({
         id,
         x:      left + (i % 2) * (gridWinW + gridGap),
-        y:      gridBaseY + Math.floor(i / 2) * (ch + gridGap),
+        y:      gridBaseY + Math.floor(i / 2) * (FEAT_H + gridGap),
         w:      gridWinW,
-        h:      ch,
+        h:      FEAT_H,
         zIndex: cascadeIds.length - i,
       }));
 
   // How it works window — centered, 2/3 width on desktop, full width on tablet/mobile
-  const cascadeBottomDesktop = gridBaseY + 2 * (ch + gridGap) - gridGap;
+  const cascadeBottomDesktop = gridBaseY + 2 * (FEAT_H + gridGap) - gridGap;
   const mobileCascadeEstBottom = gridBaseY + cascadeIds.length * (MOBILE_CASCADE_ESTIMATE + gridGap) - gridGap;
 
   const infoNarrow = mobile || vw < TABLET_BP; // full-width on tablet and smaller
@@ -405,14 +399,6 @@ function SingleFeatureContent({ feature }: { feature: typeof FEATURES[0] }) {
       <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
         {feature.description}
       </p>
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        {feature.bullets.map((b, bi) => (
-          <li key={bi} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
-            <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui)', lineHeight: 1.55 }}>{b}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -736,7 +722,7 @@ export function ScrollView() {
     const gap    = 16;
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const winW   = mobile ? contentW : Math.floor((contentW - gap) / 2);
-    const ch     = mobile ? CASCADE_H : desktopCascadeH(winW);
+    const ch     = mobile ? CASCADE_H : FEAT_H;
     setWins(prev => prev.map(w => {
       const idx = ids.indexOf(w.id as SWinId);
       if (idx === -1) return w;
@@ -761,7 +747,7 @@ export function ScrollView() {
     const ids: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
     const CASCADE_W    = Math.floor(contentW * 0.44);
     const CASCADE_STEP = Math.floor((contentW - CASCADE_W) / (ids.length - 1));
-    const ch           = mobile ? CASCADE_H : desktopCascadeH(CASCADE_W);
+    const ch           = mobile ? CASCADE_H : FEAT_H;
     setWins(prev => {
       const globalMaxZ = Math.max(...prev.map(w => w.zIndex));
       return prev.map(w => {
