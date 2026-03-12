@@ -708,7 +708,7 @@ export function ScrollView() {
     });
   }, []);
 
-  /* arrange cascade windows (feat:0–3 + purpose) in a 2-column grid */
+  /* arrange cascade windows (feat:0–3) in a 2-column grid */
   const gridCascade = useCallback(() => {
     const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
     const mobile   = vw < MOBILE_BP;
@@ -879,7 +879,7 @@ export function ScrollView() {
       if (!win) return;
       if (win.y !== curY) needsUpdate = true;
       updates.push({ id, y: curY });
-      curY += heights[CASCADE_IDS.length + i] + INFO_WIN_GAP;
+      curY += heights[CASCADE_IDS.length + i] + INFO_GAP;
     }
 
     // curY is now just below the last info window — CTA buttons go here
@@ -1250,7 +1250,7 @@ export function ScrollView() {
             return null;
           })();
 
-          const isInfo    = win.id === 'purpose' || win.id === 'howitworks';
+          const isInfo    = win.id === 'howitworks';
           const isCascade = isFeat;
 
           // On mobile, track cascade + info window elements so useLayoutEffect can restack them
