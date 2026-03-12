@@ -8,7 +8,7 @@
 import { useState, useCallback, useRef, forwardRef, useImperativeHandle, useLayoutEffect } from 'react';
 import { flushSync } from 'react-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import { ArrowUpRight, LayoutGrid, Columns3, RotateCcw } from 'lucide-react';
+import { ArrowUpRight, LayoutGrid, Columns3, RotateCcw, CornerRightUp } from 'lucide-react';
 import { GridBackground } from '@/components/ui/grid-background';
 import { Window } from '@/components/desktop/Window';
 import { JoinContent } from '@/components/desktop/Desktop';
@@ -28,7 +28,7 @@ const PAD      = 32;   // horizontal padding on both sides of content
 const MAX_W    = 1280; // max content width
 
 /* ── window id type ──────────────────────────────────────────────────────── */
-type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | 'join' | 'purpose' | 'howitworks' | `partner:${string}`;
+type SWinId = 'terminal' | 'ecosystem' | `feat:${number}` | 'ace' | 'join' | 'howitworks' | `partner:${string}`;
 
 interface SWinState {
   id:     SWinId;
@@ -64,10 +64,7 @@ const MOBILE_PAD = 16;
 const MOBILE_BP  = 768;
 const TABLET_BP  = 1024; // info windows go full-width at or below this breakpoint
 
-const INFO_GAP     = 80;  // gap between cascade (feat) windows and the info windows below
-const INFO_WIN_GAP = 80;  // gap between the purpose and how-it-works windows
-const PURPOSE_H    = 170; // desktop fixed height for purpose.md window
-const HOWITWORKS_H = 260; // desktop fixed height for how-it-works.md window
+const INFO_GAP = 80;  // gap between cascade (feat) windows and the how it works window below
 
 function initialLayout(): SWinState[] {
   const vw       = typeof window !== 'undefined' ? window.innerWidth : 1280;
@@ -118,24 +115,20 @@ function initialLayout(): SWinState[] {
         zIndex: cascadeIds.length - i,
       }));
 
-  // Info windows (purpose + howitworks) — centered, 2/3 width on desktop, full width on tablet/mobile
+  // How it works window — centered, 2/3 width on desktop, full width on tablet/mobile
   const cascadeBottomDesktop = gridBaseY + 2 * (ch + gridGap) - gridGap;
   const mobileCascadeEstBottom = gridBaseY + cascadeIds.length * (MOBILE_CASCADE_ESTIMATE + gridGap) - gridGap;
 
   const infoNarrow = mobile || vw < TABLET_BP; // full-width on tablet and smaller
   const infoW = infoNarrow ? contentW : Math.floor(contentW * 2 / 3);
   const infoX = infoNarrow ? left : left + Math.floor((contentW - infoW) / 2);
-  const purposeY    = (mobile ? mobileCascadeEstBottom : cascadeBottomDesktop) + INFO_GAP;
-  const howitworksY = mobile
-    ? purposeY + MOBILE_CASCADE_ESTIMATE + INFO_WIN_GAP  // estimate; useLayoutEffect corrects
-    : purposeY + PURPOSE_H + INFO_WIN_GAP;
+  const infoY = (mobile ? mobileCascadeEstBottom : cascadeBottomDesktop) + INFO_GAP;
 
   return [
     { id: 'terminal',   x: termX,  y: termY,        w: termW,    h: termH,                                    zIndex: 10 },
     { id: 'ecosystem',  x: left,   y: ecoY,         w: contentW, h: ecoH,                                     zIndex: 6  },
     ...cascadeWins,
-    { id: 'purpose',    x: infoX,  y: purposeY,    w: infoW,    h: mobile ? ('auto' as const) : PURPOSE_H,    zIndex: 1  },
-    { id: 'howitworks', x: infoX,  y: howitworksY, w: infoW,    h: mobile ? ('auto' as const) : HOWITWORKS_H, zIndex: 1  },
+    { id: 'howitworks', x: infoX,  y: infoY,       w: infoW,    h: 'auto',                                    zIndex: 1  },
   ];
 }
 
@@ -328,32 +321,7 @@ const EcosystemScrollStrip = forwardRef<EcoStripHandle, {
   );
 });
 
-/* ── PurposeContent ──────────────────────────────────────────────────────── */
-function PurposeContent() {
-  return (
-    <div style={{
-      padding:       '1.25rem',
-      background:    'var(--color-surface)',
-      height:        '100%',
-      overflowY:     'auto',
-      scrollbarWidth:'none',
-      display:       'flex',
-      flexDirection: 'column',
-      gap:           '0.65rem',
-      fontFamily:    'var(--font-mono)',
-      boxSizing:     'border-box',
-    }}>
-      <h3 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: 0, lineHeight: 1.35 }}>
-        Code generation got fast. Infrastructure didn't.
-      </h3>
-      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
-        Developers still spend hours switching between dashboards, copying credentials, and configuring services by hand. Stripe Projects makes that work programmable.
-      </p>
-    </div>
-  );
-}
-
-/* ── HowItWorksContent ───────────────────────────────────────────────────── */
+/* ── HowItWorksContent (consolidated purpose + bullets) ─────────────────── */
 const HOW_IT_WORKS_BULLETS = [
   'Choose the services your app needs—hosting, databases, auth, observability, analytics, and more.',
   'Run one CLI command from your terminal, or let an agent run it.',
@@ -361,31 +329,57 @@ const HOW_IT_WORKS_BULLETS = [
   'Deploy your app—everything is configured and auditable.',
 ];
 
-function HowItWorksContent() {
+function HowItWorksContent({ onTryItOut }: { onTryItOut?: () => void }) {
   return (
     <div style={{
-      padding:       '1.25rem',
       background:    'var(--color-surface)',
-      height:        '100%',
-      overflowY:     'auto',
-      scrollbarWidth:'none',
       display:       'flex',
       flexDirection: 'column',
-      gap:           '0.65rem',
       fontFamily:    'var(--font-mono)',
-      boxSizing:     'border-box',
     }}>
-      <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
-        Declare the services your app needs, then run a single CLI command—or let an agent run it. Stripe Projects provisions resources in provider accounts you own and injects credentials into your secret store. Everything is configured, auditable, and ready to deploy.
-      </p>
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-        {HOW_IT_WORKS_BULLETS.map((b, i) => (
-          <li key={i} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
-            <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui)', lineHeight: 1.55 }}>{b}</span>
-          </li>
-        ))}
-      </ul>
+      <div style={{
+        padding:       '1.25rem',
+        display:       'flex',
+        flexDirection: 'column',
+        gap:           '0.65rem',
+      }}>
+        <h3 style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-ui)', margin: 0, lineHeight: 1.35 }}>
+          Code generation got fast. Infrastructure didn't.
+        </h3>
+        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
+          Developers still spend hours switching between dashboards, copying credentials, and configuring services by hand. Stripe Projects makes that work programmable.
+        </p>
+        <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+          {HOW_IT_WORKS_BULLETS.map((b, i) => (
+            <li key={i} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
+              <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui)', lineHeight: 1.55 }}>{b}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button
+        onClick={onTryItOut}
+        style={{
+          display:       'flex',
+          alignItems:    'center',
+          gap:           '0.35rem',
+          width:         '100%',
+          padding:       '0.5rem 0.875rem',
+          background:    'transparent',
+          border:        'none',
+          borderTop:     '1px solid var(--color-border-accent)',
+          textAlign:     'left',
+          fontFamily:    'var(--font-mono)',
+          fontSize:      '0.72rem',
+          color:         'var(--color-pink)',
+          cursor:        'pointer',
+          letterSpacing: '0.02em',
+        }}
+      >
+        try it out <CornerRightUp size={10} strokeWidth={1.5} />
+      </button>
     </div>
   );
 }
@@ -858,7 +852,7 @@ export function ScrollView() {
     if (!isMobile) return;
 
     const CASCADE_IDS: SWinId[] = ['feat:0', 'feat:1', 'feat:2', 'feat:3'];
-    const INFO_IDS:    SWinId[] = ['purpose', 'howitworks'];
+    const INFO_IDS:    SWinId[] = ['howitworks'];
     const ALL_IDS = [...CASCADE_IDS, ...INFO_IDS];
     const els = cascadeElsRef.current;
 
@@ -928,7 +922,6 @@ export function ScrollView() {
     if (id === 'ecosystem')  return 'ecosystem';
     if (id === 'ace')        return 'Ace';
     if (id === 'join')       return 'suggest a provider';
-    if (id === 'purpose')    return 'purpose';
     if (id === 'howitworks') return 'how it works';
     if (id.startsWith('feat:')) {
       const i = parseInt(id.slice(5));
@@ -1233,8 +1226,12 @@ export function ScrollView() {
               const idx = parseInt(win.id.slice(5));
               return <SingleFeatureContent feature={FEATURES[idx]} />;
             }
-            if (win.id === 'purpose')    return <PurposeContent />;
-            if (win.id === 'howitworks') return <HowItWorksContent />;
+            if (win.id === 'howitworks') return (
+              <HowItWorksContent onTryItOut={() => {
+                scrollElRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                bringToFront('terminal');
+              }} />
+            );
             if (isAce) {
               return (
                 <div style={{
