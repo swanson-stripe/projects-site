@@ -7,7 +7,7 @@ import { useIsMobile } from '@/hooks/useIsMobile';
 const BORDER          = '1px solid var(--color-border-accent)';
 const ACTIVE_BAR_BG   = 'var(--color-pink)';
 const ACTIVE_TITLE    = 'var(--color-surface-dark)';  // dark text on bright bar
-const INACTIVE_TITLE  = 'var(--color-text-ui-subtle)';
+const INACTIVE_TITLE  = 'var(--color-text-ui-muted)';
 const DOT_INACTIVE    = 'var(--color-border-accent)'; // all dots same as border when inactive
 const MIN_W           = 280;
 const MIN_H           = 180;

@@ -335,7 +335,7 @@ function CtaButtons({ width }: { width?: number }) {
         onMouseEnter={hoverOn}
         onMouseLeave={hoverOff}
       >
-        How it works
+        How it works <ArrowUpRight size={11} strokeWidth={1.5} />
       </a>
       <a
         href="https://stripe.com/docs/projects"
