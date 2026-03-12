@@ -20,6 +20,8 @@ export interface Partner {
   lightInvert?:    boolean;
   /** logo uses a brand colour that should become white on dark themes */
   darkWhite?:      boolean;
+  /** suppress from icon grids while keeping data intact */
+  hidden?:         boolean;
 }
 
 /* ── Logos — official marks, no background boxes ─────────────────────────── */
@@ -31,10 +33,12 @@ const StripeLogo: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-// Clerk — Simple Icons, brand colour #6C47FF
+// Clerk — official symbol mark, primary colours
 const ClerkLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='#6C47FF'>
-    <path d='m21.47 20.829-2.881-2.881a.572.572 0 0 0-.7-.084 6.854 6.854 0 0 1-7.081 0 .576.576 0 0 0-.7.084l-2.881 2.881a.576.576 0 0 0-.103.69.57.57 0 0 0 .166.186 12 12 0 0 0 14.113 0 .58.58 0 0 0 .239-.423.576.576 0 0 0-.172-.453Zm.002-17.668-2.88 2.88a.569.569 0 0 1-.701.084A6.857 6.857 0 0 0 8.724 8.08a6.862 6.862 0 0 0-1.222 3.692 6.86 6.86 0 0 0 .978 3.764.573.573 0 0 1-.083.699l-2.881 2.88a.567.567 0 0 1-.864-.063A11.993 11.993 0 0 1 6.771 2.7a11.99 11.99 0 0 1 14.637-.405.566.566 0 0 1 .232.418.57.57 0 0 1-.168.448Zm-7.118 12.261a3.427 3.427 0 1 0 0-6.854 3.427 3.427 0 0 0 0 6.854Z'/>
+  <svg className={className} viewBox='0 0 128 128' fill='none'>
+    <path d='M99.5716 10.788C101.571 12.1272 101.742 14.9444 100.04 16.646L85.4244 31.2618C84.1035 32.5828 82.0542 32.7914 80.3915 31.9397C75.4752 29.421 69.9035 28 64 28C44.1177 28 28 44.1177 28 64C28 69.9035 29.421 75.4752 31.9397 80.3915C32.7914 82.0542 32.5828 84.1035 31.2618 85.4244L16.646 100.04C14.9444 101.742 12.1272 101.571 10.788 99.5716C3.97411 89.3989 0 77.1635 0 64C0 28.6538 28.6538 0 64 0C77.1635 0 89.3989 3.97411 99.5716 10.788Z' fill='#BAB1FF'/>
+    <path d='M84 64C84 75.0457 75.0457 84 64 84C52.9543 84 44 75.0457 44 64C44 52.9543 52.9543 44 64 44C75.0457 44 84 52.9543 84 64Z' fill='#6C47FF'/>
+    <path d='M100.04 111.354C101.742 113.056 101.571 115.873 99.5717 117.212C89.3989 124.026 77.1636 128 64 128C50.8364 128 38.6011 124.026 28.4283 117.212C26.4289 115.873 26.2581 113.056 27.9597 111.354L42.5755 96.7382C43.8965 95.4172 45.9457 95.2085 47.6084 96.0603C52.5248 98.579 58.0964 100 64 100C69.9036 100 75.4753 98.579 80.3916 96.0603C82.0543 95.2085 84.1036 95.4172 85.4245 96.7382L100.04 111.354Z' fill='#6C47FF'/>
   </svg>
 );
 
@@ -51,10 +55,14 @@ const SupabaseLogo: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-// PostHog — Simple Icons, brand colour #F54E00
+// PostHog — official logomark from posthog.com/brand (light-theme friendly)
 const PostHogLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox='0 0 24 24' fill='#F54E00'>
-    <path d='M9.854 14.5 5 9.647.854 5.5A.5.5 0 0 0 0 5.854V8.44a.5.5 0 0 0 .146.353L5 13.647l.147.146L9.854 18.5l.146.147v-.049c.065.03.134.049.207.049h2.586a.5.5 0 0 0 .353-.854L9.854 14.5zm0-5-4-4a.487.487 0 0 0-.409-.144.515.515 0 0 0-.356.21.493.493 0 0 0-.089.288V8.44a.5.5 0 0 0 .147.353l9 9a.5.5 0 0 0 .853-.354v-2.585a.5.5 0 0 0-.146-.354l-5-5zm1-4a.5.5 0 0 0-.854.354V8.44a.5.5 0 0 0 .147.353l4 4a.5.5 0 0 0 .853-.354V9.854a.5.5 0 0 0-.146-.354l-4-4zm12.647 11.515a3.863 3.863 0 0 1-2.232-1.1l-4.708-4.707a.5.5 0 0 0-.854.354v6.585a.5.5 0 0 0 .5.5H23.5a.5.5 0 0 0 .5-.5v-.6c0-.276-.225-.497-.499-.532zm-5.394.032a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6zM.854 15.5a.5.5 0 0 0-.854.354v2.293a.5.5 0 0 0 .5.5h2.293c.222 0 .39-.135.462-.309a.493.493 0 0 0-.109-.545L.854 15.501zM5 14.647.854 10.5a.5.5 0 0 0-.854.353v2.586a.5.5 0 0 0 .146.353L4.854 18.5l.146.147h2.793a.5.5 0 0 0 .353-.854L5 14.647z'/>
+  <svg className={className} viewBox='0 0 50 30' fill='none'>
+    <path d='M10.8914 17.2057c-.3685.7371-1.42031.7371-1.78884 0L8.2212 15.443c-.14077-.2815-.14077-.6129 0-.8944l.88136-1.7627c.36853-.7371 1.42034-.7371 1.78884 0l.8814 1.7627c.1407.2815.1407.6129 0 .8944l-.8814 1.7627zM10.8914 27.2028c-.3685.737-1.42031.737-1.78884 0L8.2212 25.44c-.14077-.2815-.14077-.6129 0-.8944l.88136-1.7627c.36853-.7371 1.42034-.7371 1.78884 0l.8814 1.7627c.1407.2815.1407.6129 0 .8944l-.8814 1.7628z' fill='#1D4AFF'/>
+    <path d='M0 23.4082c0-.8909 1.07714-1.3371 1.70711-.7071l4.58338 4.5834c.62997.63.1838 1.7071-.7071 1.7071H.999999c-.552284 0-.999999-.4477-.999999-1v-4.5834zm0-4.8278c0 .2652.105357.5196.292893.7071l9.411217 9.4112c.18753.1875.44189.2929.70709.2929h5.1692c.8909 0 1.3371-1.0771.7071-1.7071L1.70711 12.7041C1.07714 12.0741 0 12.5203 0 13.4112v5.1692zm0-9.99701c0 .26521.105357.51957.292893.7071L19.7011 28.6987c.1875.1875.4419.2929.7071.2929h5.1692c.8909 0 1.3371-1.0771.7071-1.7071L1.70711 2.70711C1.07715 2.07715 0 2.52331 0 3.41421v5.16918zm9.997 0c0 .26521.1054.51957.2929.7071l17.994 17.99401c.63.63 1.7071.1838 1.7071-.7071v-5.1692c0-.2652-.1054-.5196-.2929-.7071l-17.994-17.994c-.63-.62996-1.7071-.18379-1.7071.70711v5.16918zm11.7041-5.87628c-.63-.62997-1.7071-.1838-1.7071.7071v5.16918c0 .26521.1054.51957.2929.7071l7.997 7.99701c.63.63 1.7071.1838 1.7071-.7071v-5.1692c0-.2652-.1054-.5196-.2929-.7071l-7.997-7.99699z' fill='#F9BD2B'/>
+    <path d='M42.5248 23.5308l-9.4127-9.4127c-.63-.63-1.7071-.1838-1.7071.7071v13.1664c0 .5523.4477 1 1 1h14.5806c.5523 0 1-.4477 1-1v-1.199c0-.5523-.4496-.9934-.9973-1.0647-1.6807-.2188-3.2528-.9864-4.4635-2.1971zm-6.3213 2.2618c-.8829 0-1.5995-.7166-1.5995-1.5996 0-.8829.7166-1.5995 1.5995-1.5995.883 0 1.5996.7166 1.5996 1.5995 0 .883-.7166 1.5996-1.5996 1.5996z' fill='#000'/>
+    <path d='M0 27.9916c0 .5523.447715 1 1 1h4.58339c.8909 0 1.33707-1.0771.70711-1.7071l-4.58339-4.5834C1.07714 22.0711 0 22.5173 0 23.4082v4.5834zM9.997 10.997L1.70711 2.70711C1.07714 2.07714 0 2.52331 0 3.41421v5.16918c0 .26521.105357.51957.292893.7071L9.997 18.9946V10.997zM1.70711 12.7041C1.07714 12.0741 0 12.5203 0 13.4112v5.1692c0 .2652.105357.5196.292893.7071L9.997 28.9916V20.994l-8.28989-8.2899z' fill='#1D4AFF'/>
+    <path d='M19.994 11.4112c0-.2652-.1053-.5196-.2929-.7071l-7.997-7.99699c-.6299-.62997-1.70709-.1838-1.70709.7071v5.16918c0 .26521.10539.51957.29289.7071l9.7041 9.70411v-7.5834zM9.99701 28.9916h5.58339c.8909 0 1.3371-1.0771.7071-1.7071L9.99701 20.994v7.9976zM9.99701 10.997v7.5834c0 .2652.10539.5196.29289.7071l9.7041 9.7041v-7.5834c0-.2652-.1053-.5196-.2929-.7071L9.99701 10.997z' fill='#F54E00'/>
   </svg>
 );
 
@@ -152,7 +160,7 @@ export const PARTNERS: Partner[] = [
     cliCommand: 'projects service add chroma',
   },
   {
-    name: 'Sentry', category: 'monitoring', url: 'https://sentry.io', logo: SentryLogo, lightInvert: true,
+    name: 'Sentry', category: 'monitoring', url: 'https://sentry.io', logo: SentryLogo, lightInvert: true, hidden: true,
     description: 'Error monitoring',
     longDescription: 'Catch errors before your users do. Sentry provides full-stack error monitoring, performance tracing, and alerting — all pre-configured with zero setup.',
     cliCommand: 'projects service add sentry',
@@ -164,7 +172,7 @@ export const PARTNERS: Partner[] = [
     cliCommand: 'projects service add clerk',
   },
   {
-    name: 'PostHog', category: 'analytics', url: 'https://posthog.com', logo: PostHogLogo, darkWhite: true,
+    name: 'PostHog', category: 'analytics', url: 'https://posthog.com', logo: PostHogLogo,
     description: 'Product analytics',
     longDescription: 'Self-hostable product analytics with event capture, session replay, feature flags, and A/B testing. Everything you need to understand and improve your product.',
     cliCommand: 'projects service add posthog',
@@ -214,8 +222,9 @@ function getCategoryColor(category: Category): string {
 
 /** Fisher-Yates shuffle keeping Stripe pinned as the last element. */
 export function shufflePartners(partners: Partner[]): Partner[] {
-  const stripe = partners.find(p => p.name === 'Stripe');
-  const rest   = partners.filter(p => p.name !== 'Stripe');
+  const visible = partners.filter(p => !p.hidden);
+  const stripe = visible.find(p => p.name === 'Stripe');
+  const rest   = visible.filter(p => p.name !== 'Stripe');
   for (let i = rest.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [rest[i], rest[j]] = [rest[j], rest[i]];
@@ -846,8 +855,8 @@ export function Partners() {
           </span>
           <div style={{ display: 'flex', gap: '20px' }}>
             {[
-              { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Provider? Join us' },
-              { href: 'mailto:provider-request@stripe.com?subject=Provider%20Suggestion',  label: 'Want a provider? Suggest' },
+              { href: 'mailto:provider-request@stripe.com?subject=Provider%20Partnership', label: 'Become a provider' },
+              { href: 'mailto:provider-request@stripe.com?subject=Provider%20Suggestion',  label: 'Suggest a provider' },
             ].map(({ href, label }) => (
               <a
                 key={label}

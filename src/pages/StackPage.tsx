@@ -294,40 +294,60 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
   );
 }
 
-/* ── view docs button ───────────────────────────────────────────────── */
-function ViewDocsLink({ width }: { width?: number }) {
+/* ── cta button row ─────────────────────────────────────────────────── */
+const BTN_STYLE: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.4em',
+  flex: 1,
+  fontFamily: 'inherit',
+  fontSize: '0.75em',
+  letterSpacing: '0.04em',
+  color: 'var(--color-text-ui)',
+  border: '1px solid var(--color-border-accent)',
+  background: 'var(--color-bg)',
+  padding: '0.55em 0.85em',
+  textDecoration: 'none',
+  transition: 'border-color 0.15s, color 0.15s',
+  cursor: 'pointer',
+};
+
+function CtaButtons({ width }: { width?: number }) {
+  function hoverOn(e: React.MouseEvent<HTMLElement>) {
+    e.currentTarget.style.borderColor = 'var(--color-pink)';
+    e.currentTarget.style.color = 'var(--color-pink)';
+  }
+  function hoverOff(e: React.MouseEvent<HTMLElement>) {
+    e.currentTarget.style.borderColor = 'var(--color-border-accent)';
+    e.currentTarget.style.color = 'var(--color-text-ui)';
+  }
+
   return (
-    <a
-      href="https://stripe.com/docs/projects"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '0.4em',
-        width: width ? `${width}px` : '100%',
-        fontFamily: 'inherit',
-        fontSize: '0.75em',
-        letterSpacing: '0.04em',
-        color: 'var(--color-text-ui)',
-        border: '1px solid var(--color-border-accent)',
-        background: 'var(--color-bg)',
-        padding: '0.55em 0.85em',
-        textDecoration: 'none',
-        transition: 'border-color 0.15s, color 0.15s',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'var(--color-pink)';
-        e.currentTarget.style.color = 'var(--color-pink)';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.borderColor = 'var(--color-border-accent)';
-        e.currentTarget.style.color = 'var(--color-text-ui)';
-      }}
-    >
-      View docs <ArrowUpRight size={11} strokeWidth={1.5} />
-    </a>
+    <div style={{
+      display: 'flex',
+      gap: 20,
+      width: width ? `${width}px` : '100%',
+    }}>
+      <a
+        href="/"
+        style={BTN_STYLE}
+        onMouseEnter={hoverOn}
+        onMouseLeave={hoverOff}
+      >
+        How it works
+      </a>
+      <a
+        href="https://stripe.com/docs/projects"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={BTN_STYLE}
+        onMouseEnter={hoverOn}
+        onMouseLeave={hoverOff}
+      >
+        View docs <ArrowUpRight size={11} strokeWidth={1.5} />
+      </a>
+    </div>
   );
 }
 
@@ -469,7 +489,7 @@ export function StackPage() {
             <MobileCard title="install.sh">
               <InstallContent state={state} code={code ?? ''} />
             </MobileCard>
-            <ViewDocsLink />
+            <CtaButtons />
           </div>
         )}
       </div>
@@ -546,7 +566,7 @@ export function StackPage() {
             top: installPos.y + installH + 40,
             zIndex: 5,
           }}>
-            <ViewDocsLink width={INSTALL_W} />
+            <CtaButtons width={INSTALL_W} />
           </div>
         )}
       </div>
