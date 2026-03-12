@@ -7,39 +7,21 @@ export const FEATURES = [
     title: 'From local to live in one command',
     description:
       'Go from local development to a running production stack in minutes. One command provisions everything your app needs across providers.',
-    bullets: [
-      'Projects provisions resources and returns ready-to-use keys.',
-      'Launch or hand off to an agent to deploy your app automatically.',
-    ],
   },
   {
     title: 'Automated secure credentials',
     description:
       'Receive real credentials directly to a secret store—no copying keys across tabs. Agent-readable and auditable by default.',
-    bullets: [
-      'Real keys are provisioned directly in your provider accounts and written to your secret store — no raw keys leaked into the open.',
-      'Credentials are agent-readable and auditable, enabling reliable agent workflows.',
-      'Centralized secrets reduce orphaned resources and credential sprawl.',
-    ],
   },
   {
     title: 'No vendor lock-in',
     description:
       'Keep full ownership of every account. Services are provisioned directly in your provider accounts—with the freedom to leave anytime.',
-    bullets: [
-      'Link to existing provider accounts or create new accounts automatically; Projects provisions into your accounts, preserving ownership.',
-      'Opt into unified billing or use provider billing directly.',
-    ],
   },
   {
     title: 'Deploy with confidence',
     description:
       'Provision the same environment every time. Centralized billing and real-time usage visibility across providers means no surprises.',
-    bullets: [
-      'Side-by-side pricing and real-time usage let you monitor consumption and prevent surprises.',
-      "One-time payment setup with tokenized payment credentials (Stripe's Shared Payment Token) simplifies upgrades across providers.",
-      'Deterministic provisioning reduces deployment failures common with AI-assisted workflows.',
-    ],
   },
 ];
 
@@ -95,14 +77,6 @@ export function Features() {
                 <p className='text-base leading-relaxed' style={{ color: 'var(--color-text-muted)' }}>
                   {feature.description}
                 </p>
-                <ul className='flex flex-col gap-1 mt-1' style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {feature.bullets.map((b, bi) => (
-                    <li key={bi} className='flex gap-2 items-baseline text-sm' style={{ color: 'var(--color-text-muted)' }}>
-                      <span style={{ color: 'var(--color-pink)', flexShrink: 0 }}>›</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             </InView>
           ))}
@@ -149,14 +123,6 @@ export const FeaturesContent = forwardRef(function FeaturesContent() {
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.6, margin: 0 }}>
               {f.description}
             </p>
-            <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-              {f.bullets.map((b, bi) => (
-                <li key={bi} style={{ display: 'flex', gap: '0.4rem', alignItems: 'baseline' }}>
-                  <span style={{ color: 'var(--color-pink)', flexShrink: 0, fontSize: '0.65rem' }}>›</span>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--color-text-ui-muted)', lineHeight: 1.55 }}>{b}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         );
       })}
