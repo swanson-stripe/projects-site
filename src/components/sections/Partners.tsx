@@ -815,7 +815,8 @@ export function Partners() {
         <InView
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{
+        >
+          <div style={{
             display:        'flex',
             flexDirection:  'column',
             alignItems:     'center',
@@ -824,8 +825,7 @@ export function Partners() {
             fontFamily:     'var(--font-mono)',
             fontSize:       '0.72rem',
             letterSpacing:  '0.02em',
-          }}
-        >
+          }}>
           <span style={{ color: 'var(--color-text-ui-muted)' }}>
             More providers are on the way
           </span>
@@ -862,6 +862,7 @@ export function Partners() {
                 {label} <ArrowUpRight size={10} strokeWidth={1.5} />
               </a>
             ))}
+          </div>
           </div>
         </InView>
       </div>
