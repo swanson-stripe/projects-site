@@ -56,7 +56,7 @@ const STATIC_FRAME: Record<number, string> = { 4: W, 5: W, 3: W, 7: W };
 // Dwell time per frame: pause on frame 0 (the "dot showing" position), fast elsewhere
 const FRAME_DELAYS = [520, 140, 140, 140, 140, 140, 140, 140];
 
-function DotSpinner({ isAnimating }: { isAnimating: boolean }) {
+export function DotSpinner({ isAnimating }: { isAnimating: boolean }) {
   const [frameIdx, setFrameIdx] = useState(0);
   const frameIdxRef = useRef(0);
 

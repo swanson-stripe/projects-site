@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef, forwardRef, type CSSPropertie
 import { AnimatePresence } from 'motion/react';
 import { Shuffle, RotateCcw } from 'lucide-react';
 import { Window } from './Window';
+import { DevThemeContent } from './DevThemeContent';
 import { GridBackground } from '@/components/ui/grid-background';
 import { HelmWaveBackground } from '@/components/ui/helm-wave-background';
 import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
@@ -357,11 +358,14 @@ export function Desktop() {
         onViewModeChange={setViewMode}
       />
 
+      {/* ── Dev theme — plain terminal-style content ──────────────── */}
+      {theme === 'dev' && <DevThemeContent />}
+
       {/* ── Agent view — replaces window area when active ─────────── */}
-      {viewMode === 'agent' && <AgentView />}
+      {theme !== 'dev' && viewMode === 'agent' && <AgentView />}
 
       {/* ── Scroll view ───────────────────────────────────────────── */}
-      {viewMode === 'scroll' && <ScrollView key={scrollViewKey} />}
+      {theme !== 'dev' && viewMode === 'scroll' && <ScrollView key={scrollViewKey} />}
 
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div

@@ -1,6 +1,6 @@
 /* ── Dev theme ────────────────────────────────────────────────────────
-   White background, dark text. Only the toolbar is visible — blank
-   canvas for building new layouts.
+   White background, dark monospaced text. No toolbar — logo and theme
+   switcher live inline in the body content.
 ────────────────────────────────────────────────────────────────────── */
 [data-theme="dev"] {
   --color-bg:             #FFFFFF;
@@ -12,12 +12,17 @@
   --grid-hash-alpha:      0;
 }
 
-/* Hide the grid background canvas */
-[data-theme="dev"] canvas[aria-hidden] {
-  display: none;
+/* Hide everything that isn't the dev content panel */
+[data-theme="dev"] canvas[aria-hidden],
+[data-theme="dev"] .terminal-banner,
+[data-theme="dev"] .terminal-banner ~ *:not(.dev-theme-content) {
+  display: none !important;
 }
 
-/* Hide everything after the toolbar */
-[data-theme="dev"] .terminal-banner ~ * {
-  display: none !important;
+/* Hover effect for clickable copy buttons */
+[data-theme="dev"] .dev-copy-btn {
+  transition: color 0.15s;
+}
+[data-theme="dev"] .dev-copy-btn:hover {
+  color: rgba(10,10,10,0.4) !important;
 }
