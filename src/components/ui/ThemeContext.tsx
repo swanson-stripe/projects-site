@@ -52,6 +52,8 @@ export const THEMES: ThemeDefinition[] = [
   { id: '配色事典',      label: '配色事典',       accent: '#4F6F60' },
 
   /* ── Experimental themes ────────────────────────────────────────── */
+  { id: 'dev', label: 'dev', accent: '#533AFD' },
+
   {
     id: 'helm-wave',
     label: 'helm wave',

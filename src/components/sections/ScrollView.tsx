@@ -702,7 +702,7 @@ export function ScrollView() {
   // Bottom y-coord of the masonry layout in helm-wave (set by useLayoutEffect)
   const [hwCanvasBottom, setHwCanvasBottom] = useState(0);
   // Incrementing this key remounts CliTerminal, resetting it to page-load state
-  const [terminalKey, setTerminalKey]         = useState(0);
+  const [terminalKey]         = useState(0);
   const [showInstallModal, setShowInstallModal] = useState(false);
   const canvasRef    = useRef<HTMLDivElement>(null);
   const cliRef       = useRef<CliHandle>(null);

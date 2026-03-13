@@ -280,7 +280,7 @@ function StackContent({ state }: { state: LoadState }) {
 
   const extraRows = extras.map(p => ({
     svc:  p.name,
-    info: { name: p.name, category: p.category, description: '', url: undefined } as RegistryService,
+    info: { name: p.name, category: p.category, description: '', url: '' } as RegistryService,
   }));
 
   const allRows = [...baseRows, ...extraRows];

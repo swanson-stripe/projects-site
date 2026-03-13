@@ -279,7 +279,7 @@ export function StatusBar({
   const { isMuted, toggleMute } = useAudio();
   const isMobile = useIsMobile();
   const { themeConfig } = useTheme();
-  const isHelmWave = themeConfig.backgroundVariant === 'helm-wave';
+  void themeConfig; // theme available for future use
 
   const ViewIcon    = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
   const nextMode    = viewMode === 'scroll' ? 'agent' : 'scroll';

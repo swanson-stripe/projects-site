@@ -271,6 +271,7 @@ body {
    Existing themes above remain untouched.
 ────────────────────────────────────────────────────────────────────── */
 @import "./themes/helm-wave.css";
+@import "./themes/dev.css";
 
 @keyframes cli-dot-blink {
   0%, 100% { opacity: 1; }

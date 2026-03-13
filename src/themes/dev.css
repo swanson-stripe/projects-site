@@ -1,0 +1,23 @@
+/* ── Dev theme ────────────────────────────────────────────────────────
+   White background, dark text. Only the toolbar is visible — blank
+   canvas for building new layouts.
+────────────────────────────────────────────────────────────────────── */
+[data-theme="dev"] {
+  --color-bg:             #FFFFFF;
+  --color-surface-dark:   #FFFFFF;
+  --color-text-ui:        #0A0A0A;
+  --color-text-ui-muted:  rgba(10,10,10,0.5);
+  --color-text-ui-subtle: rgba(10,10,10,0.3);
+  --color-border:         rgba(0,0,0,0.12);
+  --grid-hash-alpha:      0;
+}
+
+/* Hide the grid background canvas */
+[data-theme="dev"] canvas[aria-hidden] {
+  display: none;
+}
+
+/* Hide everything after the toolbar */
+[data-theme="dev"] .terminal-banner ~ * {
+  display: none !important;
+}

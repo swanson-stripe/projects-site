@@ -40,7 +40,7 @@ interface WinState {
   x:        number;
   y:        number;
   w:        number;
-  h:        number;
+  h:        number | 'auto';
   zIndex:   number;
 }
 
@@ -128,7 +128,7 @@ function mobileInitialWindows(): WinState[] {
 
 /** Total canvas height needed for a tiled mobile layout */
 function mobileTotalH(wins: WinState[]): number {
-  const maxBottom = wins.reduce((m, w) => Math.max(m, w.y + w.h), 0);
+  const maxBottom = wins.reduce((m, w) => Math.max(m, w.y + (typeof w.h === 'number' ? w.h : 0)), 0);
   return maxBottom + 32; // small bottom breathing room only — treasure is hidden inside the terminal window
 }
 
@@ -255,7 +255,7 @@ export function Desktop() {
     if (
       cli &&
       clientX >= cli.x && clientX <= cli.x + cli.w &&
-      clientY >= areaTop + cli.y && clientY <= areaTop + cli.y + cli.h
+      clientY >= areaTop + cli.y && clientY <= areaTop + cli.y + (typeof cli.h === 'number' ? cli.h : 0)
     ) {
       cliRef.current?.submit(`stripe projects services add ${partner.name.toLowerCase()}`);
       bringToFront('terminal');
