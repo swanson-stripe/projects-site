@@ -15,6 +15,7 @@ import { TextEffect } from '@/components/ui/text-effect';
 
 import { PARTNERS } from '@/components/sections/Partners';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useTheme } from '@/components/ui/ThemeContext';
 
 /* ─── imperative handle ──────────────────────────────────────────── */
 export interface CliHandle {
@@ -28,7 +29,7 @@ const DIM    = 'var(--color-text-ui-subtle)';
 const BORDER = '1px solid var(--color-border-accent)';
 
 /* ─── types ──────────────────────────────────────────────────────── */
-type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'urlsub' | 'blank' | 'kv' | 'section' | 'hint' | 'err' | 'raw' | 'col2' | 'welcome' | 'spinner' | 'choice' | 'tpl' | 'add' | 'mod';
+type LT = 'cmd' | 'step' | 'sub' | 'done' | 'url' | 'urlsub' | 'blank' | 'kv' | 'section' | 'hint' | 'query' | 'err' | 'raw' | 'col2' | 'welcome' | 'spinner' | 'choice' | 'tpl' | 'add' | 'mod';
 
 interface Line {
   id: number;
@@ -38,6 +39,8 @@ interface Line {
   initial?: boolean;
   instant?: boolean; // skip entry animation (used when replacing a spinner)
   dim?: boolean;   // for raw lines that should use DIM color
+  blink?: boolean;          // show blinking dot (query lines awaiting user action)
+  prefixOverride?: string;  // replace the type's default prefix with a custom symbol
 }
 
 /* ─── uid counter ────────────────────────────────────────────────── */
@@ -118,9 +121,9 @@ const SLASH_COMMANDS: SlashCommand[] = [
 ];
 
 /* ─── install-demo constants ─────────────────────────────────────── */
-const INTRO_LINES: { text: string; delay: number }[] = [
-  { text: 'Stripe Projects eliminates manual infrastructure setup and dashboard-hopping. One command provisions real services across providers, in accounts you own.', delay: 400 },
-  { text: 'Try building your own stack here, and take it with you to your CLI.', delay: 1000 },
+const INTRO_LINES: { t: LT; text: string; delay: number }[] = [
+  { t: 'cmd',  text: 'stripe projects init my-app',                       delay: 400  },
+  { t: 'done', text: 'Initialized stack in ./my-app. Ready to build.',    delay: 900  },
 ];
 
 /* ─── template data ──────────────────────────────────────────────── */
@@ -165,7 +168,7 @@ const TEMPLATES: Template[] = [
     ],
   },
   {
-    id: 'storefront', price: 75,
+    id: 'agentic-commerce', price: 75,
     desc: 'Digital storefront with payments, storage, and tracking',
     tags: ['hosting', 'payments', 'storage', 'auth'],
     services: [
@@ -575,16 +578,17 @@ function respond(input: string): Line[] {
 
 /* ─── line style lookup ──────────────────────────────────────────── */
 const LINE_PROPS: Record<LT, { prefix: string; prefixColor: string; textColor: string; indent: boolean }> = {
-  cmd:     { prefix: '›',  prefixColor: PINK,       textColor: 'var(--color-text-ui)',  indent: false },
+  cmd:     { prefix: '•',  prefixColor: PINK,       textColor: 'var(--color-text-ui)',  indent: false },
   step:    { prefix: '•',  prefixColor: MUTED,      textColor: 'var(--color-text-ui)',  indent: false },
   sub:     { prefix: '↳',  prefixColor: DIM,        textColor: MUTED,                   indent: true  },
-  done:    { prefix: '✓',  prefixColor: PINK,  textColor: 'var(--color-text-ui)',  indent: false },
+  done:    { prefix: '✓',  prefixColor: '#15BE53',  textColor: 'var(--color-text-ui)',  indent: false },
   url:     { prefix: '→',  prefixColor: PINK,       textColor: PINK,                    indent: false },
   urlsub:  { prefix: '↳',  prefixColor: DIM,        textColor: PINK,                    indent: true  },
   blank:   { prefix: '',   prefixColor: '',         textColor: '',                      indent: false },
   kv:      { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
   section: { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
   hint:    { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
+  query:   { prefix: '•',  prefixColor: 'var(--color-text-ui-muted)', textColor: 'var(--color-text-ui)', indent: false },
   err:     { prefix: '✗',  prefixColor: '#f87171',  textColor: '#f87171',               indent: false },
   raw:     { prefix: '',   prefixColor: '',         textColor: DIM,                     indent: false },
   col2:    { prefix: '',   prefixColor: '',         textColor: MUTED,                   indent: false },
@@ -653,7 +657,6 @@ function WelcomeBox() {
         {/* row 3: commands  |  shortcuts */}
         <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr' }}>
           <div style={{ ...cell, ...vdiv, color: MUTED, whiteSpace: 'nowrap' }}>/ for commands</div>
-          <div style={{ ...cell, color: MUTED }}>? for more info</div>
         </div>
       </div>
 
@@ -679,6 +682,8 @@ function WelcomeBox() {
 
 /* ─── individual line renderer ────────────────────────────────────── */
 const LineRow = memo(function LineRow({ line }: { line: Line }) {
+  const { themeConfig } = useTheme();
+  const isHelmWave = themeConfig.backgroundVariant === 'helm-wave';
   if (line.t === 'blank') {
     return <div style={{ height: '0.9em' }} />;
   }
@@ -705,7 +710,7 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         initial={ANIM_INIT_NEW}
         animate={ANIM_TARGET}
         transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-        style={{ display: 'flex', alignItems: 'baseline', gap: '0.6em', marginBottom: '0.15em', lineHeight: 1.75 }}
+        style={{ display: 'flex', alignItems: 'baseline', gap: '0.6em', marginBottom: '0.15em', lineHeight: 1.75, paddingLeft: 'calc(1ch + 0.65em)' }}
       >
         <span style={{ color: DIM, userSelect: 'none', minWidth: '3.2em', fontFamily: 'inherit', whiteSpace: 'pre' }}>{line.lkey}</span>
         <span style={{ color: 'var(--color-text-ui)' }}>{line.text}</span>
@@ -751,7 +756,9 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
     );
   }
 
-  const { prefix, prefixColor, textColor, indent } = LINE_PROPS[line.t];
+  const { prefix: defaultPrefix, prefixColor, indent } = LINE_PROPS[line.t];
+  const prefix = line.prefixOverride ?? defaultPrefix;
+  const textColor = (isHelmWave && line.t === 'cmd') ? '#6F769C' : LINE_PROPS[line.t].textColor;
 
   return (
     <motion.div
@@ -763,18 +770,24 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         alignItems: 'baseline',
         gap: '0.65em',
         marginBottom: '0.15em',
-        paddingLeft: line.t === 'cmd' ? 'clamp(0.75rem, 2.5vw, 2rem)' : indent ? '2.4em' : 0,
-        paddingRight: line.t === 'cmd' ? 'clamp(0.75rem, 2.5vw, 2rem)' : 0,
-        paddingTop:   line.t === 'cmd' ? '0.25em' : 0,
-        paddingBottom:line.t === 'cmd' ? '0.25em' : 0,
-        marginLeft:   line.t === 'cmd' ? 'calc(-1 * clamp(0.75rem, 2.5vw, 2rem))' : 0,
-        marginRight:  line.t === 'cmd' ? 'calc(-1 * clamp(0.75rem, 2.5vw, 2rem))' : 0,
-        background:   line.t === 'cmd' ? 'rgba(0,0,0,0.12)' : 'transparent',
+        paddingLeft:  (!isHelmWave && line.t === 'cmd') ? 'clamp(0.75rem, 2.5vw, 2rem)' : indent ? '2.4em' : 0,
+        paddingRight: (!isHelmWave && line.t === 'cmd') ? 'clamp(0.75rem, 2.5vw, 2rem)' : 0,
+        paddingTop:   (!isHelmWave && line.t === 'cmd') ? '0.25em' : 0,
+        paddingBottom:(!isHelmWave && line.t === 'cmd') ? '0.25em' : 0,
+        marginLeft:   (!isHelmWave && line.t === 'cmd') ? 'calc(-1 * clamp(0.75rem, 2.5vw, 2rem))' : 0,
+        marginRight:  (!isHelmWave && line.t === 'cmd') ? 'calc(-1 * clamp(0.75rem, 2.5vw, 2rem))' : 0,
+        background:   (!isHelmWave && line.t === 'cmd') ? 'rgba(0,0,0,0.12)' : 'transparent',
         lineHeight: 1.75,
       }}
     >
       {prefix && (
-        <span style={{ color: prefixColor, flexShrink: 0, userSelect: 'none', minWidth: '1ch' }}>
+        <span style={{
+          color:      prefixColor,
+          flexShrink: 0,
+          userSelect: 'none',
+          minWidth:   '1ch',
+          animation:  (line.blink && !line.prefixOverride) ? 'cli-dot-blink 1.2s ease-in-out infinite' : undefined,
+        }}>
           {prefix}
         </span>
       )}
@@ -802,6 +815,8 @@ const LineRow = memo(function LineRow({ line }: { line: Line }) {
         </span>
       ) : line.t === 'hint' ? (
         <span style={{ color: DIM }}>{line.text}</span>
+      ) : line.t === 'query' ? (
+        <span style={{ color: 'var(--color-text-ui)' }}>{line.text}</span>
       ) : line.initial ? (
         <TextEffect as='span' per='word' preset='fade' speedReveal={2.5} style={{ color: textColor }}>
           {line.text}
@@ -883,22 +898,27 @@ export interface CliTerminalProps {
 /* ─── main component ─────────────────────────────────────────────── */
 export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliTerminal({ installDemo = false, autoSubmit = false, dragService = null, onFirstSubmit }, ref) {
   const isMobile                = useIsMobile();
+  const { themeConfig }         = useTheme();
+  const isHelmWave              = themeConfig.backgroundVariant === 'helm-wave';
   const [lines, setLines]       = useState<Line[]>([]);
   const [value, setValue]       = useState('');
   const [menuIdx, setMenuIdx]   = useState(0);
   const [selStart, setSelStart] = useState(0);
-  const [focused, setFocused]       = useState(!isMobile);
+  const [focused, setFocused]       = useState(!isMobile && !isHelmWave);
   const [showEnterHint, setShowEnterHint]     = useState(false);
   const [awaitingName, setAwaitingName]       = useState(installDemo);
   const [normalMode, setNormalMode]           = useState(!installDemo);
   const [hasAddedService, setHasAddedService] = useState(!installDemo);
-  const [footerAppName, setFooterAppName]     = useState('stack');
-  const [, setPlaceholderService] = useState('vercel');
+  const [placeholderService, setPlaceholderService] = useState('vercel');
   const [pendingChoiceHint, setPendingChoiceHint]   = useState<string | null>(null);
   const [commandPlaceholder, setCommandPlaceholder] = useState<string | null>(null);
   const commandPlaceholderRef = useRef<string | null>(null);
   const stackUrlRef = useRef<string | null>(null);
+  // Generated once on mount so the URL is stable for the lifetime of the component
+  const introStackUrl = useRef(`https://projects.dev/STACK-${Math.random().toString(36).slice(2, 6)}`);
   const demoStepRef             = useRef(0); // 0 = pre-install, 1 = pre-init, 2+ = normal
+  const blinkingHintIdRef       = useRef<number | null>(null); // ID of the services hint awaiting first submit
+  const blinkingStepIdRef       = useRef<number | null>(null); // ID of the "sounds cool" query awaiting init submit
   const pendingChoiceRef        = useRef<((key: string) => void) | null>(null);
   const appNameRef              = useRef('my-app'); // set from the init command
   const sessionServicesRef      = useRef<string[]>([]); // services added in this session
@@ -961,18 +981,43 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   useEffect(() => {
     if (!autoSubmit || !installDemo) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
-    INTRO_LINES.forEach(({ text, delay }) => {
+    INTRO_LINES.forEach(({ t, text, delay }) => {
       timers.push(setTimeout(() => {
-        setLines(prev => [...prev, { id: uid(), t: 'done', text, initial: true }]);
+        setLines(prev => [...prev, { id: uid(), t, text, initial: true }]);
       }, delay));
+    });
+    // Append the stack-ready URL block right after the last intro line
+    const lastDelay = Math.max(...INTRO_LINES.map(l => l.delay));
+    const stackUrl  = introStackUrl.current;
+    const urlLines: { t: LT; text: string; offset: number }[] = [
+      { t: 'urlsub', text: stackUrl,                                         offset: 250  },
+      { t: 'sub',    text: 'or run this command in your stripe cli:',        offset: 400  },
+      { t: 'sub',    text: `stripe projects init --from ${stackUrl}`,        offset: 550  },
+    ];
+    urlLines.forEach(({ t, text, offset }) => {
+      timers.push(setTimeout(() => {
+        setLines(prev => [...prev, { id: uid(), t, text, initial: true }]);
+      }, lastDelay + offset));
     });
     return () => timers.forEach(clearTimeout);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // intentionally runs once on mount
 
-  /* focus input on mount so typing works immediately on desktop */
+  /* focus input on mount so typing works immediately on desktop (skipped for helm-wave) */
   useEffect(() => {
-    if (!isMobile) inputRef.current?.focus();
+    if (!isMobile && !isHelmWave) inputRef.current?.focus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* rotate placeholder service every 5s when input is idle */
+  useEffect(() => {
+    const names = SERVICE_OPTIONS.map(s => s.name);
+    let idx = names.indexOf('vercel');
+    const timer = setInterval(() => {
+      idx = (idx + 1) % names.length;
+      setPlaceholderService(names[idx]);
+    }, 5000);
+    return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -986,6 +1031,13 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
   const submit = useCallback((override?: string) => {
     const val = (override ?? value).trim();
     if (!val) return;
+
+    // Stop blinking on the services hint when the user submits their first command
+    if (blinkingHintIdRef.current !== null) {
+      const hid = blinkingHintIdRef.current;
+      blinkingHintIdRef.current = null;
+      setLines(prev => prev.map(l => l.id === hid ? { ...l, blink: false } : l));
+    }
 
     // Clear any post-flow command placeholder and stack URL on submit
     if (commandPlaceholderRef.current !== null) {
@@ -1009,14 +1061,16 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     if (awaitingName && val !== '?') {
       const appName = val;
       appNameRef.current = appName;
-      setFooterAppName(appName);
       historyRef.current.unshift(val);
       const initCmd = `stripe projects init ${appName}`;
+      const stepId = uid();
+      blinkingStepIdRef.current = stepId;
       setLines(prev => [...prev,
-        { id: uid(), t: 'cmd',   text: val },
-        { id: uid(), t: 'blank', text: '' },
-        { id: uid(), t: 'step',  text: `${appName} sounds cool. let's build with stripe projects.` },
-        { id: uid(), t: 'blank', text: '' },
+        { id: uid(),   t: 'blank', text: '' },
+        { id: uid(),   t: 'cmd',   text: val },
+        { id: uid(),   t: 'blank', text: '' },
+        { id: stepId,  t: 'query', text: `${appName} sounds cool. let's build with stripe projects.`, blink: true },
+        { id: uid(),   t: 'blank', text: '' },
       ]);
       setValue(initCmd);
       setSelStart(initCmd.length);
@@ -1030,7 +1084,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     const initMatch = val.match(/(?:npx\s+@stripe\/projects\s+|stripe\s+)?projects\s+init(?:\s+(\S+))?/i);
     if (installDemo && demoStepRef.current === 0 && initMatch) {
       demoStepRef.current = 1;
-      if (initMatch[1]) { appNameRef.current = initMatch[1]; setFooterAppName(initMatch[1]); }
+      if (initMatch[1]) { appNameRef.current = initMatch[1]; }
       historyRef.current.unshift(val);
       const cmdLine: Line = { id: uid(), t: 'cmd', text: val };
       const stepId        = uid();
@@ -1133,10 +1187,14 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         setTimeout(() => setLines(prev => [...prev, { id: uid(), t: 'sub', text }]), 400 + i * SUB_STEP);
       });
       setTimeout(() => {
+        const stackId  = Math.random().toString(36).slice(2, 6);
+        const stackUrl = `https://projects.dev/STACK-${stackId}`;
         setLines(prev => [...prev,
-          { id: uid(), t: 'done',  text: `${displayName} added to your stack` },
-          { id: uid(), t: 'sub',   lkey: 'stripe projects export', text: ' to get your stack' },
-          { id: uid(), t: 'blank', text: '' },
+          { id: uid(), t: 'done',   text: 'your stack is ready' },
+          { id: uid(), t: 'urlsub', text: stackUrl },
+          { id: uid(), t: 'sub',    text: 'or run this command in your stripe cli:' },
+          { id: uid(), t: 'sub',    text: `stripe projects init --from ${stackUrl}` },
+          { id: uid(), t: 'blank',  text: '' },
         ]);
         setPlaceholderService(pickSuggestedService(sessionServicesRef.current));
       }, 400 + 3 * SUB_STEP + 200);
@@ -1272,12 +1330,6 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
         setCommandPlaceholder(null);
         return;
       }
-      // In normal mode with empty input, run the export command
-      if (value === '' && normalMode) {
-        e.preventDefault();
-        submit(`stripe projects export ${footerAppName}`);
-        return;
-      }
       submit();
     } else if (e.key === 'Tab' && typeaheadSuggestion) {
       e.preventDefault();
@@ -1318,25 +1370,32 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
      pendingChoiceRef handlers clear themselves when a valid key is received. */
 
   function runInstallFlow(stepId: number, spinnerId: number) {
-    // Update the step line in-place (no remove+re-add) so it doesn't jump,
-    // then drop only the spinner.
-    setLines(prev => prev
-      .filter(l => l.id !== spinnerId)
-      .map(l => l.id === stepId ? { ...l, t: 'done' as LT, text: 'stripe projects installed' } : l)
-      .concat([{ id: uid(), t: 'blank', text: '' }])
-    );
+    // Stop "sounds cool" blink and drop the spinner/step, then show the path choice.
+    if (blinkingStepIdRef.current !== null) {
+      const sid = blinkingStepIdRef.current;
+      blinkingStepIdRef.current = null;
+      setLines(prev => prev
+        .filter(l => l.id !== spinnerId && l.id !== stepId)
+        .map(l => l.id === sid ? { ...l, blink: false } : l)
+      );
+    } else {
+      setLines(prev => prev.filter(l => l.id !== spinnerId && l.id !== stepId));
+    }
     setTimeout(showChoosePath, 400);
   }
 
   function showChoosePath() {
+    const queryId = uid();
     setLines(prev => [...prev,
-      { id: uid(), t: 'hint',   text: 'how do you want to build?' },
-      { id: uid(), t: 'choice', lkey: '└ 1  ', text: 'use a starter template' },
-      { id: uid(), t: 'choice', lkey: '  2  ', text: 'start with a blank project' },
+      { id: queryId, t: 'query',  text: 'how do you want to build?', blink: true },
+      { id: uid(),   t: 'choice', lkey: '└ 1  ', text: 'use a starter template' },
+      { id: uid(),   t: 'choice', lkey: '  2  ', text: 'choose my providers manually' },
     ]);
     setPendingChoiceHint('choose 1 or 2');
     inputRef.current?.focus();
     pendingChoiceRef.current = (key: string) => {
+      // Stop the blinking query dot when a choice is made
+      setLines(prev => prev.map(l => l.id === queryId ? { ...l, blink: false } : l));
       if (key === '1') {
         pendingChoiceRef.current = null;
         setPendingChoiceHint(''); // blank while showTemplates loads
@@ -1345,11 +1404,13 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       } else if (key === '2') {
         pendingChoiceRef.current = null;
         setPendingChoiceHint(null); // back to normal mode
+        const hintId = uid();
+        blinkingHintIdRef.current = hintId;
         setLines(prev => [...prev,
-          { id: uid(), t: 'cmd',   text: '2' },
-          { id: uid(), t: 'blank', text: '' },
-          { id: uid(), t: 'hint',  text: 'run stripe projects services add [name] to provision services individually' },
-          { id: uid(), t: 'blank', text: '' },
+          { id: uid(),   t: 'cmd',   text: '2' },
+          { id: uid(),   t: 'blank', text: '' },
+          { id: hintId,  t: 'query', text: 'run stripe projects services add [name] to provision services individually', blink: true, prefixOverride: '→' },
+          { id: uid(),   t: 'blank', text: '' },
         ]);
         demoStepRef.current = 2; // normal terminal mode
         setNormalMode(true);
@@ -1386,17 +1447,15 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
 
   function provisionNext(services: TplService[], idx: number) {
     if (idx >= services.length) {
-      // All done — show final summary and update placeholder to export command
-      const name        = appNameRef.current;
-      const serviceList = services.map(s => s.name.toLowerCase()).join(', ');
+      // All done — show stack-ready response with shareable URL
+      const stackId  = Math.random().toString(36).slice(2, 6);
+      const stackUrl = `https://projects.dev/STACK-${stackId}`;
       setLines(prev => [...prev,
-        { id: uid(), t: 'done',  text: `${name} is fully provisioned` },
-        { id: uid(), t: 'sub',   text: `running ${serviceList}` },
-        { id: uid(), t: 'sub',   text: 'stripe projects status to view tech stack' },
+        { id: uid(), t: 'done',   text: 'your stack is ready' },
+        { id: uid(), t: 'urlsub', text: stackUrl },
+        { id: uid(), t: 'sub',    text: 'or run this command in your stripe cli:' },
+        { id: uid(), t: 'sub',    text: `stripe projects init --from ${stackUrl}` },
       ]);
-      const exportCmd = `stripe projects export ${name}`;
-      commandPlaceholderRef.current = exportCmd;
-      setCommandPlaceholder(exportCmd);
       setPlaceholderService(pickSuggestedService(services.map(s => s.name)));
       setPendingChoiceHint(null);
       setNormalMode(true);
@@ -1463,14 +1522,16 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
     : commandPlaceholder !== null
       ? commandPlaceholder
       : awaitingName
-      ? 'give your project a name'
+      ? (isHelmWave && !focused
+          ? `stripe projects services add ${placeholderService}`
+          : 'give your project a name')
       : dragService
         ? `stripe projects services add ${dragService.toLowerCase()}`
-        : `stripe projects services list`;
+        : `stripe projects services add ${placeholderService}`;
 
   return (
     <div
-      className='font-mono'
+      className='font-mono cli-terminal'
       style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
       onClick={() => { if (!window.getSelection()?.toString()) inputRef.current?.focus(); }}
     >
@@ -1483,11 +1544,11 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
           display:       'flex',
           flexDirection: 'column',
           scrollbarWidth:'none',
-          fontSize:      '14px',
+          fontSize:      isHelmWave ? '10px' : '14px',
         }}
       >
         <div style={{ flex: 1 }} />
-        <div style={{ padding: 'clamp(1rem, 3vw, 1.5rem) clamp(0.75rem, 2.5vw, 2rem)' }}>
+        <div style={{ padding: isHelmWave ? '1rem 0.75rem 1rem 1.25rem' : 'clamp(1rem, 3vw, 1.5rem) clamp(0.75rem, 2.5vw, 2rem)' }}>
           {lines.map(line => (
             <LineRow key={line.id} line={line} />
           ))}
@@ -1495,19 +1556,19 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
       </div>
 
       {/* ── input + footer section ─────────────────────────────────── */}
-      <div style={{ flexShrink: 0, background: 'rgba(0,0,0,0.12)' }}>
+      <div style={{ flexShrink: 0, background: isHelmWave ? '#FFFFFF' : 'rgba(0,0,0,0.12)', borderTop: isHelmWave ? '1px solid var(--color-border-subtle)' : undefined }}>
         {/* input row (relative so menu can anchor to it) */}
         <div style={{ position: 'relative' }}>
           {menuOpen && <SlashMenu items={menuItems} selectedIdx={menuIdx} />}
           <div
             onClick={() => { if (!window.getSelection()?.toString()) inputRef.current?.focus(); }}
             style={{
-              borderTop: BORDER,
-              padding:   'clamp(0.6rem, 1.2vw, 0.9rem) clamp(0.75rem, 2.5vw, 2rem)',
+              borderTop: isHelmWave ? undefined : BORDER,
+              padding:   isHelmWave ? '0.75rem 0.75rem 0.75rem 1.25rem' : 'clamp(0.6rem, 1.2vw, 0.9rem) clamp(0.75rem, 2.5vw, 2rem)',
               display:   'flex',
               alignItems:'center',
               gap:       '0.75rem',
-              fontSize:  '14px',
+              fontSize:  isHelmWave ? '10px' : '14px',
               cursor:    'text',
             }}
           >
@@ -1539,7 +1600,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                             display:    'inline-block',
                             minWidth:   '0.6em',
                             background: PINK,
-                            color:      'var(--color-surface-dark)',
+                            color:      '#fff',
                             flexShrink: 0,
                             textAlign:  'center',
                           }}>{placeholder[0]}</span>
@@ -1567,7 +1628,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                         display:    'inline-block',
                         minWidth:   '0.6em',
                         background: PINK,
-                        color:      'var(--color-surface-dark)',
+                        color:      '#fff',
                         flexShrink: 0,
                         textAlign:  'center',
                       }}>
@@ -1602,7 +1663,7 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                 onSelect={syncSel}
                 onFocus={() => { setFocused(true); syncSel(); }}
                 onBlur={() => setFocused(false)}
-                autoFocus={!isMobile}
+                autoFocus={!isMobile && !isHelmWave}
                 autoComplete='off'
                 autoCorrect='off'
                 spellCheck={false}
@@ -1626,28 +1687,32 @@ export const CliTerminal = forwardRef<CliHandle, CliTerminalProps>(function CliT
                 }}
               />
             </div>
+
+            {/* inline submit hint — helm-wave only, far right of input row */}
+            {isHelmWave && (showEnterHint || value.length > 0) && (
+              <span style={{ flexShrink: 0, color: DIM, userSelect: 'none', pointerEvents: 'none' }}>
+                ↵ to submit
+              </span>
+            )}
           </div>
         </div>
 
         {/* pinned footer */}
         <div
           style={{
-            borderTop:      '1px solid var(--color-border-subtle)',
-            padding:        '0.35rem clamp(0.75rem, 2.5vw, 2rem)',
+            borderTop:      isHelmWave ? undefined : '1px solid var(--color-border-subtle)',
+            padding:        isHelmWave ? '0 0.75rem 0.35rem 1.25rem' : '0.35rem clamp(0.75rem, 2.5vw, 2rem)',
             display:        'flex',
             justifyContent: 'space-between',
             alignItems:     'center',
-            fontSize:       '11px',
+            fontSize:       isHelmWave ? '10px' : '11px',
             color:          DIM,
             userSelect:     'none',
           }}
         >
-          {(showEnterHint || value.length > 0)
+          {!isHelmWave && (showEnterHint || value.length > 0)
             ? <span>enter to submit</span>
-            : (normalMode && hasAddedService)
-              ? <span>stripe projects export {footerAppName}</span>
-              : null}
-          <span style={{ marginLeft: 'auto' }}>? for more info</span>
+            : null}
         </div>
       </div>
     </div>

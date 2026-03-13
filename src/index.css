@@ -265,3 +265,14 @@ body {
   background: #4F6F60;
   color: #E8DDC8;
 }
+
+/* ── Experimental themes (src/themes/*.css) ────────────────────────
+   Each new theme lives in its own file. Add one @import per theme.
+   Existing themes above remain untouched.
+────────────────────────────────────────────────────────────────────── */
+@import "./themes/helm-wave.css";
+
+@keyframes cli-dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.1; }
+}

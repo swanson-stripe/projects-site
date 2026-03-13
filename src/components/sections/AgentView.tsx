@@ -38,6 +38,7 @@ const PARTNERS = [
   { name: 'Sentry',      category: 'monitoring',  desc: 'Full-stack error monitoring, performance tracing, and alerting. Pre-configured with zero setup.',                         url: 'https://sentry.io'        },
   { name: 'Chroma',      category: 'ai',          desc: 'Open-source embedding database for AI applications. Store, search, and manage vector embeddings at any scale.',           url: 'https://trychroma.com'    },
   { name: 'PlanetScale', category: 'database',    desc: 'MySQL-compatible serverless database with non-blocking schema changes and branching workflows.',                          url: 'https://planetscale.com'  },
+  { name: 'Database',   category: 'database',    desc: 'Placeholder — upcoming database integration.',                                                                             url: '#'                        },
   { name: 'Cloudflare',  category: 'hosting',     desc: 'Global edge network with Workers, Pages, R2 storage, D1 database, and built-in DDoS protection.',                        url: 'https://cloudflare.com'   },
   { name: 'Inngest',     category: 'hosting',     desc: 'Reliable background jobs, scheduled tasks, and multi-step workflows as plain TypeScript functions with zero infrastructure.', url: 'https://inngest.com'   },
   { name: 'SendGrid',    category: 'email',       desc: 'Send transactional emails — verification, receipts, password resets — through a battle-tested API trusted by 80,000+ businesses.', url: 'https://sendgrid.com' },
@@ -60,12 +61,14 @@ const CLI_COMMANDS = [
 /* ── tiny style helpers ──────────────────────────────────────────────────── */
 const s = {
   page: {
+    flex: 1,
     width: '100%',
-    height: '100%',
     overflowY: 'auto' as const,
     background: 'var(--color-bg)',
     fontFamily: 'var(--font-mono)',
     color: 'var(--color-text-ui)',
+    position: 'relative' as const,
+    zIndex: 1,
   },
   inner: {
     maxWidth: 760,
@@ -248,10 +251,18 @@ export function AgentView() {
           Run one command. Ship faster.
         </p>
 
-        {/* Install command */}
+        {/* Install commands */}
         <div style={s.codeBlock}>
-          <span style={{ color: 'var(--color-text-ui-subtle)' }}>$ </span>
-          stripe projects create my-app
+          {[
+            'brew install stripe/stripe-cli/stripe',
+            'stripe plugin install projects',
+            'stripe projects init my-app',
+          ].map(line => (
+            <div key={line}>
+              <span style={{ color: 'var(--color-text-ui-subtle)' }}>$ </span>
+              {line}
+            </div>
+          ))}
         </div>
 
         <hr style={s.hr} />

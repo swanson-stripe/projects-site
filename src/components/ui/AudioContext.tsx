@@ -11,8 +11,8 @@ const TRACK_MAP: Record<string, string> = {
   '配色事典':      '/dictionary.mp3',
 };
 
-function trackForTheme(themeId: string): string {
-  return TRACK_MAP[themeId] ?? '/dark.mp3';
+function trackForTheme(themeId: string, audioTrackOverride?: string): string {
+  return audioTrackOverride ?? TRACK_MAP[themeId] ?? '/dark.mp3';
 }
 
 /* ── Context shape ────────────────────────────────────────────────── */
@@ -31,13 +31,13 @@ export function useAudio(): AudioState {
 
 /* ── Provider ─────────────────────────────────────────────────────── */
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
+  const { theme, themeConfig } = useTheme();
   const audioRef  = useRef<HTMLAudioElement | null>(null);
   const [isMuted, setIsMuted] = useState(true);
 
   /* create the audio element once on mount */
   useEffect(() => {
-    const audio    = new Audio(trackForTheme(theme));
+    const audio    = new Audio(trackForTheme(theme, themeConfig.audioTrack));
     audio.loop     = true;
     audio.muted    = true;
     audioRef.current = audio;
@@ -55,12 +55,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    const newSrc = trackForTheme(theme);
+    const newSrc = trackForTheme(theme, themeConfig.audioTrack);
     if (audio.src.endsWith(newSrc)) return; // already on this track
     audio.src = newSrc;
     audio.load();
     audio.play().catch(() => {});
-  }, [theme]);
+  }, [theme, themeConfig.audioTrack]);
 
   /* keep audio.muted in sync with state */
   useEffect(() => {

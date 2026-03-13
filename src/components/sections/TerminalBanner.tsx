@@ -53,15 +53,24 @@ const DOT_ORDER = [1, 4, 2, 5, 3, 6, 7, 8] as const;
 // The resting (non-hover) state — all dots use text-ui token
 const STATIC_FRAME: Record<number, string> = { 4: W, 5: W, 3: W, 7: W };
 
+// Dwell time per frame: pause on frame 0 (the "dot showing" position), fast elsewhere
+const FRAME_DELAYS = [520, 140, 140, 140, 140, 140, 140, 140];
+
 function DotSpinner({ isAnimating }: { isAnimating: boolean }) {
   const [frameIdx, setFrameIdx] = useState(0);
+  const frameIdxRef = useRef(0);
 
   useEffect(() => {
     if (!isAnimating) return;
-    const id = setInterval(() => {
-      setFrameIdx(i => (i + 1) % FRAMES.length);
-    }, 140);
-    return () => clearInterval(id);
+    let timeout: ReturnType<typeof setTimeout>;
+    function tick() {
+      const next = (frameIdxRef.current + 1) % FRAMES.length;
+      frameIdxRef.current = next;
+      setFrameIdx(next);
+      timeout = setTimeout(tick, FRAME_DELAYS[next]);
+    }
+    timeout = setTimeout(tick, FRAME_DELAYS[frameIdxRef.current]);
+    return () => clearTimeout(timeout);
   }, [isAnimating]);
 
   const frame = isAnimating ? FRAMES[frameIdx] : STATIC_FRAME;
@@ -269,13 +278,15 @@ export function StatusBar({
   const settingsRef               = useRef<HTMLButtonElement>(null);
   const { isMuted, toggleMute } = useAudio();
   const isMobile = useIsMobile();
+  const { themeConfig } = useTheme();
+  const isHelmWave = themeConfig.backgroundVariant === 'helm-wave';
 
   const ViewIcon    = VIEW_OPTIONS.find(o => o.id === viewMode)?.icon ?? Monitor;
   const nextMode    = viewMode === 'scroll' ? 'agent' : 'scroll';
 
   return (
     <div
-      className='font-mono'
+      className='font-mono terminal-banner'
       style={{
         position:    'relative',
         zIndex:      9999,

@@ -95,7 +95,7 @@ export function InstallWindow() {
 
       {/* Command text — 24px padding all around */}
       <div style={{ flex: 1, padding: '24px', display: 'flex', alignItems: 'center' }}>
-        <div className='font-mono text-sm leading-relaxed' style={{ color: 'var(--color-text-ui)' }}>
+        <div className='install-command font-mono text-sm leading-relaxed' style={{ color: 'var(--color-text-ui)' }}>
           {COMMANDS[tab].split('\n').map((line, i) => <div key={i}>{line}</div>)}
         </div>
       </div>
@@ -272,7 +272,7 @@ export function Hero() {
 
             <div className='flex items-center gap-3 px-5 py-4'>
               {/* Command lines */}
-              <div className='flex-1 text-left font-mono text-sm leading-relaxed' style={{ color: 'var(--color-text-ui)' }}>
+              <div className='install-command flex-1 text-left font-mono text-sm leading-relaxed' style={{ color: 'var(--color-text-ui)' }}>
                 {COMMANDS[tab].split('\n').map((line, i) => (
                   <div key={i}>{line}</div>
                 ))}

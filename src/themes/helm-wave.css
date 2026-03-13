@@ -1,0 +1,132 @@
+/* ── Helm Wave theme ─────────────────────────────────────────────────
+   Light background with animated gradient mesh. Periwinkle/pink/amber
+   palette. Registered in ThemeContext.tsx as id: 'helm-wave'.
+   Typography: Söhne (sohne-var) — same typeface as stripe.com.
+   Files expected at /public/fonts/sohne-var.woff2 (see README there).
+────────────────────────────────────────────────────────────────────── */
+[data-theme="helm-wave"] {
+  --font-sans: 'sohne-var', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  --color-bg:              #FFFFFF;
+  --color-surface:         rgba(255,255,255,0);   /* transparent — glass window bg shows through */
+  --color-surface-2:       #F4F3FF;
+  --color-surface-dark:    rgba(255,255,255,0);   /* transparent — glass window bg shows through */
+  --color-overlay:         rgba(255,255,255,0.95);
+
+  --color-border:          rgba(107,94,232,0.18);
+  --color-border-subtle:   rgba(107,94,232,0.08);
+  --color-border-strong:   rgba(107,94,232,0.28);
+  --color-border-accent:   rgba(107,94,232,0.15);
+
+  --color-text-primary:    #1A1830;
+  --color-text-secondary:  #4A4870;
+  --color-text-muted:      #8A88B8;
+  --color-text-disabled:   #C0BEDD;
+
+  --color-text-ui:         #1A1830;
+  --color-text-ui-muted:   rgba(26,24,48,0.5);
+  --color-text-ui-subtle:  rgba(26,24,48,0.3);
+
+  /* Periwinkle accent family */
+  --color-pink:            #6B5EE8;  /* primary accent — periwinkle */
+  --color-blue:            #9B8EFF;  /* secondary — soft purple */
+  --color-yellow:          #F0A830;  /* highlight — warm amber */
+  --color-purple:          #6B5EE8;
+
+  --color-stripe-purple:       #6B5EE8;
+  --color-stripe-purple-hover: #8070FF;
+  --color-stripe-purple-muted: rgba(107,94,232,0.12);
+
+  --color-cyan:        #E868B8;
+  --color-cyan-muted:  rgba(232,104,184,0.12);
+  --color-amber:       #F0A830;
+  --color-amber-muted: rgba(240,168,48,0.12);
+
+  --color-tag-bg:      rgba(107,94,232,0.07);
+  --color-tag-border:  rgba(107,94,232,0.18);
+  --color-tag-text:    #6B5EE8;
+
+  /* Hide the grid mark pattern — gradient mesh is the background */
+  --grid-hash-alpha:   0;
+}
+
+[data-theme="helm-wave"] ::selection {
+  background: #6B5EE8;
+  color: #FFFFFF;
+}
+
+/* White logos (lightInvert) → invert to dark so they read on the light background */
+[data-theme="helm-wave"] .logo-on-light {
+  filter: invert(1);
+}
+
+/* Brand-coloured logos → restore colour (override the global dark-theme white filter) */
+[data-theme="helm-wave"] .logo-dark-white {
+  filter: none;
+}
+
+[data-theme="helm-wave"] body {
+  font-family: 'sohne-var', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
+
+/* ── Font overrides for helm-wave ─────────────────────────────────────
+   Many UI elements (headlines, buttons, labels) use --font-mono to match
+   the dark-theme design language. On the light helm-wave theme we want
+   those to render in Söhne instead.
+   Exceptions: actual terminal content, install command code, and provider
+   icon labels should stay monospace.
+────────────────────────────────────────────────────────────────────── */
+
+/* Redirect font-mono → Söhne for UI elements */
+[data-theme="helm-wave"] {
+  --font-mono: 'sohne-var', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
+/* Restore real monospace inside the CLI terminal and menu bar */
+[data-theme="helm-wave"] .cli-terminal,
+[data-theme="helm-wave"] .terminal-banner {
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'Fira Code', monospace;
+  font-family: var(--font-mono);
+}
+
+/* Restore real monospace for install command blocks */
+[data-theme="helm-wave"] .install-command,
+[data-theme="helm-wave"] .install-command * {
+  font-family: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'Fira Code', monospace;
+}
+
+/* Restore real monospace for <code> and <pre> (partner detail install commands) */
+[data-theme="helm-wave"] code,
+[data-theme="helm-wave"] pre {
+  font-family: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'Fira Code', monospace;
+}
+
+/* Partner icon labels (inline fontFamily: var(--font-mono)) — restore mono */
+[data-theme="helm-wave"] .partner-icon-label {
+  font-family: ui-monospace, 'SFMono-Regular', 'Cascadia Code', 'Fira Code', monospace !important;
+}
+
+/* Bump font size ~2px inside window content panels only.
+   zoom scales all content (including inline rem/px sizes) without
+   affecting layout outside the window. */
+[data-theme="helm-wave"] .window-content {
+  zoom: 1.29;
+}
+
+/* ── Sine-wave drift animation ────────────────────────────────────────
+   Approximates sin() using 8 keyframes so the gradient container traces
+   an elliptical orbit — creating a smooth left-right + up-down wave.
+────────────────────────────────────────────────────────────────────── */
+@keyframes helm-wave {
+  0%    { transform: translateX(-5%)  translateY(0%)   }
+  12.5% { transform: translateX(-3.5%) translateY(-1.8%) }
+  25%   { transform: translateX(0%)   translateY(-2.5%) }
+  37.5% { transform: translateX(3.5%) translateY(-1.8%) }
+  50%   { transform: translateX(5%)   translateY(0%)   }
+  62.5% { transform: translateX(3.5%) translateY(1.8%)  }
+  75%   { transform: translateX(0%)   translateY(2.5%)  }
+  87.5% { transform: translateX(-3.5%) translateY(1.8%) }
+  100%  { transform: translateX(-5%)  translateY(0%)   }
+}

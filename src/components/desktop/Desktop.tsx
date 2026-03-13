@@ -1,8 +1,9 @@
-import { useState, useCallback, useRef, forwardRef, type CSSProperties } from 'react';
+import { useState, useCallback, useEffect, useRef, forwardRef, type CSSProperties } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { Shuffle, RotateCcw } from 'lucide-react';
 import { Window } from './Window';
 import { GridBackground } from '@/components/ui/grid-background';
+import { HelmWaveBackground } from '@/components/ui/helm-wave-background';
 import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
 import { CliTerminal, type CliHandle } from '@/components/sections/CliTerminal';
 import { InstallWindow } from '@/components/sections/Hero';
@@ -21,6 +22,7 @@ import {
   type Category,
 } from '@/components/sections/Partners';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useTheme, type LayoutOverrides } from '@/components/ui/ThemeContext';
 
 /* ── constants ────────────────────────────────────────────────────── */
 const STATUSBAR_H        = 40;
@@ -130,12 +132,56 @@ function mobileTotalH(wins: WinState[]): number {
   return maxBottom + 32; // small bottom breathing room only — treasure is hidden inside the terminal window
 }
 
+/* ── Layout overrides ─────────────────────────────────────────────── */
+function applyLayoutOverrides(wins: WinState[], overrides?: LayoutOverrides): WinState[] {
+  if (!overrides?.windows) return wins;
+  return wins
+    .filter(w => overrides.windows![w.id]?.visible !== false)
+    .map(w => {
+      const override = overrides.windows![w.id];
+      return override ? { ...w, ...override } : w;
+    });
+}
+
+/**
+ * Helm-wave positions the terminal in the right ~42% of the viewport so the
+ * hero headline is fully visible on the left. Values are computed from the
+ * live viewport so they adapt across screen sizes.
+ */
+function helmWaveWindowOverrides(): LayoutOverrides {
+  const vw    = typeof window !== 'undefined' ? window.innerWidth  : 1440;
+  const vh    = typeof window !== 'undefined' ? window.innerHeight : 900;
+  const areaH = vh - STATUSBAR_H;
+  const m     = 20;
+
+  const tw = Math.floor(vw * 0.42);
+  const th = Math.floor(areaH * 0.44);
+  const tx = vw - tw - m;           // flush-right with a small margin
+  const ty = Math.floor(areaH * 0.1); // ~10% from top — sits below the headline
+
+  return {
+    windows: {
+      terminal: { x: tx, y: ty, w: tw, h: th },
+    },
+  };
+}
+
 /* ── Desktop ──────────────────────────────────────────────────────── */
 export function Desktop() {
   const isMobile                      = useIsMobile();
-  const [wins, setWins]               = useState<WinState[]>(() =>
-    (typeof window !== 'undefined' && window.innerWidth < 768) ? mobileInitialWindows() : initialWindows()
-  );
+  const { theme, themeConfig }        = useTheme();
+
+  const buildWindows = (cfg: typeof themeConfig) => {
+    const base = (typeof window !== 'undefined' && window.innerWidth < 768)
+      ? mobileInitialWindows()
+      : initialWindows();
+    const layout = cfg.backgroundVariant === 'helm-wave'
+      ? helmWaveWindowOverrides()
+      : cfg.layout;
+    return applyLayoutOverrides(base, layout);
+  };
+
+  const [wins, setWins]               = useState<WinState[]>(() => buildWindows(themeConfig));
   const [viewMode, setViewMode]       = useState<ViewMode>('scroll');
   const [feedbackKey, setFeedbackKey]   = useState(0);
   const [scrollViewKey, setScrollViewKey] = useState(0);
@@ -147,6 +193,12 @@ export function Desktop() {
   const [draggingPartner, setDraggingPartner] = useState<Partner | null>(null);
   const [ghostPos,        setGhostPos]        = useState<{ x: number; y: number } | null>(null);
   const [ecoFilter,       setEcoFilter]       = useState<Category | null>(null);
+
+  /* reset window positions whenever the active theme changes */
+  useEffect(() => {
+    setWins(buildWindows(themeConfig));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme]);
 
   /* bring clicked window to front */
   const bringToFront = useCallback((id: WinId) => {
@@ -182,11 +234,11 @@ export function Desktop() {
       const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
       const areaH     = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
       const w         = isMobile ? vw - MOBILE_MARGIN * 2 : (id === 'feedback' || id === 'join' ? 420 : 440);
-      const h         = id === 'feedback' ? 380 : id === 'join' ? 320 : 520;
+      const h: number | 'auto' = id === 'join' ? 'auto' : id === 'feedback' ? 380 : 520;
       return [...prev, {
         id,
         x: isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - w / 2),
-        y: Math.round(scrollTop + (areaH - h) / 2),
+        y: h === 'auto' ? Math.round(scrollTop + areaH / 4) : Math.round(scrollTop + (areaH - h) / 2),
         w,
         h,
         zIndex: maxZ + 1,
@@ -226,15 +278,14 @@ export function Desktop() {
       const scrollTop = windowAreaRef.current?.scrollTop ?? 0;
       const areaH     = vh - (isMobile ? MOBILE_STATUSBAR_H : STATUSBAR_H);
       const w         = isMobile ? vw - MOBILE_MARGIN * 2 : 380;
-      const h         = 360;
       return [...prev, {
         id,
         x: isMobile ? MOBILE_MARGIN : Math.round(vw / 2 - 190 + (prev.length - 4) * 24),
         y: isMobile
-          ? Math.round(scrollTop + (areaH - h) / 2)
-          : Math.round(vh / 2 - 180 + (prev.length - 4) * 24),
+          ? Math.round(scrollTop + areaH / 4)
+          : Math.round(vh / 4 + (prev.length - 4) * 24),
         w,
-        h,
+        h: 'auto' as const,
         zIndex: maxZ + 1,
       }];
     });
@@ -255,8 +306,11 @@ export function Desktop() {
         flexDirection: 'column',
       }}
     >
-      {/* ── Full-viewport grid — behind everything ────────────────── */}
-      <GridBackground />
+      {/* ── Full-viewport background — behind everything ─────────── */}
+      {themeConfig.backgroundVariant === 'helm-wave'
+        ? <HelmWaveBackground />
+        : <GridBackground />
+      }
 
       {/* ── Drag ghost — follows cursor when dragging an icon cross-window */}
       {draggingPartner && ghostPos && (
@@ -296,7 +350,7 @@ export function Desktop() {
           if (viewMode === 'scroll') {
             setScrollViewKey(k => k + 1);
           } else {
-            setWins(isMobile ? mobileInitialWindows() : initialWindows());
+            setWins(buildWindows(themeConfig));
           }
         }}
         viewMode={viewMode}

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowUpRight, SlidersHorizontal } from 'lucide-react';
 import { InView } from '@/components/ui/in-view';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useTheme } from '@/components/ui/ThemeContext';
 
 export type Category = 'payments' | 'auth' | 'database' | 'storage' | 'monitoring' | 'analytics' | 'ai' | 'hosting';
 
@@ -120,6 +121,75 @@ const TursoLogo: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+// Database slot — static placeholder used only during the shuffle animation
+const DatabasePlaceholderLogo: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    <rect x="22" y="16" width="2" height="4" fill="currentColor"/>
+    <rect x="22" y="10" width="2" height="4" fill="currentColor"/>
+    <rect x="22" y="4"  width="2" height="4" fill="currentColor"/>
+    <rect y="16" width="2" height="4" fill="currentColor"/>
+    <rect y="10" width="2" height="4" fill="currentColor"/>
+    <rect y="4"  width="2" height="4" fill="currentColor"/>
+    <rect y="20" width="24" height="2" fill="currentColor"/>
+    <rect x="2" y="14" width="20" height="2" fill="currentColor"/>
+    <rect x="2" y="8"  width="20" height="2" fill="currentColor"/>
+    <rect x="2" y="2"  width="20" height="2" fill="currentColor"/>
+  </svg>
+);
+
+// ── Coming-soon category icons — currentColor, themed via CSS variables ──
+
+const DatabaseMoreIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="6" y="8" width="12" height="4" stroke="currentColor"/>
+    <path d="M6 5C6 4.44772 6.44772 4 7 4H17C17.5523 4 18 4.44772 18 5V8H6V5Z" stroke="currentColor"/>
+    <rect x="6" y="12" width="12" height="4" stroke="currentColor"/>
+    <path d="M6 16.3636C6 16.1628 6.16281 16 6.36364 16H17.6364C17.8372 16 18 16.1628 18 16.3636V16.3636C18 18.3719 16.3719 20 14.3636 20H9.63636C7.62806 20 6 18.3719 6 16.3636V16.3636Z" stroke="currentColor"/>
+  </svg>
+);
+
+const HostingMoreIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="10" width="4" height="4" rx="2" fill="currentColor"/>
+    <rect x="9" y="10" width="4" height="4" rx="2" fill="currentColor"/>
+    <rect x="1" y="8" width="22" height="8" rx="1" stroke="currentColor"/>
+  </svg>
+);
+
+const AIMoreIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.51465 12C10 12 11.9999 10 11.9999 3.51472C11.9999 10 14 12 20.4852 12C14 12 11.9999 14 11.9999 20.4853C11.9999 14 10 12 3.51465 12Z" stroke="currentColor" strokeLinejoin="round"/>
+  </svg>
+);
+
+const AnalyticsMoreIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="4" width="20" height="16" rx="1" stroke="currentColor"/>
+    <rect x="5.5" y="13" width="1" height="3" rx="0.5" fill="currentColor"/>
+    <rect x="9.5" y="10" width="1" height="6" rx="0.5" fill="currentColor"/>
+    <rect x="13.5" y="11" width="1" height="5" rx="0.5" fill="currentColor"/>
+    <rect x="17" y="8" width="1" height="8" rx="0.5" fill="currentColor"/>
+  </svg>
+);
+
+const AuthMoreIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="9" width="14" height="12" rx="1" stroke="currentColor"/>
+    <path d="M8 7C8 4.79086 9.79086 3 12 3V3C14.2091 3 16 4.79086 16 7V9H8V7Z" stroke="currentColor"/>
+    <rect x="11.5" y="13" width="1" height="4" rx="0.5" fill="currentColor"/>
+  </svg>
+);
+
+export type RotatingProvider = { name: string; icon: React.FC<{ className?: string }> };
+
+export const ROTATING_MORE_PROVIDERS: RotatingProvider[] = [
+  { name: 'database',  icon: DatabaseMoreIcon  },
+  { name: 'hosting',   icon: HostingMoreIcon   },
+  { name: 'AI',        icon: AIMoreIcon        },
+  { name: 'analytics', icon: AnalyticsMoreIcon },
+  { name: 'auth',      icon: AuthMoreIcon      },
+];
+
 // Runloop — official mark, white fill for dark backgrounds
 const RunloopLogo: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} viewBox='0 0 27 21' fill='none'>
@@ -134,31 +204,31 @@ export const PARTNERS: Partner[] = [
   {
     name: 'PlanetScale', category: 'database', url: 'https://planetscale.com', logo: PlanetScaleLogo, lightInvert: true,
     description: 'Serverless MySQL platform',
-    longDescription: 'MySQL-compatible serverless database with non-blocking schema changes, automatic sharding, and branching workflows built for modern development teams.',
+    longDescription: 'PlanetScale is a fully managed database platform for Postgres and Vitess/MySQL, delivering NVMe-backed performance, massive scale through horizontal sharding, developer-friendly features, and enterprise-grade reliability.',
     cliCommand: 'projects service add planetscale',
   },
   {
     name: 'Supabase', category: 'storage', url: 'https://supabase.com', logo: SupabaseLogo,
     description: 'Open source Firebase alt.',
-    longDescription: 'Open-source Firebase alternative with Postgres, realtime subscriptions, file storage, and auto-generated APIs. Fully managed and infinitely scalable.',
+    longDescription: 'Supabase is the easy-to-use, open-source managed Postgres with integrated backend services. It is an all-in-one suite with Database, Auth, Storage, Edge Functions, Realtime, and Vector search. Use one or all. Build in a weekend. Scale to millions.',
     cliCommand: 'projects service add supabase',
   },
   {
     name: 'Railway', category: 'hosting', url: 'https://railway.app', logo: RailwayLogo, lightInvert: true,
     description: 'Infrastructure for devs',
-    longDescription: 'Deploy servers, databases, and cron jobs with zero ops overhead. Railway handles provisioning, networking, and scaling so you can stay focused on code.',
+    longDescription: 'Railway is the all-in-one intelligent cloud provider. Our mission is to build the cloud computing stack that unburdens you, so you can focus on what matters to you. Railway was born in 2020 with the tagline "Infrastructure, instantly." From this founding concept, we\'ve rebuilt the entire cloud computing stack to help usher in a new golden age of software creation.',
     cliCommand: 'projects service add railway',
   },
   {
     name: 'Neon', category: 'database', url: 'https://neon.tech', logo: NeonLogo,
     description: 'Serverless Postgres',
-    longDescription: 'Serverless Postgres with autoscaling to zero, database branching, and a generous free tier. Spin up a new branch for every PR automatically.',
+    longDescription: 'Neon, a Databricks company, is a fully-managed Postgres database platform built on a distributed architecture that separates storage and compute, delivering an automated operational model perfect for today\'s AI-powered development. Tens of thousands of companies like Meta, Doordash, Replit and Pepsi use Neon\'s instant provisioning, autoscaling, and branching to ship and scale applications faster.',
     cliCommand: 'projects service add neon',
   },
   {
     name: 'Chroma', category: 'ai', url: 'https://trychroma.com', logo: ChromaLogo,
     description: 'AI-native vector database',
-    longDescription: 'The open-source embedding database for AI applications. Store, search, and manage vector embeddings at any scale, with a simple Python and JavaScript API.',
+    longDescription: 'Fast, serverless, and scalable search engine supporting vector, full-text, regex, and metadata search. Built on object storage and trusted by millions of developers. Open-source Apache 2.0.',
     cliCommand: 'projects service add chroma',
   },
   {
@@ -176,7 +246,7 @@ export const PARTNERS: Partner[] = [
   {
     name: 'PostHog', category: 'analytics', url: 'https://posthog.com', logo: PostHogLogo,
     description: 'Product analytics',
-    longDescription: 'Self-hostable product analytics with event capture, session replay, feature flags, and A/B testing. Everything you need to understand and improve your product.',
+    longDescription: 'PostHog is the single platform for software teams -- with analytics, session replay, feature flags, A/B testing, data warehouse, CDP, and more all in one AI-powered platform. Open-source and with transparent, usage based pricing, PostHog is trusted by over 190,000 teams to help them build better products.',
     cliCommand: 'projects service add posthog',
   },
   {
@@ -188,14 +258,20 @@ export const PARTNERS: Partner[] = [
   {
     name: 'Turso', category: 'database', url: 'https://turso.tech', logo: TursoLogo,
     description: 'SQLite for the agentic era',
-    longDescription: 'Turso is a lightweight, SQLite-compatible database that scales to millions of instances. Native vector search, database branching, and offline-ready support make it ideal for AI agents and multi-tenant applications.',
+    longDescription: 'Turso Cloud gives AI agents the fast, durable, and isolated state they need to run reliably at scale. Each agent gets its own lightweight, replicated SQLite‑compatible database with fast reads, built-in vector search, and automatic sync. Agents can reason locally, store memory, and act without round‑trips to a central service, all while Turso Cloud handles replication, isolation, and performance behind the scenes.',
     cliCommand: 'projects service add turso',
   },
   {
     name: 'Runloop', category: 'ai', url: 'https://runloop.ai', logo: RunloopLogo, lightInvert: true,
     description: 'AI dev infrastructure',
-    longDescription: 'Secure, scalable infrastructure for AI coding agents. Runloop provides sandboxed execution environments so agents can write, run, and test code safely without touching production systems.',
+    longDescription: 'Runloop.ai provides secure execution infrastructure for AI agents. Users can run agent workloads inside isolated micro-VM sandboxes, allowing agents to safely execute code, use tools, and access external systems without exposing credentials or production environments. With built-in network policies, secret isolation, and evaluation tooling, Runloop helps teams deploy and operate AI agents in production with security, reliability, and control. Focus on your agent and let us handle the rest.',
     cliCommand: 'projects service add runloop',
+  },
+  {
+    name: '__more__', category: 'database', url: '#', logo: DatabasePlaceholderLogo,
+    description: 'More providers coming soon',
+    longDescription: 'Additional integrations are on the way.',
+    cliCommand: 'projects service add database',
   },
   {
     name: 'Stripe', category: 'payments', url: 'https://stripe.com', logo: StripeLogo,
@@ -222,30 +298,33 @@ function getCategoryColor(category: Category): string {
 
 /* ── helpers ─────────────────────────────────────────────────────────────── */
 
-/** Fisher-Yates shuffle keeping Stripe pinned as the last element. */
+/** Fisher-Yates shuffle keeping Stripe then Database pinned at the end (in that order). */
 export function shufflePartners(partners: Partner[]): Partner[] {
-  const visible = partners.filter(p => !p.hidden);
-  const stripe = visible.find(p => p.name === 'Stripe');
-  const rest   = visible.filter(p => p.name !== 'Stripe');
+  const visible  = partners.filter(p => !p.hidden);
+  const stripe   = visible.find(p => p.name === 'Stripe');
+  const more     = visible.find(p => p.url === '#');          // "more providers" placeholder
+  const rest     = visible.filter(p => p !== stripe && p !== more);
   for (let i = rest.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [rest[i], rest[j]] = [rest[j], rest[i]];
   }
-  return stripe ? [...rest, stripe] : rest;
+  const tail = [...(stripe ? [stripe] : []), ...(more ? [more] : [])];
+  return [...rest, ...tail];
 }
+
 
 /* ── EcosystemIcons ──────────────────────────────────────────────────────────
    Desktop window content: draggable app-icon grid of partners.
    Double-click an icon → onOpen(partner) to open a detail window.
 ─────────────────────────────────────────────────────────────────────────── */
 
-const ICON_W    = 80;            // cell width — wide enough for longest label
-const ICON_BOX  = 32;            // icon render size (px)
+const ICON_W    = 60;            // cell width (was 80, –25%)
+const ICON_BOX  = 24;            // icon render size in px (was 32, –25%)
 const HIGHLIGHT = ICON_BOX + 16; // highlight box = icon + 8px padding each side
-const GAP_X     = 40;            // horizontal gap between icon cells
-const GAP_Y     = 40;            // vertical gap between icon rows
+const GAP_X     = 30;            // horizontal gap between icon cells (was 40, –25%)
+const GAP_Y     = 30;            // vertical gap between icon rows (was 40, –25%)
 const PAD       = 40;            // padding inside window on all sides
-const COLS      = 4;
+const COLS      = 5;             // icons per row (was 4; extra column for wide-screen layout)
 
 // Total pixel dimensions of the icon grid content (used by Desktop.tsx to size the window)
 const ECO_ROWS = Math.ceil((PARTNERS.length + 1) / COLS); // +1 for Join icon
@@ -277,6 +356,146 @@ export interface EcosystemIconsProps {
   activeFilter?:      Category | null;
 }
 
+// Unified cell component for every partner slot in EcosystemIcons.
+// When partner.url === '#', renders the self-contained rotating "more providers" teaser.
+// Otherwise renders the standard logo + label.
+function PartnerCell({
+  partner, pos, isDragging, isSelected, onPointerDown, onClick,
+}: {
+  partner:      Partner;
+  pos:          { x: number; y: number };
+  isDragging:   boolean;
+  isSelected:   boolean;
+  onPointerDown:(e: React.PointerEvent<HTMLDivElement>) => void;
+  onClick:      (e: React.MouseEvent<HTMLDivElement>) => void;
+}) {
+  const isMore = partner.url === '#';
+
+  const [moreIdx,     setMoreIdx]     = useState(0);
+  const [moreOpacity, setMoreOpacity] = useState(1);
+  const fadeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (!isMore) return;
+    const id = setInterval(() => {
+      setMoreOpacity(0);
+      fadeRef.current = setTimeout(() => {
+        setMoreIdx(i => (i + 1) % ROTATING_MORE_PROVIDERS.length);
+        setMoreOpacity(1);
+      }, 350);
+    }, 5000);
+    return () => { clearInterval(id); if (fadeRef.current) clearTimeout(fadeRef.current); };
+  }, [isMore]);
+
+  const C = 6, S = 'var(--color-pink)', b = `1px solid ${S}`;
+  const corners: React.CSSProperties[] = [
+    { top: 0, left: 0,  borderTop: b, borderLeft:  b },
+    { top: 0, right: 0, borderTop: b, borderRight: b },
+    { bottom: 0, right: 0, borderBottom: b, borderRight: b },
+    { bottom: 0, left: 0,  borderBottom: b, borderLeft:  b },
+  ];
+
+  const { icon: MoreIcon, name: moreName } = ROTATING_MORE_PROVIDERS[moreIdx];
+
+  return (
+    <div
+      style={{
+        position:  'absolute',
+        left:       pos.x,
+        top:        pos.y,
+        width:      ICON_W,
+        cursor:     isDragging ? 'grabbing' : 'pointer',
+        userSelect: 'none',
+        zIndex:     isDragging ? 5 : 1,
+        visibility: isDragging ? 'hidden' : 'visible',
+      }}
+      onPointerDown={onPointerDown}
+      onClick={onClick}
+    >
+      <div style={{
+        width:          HIGHLIGHT,
+        height:         HIGHLIGHT,
+        margin:        '0 auto',
+        position:      'relative',
+        display:       'flex',
+        alignItems:    'center',
+        justifyContent:'center',
+      }}>
+        {isSelected && corners.map((s, i) => (
+          <span key={i} aria-hidden style={{ position: 'absolute', width: C, height: C, pointerEvents: 'none', ...s }} />
+        ))}
+        {isMore ? (
+          <div style={{
+            width:         ICON_BOX,
+            height:        ICON_BOX,
+            display:      'flex',
+            alignItems:   'center',
+            justifyContent:'center',
+            color:         'var(--color-text-secondary)',
+            opacity:        moreOpacity,
+            transition:   'opacity 0.35s ease',
+          }}>
+            <MoreIcon className='w-full h-full' />
+          </div>
+        ) : (
+          <div style={{ width: ICON_BOX, height: ICON_BOX, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+               className={[partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
+            <partner.logo className='w-full h-full object-contain' />
+          </div>
+        )}
+      </div>
+
+      {isMore ? (
+        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+          <p style={{
+            textAlign:     'center',
+            fontSize:      '0.62rem',
+            margin:         0,
+            color:         isSelected ? 'var(--color-text-ui)' : 'var(--color-text-secondary)',
+            fontFamily:    'var(--font-mono)',
+            transition:    'color 0.1s',
+            lineHeight:     1.2,
+            opacity:        moreOpacity,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}>
+            {moreName}
+          </p>
+          <p style={{
+            textAlign:     'center',
+            fontSize:      '0.62rem',
+            margin:         0,
+            color:         isSelected ? 'var(--color-text-ui)' : 'var(--color-text-secondary)',
+            fontFamily:    'var(--font-mono)',
+            lineHeight:     1.2,
+            transition:    'color 0.1s',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}>
+            More coming
+          </p>
+        </div>
+      ) : (
+        partner.name && partner.name !== '__more__' && (
+          <p style={{
+            textAlign:     'center',
+            fontSize:      '0.62rem',
+            marginTop:      16,
+            color:         isSelected ? 'var(--color-text-ui)' : 'var(--color-text-secondary)',
+            fontFamily:    'var(--font-mono)',
+            transition:    'color 0.1s',
+            lineHeight:     1.2,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}>
+            {partner.name}
+          </p>
+        )
+      )}
+    </div>
+  );
+}
+
 export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
   function EcosystemIcons({ onOpen, onOpenJoin, onCrossDragStart, onCrossDragMove, onCrossDragEnd, activeFilter }, ref) {
     const [order,        setOrder]        = useState<Partner[]>(() => shufflePartners(PARTNERS));
@@ -287,6 +506,19 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
     const [isShuffling,  setIsShuffling]  = useState(false);
     const shuffleTimers  = useRef<ReturnType<typeof setTimeout>[]>([]);
     const containerRef   = useRef<HTMLDivElement>(null);
+
+    // Reset order+positions whenever PARTNERS data changes (e.g. after HMR), so stale
+    // React state never holds partner objects or position keys from an old version.
+    const partnersKey = PARTNERS.map(p => `${p.name}|${p.url}`).join(',');
+    const partnersKeyRef = useRef(partnersKey);
+    useEffect(() => {
+      if (partnersKeyRef.current !== partnersKey) {
+        partnersKeyRef.current = partnersKey;
+        const fresh = shufflePartners(PARTNERS);
+        setOrder(fresh);
+        setPositions(makeGridPositions(fresh));
+      }
+    }, [partnersKey]);
 
     useEffect(() => () => {
       shuffleTimers.current.forEach(id => { clearTimeout(id); clearInterval(id as unknown as ReturnType<typeof setInterval>); });
@@ -436,71 +668,20 @@ export const EcosystemIcons = forwardRef<EcosystemHandle, EcosystemIconsProps>(
           const pos = isShuffling
             ? { x: PAD + (idx % COLS) * (ICON_W + GAP_X), y: PAD + Math.floor(idx / COLS) * (HIGHLIGHT + 16 + 14 + GAP_Y) }
             : (filteredGridPos ? filteredGridPos[partner.name] : positions[partner.name]);
+          if (!pos) return null;
           const isDragging = !isShuffling && dragging === partner.name;
           const isSelected = !isShuffling && selected === idx;
 
           return (
-            <div
-              key={isShuffling ? idx : partner.name}
-              style={{
-                position:   'absolute',
-                left:        pos.x,
-                top:         pos.y,
-                width:       ICON_W,
-                cursor:      isDragging ? 'grabbing' : 'pointer',
-                userSelect:  'none',
-                zIndex:      isDragging ? 5 : 1,
-                visibility:  isDragging ? 'hidden' : 'visible',
-              }}
+            <PartnerCell
+              key={isShuffling ? idx : (partner.name || partner.url)}
+              partner={partner}
+              pos={pos}
+              isDragging={isDragging}
+              isSelected={isSelected}
               onPointerDown={e => startDrag(e, partner.name)}
               onClick={e => handleIconClick(e, idx, partner)}
-            >
-              {/* highlight — corner brackets only when selected, no fill */}
-              <div style={{
-                width:    HIGHLIGHT,
-                height:   HIGHLIGHT,
-                margin:  '0 auto',
-                position: 'relative',
-                display:  'flex',
-                alignItems:    'center',
-                justifyContent:'center',
-              }}>
-                {/* corner brackets — visible only when selected */}
-                {isSelected && (() => {
-                  const C = 6;
-                  const S = 'var(--color-pink)';
-                  const b = `1px solid ${S}`;
-                  const corners: React.CSSProperties[] = [
-                    { top: 0, left: 0,  borderTop: b, borderLeft:  b },
-                    { top: 0, right: 0, borderTop: b, borderRight: b },
-                    { bottom: 0, right: 0, borderBottom: b, borderRight: b },
-                    { bottom: 0, left: 0,  borderBottom: b, borderLeft:  b },
-                  ];
-                  return corners.map((s, i) => (
-                    <span key={i} aria-hidden style={{
-                      position: 'absolute', width: C, height: C, pointerEvents: 'none', ...s,
-                    }} />
-                  ));
-                })()}
-                <div style={{ width: ICON_BOX, height: ICON_BOX, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                     className={[partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
-                  <partner.logo className='w-full h-full object-contain' />
-                </div>
-              </div>
-
-              {/* label — 16px below the highlight box */}
-              <p style={{
-                textAlign:  'center',
-                fontSize:   '0.62rem',
-                marginTop:   16,
-                color:      isSelected ? 'var(--color-text-ui)' : 'var(--color-text-ui-muted)',
-                fontFamily: 'var(--font-mono)',
-                transition: 'color 0.1s',
-                lineHeight:  1.2,
-              }}>
-                {partner.name}
-              </p>
-            </div>
+            />
           );
         })}
 
@@ -779,9 +960,61 @@ export function PartnerDetail({ partner, onShowMe }: { partner: Partner; onShowM
   );
 }
 
+/* ── MoreProviderCard — rotating "coming soon" card for the scroll section ── */
+
+function MoreProviderCard({ index }: { index: number }) {
+  const [idx,     setIdx]     = useState(0);
+  const [opacity, setOpacity] = useState(1);
+  const fadeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setOpacity(0);
+      fadeRef.current = setTimeout(() => {
+        setIdx(i => (i + 1) % ROTATING_MORE_PROVIDERS.length);
+        setOpacity(1);
+      }, 350);
+    }, 5000);
+    return () => { clearInterval(id); if (fadeRef.current) clearTimeout(fadeRef.current); };
+  }, []);
+
+  const { icon: Icon, name: currentName } = ROTATING_MORE_PROVIDERS[idx];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.35, delay: index * 0.04, ease: [0.25, 0.1, 0.25, 1] }}
+      className='relative flex flex-col items-center gap-3 rounded-xl p-5 text-center'
+      style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
+    >
+      <span
+        className='absolute top-3 right-3 w-1.5 h-1.5 rounded-full'
+        style={{ background: getCategoryColor('database') }}
+      />
+      <div
+        className='w-10 h-10 flex items-center justify-center'
+        style={{ color: 'var(--color-text-ui-muted)', opacity, transition: 'opacity 0.35s ease' }}
+      >
+        <Icon className='w-10 h-10 object-contain' />
+      </div>
+      <div style={{ opacity, transition: 'opacity 0.35s ease' }}>
+        <p className='text-sm font-semibold' style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
+          {currentName.charAt(0).toUpperCase() + currentName.slice(1)}
+        </p>
+        <p className='text-xs mt-0.5 leading-tight' style={{ color: 'var(--color-text-disabled)', fontFamily: 'var(--font-mono)' }}>
+          coming soon
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 /* ── Partners (original scroll section) ─────────────────────────────────── */
 
 export function Partners() {
+  const { theme } = useTheme();
+  const isHelmWave = theme === 'helm-wave';
   return (
     <section id='integrations' className='relative py-24 px-6'>
       <div className='max-w-5xl mx-auto'>
@@ -802,39 +1035,44 @@ export function Partners() {
 
         {/* Partner grid */}
         <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3'>
-          {PARTNERS.map((partner, i) => (
-            <motion.a
-              key={partner.name}
-              href={partner.url}
-              target='_blank'
-              rel='noopener noreferrer'
-              initial={{ opacity: 0, y: 16, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.35, delay: i * 0.04, ease: [0.25, 0.1, 0.25, 1] }}
-              className='group relative flex flex-col items-center gap-3 rounded-xl p-5 text-center transition-all duration-200'
-              style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-strong)';
-                (e.currentTarget as HTMLAnchorElement).style.background  = 'var(--color-surface-2)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border)';
-                (e.currentTarget as HTMLAnchorElement).style.background  = 'var(--color-surface)';
-              }}
-            >
-              <span
-                className='absolute top-3 right-3 w-1.5 h-1.5 rounded-full'
-                style={{ background: getCategoryColor(partner.category) }}
-              />
-              <div className={['w-10 h-10 flex items-center justify-center', partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
-                <partner.logo className='w-10 h-10 object-contain' />
-              </div>
-              <div>
-                <p className='text-sm font-semibold' style={{ color: 'var(--color-text-primary)' }}>{partner.name}</p>
-                <p className='text-xs mt-0.5 leading-tight' style={{ color: 'var(--color-text-disabled)' }}>{partner.description}</p>
-              </div>
-            </motion.a>
-          ))}
+          {PARTNERS.map((partner, i) => {
+            if (partner.name === '__more__') {
+              return <MoreProviderCard key='__more__' index={i} />;
+            }
+            return (
+              <motion.a
+                key={partner.name}
+                href={partner.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                initial={{ opacity: 0, y: 16, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.35, delay: i * 0.04, ease: [0.25, 0.1, 0.25, 1] }}
+                className='group relative flex flex-col items-center gap-3 rounded-xl p-5 text-center transition-all duration-200'
+                style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-strong)';
+                  (e.currentTarget as HTMLAnchorElement).style.background  = 'var(--color-surface-2)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border)';
+                  (e.currentTarget as HTMLAnchorElement).style.background  = 'var(--color-surface)';
+                }}
+              >
+                <span
+                  className='absolute top-3 right-3 w-1.5 h-1.5 rounded-full'
+                  style={{ background: getCategoryColor(partner.category) }}
+                />
+                <div className={['w-10 h-10 flex items-center justify-center', partner.lightInvert && 'logo-on-light', partner.darkWhite && 'logo-dark-white'].filter(Boolean).join(' ')}>
+                  <partner.logo className='w-10 h-10 object-contain' />
+                </div>
+                <div>
+                  <p className='text-sm font-semibold' style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>{partner.name}</p>
+                  <p className='text-xs mt-0.5 leading-tight' style={{ color: 'var(--color-text-disabled)', fontFamily: 'var(--font-mono)' }}>{partner.description}</p>
+                </div>
+              </motion.a>
+            );
+          })}
         </div>
 
         {/* Provider footer strip */}
@@ -868,21 +1106,32 @@ export function Partners() {
                   alignItems:     'center',
                   gap:            '0.3em',
                   padding:        '0.5rem 0.85rem',
-                  color:          'var(--color-text-ui)',
-                  border:         '1px solid var(--color-border-accent)',
-                  background:     'var(--color-bg)',
+                  color:          isHelmWave ? 'rgba(58,32,96,0.9)' : 'var(--color-text-ui)',
+                  border:         isHelmWave ? '1px solid rgba(255,255,255,0.7)' : '1px solid var(--color-border-accent)',
+                  background:     isHelmWave ? 'none' : 'var(--color-bg)',
+                  borderRadius:   isHelmWave ? '999px' : undefined,
                   textDecoration: 'none',
                   letterSpacing:  '0.04em',
                   flexShrink:     0,
-                  transition:     'border-color 0.15s, color 0.15s',
+                  transition:     isHelmWave ? 'color 0.2s ease, border-color 0.2s ease' : 'border-color 0.15s, color 0.15s',
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
-                  (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
+                  if (isHelmWave) {
+                    (e.currentTarget as HTMLAnchorElement).style.color = '#635BFF';
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.7)';
+                  } else {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-pink)';
+                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-pink)';
+                  }
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
-                  (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
+                  if (isHelmWave) {
+                    (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(58,32,96,0.9)';
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.7)';
+                  } else {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-accent)';
+                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--color-text-ui)';
+                  }
                 }}
               >
                 {label} <ArrowUpRight size={10} strokeWidth={1.5} />

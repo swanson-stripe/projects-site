@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, forwardRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
-import { motion } from 'motion/react';
+import React, { useState, useEffect, useRef, useCallback, forwardRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
+import { motion, useSpring, useTransform } from 'motion/react';
 import { useTheme } from '@/components/ui/ThemeContext';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
@@ -8,10 +8,52 @@ const BORDER          = '1px solid var(--color-border-accent)';
 const ACTIVE_BAR_BG   = 'var(--color-pink)';
 const ACTIVE_TITLE    = 'var(--color-surface-dark)';  // dark text on bright bar
 const INACTIVE_TITLE  = 'var(--color-text-ui-muted)';
-const DOT_INACTIVE    = 'var(--color-border-accent)'; // all dots same as border when inactive
 const MIN_W           = 280;
 const MIN_H           = 180;
 const GRIP            = 5; // resize handle thickness (px)
+
+/* ── traffic-light SVG icons (helm-wave only) ─────────────────────── */
+const DOT_ICON_COLOR = '#C4CCD8';
+
+const DotIconClose = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 10 10" fill="none">
+    <rect x="1.11084" y="1.81738" width="1" height="10" transform="rotate(-45 1.11084 1.81738)" fill={DOT_ICON_COLOR}/>
+    <rect x="8.18188" y="1.11035" width="1" height="10" transform="rotate(45 8.18188 1.11035)"  fill={DOT_ICON_COLOR}/>
+  </svg>
+);
+
+const DotIconMin = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 10 10" fill="none">
+    <rect y="9" width="1" height="10" transform="rotate(-90 0 9)" fill={DOT_ICON_COLOR}/>
+  </svg>
+);
+
+const DotIconMax = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 10 10" fill="none">
+    <rect x="5" y="2" width="1" height="4" transform="rotate(-90 5 2)"  fill={DOT_ICON_COLOR}/>
+    <rect x="1" y="9" width="1" height="4" transform="rotate(-90 1 9)"  fill={DOT_ICON_COLOR}/>
+    <rect x="8" y="1" width="1" height="4"                              fill={DOT_ICON_COLOR}/>
+    <rect x="1" y="5" width="1" height="4"                              fill={DOT_ICON_COLOR}/>
+  </svg>
+);
+
+const DOT_ICONS = [DotIconClose, DotIconMin, DotIconMax];
+
+/* ── traffic-light colored squares (all other themes) ────────────── */
+const DOT_INACTIVE = 'var(--color-border-accent)';
+
+function getDotColors(theme: string): [string, string, string] {
+  if (theme === 'default') {
+    return ['#F6F9FC', 'var(--color-blue)', 'var(--color-yellow)'];
+  }
+  if (theme === 'stripe-dev') {
+    return ['var(--color-blue)', 'var(--color-purple)', 'var(--color-yellow)'];
+  }
+  if (theme === '配色事典') {
+    return ['#A23B33', '#C7742C', '#E8DDC8'];
+  }
+  return ['var(--color-purple)', 'var(--color-yellow)', 'var(--color-blue)'];
+}
 
 /* ── types ────────────────────────────────────────────────────────── */
 type Dir = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
@@ -49,24 +91,7 @@ export interface WindowProps {
 /* ── traffic-light config ─────────────────────────────────────────── */
 const DOT_LABELS = ['close', 'minimise', 'maximise'] as const;
 
-// Per-theme ordering of [close, minimise, maximise] active colors.
-// dark:       swap green (yellow token) ↔ blue → [blue, purple, yellow]
-// all others: swap yellow-token ↔ purple    → [purple, yellow, blue]
-function getDotColors(theme: string): [string, string, string] {
-  if (theme === 'default') {
-    return ['#F6F9FC', 'var(--color-blue)', 'var(--color-yellow)'];
-  }
-  if (theme === 'stripe-dev') {
-    return ['var(--color-blue)', 'var(--color-purple)', 'var(--color-yellow)'];
-  }
-  if (theme === '配色事典') {
-    return ['#A23B33', '#C7742C', '#E8DDC8'];
-  }
-  return ['var(--color-purple)', 'var(--color-yellow)', 'var(--color-blue)'];
-}
 
-
-/* ── resize handle styles ─────────────────────────────────────────── */
 const HANDLE: Record<Dir, CSSProperties> = {
   n:  { top: 0,    left: GRIP,  right: GRIP,  height: GRIP, cursor: 'ns-resize'   },
   s:  { bottom: 0, left: GRIP,  right: GRIP,  height: GRIP, cursor: 'ns-resize'   },
@@ -88,11 +113,42 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
   animateLayout = false,
   onFocus, onMove, onResize,
 }: WindowProps, ref) {
-  const { theme }   = useTheme();
+  const { theme, themeConfig } = useTheme();
+  const isHelmWave = themeConfig.backgroundVariant === 'helm-wave';
   const isMobile    = useIsMobile();
-  const dotColors   = getDotColors(theme);
   const dotSize     = isMobile ? 16 : 10;
   const dotGap      = isMobile ? 10 : 6;
+  const dotColors   = isHelmWave ? (themeConfig.dotColors ?? ['#F07EC8', '#6B5EE8', '#F0A830']) : getDotColors(theme);
+
+  /* spotlight border — helm-wave only.
+     We track mouse position relative to the window element and paint a
+     radial gradient on a pseudo-background layer outside the content clip. */
+  const windowElRef = useRef<HTMLDivElement>(null);
+  const [spotHovered, setSpotHovered] = useState(false);
+  const mouseX = useSpring(0, { bounce: 0 });
+  const mouseY = useSpring(0, { bounce: 0 });
+  const SPOT_SIZE = 380;
+  const spotLeft = useTransform(mouseX, (v) => `${v - SPOT_SIZE / 2}px`);
+  const spotTop  = useTransform(mouseY, (v) => `${v - SPOT_SIZE / 2}px`);
+
+  const handleSpotMove = useCallback((e: globalThis.MouseEvent) => {
+    const el = windowElRef.current;
+    if (!el) return;
+    const { left, top } = el.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  }, [mouseX, mouseY]);
+
+  useEffect(() => {
+    if (!isHelmWave) return;
+    const el = windowElRef.current;
+    if (!el) return;
+    const ac = new AbortController();
+    el.addEventListener('mousemove',  handleSpotMove,                  { signal: ac.signal });
+    el.addEventListener('mouseenter', () => setSpotHovered(true),      { signal: ac.signal });
+    el.addEventListener('mouseleave', () => setSpotHovered(false),     { signal: ac.signal });
+    return () => ac.abort();
+  }, [isHelmWave, handleSpotMove]);
 
   /* apply transition only while entering/leaving maximized — never during drag */
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -167,104 +223,183 @@ export const Window = forwardRef<HTMLDivElement, WindowProps>(function Window({
           transition: { duration: 0.15, ease: 'easeOut' },
         },
       }}
-      ref={ref as React.Ref<HTMLDivElement>}
+      ref={(node) => {
+        (windowElRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      }}
       initial='initial'
       animate='animate'
       exit='exit'
+      onPointerDown={onFocus}
       style={{
-        position:       'absolute',
-        left:            x,
-        top:             y,
-        width:           w,
-        height:          h === 'auto' ? undefined : h,
+        position:  'absolute',
+        left:       x,
+        top:        y,
+        width:      w,
+        height:     h === 'auto' ? undefined : h,
         zIndex,
-        display:        'flex',
-        flexDirection:  'column',
-        border:          isActive ? `1px solid ${ACTIVE_BAR_BG}` : BORDER,
-        background,
+        /* helm-wave: outer shell is the 1px spotlight-border container */
+        ...(isHelmWave ? {
+          borderRadius:  12,
+          overflow:      'hidden',
+          padding:       '1px',
+          background:    'rgba(255,255,255,0.85)',  /* resting border — white */
+          backdropFilter:       'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow:     '0 20px 40px rgba(0, 0, 0, 0.12)',
+          display:       'flex',
+          flexDirection: 'column',
+        } : {
+          display:       'flex',
+          flexDirection: 'column',
+          border:        isActive ? `1px solid ${ACTIVE_BAR_BG}` : BORDER,
+          background:    background,
+        }),
         ...(isMaximized || isTransitioning || animateLayout ? {
           transition: 'left 0.4s cubic-bezier(0.4,0,0.2,1), top 0.4s cubic-bezier(0.4,0,0.2,1), width 0.4s cubic-bezier(0.4,0,0.2,1), height 0.4s cubic-bezier(0.4,0,0.2,1)',
         } : {}),
       }}
-      onPointerDown={onFocus}
     >
-      {/* ── title bar ───────────────────────────────────────────── */}
+      {/* ── spotlight — renders inside the 1px padding gap as a border glow ── */}
+      {isHelmWave && (
+        <motion.div
+          aria-hidden
+          style={{
+            position:      'absolute',
+            pointerEvents: 'none',
+            zIndex:        0,
+            opacity:       spotHovered ? 1 : 0,
+            transition:    'opacity 0.35s ease',
+            left:          spotLeft,
+            top:           spotTop,
+            width:         SPOT_SIZE,
+            height:        SPOT_SIZE,
+            background:    'radial-gradient(circle at center, rgba(215,90,165,1) 0%, rgba(250,165,100,0.8) 40%, transparent 70%)',
+            filter:        'blur(8px)',
+          }}
+        />
+      )}
+
+      {/* ── inner window — solid background covers the spotlight except at the 1px border ── */}
       <div
-        onPointerDown={isMaximized ? undefined : handleDragStart}
-        style={{
-          display:       'flex',
-          alignItems:    'center',
-          gap:           '0.75rem',
-          padding:       isMobile ? '0.7rem 1rem' : '0.45rem 0.75rem',
-          borderBottom:   BORDER,
-          background:    isActive ? ACTIVE_BAR_BG : 'transparent',
-          cursor:        isMaximized ? 'default' : 'move',
-          flexShrink:    0,
-          userSelect:    'none',
-          fontFamily:    'var(--font-mono)',
-          touchAction:   'none',
+        style={isHelmWave ? {
+          flex:            1,
+          display:         'flex',
+          flexDirection:   'column',
+          borderRadius:    11,
+          overflow:        'hidden',
+          background:      'rgba(255,255,255,1)',
+          backdropFilter:  'blur(0px)',
+          position:        'relative',
+          zIndex:          1,
+          minHeight:       0,
+        } : {
+          flex:    1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
         }}
       >
-        {/* traffic lights — per-theme ordered accent colors when active, flat when inactive */}
-        <div style={{ display: 'flex', gap: dotGap, flexShrink: 0 }}>
-          {DOT_LABELS.map((label, i) => {
-            const handler =
-              label === 'close'    ? onClose    :
-              label === 'minimise' ? onMinimize :
-              label === 'maximise' ? onMaximize :
-              undefined;
-            return (
-              <div
-                key={label}
-                aria-label={label}
-                onClick={handler ? (e) => { e.stopPropagation(); handler(); } : undefined}
-                style={{
-                  width:        dotSize,
-                  height:       dotSize,
-                  clipPath:     'polygon(2px 0%, calc(100% - 2px) 0%, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0% calc(100% - 2px), 0% 2px, 2px 2px)',
-                  background:   isActive ? dotColors[i] : DOT_INACTIVE,
-                  flexShrink:   0,
-                  cursor:       handler ? 'pointer' : 'default',
-                  transition:   'background 0.15s ease',
-                }}
-              />
-            );
-          })}
-        </div>
-
-        {/* title — centred, monospace, all-caps */}
-        <span
+        {/* ── title bar ───────────────────────────────────────────── */}
+        <div
+          onPointerDown={isMaximized ? undefined : handleDragStart}
           style={{
-            flex:          1,
-            textAlign:    'center',
-            fontSize:     '0.6rem',
-            textTransform:'uppercase',
-            letterSpacing:'0.12em',
-            color:        isActive ? ACTIVE_TITLE : INACTIVE_TITLE,
+            display:       'flex',
+            alignItems:    'center',
+            gap:           '0.75rem',
+            padding:       isMobile
+              ? '1.4rem 1rem'
+              : isHelmWave ? '0.9rem 0.75rem 0.9rem 1.25rem' : '0.45rem 0.75rem',
+            borderBottom:   isHelmWave ? 'none' : BORDER,
+            background:    isHelmWave ? 'transparent' : (isActive ? ACTIVE_BAR_BG : 'transparent'),
+            position:      'relative',
+            cursor:        isMaximized ? 'default' : 'move',
+            flexShrink:    0,
+            userSelect:    'none',
+            fontFamily:    'var(--font-mono)',
+            touchAction:   'none',
           }}
         >
-          {title}
-        </span>
+          {/* traffic lights */}
+          <div style={{ display: 'flex', gap: dotGap, flexShrink: 0 }}>
+            {DOT_LABELS.map((label, i) => {
+              const handler =
+                label === 'close'    ? onClose    :
+                label === 'minimise' ? onMinimize :
+                label === 'maximise' ? onMaximize :
+                undefined;
+              const Icon = DOT_ICONS[i];
+              return (
+                <div
+                  key={label}
+                  aria-label={label}
+                  onClick={handler ? (e) => { e.stopPropagation(); handler(); } : undefined}
+                  style={isHelmWave ? {
+                    width:          dotSize,
+                    height:         dotSize,
+                    flexShrink:     0,
+                    cursor:         handler ? 'pointer' : 'default',
+                    display:        'flex',
+                    alignItems:     'center',
+                    justifyContent: 'center',
+                  } : {
+                    width:        dotSize,
+                    height:       dotSize,
+                    clipPath:     'polygon(2px 0%, calc(100% - 2px) 0%, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0% calc(100% - 2px), 0% 2px, 2px 2px)',
+                    background:   isActive ? dotColors[i] : DOT_INACTIVE,
+                    flexShrink:   0,
+                    cursor:       handler ? 'pointer' : 'default',
+                    transition:   'background 0.15s ease',
+                  }}
+                >
+                  {isHelmWave && <Icon size={dotSize} />}
+                </div>
+              );
+            })}
+          </div>
 
-        {/* right side: custom content or balancing spacer */}
-        <div style={{ width: dotSize * 3 + dotGap * 2, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-          {headerRight}
+          {/* title — absolutely positioned so it's truly centered in the full bar width */}
+          <span
+            style={{
+              position:      'absolute',
+              left:           0,
+              right:          0,
+              textAlign:     'center',
+              pointerEvents: 'none',
+              fontSize:      isHelmWave ? '0.875rem' : '0.6rem',
+              fontWeight:    isHelmWave ? 500 : undefined,
+              textTransform: isHelmWave ? 'none' : 'uppercase',
+              letterSpacing: isHelmWave ? '0.04em' : '0.12em',
+              color:         (isHelmWave || !isActive) ? INACTIVE_TITLE : ACTIVE_TITLE,
+            }}
+          >
+            {isHelmWave
+              ? title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()
+              : title}
+          </span>
+
+          {/* right side — same width as dots so title stays centred */}
+          <div style={{ width: dotSize * 3 + dotGap * 2, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+            {headerRight}
+          </div>
         </div>
-      </div>
 
-      {/* ── content area ────────────────────────────────────────── */}
-      <div
-        style={{
-          flex:          h === 'auto' ? undefined : 1,
-          overflow:      (noScroll || h === 'auto') ? 'hidden' : 'auto',
-          overflowX:     (noScroll || h === 'auto') ? 'hidden' : 'auto',
-          scrollbarWidth:'none',
-          minHeight:     h === 'auto' ? undefined : 0,
-          display:       (noScroll || h === 'auto') ? 'flex' : undefined,
-          flexDirection: (noScroll || h === 'auto') ? 'column' : undefined,
-        }}
-      >
-        {children}
+        {/* ── content area ──────────────────────────────────────── */}
+        <div
+          className='window-content'
+          style={{
+            flex:          h === 'auto' ? undefined : 1,
+            overflow:      (noScroll || h === 'auto') ? 'hidden' : 'auto',
+            overflowX:     (noScroll || h === 'auto') ? 'hidden' : 'auto',
+            scrollbarWidth:'none',
+            minHeight:     h === 'auto' ? undefined : 0,
+            display:       (noScroll || h === 'auto') ? 'flex' : undefined,
+            flexDirection: (noScroll || h === 'auto') ? 'column' : undefined,
+          }}
+        >
+          {children}
+        </div>
       </div>
 
       {/* ── resize handles ───────────────────────────────────────── */}

@@ -1,0 +1,49 @@
+/* ── Noir theme ─────────────────────────────────────────────────────
+   High-contrast monochrome palette with warm amber accents.
+   Registered in ThemeContext.tsx as id: 'noir'.
+────────────────────────────────────────────────────────────────────── */
+[data-theme="noir"] {
+  --color-bg:              #0A0A0A;
+  --color-surface:         #111111;
+  --color-surface-2:       #161616;
+  --color-surface-dark:    #080808;
+  --color-overlay:         #1A1A1A;
+
+  --color-border:          #2A2A2A;
+  --color-border-subtle:   rgba(255,255,255,0.05);
+  --color-border-strong:   #383838;
+  --color-border-accent:   #2E2E2E;
+
+  --color-text-primary:    #F5F0E8;
+  --color-text-secondary:  #A09080;
+  --color-text-muted:      #5A5040;
+  --color-text-disabled:   #302820;
+
+  --color-text-ui:         #F5F0E8;
+  --color-text-ui-muted:   rgba(245,240,232,0.5);
+  --color-text-ui-subtle:  rgba(245,240,232,0.28);
+
+  /* Amber accent family */
+  --color-pink:            #E8A020;  /* primary accent — warm amber */
+  --color-blue:            #C87820;  /* secondary — darker amber */
+  --color-yellow:          #F0C060;  /* highlight — pale gold */
+  --color-purple:          #E8A020;
+
+  --color-stripe-purple:       #E8A020;
+  --color-stripe-purple-hover: #F0B030;
+  --color-stripe-purple-muted: rgba(232,160,32,0.12);
+
+  --color-cyan:        #C87820;
+  --color-cyan-muted:  rgba(200,120,32,0.10);
+  --color-amber:       #E8A020;
+  --color-amber-muted: rgba(232,160,32,0.12);
+
+  --color-tag-bg:      #161616;
+  --color-tag-border:  #2A2A2A;
+  --color-tag-text:    #C87820;
+}
+
+[data-theme="noir"] ::selection {
+  background: #E8A020;
+  color: #0A0A0A;
+}

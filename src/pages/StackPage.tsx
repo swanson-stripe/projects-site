@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
+import { InstallModal } from '@/components/ui/InstallModal';
 import { GridBackground } from '@/components/ui/grid-background';
+import { HelmWaveBackground } from '@/components/ui/helm-wave-background';
 import { StatusBar, type ViewMode } from '@/components/sections/TerminalBanner';
 import { Window } from '@/components/desktop/Window';
 import { AgentView } from '@/components/sections/AgentView';
@@ -67,12 +69,12 @@ function CategoryBadge({ category }: { category: string }) {
 
 /* ── provider logo ─────────────────────────────────────────────────── */
 function ProviderLogo({ name }: { name: string }) {
-  const { theme } = useTheme();
+  const { theme, themeConfig } = useTheme();
   const partner = PARTNERS.find(p => p.name.toLowerCase() === name.toLowerCase());
   if (!partner) {
     return <span style={{ color: PINK, fontSize: '0.75em' }}>✓</span>;
   }
-  const isLightTheme = theme === 'vaporwave' || theme === '配色事典';
+  const isLightTheme = themeConfig.isLight ?? (theme === 'vaporwave' || theme === '配色事典');
   const filter =
     partner.lightInvert && isLightTheme  ? 'invert(1)' :
     partner.darkWhite   && !isLightTheme ? 'brightness(0) invert(1)' :
@@ -128,9 +130,119 @@ function ProviderRow({ svc, info, isLast }: { svc: string; info: RegistryService
   );
 }
 
+/* ── add provider inline form ───────────────────────────────────────── */
+const CATEGORIES = Object.keys(CATEGORY_COLORS);
+
+interface UserProvider { name: string; category: string }
+
+function AddProviderForm({ onAdd, onCancel }: {
+  onAdd: (p: UserProvider) => void;
+  onCancel: () => void;
+}) {
+  const [name, setName]         = useState('');
+  const [category, setCategory] = useState('');
+
+  function commit() {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    onAdd({ name: trimmed, category });
+    setName('');
+    setCategory('');
+  }
+
+  function handleKey(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter')  { commit(); }
+    if (e.key === 'Escape') { onCancel(); }
+  }
+
+  return (
+    <div style={{ paddingTop: '0.85em', display: 'flex', flexDirection: 'column', gap: '0.6em' }}>
+      {/* name input */}
+      <input
+        autoFocus
+        placeholder="provider name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        onKeyDown={handleKey}
+        style={{
+          background:   'none',
+          border:       'none',
+          borderBottom: BORDER,
+          color:        'var(--color-text-ui)',
+          fontFamily:   'inherit',
+          fontSize:     '0.88em',
+          padding:      '0.15em 0 0.3em',
+          outline:      'none',
+          width:        '100%',
+        }}
+      />
+
+      {/* category pills */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35em' }}>
+        {CATEGORIES.map(cat => {
+          const color    = CATEGORY_COLORS[cat];
+          const selected = category === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => setCategory(selected ? '' : cat)}
+              style={{
+                fontSize:      '0.72em',
+                border:        `1px solid ${selected ? color : 'var(--color-border-accent)'}`,
+                color:         selected ? color : DIM,
+                padding:       '0 0.5em',
+                lineHeight:    1.7,
+                letterSpacing: '0.03em',
+                background:    'none',
+                cursor:        'pointer',
+                fontFamily:    'inherit',
+                transition:    'border-color 0.12s, color 0.12s',
+              }}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* confirm / cancel */}
+      <div style={{ display: 'flex', gap: '1.25em', fontSize: '0.8em', paddingBottom: '0.1em' }}>
+        <button
+          onClick={commit}
+          disabled={!name.trim()}
+          style={{
+            color:      name.trim() ? PINK : DIM,
+            background: 'none',
+            border:     'none',
+            cursor:     name.trim() ? 'pointer' : 'default',
+            fontFamily: 'inherit',
+            padding:    0,
+            transition: 'color 0.12s',
+          }}
+        >
+          add
+        </button>
+        <button
+          onClick={onCancel}
+          style={{ color: DIM, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
+        >
+          cancel
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /* ── stack window content ──────────────────────────────────────────── */
 function StackContent({ state }: { state: LoadState }) {
   const fallbackProviders = REGISTRY.slice(0, 5);
+  const [extras,   setExtras]   = useState<UserProvider[]>([]);
+  const [isAdding, setIsAdding] = useState(false);
+
+  function handleAdd(p: UserProvider) {
+    setExtras(prev => [...prev, p]);
+    setIsAdding(false);
+  }
 
   if (state.status === 'loading') {
     return (
@@ -162,9 +274,17 @@ function StackContent({ state }: { state: LoadState }) {
   }
 
   const enriched = state.data.services.map(s => ({ svc: s, info: lookupService(s) }));
-  const rows = enriched.length > 0
+  const baseRows = enriched.length > 0
     ? enriched
     : fallbackProviders.map(p => ({ svc: p.name, info: p }));
+
+  const extraRows = extras.map(p => ({
+    svc:  p.name,
+    info: { name: p.name, category: p.category, description: '', url: undefined } as RegistryService,
+  }));
+
+  const allRows = [...baseRows, ...extraRows];
+  const totalCount = baseRows.length + extras.length;
 
   return (
     <div style={{ padding: '1.25em 1.25em 1.25em', fontFamily: 'inherit' }}>
@@ -177,7 +297,7 @@ function StackContent({ state }: { state: LoadState }) {
           </span>
         </div>
         <div style={{ color: DIM, fontSize: '0.82em', paddingLeft: '1.4em' }}>
-          {rows.length} provider{rows.length !== 1 ? 's' : ''}
+          {totalCount} provider{totalCount !== 1 ? 's' : ''}
           {' · '}
           generated {new Date(state.data.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </div>
@@ -185,9 +305,37 @@ function StackContent({ state }: { state: LoadState }) {
 
       {/* provider list */}
       <div style={{ borderTop: BORDER }}>
-        {rows.map(({ svc, info }, i) => (
-          <ProviderRow key={svc} svc={svc} info={info} isLast={i === rows.length - 1} />
+        {allRows.map(({ svc, info }, i) => (
+          <ProviderRow key={`${svc}-${i}`} svc={svc} info={info} isLast={i === allRows.length - 1} />
         ))}
+
+        {/* add provider form or trigger */}
+        <div style={{ borderTop: allRows.length > 0 ? BORDER : 'none', paddingTop: allRows.length > 0 ? 0 : undefined }}>
+          {isAdding ? (
+            <AddProviderForm onAdd={handleAdd} onCancel={() => setIsAdding(false)} />
+          ) : (
+            <button
+              onClick={() => setIsAdding(true)}
+              style={{
+                display:    'block',
+                marginTop:  '0.7em',
+                background: 'none',
+                border:     'none',
+                padding:    0,
+                cursor:     'pointer',
+                color:      DIM,
+                fontFamily: 'inherit',
+                fontSize:   '0.8em',
+                letterSpacing: '0.01em',
+                transition: 'color 0.12s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = PINK)}
+              onMouseLeave={e => (e.currentTarget.style.color = DIM)}
+            >
+              + add a provider
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -197,6 +345,7 @@ function StackContent({ state }: { state: LoadState }) {
 function InstallContent({ state, code }: { state: LoadState; code: string }) {
   const [copied, setCopied]         = useState(false);
   const [copiedInit, setCopiedInit] = useState(false);
+  const [showModal, setShowModal]   = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(BREW_COMMAND);
@@ -212,27 +361,31 @@ function InstallContent({ state, code }: { state: LoadState; code: string }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'inherit' }}>
+      {showModal && <InstallModal onClose={() => setShowModal(false)} />}
+
       {/* header row */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: BORDER, padding: '0.55em 1.25em' }}>
         <span style={{ fontSize: '0.8em', color: 'var(--color-blue)' }}>Install</span>
-        <a
-          href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => setShowModal(true)}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.2em',
             fontSize: '0.75em',
             color: DIM,
-            textDecoration: 'none',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,
+            fontFamily: 'inherit',
             transition: 'color 0.15s',
           }}
           onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text-ui)')}
           onMouseLeave={e => (e.currentTarget.style.color = DIM)}
         >
           more install options <ArrowUpRight size={10} strokeWidth={1.5} />
-        </a>
+        </button>
       </div>
 
       {/* command — click to copy */}
@@ -403,6 +556,8 @@ export function StackPage() {
   const { code }  = useParams<{ code: string }>();
   const navigate  = useNavigate();
   const isMobile  = useIsMobile();
+  const { themeConfig } = useTheme();
+  const isHelmWave = themeConfig.backgroundVariant === 'helm-wave';
 
   const [state, setState]   = useState<LoadState>({ status: 'loading' });
   const [activeWin, setActiveWin] = useState<'stack' | 'install' | null>('stack');
@@ -469,7 +624,7 @@ export function StackPage() {
           flexDirection: 'column',
         }}
       >
-        <GridBackground />
+        {isHelmWave ? <HelmWaveBackground /> : <GridBackground />}
         <StatusBar onReset={handleReset} viewMode={viewMode} onViewModeChange={setViewMode} />
         {viewMode === 'agent' && <AgentView />}
         {viewMode === 'scroll' && (
@@ -510,7 +665,7 @@ export function StackPage() {
         flexDirection: 'column',
       }}
     >
-      <GridBackground />
+      {isHelmWave ? <HelmWaveBackground /> : <GridBackground />}
       <StatusBar onReset={handleReset} viewMode={viewMode} onViewModeChange={setViewMode} />
 
       {viewMode === 'agent' && <AgentView />}
