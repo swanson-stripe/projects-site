@@ -1,0 +1,22 @@
+<div webc:root="override">
+    <svg webc:if="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path opacity="0.2" d="M12 6A6 6 0 1 1 0 6a6 6 0 0 1 6-6c3.322 0 6 2.686 6 6"/>
+        <path d="m9.235 4.722-.476.477-3.025 3.025-.477.476-.478-.476-2.069-2.07.955-.955 1.592 1.592L8.28 3.767z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path opacity="0.2" d="M12 6A6 6 0 1 1 0 6a6 6 0 0 1 6-6c3.322 0 6 2.686 6 6"/>
+        <path fill-rule="evenodd" d="M9.134 4.9 5.306 8.73l-.53-.53L3.318 6.74l-.53-.53 1.06-1.06 1.457 1.455L7.543 4.37l.53-.53z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path opacity="0.2" d="M16 8a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c4.43 0 8 3.581 8 8"/>
+        <path d="M12.61 5.75 6.8 11.56 3.24 8 4.3 6.94l2.5 2.5 4.75-4.75z"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path opacity="0.2" d="M16 8a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c4.43 0 8 3.581 8 8"/>
+        <path d="m12.28 6.296-4.652 4.651-.62.618L3.65 8.206l1.238-1.237.619.618L7.009 9.09l4.032-4.032z"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" width="20" height="20" class="w-20 h-20">
+        <path opacity="0.2" d="M20 10c0 5.523-4.477 10-10 10S0 15.523 0 10 4.477 0 10 0a9.99 9.99 0 0 1 10 10"/>
+        <path fill-rule="evenodd" d="M15.498 7.188 8.5 14.186l-4.185-4.185 1.06-1.061L8.5 12.065l5.938-5.938z" clip-rule="evenodd"/>
+    </svg>
+</div>

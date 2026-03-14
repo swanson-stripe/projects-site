@@ -1,0 +1,14 @@
+<div webc:root="override">
+    <svg webc:if="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M6 0a6 6 0 1 1 0 12A6 6 0 0 1 6 0m1.826 3.326L6 5.152 4.174 3.326l-.424-.425-.849.849.425.424L5.152 6 3.326 7.826l-.425.424.849.849.424-.425L6 6.848l1.826 1.826.424.425.849-.849-.425-.424L6.848 6l1.826-1.826.425-.424-.849-.849z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M6 0a6 6 0 1 1 0 12A6 6 0 0 1 6 0m0 5.045-2.25-2.25-.955.955L5.045 6l-2.25 2.25.955.955L6 6.955l2.25 2.25.955-.955L6.955 6l2.25-2.25-.955-.955z"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m0 6.94-3-3L3.94 5l3 3-3 3L5 12.06l3-3 3 3L12.06 11l-3-3 3-3L11 3.94z"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m2.576 4.576L8 7.152 5.424 4.576 5 4.151 4.151 5l.425.424L7.152 8l-2.576 2.576-.425.424.849.849.424-.425L8 8.848l2.576 2.576.424.425.849-.849-.425-.424L8.848 8l2.576-2.576.425-.424L11 4.151z"/>
+    </svg>
+</div>

@@ -1,0 +1,27 @@
+<div class="absolute top-0 let-0 w-full h-full overflow-y-scroll scroll-smooth no-scrollbar" web:root="override">
+    <helm-nav></helm-nav>
+    <main id="main">
+        <!--- Hero --->
+        <div class="relative w-full flex flex-col items-center">
+            <!--- Lines --->
+            <helm-container class="absolute border-x border-edge mx-16 h-full">
+            </helm-container>
+            <!--- Wave --->
+            <div class="absolute inset-[-76px_0px_0px_48px]">
+                <div data-js-target="nouveau-bloom-wave" class="relative w-full h-full"></div>
+            </div>
+            <!--- Hero --->
+            <helm-section class="relative">
+                <helm-container class="relative h-dvh flex flex-col justify-center px-16 pb-144">
+                    <h1 class="text-48/100 tracking-tighter max-w-656 mb-24">
+                        Implement consistent core tokens, <span class="text-neutral-400">ship new work, org-wide, faster</span>
+                    </h1>
+                    <p class="text-18/[137.5%] text-content max-w-576">
+                        Helm and Sail are already almost the same. Why not make them one? <span class="whitespace-nowrap">Or, at</span> least, make them share the same foundations? In this prototype, <span class="whitespace-nowrap">I loosely</span> explore what it would take to get us there.
+                    </p>
+                </helm-container>
+            </helm-section>
+        </div>
+    </main>
+    <helm-footer></helm-footer>
+</div>

@@ -1,0 +1,62 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <g clip-path="url(#arrownext8r)">
+        <path d="m3.41.542-.344.362L5.788 3.5H.238v1h5.55L3.066 7.095l.69.724L7.38 4.361 7.761 4l-.38-.362L3.755.18z"/>
+        </g>
+        <defs>
+        <clipPath id="arrownext8r">
+        <path fill="#fff" d="M.239 0H7.76v8H.239z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '8' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <g clip-path="url(#arrownext8s)">
+        <path d="m2.818 1.03 2.407 2.296H.112v1.35h5.112L2.818 6.968l.932.977 3.626-3.457L7.888 4l-.512-.489L3.75.054z"/>
+        </g>
+        <defs>
+        <clipPath id="arrownext8s">
+        <path fill="#fff" d="M.112 0h7.775v8H.112z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '13' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 13 14" width="13" height="14" class="w-13 h-14">
+        <g clip-path="url(#arrownext13r)">
+        <path d="m5.064 1.06 4.72 4.72H.344v1.5h9.44L5.064 12l1.061 1.06 6.53-6.53L6.125 0z"/>
+        </g>
+        <defs>
+        <clipPath id="arrownext13r">
+        <path fill="#fff" d="M.345 0h12.31v13.06H.345z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '13' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 13 14" width="13" height="14" class="w-13 h-14">
+        <g clip-path="url(#arrownext13s)">
+        <path d="m4.887 1.238 4.506 4.506H.256v1.75h9.137L4.887 12l1.238 1.238 6-6 .619-.619L12.126 6l-6-6z"/>
+        </g>
+        <defs>
+        <clipPath id="arrownext13s">
+        <path fill="#fff" d="M.256 0h12.487v13.238H.256z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#arrownext16s)">
+        <path d="M6.187 2.425 10.834 7H1.299v2h9.535l-4.647 4.575 1.402 1.426 6.388-6.288.724-.713-.724-.713L7.59 1z"/>
+        </g>
+        <defs>
+        <clipPath id="arrownext16s">
+        <path fill="#fff" d="M1.3 0h13.4v16H1.3z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#arrownext16r)">
+        <path d="m6.54 2.246 5.083 5.004H1.478v1.5h10.145L6.54 13.754l1.053 1.068 6.387-6.288.543-.534-.543-.534-6.387-6.288z"/>
+        </g>
+        <defs>
+        <clipPath id="arrownext16r">
+        <path fill="#fff" d="M1.478 0h13.045v16H1.478z"/>
+        </clipPath>
+        </defs>
+    </svg>
+</div>

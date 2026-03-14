@@ -1,0 +1,272 @@
+<div class="absolute top-0 left-0 w-320 h-full text-14/120" webc:root="override">
+    <div class="relative w-full h-full flex flex-col pt-8">
+
+        <!--- Upper --->
+        <div class="relative w-full flex flex-col shrink-0">
+            <!--- Chat title -->
+            <div class="relative px-8 h-64 py-12">
+                <div class="relative h-full w-full px-8 flex justify-between items-center rounded-4 border border-transparent">
+                    <!--- Left --->
+                    <div class="relative flex items-center gap-8">
+                        <div class="relative w-24 h-24 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" class="w-16 h-16">
+                                <path fill="url(#uc-a)" d="M11.47 2.63a.3.3 0 0 0 .15-.16l.64-1.8A.3.3 0 0 1 12.5.5q.16 0 .24.17l.64 1.8q.04.11.15.16l1.8.64q.18.07.17.23 0 .17-.17.24l-1.8.64a.3.3 0 0 0-.15.15l-.64 1.8a.3.3 0 0 1-.24.17q-.17 0-.24-.16l-.64-1.81a.3.3 0 0 0-.15-.15l-1.8-.64a.3.3 0 0 1-.17-.24q0-.17.16-.23z"/>
+                                <path fill="url(#uc-b)" fill-rule="evenodd" d="m7 5.5-.56 1.57a2.3 2.3 0 0 1-1.37 1.37L3.49 9l1.58.56c.64.23 1.14.73 1.37 1.37L7 12.51l.56-1.58c.23-.64.73-1.14 1.37-1.37L10.5 9l-1.58-.56a2.3 2.3 0 0 1-1.37-1.37zM7.7 3a.7.7 0 0 0-.7-.5c-.3 0-.59.16-.7.5L5.02 6.57a.8.8 0 0 1-.46.46L.99 8.29A.74.74 0 0 0 .5 9c0 .3.17.59.5.7l3.58 1.28q.33.12.46.45l1.26 3.58c.12.33.42.5.71.5.3 0 .59-.17.7-.5l1.27-3.58a.8.8 0 0 1 .46-.45L13 9.7c.34-.12.5-.41.5-.7 0-.3-.16-.6-.5-.72L9.43 7.03a.8.8 0 0 1-.46-.46z" clip-rule="evenodd"/>
+                                <defs>
+                                <linearGradient id="uc-a" x1="-2.24" x2="20.16" y1="18.88" y2="-3.52" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#5df"/>
+                                    <stop offset=".5" stop-color="#675dff"/>
+                                    <stop offset=".98" stop-color="#28239b"/>
+                                </linearGradient>
+                                <linearGradient id="uc-b" x1="-2.24" x2="20.16" y1="18.88" y2="-3.52" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#5df"/>
+                                    <stop offset=".5" stop-color="#675dff"/>
+                                    <stop offset=".98" stop-color="#28239b"/>
+                                </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="font-normal pb-1">
+                            Stripe Assistant
+                        </div>
+                    </div>
+                    <!--- Right --->
+                    <div class="relative flex items-center justify-center shrink-0">
+                        <button class="relative flex items-center justify-center shrink-0 w-24 h-24 text-content rounded-4 border border-transparent hover:text-primary-hover hover:bg-highlight/50 hover:border-brand-100 focus-visible:bg-highlight/70 focus-visible:shadow-focus transition-all duration-200 ease-out oultine-none cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" class="w-14 h-14">
+                                <path d="M6 7.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5m4.5 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5m-9 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5"/>
+                            </svg>
+                        </button>
+                        <button class="relative flex items-center justify-center shrink-0 w-24 h-24 text-content rounded-4 border border-transparent hover:text-primary-hover hover:bg-highlight/50 hover:border-brand-100 focus-visible:bg-highlight/70 focus-visible:shadow-focus transition-all duration-200 ease-out oultine-none cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14">
+                                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1.5 0c0 1.47-.5 2.89-1.4 4.04l-1.07-1.07q-.46.6-1.06 1.06l1.07 1.07a6.5 6.5 0 0 1-8.07 0l1.07-1.07a4.98 4.98 0 0 0 7.42-1.77 5 5 0 0 0-.43-5.22l1.07-1.08A6.5 6.5 0 0 1 14.5 8m-2.46-5.1a6.5 6.5 0 0 0-8.07 0l1.07 1.07a5 5 0 0 1 5.93 0zm-8.07 8.07a5 5 0 0 1 0-5.93L2.9 3.96a6.5 6.5 0 0 0 0 8.08zM11.5 8a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="relative flex items-center justify-center shrink-0 w-24 h-24 text-content rounded-4 border border-transparent hover:text-primary-hover hover:bg-highlight/50 hover:border-brand-100 focus-visible:bg-highlight/70 focus-visible:shadow-focus transition-all duration-200 ease-out oultine-none cursor-pointer">
+                            <div class="absolute w-12 h-1.75 bg-current rotate-45"></div>
+                            <div class="absolute w-12 h-1.75 bg-current -rotate-45"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--- Divider -->
+            <div class="relative px-16 mb-12 mt-0.5">
+                <div class="border-t border-edge"></div>
+            </div>
+        </div>
+        
+        <!--- Conversation --->
+        <div class="relative w-full h-full flex flex-col px-16 text-content leading-150 overflow-y-scroll scroll-smooth no-scrollbar">
+            <div class="relative flex justify-end mb-12">
+                <div class="relative text-headline bg-brand-100 rounded-4 px-10 pt-4 pb-6">
+                    Why do this?
+                </div>
+            </div>
+            <div class="opacity-50 mb-12">
+                Thought for <span class="opacity-50">12s</span>
+            </div>
+            <div class="mb-12">
+                Implementing globally standardized tokens allows for a truly unified chat experience across all of Stripe's products.
+            </div>
+            <div class="mb-12">
+                This will save time and effort by removing the need to create unique instances of components per surface.
+            </div>
+            <div class="mb-24">
+                At the same time this adds flexibility as both designers and developers will be familiar with the core design language across surfaces.
+            </div>
+            <div class="relative flex justify-end mb-12">
+                <div class="relative text-headline bg-brand-100 rounded-4 px-10 pt-4 pb-6">
+                    Why now?
+                </div>
+            </div>
+            <div class="opacity-50 mb-12">
+                Thought for <span class="opacity-50">2s</span>
+            </div>
+            <div class="mb-12">
+                Mostly, because I heard Inter might be used in Dashboard 😂. Adding another custom font into the mix will only make fragmentation and portability worse.
+            </div>
+            <div class="mb-12">
+                As a designer who frequently works across surfaces, I've seen how much time and effort is wasted by having to create unique instances of components per surface.
+            </div>
+            <div>
+                Since Helm is the newest design system, building upon it seems to be sensible.
+            </div>
+        </div>
+
+        <!--- Input --->
+        <div class="relative w-full shrink-0 px-16 pb-8 text-16/[137.5%]">
+            <div data-input-mechanism-container class="relative w-full shrink-0">
+                <!--- Outer loading gradient --->
+                <div data-input-loading-gradient class="absolute top-0 left-0 w-full h-full flex items-center justify-center rounded-6 overflow-hidden blur-md opacity-0 invisible">
+                    <div class="absolute w-[calc(100%+8rem)] flex aspect-square animate-input-loading opacity-30"></div>
+                </div>
+                <!-- Inner mechanism -->
+                <div data-input-mechanism data-hover-follow-container class="relative w-full flex flex-col items-center justify-center text-detail bg-neutral-100 rounded-6 overflow-hidden group/input hover:bg-neutral-100 has-[.text-input:focus-visible]:bg-brand-300 has-[.text-input:focus-visible]:shadow-focus transition-all duration-200 ease-out">
+                    <!--- Inner loading gradient --->
+                    <div data-input-loading-gradient class="absolute top-0 left-0 w-full h-full flex items-center justify-center rounded-6 overflow-hidden opacity-0 invisible">
+                        <div class="absolute w-[calc(100%+8rem)] flex aspect-square animate-input-loading"></div>
+                    </div>
+                    <!-- Gradient hover follow -->
+                    <div data-input-hover-follow class="absolute top-0 left-0 w-full h-full rounded-6 opacity-0 group-hover/input:opacity-100 group-has-[.text-input:focus-visible]/input:opacity-0 transition-all duration-200 ease-out">
+                        <div data-hover-follow class="absolute w-176 h-176 bg-radial/shorter from-primary/80 via-ruby-400/50 to-ruby-400/0 from-30% to-66% origin-center"></div>
+                    </div>
+                    <!-- Input BGs -->
+                    <div class="absolute top-0 left-0 w-full h-full p-1">
+                        <!-- BG to prevent gradient bleed -->
+                        <div class="absolute top-1 left-1 w-[calc(100%-0.125rem)] h-[calc(100%-0.125rem)] bg-neutral-100 rounded-5"></div>
+                        <!-- BG to transition on interaction --->
+                        <div class="absolute top-1 left-1 w-[calc(100%-0.125rem)] h-[calc(100%-0.125rem)] bg-highlight/90 rounded-5 group-hover/input:bg-highlight/95 group-has-[#text-input:focus-visible]/input:bg-highlight/95 transition-all duration-200 ease-out"></div>
+                    </div>
+                    <!-- Input contents -->
+                    <div class="reative w-full shrink-0">
+                        <!-- Input label -->
+                        <label data-input-placeholder for="text-input-intro" class="absolute top-0 left-0 w-full px-17 pt-11 pointer-events-none text-pretty">
+                            Ask a question...
+                        </label>
+                        <!-- Input text -->
+                        <div data-input-text contentEditable id="text-input-intro" class="text-input relative w-full px-17 pt-11 outline-none caret-primary min-h-103 pb-48 text-headline focus-visible:text-headline"></div>
+                    </div>
+                    <!-- Submit contents -->
+                    <div class="absolute bottom-0 right-0 p-5 flex justify-end pointer-events-none">
+                        <!-- Submit button -->
+                        <button data-input-submit tabindex="-1" class="relative w-32 h-32 flex items-center justify-center bg-neutral-50 text-neutral-300 pointer-events-none rounded-2 cursor-pointer outline-none overflow-hidden group transition-all duration-200 ease-out hover:bg-brand-700 focus-visible:shadow-focus-fg focus-visible:text-white focus-visible:bg-brand-700">
+                            <chat-arrowup data-input-submit-arrow class="absolute w-16 group-hover:-translate-y-24 group-hover:opacity-0 transition-all duration-200 ease-out"></chat-arrowup>
+                            <chat-arrowup data-input-submit-arrow class="absolute w-16 translate-y-24 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-200 ease-out"></chat-arrowup>
+                            <div data-input-submit-stop class="absolute w-12 h-12 bg-white opacity-0 scale-0"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .animate-input-loading  { 
+        background: conic-gradient(from 90deg in oklch shorter hue, rgba(234,34,97,0) 45deg, rgba(234,34,97,0.5) 180deg, rgba(83,58,253,1) 247deg, rgba(83,58,253,0.5) 300deg, rgba(83,58,253,0) 360deg);
+        animation: loading-rotate 2000ms cubic-bezier(.5,.66,.5,.33) infinite;
+    }
+
+    @keyframes loading-rotate {
+        0%   { transition-timing-function: linear; transform: rotate3d(0,0,1,0deg); }
+        100% { transition-timing-function: linear; transform: rotate3d(0,0,1,360deg); }
+    }
+</style>
+
+<script>
+
+    // Hide placeholder when input has content
+    function hidePlaceholder() {
+        document.querySelector('[data-input-text]').addEventListener('input', () => {
+            if (document.querySelector('[data-input-text]').textContent !== '') {
+                document.querySelector('[data-input-placeholder]').style.opacity = '0';
+            } else {
+                document.querySelector('[data-input-placeholder]').style.opacity = '1';
+            }
+        });
+    }
+    hidePlaceholder();
+
+    // Unlock submit when input has content
+    function unlockSubmit() {
+        document.querySelector('[data-input-text]').addEventListener('input', () => {
+            if (document.querySelector('[data-input-text]').textContent !== '') {
+                document.querySelector('[data-input-submit]').removeAttribute('tabindex');
+                document.querySelector('[data-input-submit]').classList.add('bg-primary', 'text-neutral-0', 'pointer-events-auto');
+                document.querySelector('[data-input-submit]').classList.remove('bg-neutral-50', 'text-neutral-300', 'pointer-events-none');
+            } else {
+                document.querySelector('[data-input-submit]').setAttribute('tabindex', '-1');
+                document.querySelector('[data-input-submit]').classList.add('bg-neutral-50', 'text-neutral-300', 'pointer-events-none');
+                document.querySelector('[data-input-submit]').classList.remove('bg-primary', 'text-neutral-0', 'pointer-events-auto');
+            }
+        });
+    }
+    unlockSubmit();
+
+    // Input gradient follow cursor
+    function followCursorOnInput() {
+        const container = document.querySelector('[data-input-mechanism]');
+        const follower = document.querySelector('[data-input-hover-follow]');
+        
+        if (!container || !follower) return;
+        
+        // Current position (with inertia)
+        let currentX = 0;
+        let currentY = 0;
+        // Target position (actual cursor)
+        let targetX = 0;
+        let targetY = 0;
+        // Animation state
+        let isHovering = false;
+        let animationId = null;
+        
+        // Easing factor (lower = more inertia, 0.05-0.15 feels nice)
+        const ease = 0.12;
+        
+        // Center the follower element offset
+        const followerWidth = 176;
+        const followerHeight = 176;
+        
+        function updatePosition() {
+            if (!isHovering && Math.abs(targetX - currentX) < 0.5 && Math.abs(targetY - currentY) < 0.5) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+                return;
+            }
+            
+            // Lerp towards target with easing
+            currentX += (targetX - currentX) * ease;
+            currentY += (targetY - currentY) * ease;
+            
+            // Apply transform (centered on cursor)
+            follower.style.transform = `translate(${currentX - followerWidth / 2}px, ${currentY - followerHeight / 2}px)`;
+            
+            animationId = requestAnimationFrame(updatePosition);
+        }
+        
+        container.addEventListener('mouseenter', (e) => {
+            isHovering = true;
+            
+            // Get initial position
+            const rect = container.getBoundingClientRect();
+            targetX = e.clientX - rect.left;
+            targetY = e.clientY - rect.top;
+            
+            // Set initial position immediately (no lag on first enter)
+            currentX = targetX;
+            currentY = targetY;
+            follower.style.transform = `translate(${currentX - followerWidth / 2}px, ${currentY - followerHeight / 2}px)`;
+            
+            // Animate opacity in
+            follower.style.transition = 'opacity 0.3s ease-out';
+            follower.style.opacity = '1';
+            
+            // Start animation loop
+            if (!animationId) {
+                animationId = requestAnimationFrame(updatePosition);
+            }
+        });
+        
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            targetX = e.clientX - rect.left;
+            targetY = e.clientY - rect.top;
+            
+            // Ensure animation is running
+            if (!animationId) {
+                animationId = requestAnimationFrame(updatePosition);
+            }
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            isHovering = false;
+            
+            // Animate opacity out
+            follower.style.transition = 'opacity 0.4s ease-out';
+            follower.style.opacity = '0';
+        });
+    }
+    followCursorOnInput();
+
+</script>

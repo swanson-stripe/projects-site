@@ -1,0 +1,5 @@
+<!--- Unified module markup --->
+
+<section webc:root="override" class="w-full flex items-center justify-center flex-col px-16">
+    <slot></slot>
+</section>

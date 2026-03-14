@@ -2,7 +2,8 @@
    White background, dark monospaced text. No toolbar — logo and theme
    switcher live inline in the body content.
 ────────────────────────────────────────────────────────────────────── */
-[data-theme="dev"] {
+[data-theme="dev"],
+[data-theme="dev-lite"] {
   --color-bg:             #FFFFFF;
   --color-surface-dark:   #FFFFFF;
   --color-text-ui:        #0A0A0A;
@@ -15,14 +16,19 @@
 /* Hide everything that isn't the dev content panel */
 [data-theme="dev"] canvas[aria-hidden],
 [data-theme="dev"] .terminal-banner,
-[data-theme="dev"] .terminal-banner ~ *:not(.dev-theme-content) {
+[data-theme="dev"] .terminal-banner ~ *:not(.dev-theme-content),
+[data-theme="dev-lite"] canvas[aria-hidden],
+[data-theme="dev-lite"] .terminal-banner,
+[data-theme="dev-lite"] .terminal-banner ~ *:not(.dev-theme-content) {
   display: none !important;
 }
 
 /* Hover effect for clickable copy buttons */
-[data-theme="dev"] .dev-copy-btn {
+[data-theme="dev"] .dev-copy-btn,
+[data-theme="dev-lite"] .dev-copy-btn {
   transition: color 0.15s;
 }
-[data-theme="dev"] .dev-copy-btn:hover {
+[data-theme="dev"] .dev-copy-btn:hover,
+[data-theme="dev-lite"] .dev-copy-btn:hover {
   color: rgba(10,10,10,0.4) !important;
 }

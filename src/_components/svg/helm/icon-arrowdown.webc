@@ -1,0 +1,32 @@
+<div webc:root="override">
+    <svg webc:if="size === '8'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <g clip-path="url(#arrowdown8r)">
+        <path d="M4.477 7.271 4 7.748l-.478-.477L.875 4.623l.476-.477.478-.478 1.497 1.496L3.325.253l1.35-.001v4.911L6.17 3.668l.955.955z"/>
+        </g>
+        <defs>
+        <clipPath id="arrowdown8r">
+        <path fill="#fff" d="M.875.252h6.25v7.496H.876z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '12'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <g clip-path="url(#arrowdown12r)">
+        <path d="M6.616 10.44 6 11.052l-.617-.612L1.75 6.835l1.233-1.242 2.142 2.124V.949h1.75v6.77l2.142-2.126 1.233 1.242z"/>
+        </g>
+        <defs>
+        <clipPath id="arrowdown12r">
+        <path fill="#fff" d="M1.75.948h8.5v10.104h-8.5z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#arrowdown16r)">
+        <path d="M8.709 14.668 8 15.38l-.709-.713L1.75 9.1l1.418-1.41 3.833 3.851V.62h2v10.919l3.831-3.85 1.418 1.41z"/>
+        </g>
+        <defs>
+        <clipPath id="arrowdown16r">
+        <path fill="#fff" d="M1.75.62h12.5v14.76H1.75z"/>
+        </clipPath>
+        </defs>
+    </svg>
+</div>

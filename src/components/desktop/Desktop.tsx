@@ -359,13 +359,13 @@ export function Desktop() {
       />
 
       {/* ── Dev theme — plain terminal-style content ──────────────── */}
-      {theme === 'dev' && <DevThemeContent />}
+      {(theme === 'dev' || theme === 'dev-lite') && <DevThemeContent lite={theme === 'dev-lite'} />}
 
       {/* ── Agent view — replaces window area when active ─────────── */}
-      {theme !== 'dev' && viewMode === 'agent' && <AgentView />}
+      {theme !== 'dev' && theme !== 'dev-lite' && viewMode === 'agent' && <AgentView />}
 
       {/* ── Scroll view ───────────────────────────────────────────── */}
-      {theme !== 'dev' && viewMode === 'scroll' && <ScrollView key={scrollViewKey} />}
+      {theme !== 'dev' && theme !== 'dev-lite' && viewMode === 'scroll' && <ScrollView key={scrollViewKey} />}
 
       {/* ── Window area — fills remaining height ──────────────────── */}
       <div

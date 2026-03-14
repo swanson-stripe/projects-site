@@ -1,0 +1,18 @@
+<li class="relative px-8" webc:root="override">
+    <a href="#" class="relative h-32 w-full pl-8 pr-11 flex justify-between items-center rounded-4 border border-transparent text-content hover:text-primary-hover hover:bg-highlight/50 hover:border-brand-100 focus-visible:bg-highlight/70 focus-visible:shadow-focus transition-all duration-200 ease-out group outline-none">
+        <div class="relative flex items-center gap-8 overflow-hidden">
+            <div webc:if="logo" class="relative flex items-center justify-center shrink-0 w-24 h-24 opacity-70 group-hover:opacity-100 transition-all duration-200 ease-out">
+                <slot name="logo"></slot>
+            </div>
+            <div webc:if="logo" class="font-[350] pb-1 truncate">
+                <slot name="label"></slot>
+            </div>
+            <div webc:else class="font-[350] pb-1 pl-2 truncate">
+                <slot name="label"></slot>
+            </div>
+        </div>
+        <div webc:if="icon" class="relative flex items-center justify-center w-16 h-16 shrink-0 -translate-y-1">
+            <slot name="icon"></slot>
+        </div>
+    </a>
+</li>

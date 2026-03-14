@@ -1,0 +1,14 @@
+<div webc:root="override">
+    <svg webc:if="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path fill-rule="evenodd" d="M7.796.021a.75.75 0 0 1 .75.75v.35h3.07V11.98H.384V1.122h3.062V.77a.75.75 0 0 1 1.5 0v.35h2.1v-.35a.75.75 0 0 1 .75-.75M1.884 10.479h8.232V5.278H1.884zm2.62-.754h-1.5v-1.5h1.5zm2.246 0h-1.5v-1.5h1.5zm2.247 0h-1.5v-1.5h1.5zM4.503 7.48h-1.5v-1.5h1.5zm2.247 0h-1.5v-1.5h1.5zm2.247 0h-1.5v-1.5h1.5zm-7.113-3.4h8.232V2.622h-1.57v.462a.75.75 0 0 1-1.5 0v-.462h-2.1v.462a.75.75 0 0 1-1.5 0v-.462H1.884z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path fill-rule="evenodd" d="M7.798.02c.484 0 .875.393.875.876v.282h2.95v10.801H.377V1.178H3.32V.896a.876.876 0 1 1 1.75 0v.282h1.854V.896c0-.483.392-.875.875-.875m-5.67 10.21h7.745V5.582H2.127zM4.5 9.803H3.001v-1.5h1.5zm2.25 0h-1.5v-1.5h1.5zm2.249 0h-1.5v-1.5H9zM4.5 7.553H3.001V6.056h1.5zm2.25 0h-1.5V6.056h1.5zm2.249 0h-1.5V6.056H9zm-6.872-3.17h7.746V2.928h-1.2v.343a.875.875 0 0 1-1.75 0v-.343H5.07v.343a.875.875 0 0 1-1.75 0v-.343H2.127z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M10.4.046c.483 0 .874.392.874.875v.623H15.5v14.41H.5V1.544h4.216V.921a.875.875 0 1 1 1.75 0v.623h3.058V.921c0-.483.392-.875.875-.875M2.25 14.204h11.5V7.078H2.25zM6 13.203H4v-2h2zm3 0H7v-2h2zm3 0h-2v-2h2zm-6-3H4v-2h2zm3 0H7v-2h2zm3 0h-2v-2h2zM2.25 5.328h11.5V3.294h-2.476v.627a.875.875 0 1 1-1.75 0v-.627H6.466v.627a.875.875 0 1 1-1.75 0v-.627H2.25z"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M10.4 0a.75.75 0 0 1 .75.75v.75h4.35V16H.5V1.5h4.34V.75a.75.75 0 0 1 1.5 0v.75h3.31V.75A.75.75 0 0 1 10.4 0M2 14.5h12V7H2zM5.75 13h-1.5v-1.5h1.5zm3 0h-1.5v-1.5h1.5zm3 0h-1.5v-1.5h1.5zm-6-3h-1.5V8.5h1.5zm3 0h-1.5V8.5h1.5zm3 0h-1.5V8.5h1.5zM2 5.5h12V3h-2.85v.75a.75.75 0 0 1-1.5 0V3H6.34v.75a.75.75 0 0 1-1.5 0V3H2z"/>
+    </svg>
+</div>

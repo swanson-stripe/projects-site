@@ -1,0 +1,6 @@
+<!--- Unified max-width for content --->
+
+<div class="w-full max-w-1266" webc:root="override">
+    <slot>
+    </slot>
+</div>

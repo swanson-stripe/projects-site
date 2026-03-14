@@ -1,0 +1,9 @@
+<li webc:root="override">
+    <a :href="href" class="relative block px-8 py-6 rounded-4 outline-none group hover:text-content focus-visible:shadow-focus transition-all duration-250 ease-out">
+        <div class="relative font-normal text-primary">
+            <p @text="title" class="inline"></p>
+            <icon-arrowright @size="md" @weight="strong" class="inline-block ml-6 translate-y-1 -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-250 ease-out"></icon-arrowright>
+        </div>
+        <p webc:if="description" @text="description"></p>
+    </a>
+</li>

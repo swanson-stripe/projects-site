@@ -1,0 +1,20 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path d="M6.327 1.673H4v-1h3.327V4h-1zM.673 4h1v2.327H4v1H.673z"/>
+    </svg>
+    <svg webc:elseif="size === '8' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path d="M6.152 1.848H4V.498h3.502V4h-1.35zM.498 4h1.35v2.152H4v1.35H.498z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M9.625 2.375H6v-1.5h5.125V6h-1.5zM.875 6h1.5v3.625H6v1.5H.875z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M9.5 2.5H6V.75h5.25V6H9.5zM.75 6H2.5v3.5H6v1.75H.75z"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M13 2.999H8v-2h7v7h-2zM1 8.001h2v5h5v2H1z"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M13.25 2.749H8v-1.5h6.75v6.75h-1.5zm-12 5.252h1.5v5.25H8v1.5H1.25z"/>
+    </svg>
+</div>

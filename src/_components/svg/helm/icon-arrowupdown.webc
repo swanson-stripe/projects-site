@@ -1,0 +1,14 @@
+<div webc:root="override">
+    <svg webc:if="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="m9.983 8.394-3.5 2.95-.483.408-.483-.408-3.5-2.95.966-1.146L6 9.79l3.017-2.543zM6.483.656l3.5 2.95-.966 1.146L6 2.21 2.983 4.752l-.966-1.146 3.5-2.95L6 .249z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path fill-rule="evenodd" d="m10.064 8.34-3.5 2.951-.564.476-.563-.476-3.5-2.95 1.126-1.338L6 9.479l2.937-2.476zM6.563.71l3.5 2.95-1.127 1.338L6 2.522 3.063 4.998 1.937 3.66l3.5-2.95L6 .233z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="m13.624 10.514-5 4-.625.499-.625-.5-5-4 1.25-1.562 4.375 3.5 4.375-3.5zm.002-5.027-1.25 1.563-4.375-3.5-4.375 3.5-1.251-1.563 5.001-4 .625-.5z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="M13.467 10.645 7.998 15.02l-5.469-4.375.938-1.172 4.531 3.625 4.531-3.625zm.004-5.29-.938 1.172-4.531-3.625-4.531 3.625-.939-1.172L8.002.98z" clip-rule="evenodd"/>
+    </svg>
+</div>
