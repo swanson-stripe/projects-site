@@ -207,26 +207,26 @@ changefreq: "weekly"
                     </div>
                     <div class="relative flex items-center justify-center">
                         <logo-supabase data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-supabase>
-                        <logo-turso data-logo-wall="2" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible"></logo-turso>
+                        <logo-posthog data-logo-wall="2" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible"></logo-posthog>
                     </div>
                     <div class="relative flex items-center justify-center">
-                        <logo-neon data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-neon>
+                        <logo-runloop data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-runloop>
                         <logo-planetscale data-logo-wall="2" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible"></logo-planetscale>
                     </div>
                     <div class="relative flex items-center justify-center">
-                        <logo-posthog data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-posthog>
+                        <logo-turso data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-turso>
                         <logo-chroma data-logo-wall="2" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible"></logo-chroma>
                     </div>
                     <div class="relative flex items-center justify-center">
                         <logo-clerk data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-clerk>
-                        <logo-runloop data-logo-wall="2" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible"></logo-runloop>
+                        <logo-neon data-logo-wall="2" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible"></logo-neon>
                     </div>
                     <!--- Mobile only --->
                     <div class="relative flex sm:hidden items-center justify-center">
                         <logo-railway data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-railway>
                     </div>
                     <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-turso data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-turso>
+                        <logo-posthog data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-posthog>
                     </div>
                     <div class="relative flex sm:hidden items-center justify-center">
                         <logo-planetscale data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-planetscale>
@@ -235,7 +235,7 @@ changefreq: "weekly"
                         <logo-chroma data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-chroma>
                     </div>
                     <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-runloop data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-runloop>
+                        <logo-neon data-logo-wall="1" class="relative h-40 w-auto shrink-0"></logo-neon>
                     </div>
                 </div>
             </helm-container>
