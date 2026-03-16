@@ -691,7 +691,6 @@ changefreq: "weekly"
             const tl = gsap.timeline({ onComplete: next });
             const current = el.textContent;
             const { slug, name } = providers[idx];
-            const nextSlug = providers[(idx + 1) % providers.length].slug;
             idx = (idx + 1) % providers.length;
 
             tl.to({ len: current.length }, {
@@ -704,7 +703,7 @@ changefreq: "weekly"
             .to('[data-hero-type]', { text: slug, duration: slug.length * 0.07, ease: 'none' })
             .call(() => {
                 if (providerEl) providerEl.textContent = name;
-                if (nextEl) nextEl.textContent = nextSlug;
+                if (nextEl) nextEl.textContent = slug;
             });
         }
 
