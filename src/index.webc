@@ -18,7 +18,7 @@ changefreq: "weekly"
         <helm-container class="relative pt-24 pb-12 flex items-center justify-center">
             <div data-header="logo" class="relative flex items-center h-40 gap-4">
                 <a href="https://stripe.com/" class="relative flex items-center gap-6 h-full border border-transparent px-10 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
-                    <icon-wordmark class="relative w-174 h-21 shrink-0"></icon-wordmark>
+                    <icon-wordmark class="relative h-32 w-265 shrink-0"></icon-wordmark>
                 </a>
             </div>
         </helm-container>
@@ -623,21 +623,15 @@ changefreq: "weekly"
     <footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
         <helm-container class="relative flex justify-between py-24 border-t border-edge">
             <div>
-                <icon-wordmark class="relative w-60 h-25"></icon-wordmark>
-                <a href="https://stripe.com" class="relative flex items-center justify-center gap-6 px-20 h-40 -ml-24 bg-transparent border border-transparent text-14 text-primary font-normal rounded-4 group hover:border-transparent hover:text-primary-hover focus-visible:border-brand-300 focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
-                    <span class="pb-2">
-                        Visit our full website
-                    </span>
-                    <icon-arrowanimate @size="md" class="translate-y-0.5"></icon-arrowanimate>
-                </a>
+                <icon-wordmark class="relative w-116 h-14"></icon-wordmark>
             </div>
-            <div class="flex flex-col items-end -mt-6">
-                <a href="https://stripe.com/privacy" class="relative flex items-center justify-center gap-6 px-20 h-40 -mr-24 bg-transparent border border-transparent text-14 text-primary font-normal rounded-4 group hover:border-transparent hover:text-primary-hover focus-visible:border-brand-300 focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+            <div class="flex items-center gap-16">
+                <a href="https://stripe.com/privacy" class="relative flex items-center justify-center gap-6 px-20 h-40 -mr-4 bg-transparent border border-transparent text-14 text-primary font-normal rounded-4 group hover:border-transparent hover:text-primary-hover focus-visible:border-brand-300 focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                     <span class="pb-2">
                         Privacy &amp; Terms
                     </span>
                 </a>
-                <div class="text-14 text-detail pointer-events-none -translate-y-2">
+                <div class="text-14 text-detail pointer-events-none">
                     <p @text="`©` + base.currentYear() + ` Stripe, LLC`"></p>
                 </div>
             </div>
