@@ -1,4 +1,4 @@
-import { next } from '@vercel/edge';
+declare const process: { env: Record<string, string | undefined> };
 
 export const config = {
   matcher: ['/', '/:code*'],
@@ -146,7 +146,7 @@ function ogHtml(tags: {
   });
 }
 
-export default async function middleware(req: Request): Promise<Response> {
+export default async function middleware(req: Request): Promise<Response | void> {
   const url = new URL(req.url);
   const path = url.pathname;
 
@@ -180,7 +180,7 @@ export default async function middleware(req: Request): Promise<Response> {
   }
 
   /* ── Bot / OG handling ────────────────────────────────────────── */
-  if (!isBot(req)) return next();
+  if (!isBot(req)) return;
 
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
@@ -221,5 +221,5 @@ export default async function middleware(req: Request): Promise<Response> {
     });
   }
 
-  return next();
+  return;
 }
