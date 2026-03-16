@@ -168,7 +168,7 @@ changefreq: "weekly"
                                         </div>
                                         <div class="relative w-full pb-6 mt-6">
                                             <span class="text-detail">›</span>
-                                            <span><span class="text-primary">stripe projects</span> <span>services upgrade</span></span>
+                                            <span><span class="text-primary">stripe projects</span> <span>services update</span> <span data-hero-type-next>vercel/hosting</span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -671,6 +671,7 @@ changefreq: "weekly"
     function heroTyping() {
         const el = document.querySelector('[data-hero-type]');
         const providerEl = document.querySelector('[data-hero-provider]');
+        const nextEl = document.querySelector('[data-hero-type-next]');
         const providers = [
             { slug: 'vercel/hosting',       name: 'Vercel' },
             { slug: 'railway/hosting',      name: 'Railway' },
@@ -690,6 +691,7 @@ changefreq: "weekly"
             const tl = gsap.timeline({ onComplete: next });
             const current = el.textContent;
             const { slug, name } = providers[idx];
+            const nextSlug = providers[(idx + 1) % providers.length].slug;
             idx = (idx + 1) % providers.length;
 
             tl.to({ len: current.length }, {
@@ -700,7 +702,10 @@ changefreq: "weekly"
                 onUpdate() { el.textContent = current.substring(0, this.targets()[0].len); }
             }, '+=1.5')
             .to('[data-hero-type]', { text: slug, duration: slug.length * 0.07, ease: 'none' })
-            .call(() => { if (providerEl) providerEl.textContent = name; });
+            .call(() => {
+                if (providerEl) providerEl.textContent = name;
+                if (nextEl) nextEl.textContent = nextSlug;
+            });
         }
 
         next();
