@@ -145,23 +145,11 @@ changefreq: "weekly"
                                         </div>
                                         <div class="relative pb-6 text-detail">
                                             <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Resources allocated</span>
+                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Configuration complete</span>
                                         </div>
                                         <div class="relative pb-6 text-detail">
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Configuration complete</span>
-                                        </div>
-                                        <div class="relative pb-6 text-detail">
-                                            <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Credentials generated</span>
-                                        </div>
-                                        <div class="relative pb-6 text-detail">
-                                            <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Credentials synced</span>
-                                        </div>
-                                        <div class="relative pb-6 text-detail">
-                                            <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Project updated</span>
+                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Credentials generated &amp; synced</span>
                                         </div>
                                         <div class="relative w-full text-headline pb-6">
                                             <div class="inline-block w-[1ch] h-[1ch] bg-[#006F3A] rounded-full mr-[1ch]"></div><span class="text-[#006F3A]">Provider</span> <span class="font-semibold">ready</span>
