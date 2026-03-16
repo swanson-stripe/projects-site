@@ -137,7 +137,7 @@ changefreq: "weekly"
                                     <div class="relative w-full h-full font-mono text-12 min-[448px]:text-14 sm:text-16 px-16 pt-10 pb-24 whitespace-nowrap tracking-tighter sm:tracking-normal">
                                         <div class="relative w-full pb-6">
                                             <span class="text-detail">›</span>
-                                            <span><span class="text-primary">stripe projects</span> <span>services add</span> <span data-hero-type>vercel/projects</span></span>
+                                            <span><span class="text-primary">stripe projects</span> <span>services add</span> <span data-hero-type>vercel/hosting</span></span>
                                             <icon-logo class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
                                         </div>
                                         <div class="relative w-full text-detail pb-6">
@@ -684,29 +684,39 @@ changefreq: "weekly"
 
     // Hero typing
     function heroTyping() {
-        const tl = gsap.timeline({});
         const el = document.querySelector('[data-hero-type]');
+        const providers = [
+            'vercel/hosting',
+            'railway/hosting',
+            'planetscale/database',
+            'neon/database',
+            'turso/database',
+            'chroma/vector-db',
+            'runloop/ai',
+            'clerk/auth',
+            'supabase/storage',
+            'posthog/analytics',
+            'sentry/monitoring',
+        ];
+        let idx = 1; // vercel/hosting already shown as initial text
 
-        function backspace(text, delay) {
-            tl.to({ len: text.length }, {
+        function next() {
+            const tl = gsap.timeline({ onComplete: next });
+            const current = el.textContent;
+            const nextText = providers[idx];
+            idx = (idx + 1) % providers.length;
+
+            tl.to({ len: current.length }, {
                 len: 0,
-                duration: 0.5,
+                duration: Math.max(0.3, current.length * 0.04),
                 ease: 'none',
                 snap: { len: 1 },
-                onUpdate() {
-                    el.textContent = text.substring(0, this.targets()[0].len);
-                }
-            }, `+=${delay}`);
+                onUpdate() { el.textContent = current.substring(0, this.targets()[0].len); }
+            }, '+=1.5')
+            .to('[data-hero-type]', { text: nextText, duration: nextText.length * 0.07, ease: 'none' });
         }
 
-        function type(text) {
-            tl.to('[data-hero-type]', { text, duration: 1, ease: 'none' });
-        }
-
-        backspace(el.textContent, 1);
-        type('vercel/project');
-        backspace('vercel/project', 2);
-        type('clerk/authentication');
+        next();
     }
     heroTyping();
 
