@@ -286,7 +286,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="inline-block mr-8" style="color:rgba(255,255,255,0.3)">$</span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span>
+                                        brew install <span class="text-primary">stripe/stripe-cli/stripe</span>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
@@ -308,7 +308,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="inline-block mr-8" style="color:rgba(255,255,255,0.3)">$</span><span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                        <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
@@ -330,7 +330,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="inline-block mr-8" style="color:rgba(255,255,255,0.3)">$</span><span class="text-primary">stripe</span> projects init my-app
+                                        <span class="text-primary">stripe</span> projects init my-app
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
@@ -352,7 +352,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="inline-block mr-8" style="color:rgba(255,255,255,0.3)">$</span><span class="text-primary">stripe projects</span> catalog
+                                        <span class="text-primary">stripe projects</span> catalog
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
@@ -374,7 +374,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="font-mono text-14 pl-16 whitespace-nowrap overflow-hidden" style="color:rgba(255,255,255,0.75)">
-                                        <span class="inline-block mr-8" style="color:rgba(255,255,255,0.3)">$</span><span class="text-primary">stripe projects</span> services add &lt;provider&gt;/&lt;service&gt;
+                                        <span class="text-primary">stripe projects</span> services add &lt;provider&gt;/&lt;service&gt;
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
@@ -396,7 +396,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="inline-block mr-8" style="color:rgba(255,255,255,0.3)">$</span><span class="text-primary">stripe projects</span> help
+                                        <span class="text-primary">stripe projects</span> help
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
