@@ -715,7 +715,7 @@ changefreq: "weekly"
                 ease: 'none',
                 snap: { len: 1 },
                 onUpdate() { el.textContent = current.substring(0, this.targets()[0].len); }
-            }, '+=1.5')
+            }, '+=3')
             .to('[data-hero-type]', { text: slug, duration: slug.length * 0.07, ease: 'none' })
             .call(() => {
                 if (providerEl) providerEl.textContent = name;
