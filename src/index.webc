@@ -170,6 +170,28 @@ changefreq: "weekly"
                                             <span class="text-detail">›</span>
                                             <span><span>stripe projects</span> <span>services update</span> <span data-hero-type-next>vercel/hosting</span></span>
                                         </div>
+                                        <div class="relative w-full pb-3">
+                                            <span class="text-detail">○</span>
+                                            <span> Updating <span data-hero-updating>Vercel</span></span>
+                                        </div>
+                                        <div class="relative w-full pb-2 pl-[2ch]">
+                                            <span class="text-primary mr-[1ch]">›</span>
+                                            <span class="inline-flex items-center gap-0">
+                                                <span class="text-detail mr-[2ch]">├</span>
+                                                <span class="text-primary w-[10ch]">Tier A</span>
+                                                <span class="text-primary">Free ($0/mo)</span>
+                                            </span>
+                                        </div>
+                                        <div class="relative w-full pb-2 pl-[2ch]">
+                                            <span class="mr-[2ch] text-detail"> ├</span>
+                                            <span class="text-detail w-[10ch]">Tier B</span>
+                                            <span class="text-detail">$20/mo</span>
+                                        </div>
+                                        <div class="relative w-full pl-[2ch]">
+                                            <span class="mr-[2ch] text-detail"> └</span>
+                                            <span class="text-detail w-[10ch]">Tier C</span>
+                                            <span class="text-detail">$100/mo</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -672,6 +694,7 @@ changefreq: "weekly"
         const el = document.querySelector('[data-hero-type]');
         const providerEl = document.querySelector('[data-hero-provider]');
         const nextEl = document.querySelector('[data-hero-type-next]');
+        const updatingEl = document.querySelector('[data-hero-updating]');
         const providers = [
             { slug: 'vercel/hosting',       name: 'Vercel' },
             { slug: 'railway/hosting',      name: 'Railway' },
@@ -704,6 +727,7 @@ changefreq: "weekly"
             .call(() => {
                 if (providerEl) providerEl.textContent = name;
                 if (nextEl) nextEl.textContent = slug;
+                if (updatingEl) updatingEl.textContent = name;
             });
         }
 
