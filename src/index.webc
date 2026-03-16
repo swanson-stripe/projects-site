@@ -279,7 +279,7 @@ changefreq: "weekly"
                             <div class="text-14 text-detail pb-2 shrink-0 whitespace-nowrap">
                                 Stripe Projects commands
                             </div>
-                            <div class="w-38 shrink-0"></div>
+                            <a href="#" class="text-12 text-primary hover:text-primary-hover shrink-0 whitespace-nowrap transition-colors duration-200">more install options</a>
                         </div>
                         <!--- CLI command --->
                         <button data-copy-cli="brew install stripe/stripe-cli/stripe" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 bg-neutral-50 overflow-hidden group cursor-pointer hover:bg-neutral-100 outline-none focus-visible:shadow-focus focus-visible:bg-brand-300 transition-all duration-400 ease-in-out">
@@ -414,7 +414,7 @@ changefreq: "weekly"
                             <!--- Content -->
                             <div class="relative w-full h-full rounded-3 bg-neutral-50">
                                 <div class="relative w-full h-full flex items-center justify-between bg-highlight/80 rounded-3 hover:bg-highlight transition-all duration-400 ease-in-out">
-                                    <div class="font-mono text-14 pl-16">
+                                    <div class="font-mono text-14 pl-16 whitespace-nowrap overflow-hidden">
                                         <span class="inline-block mr-8">$</span><span class="text-primary">stripe projects</span> services add &lt;provider&gt;/&lt;service&gt;
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
