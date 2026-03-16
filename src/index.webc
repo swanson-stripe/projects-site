@@ -282,141 +282,143 @@ changefreq: "weekly"
                             <div class="w-38 shrink-0"></div>
                         </div>
                         <!--- CLI command --->
-                        <button data-copy-cli="brew install stripe/stripe-cli/stripe" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="brew install stripe/stripe-cli/stripe" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
-                                    <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        brew install <span class="text-primary">stripe/stripe-cli/stripe</span>
-                                    </div>
-                                    <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
-                                        <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
-                                            Install Stripe CLI
+                                    <div class="flex flex-col justify-center pl-16 gap-4">
+                                        <div class="flex items-center gap-12 text-12" style="color:rgba(255,255,255,0.35)"><span>Install Stripe CLI</span><span>·</span><a href="#" class="hover:opacity-70 transition-opacity duration-200 whitespace-nowrap">more install options</a></div>
+                                        <div class="font-mono text-14" style="color:rgba(255,255,255,0.75)">
+                                            brew install <span style="color:#9966FF">stripe/stripe-cli/stripe</span>
                                         </div>
-                                        <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
-                                            <div data-copy-cli-default class="flex items-center justify-center gap-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-12 h-12 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
-                                                <span class="pb-1">Copy</span>
+                                    </div>
+                                    <div class="relative flex items-center shrink-0 pr-12">
+                                        <div class="relative flex items-center justify-center w-32 h-32 bg-transparent overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-400 ease-in-out" style="color:rgba(255,255,255,0.35)">
+                                            <div data-copy-cli-default class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                                             </div>
-                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center gap-4 translate-y-24 scale-75 opacity-0 invisible"><span class="pb-1">Copied</span></div>
+                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe plugin install projects" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="stripe plugin install projects" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
-                                    <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
-                                    </div>
-                                    <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
-                                        <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
-                                            Install Stripe Projects
+                                    <div class="flex flex-col justify-center pl-16 gap-4">
+                                        <div class="text-12" style="color:rgba(255,255,255,0.35)">Install Stripe Projects</div>
+                                        <div class="font-mono text-14" style="color:rgba(255,255,255,0.75)">
+                                            <span style="color:#9966FF">stripe</span> plugin install <span style="color:#9966FF">projects</span>
                                         </div>
-                                        <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
-                                            <div data-copy-cli-default class="flex items-center justify-center gap-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-12 h-12 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
-                                                <span class="pb-1">Copy</span>
+                                    </div>
+                                    <div class="relative flex items-center shrink-0 pr-12">
+                                        <div class="relative flex items-center justify-center w-32 h-32 bg-transparent overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-400 ease-in-out" style="color:rgba(255,255,255,0.35)">
+                                            <div data-copy-cli-default class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                                             </div>
-                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center gap-4 translate-y-24 scale-75 opacity-0 invisible"><span class="pb-1">Copied</span></div>
+                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects init my-app" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="stripe projects init my-app" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
-                                    <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="text-primary">stripe</span> projects init my-app
-                                    </div>
-                                    <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
-                                        <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
-                                            Create project
+                                    <div class="flex flex-col justify-center pl-16 gap-4">
+                                        <div class="text-12" style="color:rgba(255,255,255,0.35)">Create project</div>
+                                        <div class="font-mono text-14" style="color:rgba(255,255,255,0.75)">
+                                            <span style="color:#9966FF">stripe</span> projects init my-app
                                         </div>
-                                        <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
-                                            <div data-copy-cli-default class="flex items-center justify-center gap-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-12 h-12 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
-                                                <span class="pb-1">Copy</span>
+                                    </div>
+                                    <div class="relative flex items-center shrink-0 pr-12">
+                                        <div class="relative flex items-center justify-center w-32 h-32 bg-transparent overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-400 ease-in-out" style="color:rgba(255,255,255,0.35)">
+                                            <div data-copy-cli-default class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                                             </div>
-                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center gap-4 translate-y-24 scale-75 opacity-0 invisible"><span class="pb-1">Copied</span></div>
+                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects catalog" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="stripe projects catalog" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
-                                    <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="text-primary">stripe projects</span> catalog
-                                    </div>
-                                    <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
-                                        <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
-                                            View all providers
+                                    <div class="flex flex-col justify-center pl-16 gap-4">
+                                        <div class="text-12" style="color:rgba(255,255,255,0.35)">View all providers</div>
+                                        <div class="font-mono text-14" style="color:rgba(255,255,255,0.75)">
+                                            <span style="color:#9966FF">stripe projects</span> catalog
                                         </div>
-                                        <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
-                                            <div data-copy-cli-default class="flex items-center justify-center gap-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-12 h-12 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
-                                                <span class="pb-1">Copy</span>
+                                    </div>
+                                    <div class="relative flex items-center shrink-0 pr-12">
+                                        <div class="relative flex items-center justify-center w-32 h-32 bg-transparent overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-400 ease-in-out" style="color:rgba(255,255,255,0.35)">
+                                            <div data-copy-cli-default class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                                             </div>
-                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center gap-4 translate-y-24 scale-75 opacity-0 invisible"><span class="pb-1">Copied</span></div>
+                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects services add <provider>/<service>" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="stripe projects services add <provider>/<service>" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
-                                    <div class="font-mono text-14 pl-16 whitespace-nowrap overflow-hidden" style="color:rgba(255,255,255,0.75)">
-                                        <span class="text-primary">stripe projects</span> services add &lt;provider&gt;/&lt;service&gt;
-                                    </div>
-                                    <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
-                                        <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
-                                            Add provider
+                                    <div class="flex flex-col justify-center pl-16 gap-4">
+                                        <div class="text-12" style="color:rgba(255,255,255,0.35)">Add provider</div>
+                                        <div class="font-mono text-14 whitespace-nowrap overflow-hidden" style="color:rgba(255,255,255,0.75)">
+                                            <span style="color:#9966FF">stripe projects</span> services add &lt;provider&gt;/&lt;service&gt;
                                         </div>
-                                        <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
-                                            <div data-copy-cli-default class="flex items-center justify-center gap-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-12 h-12 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
-                                                <span class="pb-1">Copy</span>
+                                    </div>
+                                    <div class="relative flex items-center shrink-0 pr-12">
+                                        <div class="relative flex items-center justify-center w-32 h-32 bg-transparent overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-400 ease-in-out" style="color:rgba(255,255,255,0.35)">
+                                            <div data-copy-cli-default class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                                             </div>
-                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center gap-4 translate-y-24 scale-75 opacity-0 invisible"><span class="pb-1">Copied</span></div>
+                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects help" data-container-hover-follow class="relative w-full h-48 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="stripe projects help" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
-                                    <div class="font-mono text-14 pl-16" style="color:rgba(255,255,255,0.75)">
-                                        <span class="text-primary">stripe projects</span> help
-                                    </div>
-                                    <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
-                                        <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out" style="color:rgba(255,255,255,0.35)">
-                                            Get help
+                                    <div class="flex flex-col justify-center pl-16 gap-4">
+                                        <div class="text-12" style="color:rgba(255,255,255,0.35)">Get help</div>
+                                        <div class="font-mono text-14" style="color:rgba(255,255,255,0.75)">
+                                            <span style="color:#9966FF">stripe projects</span> help
                                         </div>
-                                        <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
-                                            <div data-copy-cli-default class="flex items-center justify-center gap-6">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-12 h-12 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
-                                                <span class="pb-1">Copy</span>
+                                    </div>
+                                    <div class="relative flex items-center shrink-0 pr-12">
+                                        <div class="relative flex items-center justify-center w-32 h-32 bg-transparent overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-400 ease-in-out" style="color:rgba(255,255,255,0.35)">
+                                            <div data-copy-cli-default class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                                             </div>
-                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center gap-4 translate-y-24 scale-75 opacity-0 invisible"><span class="pb-1">Copied</span></div>
+                                            <div data-copy-cli-clicked class="absolute flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-14 h-14 shrink-0"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </button>
-                        <!--- More install options --->
-                        <div class="flex items-center justify-center pt-2 pb-1">
-                            <a href="#" class="text-12 hover:opacity-80 transition-opacity duration-200" style="color:rgba(255,255,255,0.35)">more install options</a>
-                        </div>
                     </div>
                 </div>
             </helm-container>
