@@ -534,7 +534,7 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Automate account and payment setup
+                                Automate payment setup
                             </h3>
                             <p class="text-content">
                                 Set up billing details once and use them across providers. Directly manage account upgrades from your CLI
