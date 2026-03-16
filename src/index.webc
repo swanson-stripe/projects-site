@@ -174,22 +174,22 @@ changefreq: "weekly"
                                             <span class="text-detail">○</span>
                                             <span> Updating <span data-hero-updating>Vercel</span></span>
                                         </div>
-                                        <div class="relative w-full pb-2 pl-[2ch]">
-                                            <span class="text-primary mr-[1ch]">›</span>
-                                            <span class="inline-flex items-center gap-0">
-                                                <span class="text-detail mr-[2ch]">├</span>
-                                                <span class="text-primary w-[10ch]">Tier A</span>
-                                                <span class="text-primary">Free ($0/mo)</span>
-                                            </span>
+                                        <div class="flex items-baseline gap-[1ch] pb-2 pl-[2ch]">
+                                            <span class="text-primary shrink-0">›</span>
+                                            <span class="text-detail shrink-0">├</span>
+                                            <span class="text-primary inline-block w-[8ch] shrink-0">Tier A</span>
+                                            <span class="text-primary">Free ($0/mo)</span>
                                         </div>
-                                        <div class="relative w-full pb-2 pl-[2ch]">
-                                            <span class="mr-[2ch] text-detail"> ├</span>
-                                            <span class="text-detail w-[10ch]">Tier B</span>
+                                        <div class="flex items-baseline gap-[1ch] pb-2 pl-[2ch]">
+                                            <span class="invisible shrink-0">›</span>
+                                            <span class="text-detail shrink-0">├</span>
+                                            <span class="text-detail inline-block w-[8ch] shrink-0">Tier B</span>
                                             <span class="text-detail">$20/mo</span>
                                         </div>
-                                        <div class="relative w-full pl-[2ch]">
-                                            <span class="mr-[2ch] text-detail"> └</span>
-                                            <span class="text-detail w-[10ch]">Tier C</span>
+                                        <div class="flex items-baseline gap-[1ch] pl-[2ch]">
+                                            <span class="invisible shrink-0">›</span>
+                                            <span class="text-detail shrink-0">└</span>
+                                            <span class="text-detail inline-block w-[8ch] shrink-0">Tier C</span>
                                             <span class="text-detail">$100/mo</span>
                                         </div>
                                     </div>
