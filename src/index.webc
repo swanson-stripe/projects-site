@@ -18,7 +18,7 @@ changefreq: "weekly"
         <helm-container class="relative pt-24 pb-12 flex items-center justify-center">
             <div data-header="logo" class="relative flex items-center h-40 gap-4">
                 <a href="https://stripe.com/" class="relative flex items-center gap-6 h-full border border-transparent px-10 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
-                    <icon-wordmark class="relative h-32 w-265 shrink-0"></icon-wordmark>
+                    <icon-wordmark class="relative h-48 w-398 shrink-0"></icon-wordmark>
                 </a>
             </div>
         </helm-container>
@@ -621,19 +621,13 @@ changefreq: "weekly"
 
     <!--- Footer --->
     <footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
-        <helm-container class="relative flex justify-between py-24 border-t border-edge">
-            <div>
-                <icon-wordmark class="relative w-116 h-14"></icon-wordmark>
+        <helm-container class="relative flex items-center justify-between py-24 border-t border-edge">
+            <div class="flex items-center">
+                <icon-wordmark class="relative h-48 w-398"></icon-wordmark>
             </div>
             <div class="flex items-center gap-16">
-                <a href="https://stripe.com/privacy" class="relative flex items-center justify-center gap-6 px-20 h-40 -mr-4 bg-transparent border border-transparent text-14 text-primary font-normal rounded-4 group hover:border-transparent hover:text-primary-hover focus-visible:border-brand-300 focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
-                    <span class="pb-2">
-                        Privacy &amp; Terms
-                    </span>
-                </a>
-                <div class="text-14 text-detail pointer-events-none">
-                    <p @text="`©` + base.currentYear() + ` Stripe, LLC`"></p>
-                </div>
+                <a href="https://stripe.com/privacy" class="text-14/150 text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <p class="text-14/150 text-detail" @text="`©` + base.currentYear() + ` Stripe, LLC`"></p>
             </div>
         </helm-container>
     </footer>
