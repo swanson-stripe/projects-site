@@ -346,7 +346,7 @@ changefreq: "weekly"
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-8 translate-x-88 group-hover:translate-x-0 transition-all duration-400 ease-in-out">
                                         <div class="absolute right-full px-16 pointer-events-none text-14 pb-1 text-detail whitespace-nowrap group-hover:opacity-0 transition-all duration-200 ease-in-out">
-                                            Add a new project
+                                            Create project
                                         </div>
                                         <div class="relative flex items-center justify-center w-80 h-32 bg-transparent text-primary text-14/100 font-normal rounded-4 border border-brand-100 overflow-hidden opacity-0 group-hover:opacity-100 hover:border-brand-300 hover:text-primary-hover transition-all duration-400 ease-in-out">
                                             <div data-copy-cli-default class="flex items-center justify-center gap-6">
