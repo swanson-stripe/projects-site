@@ -28,12 +28,12 @@
     <meta name="robots" content="noindex, nofollow">
 
     <!--- Load fonts --->
-    <link rel="preload" href="/assets/fonts/sohne.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/Sohne.woff2" as="font" type="font/woff2" crossorigin>
     <!--- Font families --->
     <style>
         @font-face {
             font-family: "Sohne";
-            src: url("/assets/fonts/sohne.woff2") format("woff2-variations");
+            src: url("/assets/fonts/Sohne.woff2") format("woff2-variations");
             font-weight: 1 1000;
             font-display: block;
         }
