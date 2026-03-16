@@ -18,7 +18,7 @@ changefreq: "weekly"
         <helm-container class="relative pt-24 pb-12 flex items-center justify-center">
             <div data-header="logo" class="relative flex items-center h-40 gap-4">
                 <a href="https://stripe.com/" class="relative flex items-center gap-6 h-full border border-transparent px-10 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
-                    <icon-wordmark class="relative h-48 aspect-[116/14] shrink-0"></icon-wordmark>
+                    <icon-wordmark class="relative h-28 aspect-[116/14] shrink-0"></icon-wordmark>
                 </a>
             </div>
         </helm-container>
