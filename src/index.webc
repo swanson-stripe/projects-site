@@ -592,7 +592,7 @@ changefreq: "weekly"
                         <icon-rocket @size="16" weight="strong" class="translate-y-0.5"></icon-rocket>
                     </div>
                     <h3 class="font-normal mb-4">
-                        Want to become a provider
+                        Want to become a provider?
                     </h3>
                     <p class="text-content text-balance mb-16">
                         Join the growing list of providers for Stripe Projects.
