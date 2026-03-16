@@ -219,7 +219,7 @@
                         United States (English)
                     </span>
                 </a>
-                <p class="text-content mt-8">© <span data-footer-year>2026</span> Stripe, LLC.</p>
+                <p class="text-content mt-8">© <span data-footer-year>2026</span> Stripe</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none"><path fill="#061B31" fill-rule="evenodd" d="m0 43 43-9.119V0L0 9.226V43Z" clip-rule="evenodd"></path></svg>
         </helm-container>
