@@ -231,13 +231,13 @@ changefreq: "weekly"
         </helm-section>
 
         <!--- Content --->
-        <helm-section class="relative md:pt-80 md:pb-64 z-10">
+        <helm-section class="relative md:pb-64 z-10" style="padding-top: 80px;">
             <helm-container class="relative text-pretty flex flex-col gap-16">
                 <!--- Headline --->
                 <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline text-center">
                     Code generation got fast. Infrastructure didn’t
                 </h2>
-                <p class="text-16 sm:text-18 text-content max-w-[65%] mx-auto">
+                <p class="text-16 sm:text-18 text-content" style="max-width: 65%; margin-left: auto; margin-right: auto;">
                     Agents can generate code quickly, but they still need real services and real credentials to build something that actually runs. Developers still spend hours signing up for accounts, copying credentials, switching between dashboards, and configuring services manually. Stripe Projects is our attempt to make this simpler and agent accessible. Stripe Projects replaces the disparate manual workflows of signing up for services, configuring payments across providers, provisioning infrastructure, and managing credentials with a single command that handles all of it automatically. ​​​​​​​​​​​​​​​​Not by replacing the tools people already use, but by making them easier to use together.
                 </p>
             </helm-container>
