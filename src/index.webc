@@ -175,7 +175,7 @@ changefreq: "weekly"
                                         </div>
                                         <div class="relative pb-2">
                                             <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[3ch]"><span class="text-primary">›</span><span class="text-primary" style="display:inline-block;width:7ch">Tier A</span><span class="text-primary">Free ($0/mo)</span></span>
+                                            <span class="inline-block pl-[4ch]"><span class="text-primary" style="display:inline-block;width:7ch">Tier A</span><span class="text-primary">Free ($0/mo)</span></span>
                                         </div>
                                         <div class="relative pb-2">
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
