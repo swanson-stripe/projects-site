@@ -137,7 +137,7 @@ changefreq: "weekly"
                                     <div class="relative w-full h-full font-mono text-12 min-[448px]:text-14 sm:text-16 px-16 pt-10 pb-24 whitespace-nowrap tracking-tighter sm:tracking-normal">
                                         <div class="relative w-full pb-6">
                                             <span class="text-detail">›</span>
-                                            <span><span class="text-primary">stripe projects</span> <span>services add</span> <span data-hero-type>vercel/hosting</span></span>
+                                            <span><span>stripe projects</span> <span>services add</span> <span data-hero-type>vercel/hosting</span></span>
                                             <icon-logo class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
                                         </div>
                                         <div class="relative w-full text-detail pb-6">
@@ -168,7 +168,7 @@ changefreq: "weekly"
                                         </div>
                                         <div class="relative w-full pb-6 mt-6">
                                             <span class="text-detail">›</span>
-                                            <span><span class="text-primary">stripe projects</span> <span>services update</span> <span data-hero-type-next>vercel/hosting</span></span>
+                                            <span><span>stripe projects</span> <span>services update</span> <span data-hero-type-next>vercel/hosting</span></span>
                                         </div>
                                     </div>
                                 </div>
