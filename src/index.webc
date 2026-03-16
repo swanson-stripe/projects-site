@@ -173,17 +173,17 @@ changefreq: "weekly"
                                         <div class="relative w-full text-detail pb-6">
                                             ○ Updating <span data-hero-updating>Vercel</span>
                                         </div>
-                                        <div class="relative pb-2">
+                                        <div data-tier="0" class="relative pb-2">
                                             <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><span class="text-primary">Starter ‹</span></span>
+                                            <span class="inline-block pl-[4ch]"><span data-tier-name class="text-primary">Starter ‹</span></span>
                                         </div>
-                                        <div class="relative pb-2">
+                                        <div data-tier="1" class="relative pb-2">
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><span class="text-detail">Hobby</span></span>
+                                            <span class="inline-block pl-[4ch]"><span data-tier-name class="text-detail">Hobby</span></span>
                                         </div>
-                                        <div class="relative">
+                                        <div data-tier="2" class="relative">
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><span class="text-detail">Pro</span></span>
+                                            <span class="inline-block pl-[4ch]"><span data-tier-name class="text-detail">Pro</span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -727,6 +727,44 @@ changefreq: "weekly"
         next();
     }
     heroTyping();
+
+    // Terminal tier keyboard navigation
+    (function() {
+        const terminal = document.querySelector('[data-hero="terminal"]');
+        if (!terminal) return;
+        const tiers = ['Starter', 'Hobby', 'Pro'];
+        let selectedIdx = 0;
+        let focused = false;
+
+        function updateTiers() {
+            terminal.querySelectorAll('[data-tier-name]').forEach((el, i) => {
+                if (i === selectedIdx) {
+                    el.className = 'text-primary';
+                    el.textContent = tiers[i] + ' ‹';
+                } else {
+                    el.className = 'text-detail';
+                    el.textContent = tiers[i];
+                }
+            });
+        }
+
+        terminal.addEventListener('click', () => { focused = true; });
+        document.addEventListener('click', (e) => {
+            if (!terminal.contains(e.target)) focused = false;
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!focused) return;
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIdx = (selectedIdx + 1) % tiers.length;
+                updateTiers();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIdx = (selectedIdx - 1 + tiers.length) % tiers.length;
+                updateTiers();
+            }
+        });
+    })();
 
     // Logo carousel
     function responsiveLogos() {
