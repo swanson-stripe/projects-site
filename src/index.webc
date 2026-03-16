@@ -156,7 +156,7 @@ changefreq: "weekly"
                                         </div>
                                         <div class="relative pb-6">
                                             <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Created <span class="text-primary">service</span></span>
+                                            <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Created <span class="text-primary" data-hero-provider>Vercel</span></span>
                                         </div>
                                         <div class="relative pb-6">
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
@@ -670,25 +670,26 @@ changefreq: "weekly"
     // Hero typing
     function heroTyping() {
         const el = document.querySelector('[data-hero-type]');
+        const providerEl = document.querySelector('[data-hero-provider]');
         const providers = [
-            'vercel/hosting',
-            'railway/hosting',
-            'planetscale/database',
-            'neon/database',
-            'turso/database',
-            'chroma/vector-db',
-            'runloop/ai',
-            'clerk/auth',
-            'supabase/storage',
-            'posthog/analytics',
-            'sentry/monitoring',
+            { slug: 'vercel/hosting',       name: 'Vercel' },
+            { slug: 'railway/hosting',      name: 'Railway' },
+            { slug: 'planetscale/database', name: 'PlanetScale' },
+            { slug: 'neon/database',        name: 'Neon' },
+            { slug: 'turso/database',       name: 'Turso' },
+            { slug: 'chroma/vector-db',     name: 'Chroma' },
+            { slug: 'runloop/ai',           name: 'Runloop' },
+            { slug: 'clerk/auth',           name: 'Clerk' },
+            { slug: 'supabase/storage',     name: 'Supabase' },
+            { slug: 'posthog/analytics',    name: 'PostHog' },
+            { slug: 'sentry/monitoring',    name: 'Sentry' },
         ];
         let idx = 1; // vercel/hosting already shown as initial text
 
         function next() {
             const tl = gsap.timeline({ onComplete: next });
             const current = el.textContent;
-            const nextText = providers[idx];
+            const { slug, name } = providers[idx];
             idx = (idx + 1) % providers.length;
 
             tl.to({ len: current.length }, {
@@ -698,7 +699,8 @@ changefreq: "weekly"
                 snap: { len: 1 },
                 onUpdate() { el.textContent = current.substring(0, this.targets()[0].len); }
             }, '+=1.5')
-            .to('[data-hero-type]', { text: nextText, duration: nextText.length * 0.07, ease: 'none' });
+            .to('[data-hero-type]', { text: slug, duration: slug.length * 0.07, ease: 'none' })
+            .call(() => { if (providerEl) providerEl.textContent = name; });
         }
 
         next();
