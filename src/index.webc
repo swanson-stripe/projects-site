@@ -184,6 +184,10 @@ changefreq: "weekly"
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
                                             <div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] ml-[4ch] shrink-0 inline-flex items-center justify-center">~</div>Modified <span class="text-primary">.env</span></span>
                                         </div>
+                                        <div class="relative w-full pb-6 mt-6">
+                                            <span class="text-detail">$</span>
+                                            <span><span class="text-primary">stripe projects</span> <span>services upgrade</span></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
