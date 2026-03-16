@@ -266,7 +266,7 @@ changefreq: "weekly"
                                 <div class="w-10 h-10 rounded-full bg-headline/10 shadow-inset-border"></div>
                             </div>
                             <div class="text-14 text-detail pb-2 shrink-0 whitespace-nowrap">
-                                Stripe Projects Commands
+                                Stripe Projects commands
                             </div>
                             <div class="w-38 shrink-0"></div>
                         </div>
