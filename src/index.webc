@@ -29,7 +29,7 @@ changefreq: "weekly"
 
         <!--- Hero --->
         <helm-section class="relative z-20">
-            <helm-container class="relative flex flex-col pt-48 sm:pt-96">
+            <helm-container class="relative flex flex-col pt-24 sm:pt-48">
                 <!--- Content --->
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
