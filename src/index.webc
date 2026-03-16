@@ -184,7 +184,7 @@ changefreq: "weekly"
         </helm-section>
 
         <!--- Logos --->
-        <helm-section class="relative z-10 pt-32 sm:pt-16 pb-72 overflow-hidden">
+        <helm-section class="relative z-10 pt-32 sm:pt-16 pb-36 overflow-hidden">
             <helm-container class="relative flex md:h-64">
                 <div class="relative grid grid-cols-2 sm:grid-cols-5 md:grid-cols-6 w-full items-center justify-center gap-16 sm:gap-0">
                     <div class="relative sm:pb-8 md:pb-0 col-span-2 sm:col-span-5 md:col-span-1 flex items-center justify-center md:justify-start uppercase text-detail text-12 tracking-widest shrink-0 whitespace-nowrap">
@@ -231,11 +231,11 @@ changefreq: "weekly"
         </helm-section>
 
         <!--- Content --->
-        <helm-section class="relative md:pt-64 md:pb-64 z-10">
+        <helm-section class="relative md:pt-32 md:pb-64 z-10">
             <helm-container class="relative text-pretty flex flex-col gap-16">
                 <!--- Headline --->
                 <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline text-center">
-                    Code generation got fast<br>Infrastructure didn’t
+                    Code generation got fast. Infrastructure didn’t
                 </h2>
                 <p class="text-16 sm:text-18 text-content max-w-[65%]">
                     Agents can generate code quickly, but they still need real services and real credentials to build something that actually runs. Developers still spend hours signing up for accounts, copying credentials, switching between dashboards, and configuring services manually. Stripe Projects is our attempt to make this simpler and agent accessible. Stripe Projects replaces the disparate manual workflows of signing up for services, configuring payments across providers, provisioning infrastructure, and managing credentials with a single command that handles all of it automatically. ​​​​​​​​​​​​​​​​Not by replacing the tools people already use, but by making them easier to use together.
