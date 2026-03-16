@@ -1,0 +1,8 @@
+<li webc:root="override">
+    <a webc:if="link" :href="link" class="block py-2 rounded-2 hover:text-headline focus-visible:text-headline focus-visible:shadow-focus transition-all duration-200 outline-none">
+        <slot></slot>
+    </a>
+    <div webc:else class="block py-2">
+        <slot></slot>
+    </div>
+</li>

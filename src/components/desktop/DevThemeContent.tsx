@@ -295,64 +295,31 @@ function ProviderActions() {
 
 
 function ProviderRow({ name, desc, url }: { name: string; desc: string; url: string }) {
-  const [expanded, setExpanded] = useState(false);
-  const [truncated, setTruncated] = useState(false);
-  const descRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const el = descRef.current;
-    if (el) setTruncated(el.scrollWidth > el.offsetWidth);
-  }, []);
-
   return (
-    <div style={{ minWidth: 0 }}>
-      {/* Name + truncated desc on one line */}
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5ch', minWidth: 0 }}>
+    <div style={{ minWidth: 0, marginBottom: '0.6rem' }}>
+      {/* Name with favicon */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6ch' }}>
+        <img
+          src={`https://www.google.com/s2/favicons?domain=${url}&sz=16`}
+          alt=''
+          width={16}
+          height={16}
+          style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+        />
         <CopyText display={name} text={`stripe projects services add ${name}`} style={{ flexShrink: 0 }} />
-        <span style={{ color: DIM, flexShrink: 0 }}>-</span>
-        <span
-          ref={descRef}
-          style={{
-            color: DIM,
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            minWidth: 0,
-            flex: 1,
-          }}
-        >
-          {desc}
-        </span>
-        {!expanded && truncated && (
-          <button
-            onClick={() => setExpanded(true)}
-            style={{ background: 'none', border: 'none', padding: '0 0 0 2px', cursor: 'pointer', color: DIM, fontFamily: 'inherit', fontSize: 'inherit', flexShrink: 0 }}
-          >
-            …
-          </button>
-        )}
       </div>
-
-      {/* Expanded full description below */}
-      {expanded && (
-        <div style={{ color: DIM, whiteSpace: 'normal', lineHeight: 1.6, marginTop: '0.2rem' }}>
-          {desc}{' '}
-          <a
-            href={`https://${url}`}
-            target='_blank'
-            rel='noopener noreferrer'
-            style={{ color: DIM, textDecoration: 'underline', textUnderlineOffset: '2px' }}
-          >
-            {url}
-          </a>
-          {' '}
-          <button
-            onClick={() => setExpanded(false)}
-            style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: DIM, fontFamily: 'inherit', fontSize: 'inherit' }}
-          >
-            [collapse]
-          </button>
-        </div>
-      )}
+      {/* Description on its own line */}
+      <div style={{ color: DIM, whiteSpace: 'normal', lineHeight: 1.5, paddingLeft: '22px' }}>
+        {desc}{' '}
+        <a
+          href={`https://${url}`}
+          target='_blank'
+          rel='noopener noreferrer'
+          style={{ color: DIM, textDecoration: 'underline', textUnderlineOffset: '2px' }}
+        >
+          {url}
+        </a>
+      </div>
     </div>
   );
 }
@@ -451,8 +418,22 @@ function ThemeSwitcher() {
   );
 }
 
-export function DevThemeContent() {
+const LITE_COLLAPSIBLE = new Set(['ENVIRONMENT', 'BILLING', 'FLAGS', 'PROVIDERS', 'SERVICES']);
+
+export function DevThemeContent({ lite = false }: { lite?: boolean }) {
   const [hovered, setHovered] = useState(false);
+  const [revealed, setRevealed] = useState<Set<string>>(new Set());
+
+  function toggleReveal(label: string) {
+    setRevealed(prev => {
+      const next = new Set(prev);
+      next.add(label);
+      return next;
+    });
+  }
+
+  // In lite mode: track which section we're currently "inside" to suppress its rows
+  let sectionCollapsed = false;
 
   return (
     <div
@@ -495,14 +476,40 @@ export function DevThemeContent() {
           );
 
           if (row.type === 'blank') {
+            if (lite && sectionCollapsed) return null;
             return <div key={i} style={{ height: '0.8rem' }} />;
           }
+
           if (row.type === 'install') {
             return wrap(<InstallBlock key={i} />);
           }
+
           if (row.type === 'heading') {
-            return wrap(<div style={{ marginBottom: '0.2rem', color: '#635BFF', fontWeight: 600 }}>{row.label}</div>);
+            const isCollapsible = lite && LITE_COLLAPSIBLE.has(row.label);
+            const isRevealed = revealed.has(row.label);
+            sectionCollapsed = isCollapsible && !isRevealed;
+
+            return wrap(
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '1.5ch', marginBottom: '0.2rem' }}>
+                <span style={{ color: '#635BFF', fontWeight: 600 }}>{row.label}</span>
+                {isCollapsible && !isRevealed && (
+                  <button
+                    onClick={() => toggleReveal(row.label)}
+                    style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit', color: DIM, textDecoration: 'underline', textUnderlineOffset: '2px' }}
+                  >
+                    show
+                  </button>
+                )}
+              </div>
+            );
           }
+
+          // In lite mode, hide examples entirely
+          if (lite && row.type === 'example') return null;
+
+          // Suppress rows belonging to a collapsed section
+          if (lite && sectionCollapsed && (row.type === 'cmd' || row.type === 'example')) return null;
+
           if (row.type === 'usage') {
             return wrap(<div style={{ color: '#0A0A0A' }}>{row.text}</div>);
           }
@@ -531,7 +538,7 @@ export function DevThemeContent() {
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, delay: baseDelay, ease: 'easeOut' }}
-                style={{ marginBottom: '0.2rem', color: '#635BFF', fontWeight: 600 }}
+                style={{ marginBottom: '0.4rem', color: '#0A0A0A', fontWeight: 600 }}
               >
                 {category}:
               </motion.div>

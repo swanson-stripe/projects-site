@@ -1,0 +1,30 @@
+<div @webc:root="override">
+    <a webc:if="size === '48' && color === 'primary'" :href="href" class="relative flex items-center justify-center gap-8 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+        <slot name="icon-left"></slot>
+        <span class="pb-2">
+            <slot name="label"></slot>
+        </span>
+        <slot name="icon-right"></slot>
+    </a>
+    <a webc:if="size === '40' && color === 'primary'" :href="href" class="relative flex items-center justify-center gap-8 px-20 h-40 bg-primary text-neutral-0 text-14 font-normal rounded-4 group hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+        <slot name="icon-left"></slot>
+        <span class="pb-2">
+            <slot name="label"></slot>
+        </span>
+        <slot name="icon-right"></slot>
+    </a>
+    <a webc:if="size === '48' && color === 'outline'" :href="href" class="relative flex items-center justify-center gap-8 px-24 h-48 bg-transparent border border-brand-100 text-primary font-normal rounded-4 group hover:border-brand-300 hover:text-primary-hover focus-visible:border-brand-300 focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+        <slot name="icon-left"></slot>
+        <span class="pb-2">
+            <slot name="label"></slot>
+        </span>
+        <slot name="icon-right"></slot>
+    </a>
+    <a webc:if="size === '40' && color === 'outline'" :href="href" class="relative flex items-center justify-center gap-8 px-20 h-40 bg-transparent border border-brand-100 text-14 text-primary font-normal rounded-4 group hover:border-brand-300 hover:text-primary-hover focus-visible:border-brand-300 focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+        <slot name="icon-left"></slot>
+        <span class="pb-2">
+            <slot name="label"></slot>
+        </span>
+        <slot name="icon-right"></slot>
+    </a>
+</div>

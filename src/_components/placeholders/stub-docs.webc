@@ -1,0 +1,270 @@
+<div class="absolute top-0 left-0 w-full h-full overflow-y-scroll scroll-smooth no-scrollbar border-t border-transparent text-14/120">
+    <!--- Navigation --->
+    <header class="sticky top-0 left-0 shrink-0 w-full h-64 flex items-center justify-center flex-col px-16 bg-highlight border-b border-edge z-10" webc:root="override">
+        <helm-container class="relative w-full h-full flex items-center justify-between px-16">
+            <div class="relative flex items-center gap-6">
+                <!--- Search --->
+                <div class="relative shrink-0 flex items-center justify-start text-detail">
+                    <div class="relative flex items-center justify-start h-38 w-320 pl-36 pr-12 pb-2 bg-neutral-0 border border-edge rounded-4">
+                        Search
+                    </div>
+                    <icon-search class="absolute left-12 w-16 h-16 -translate-y-1"></icon-search>
+                </div>
+                <a href="#" class="relative flex items-center justify-center gap-6 h-38 px-12 text-14 font-normal text-detail bg-neutral-0/65 border border-edge rounded-4 hover:border-brand-200 hover:text-primary-hover focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                    <span class="pb-2">Ask AI</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-14 h-14 -translate-y-1">
+                        <path d="M11.47 2.63a.3.3 0 0 0 .15-.16l.64-1.8A.3.3 0 0 1 12.5.5q.16 0 .24.17l.64 1.8q.04.11.15.16l1.8.64q.18.07.17.23 0 .17-.17.24l-1.8.64a.3.3 0 0 0-.15.15l-.64 1.8a.3.3 0 0 1-.24.17q-.17 0-.24-.16l-.64-1.81a.3.3 0 0 0-.15-.15l-1.8-.64a.3.3 0 0 1-.17-.24q0-.17.16-.23z"/>
+                        <path fill-rule="evenodd" d="m7 5.5-.56 1.57a2.3 2.3 0 0 1-1.37 1.37L3.49 9l1.58.56c.64.23 1.14.73 1.37 1.37L7 12.51l.56-1.58c.23-.64.73-1.14 1.37-1.37L10.5 9l-1.58-.56a2.3 2.3 0 0 1-1.37-1.37zM7.7 3a.7.7 0 0 0-.7-.5c-.3 0-.59.16-.7.5L5.02 6.57a.8.8 0 0 1-.46.46L.99 8.29A.74.74 0 0 0 .5 9c0 .3.17.59.5.7l3.58 1.28q.33.12.46.45l1.26 3.58c.12.33.42.5.71.5.3 0 .59-.17.7-.5l1.27-3.58a.8.8 0 0 1 .46-.45L13 9.7c.34-.12.5-.41.5-.7 0-.3-.16-.6-.5-.72L9.43 7.03a.8.8 0 0 1-.46-.46z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+            <!--- Nav items --->
+            <div class="relative flex items-center gap-12 h-36">
+                <nav data-tab-group class="relative h-full group/nav">
+                    <!--- Tab --->
+                    <div data-nav-tab class="absolute top-0 left-0 h-full bg-neutral-0/50 backdrop-blur-sm rounded-4 opacity-0 group-hover/nav:opacity-100 shadow-[0px_0px_0_1px_rgb(from_var(--hex-brand-600)_r_g_b/0.2)]"></div>
+                    <!--- List --->
+                    <ul class="relative h-full flex text-14 font-normal tracking-[0]">
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <a href="#" data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none hover:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <span>
+                                    Get started
+                                </span>
+                            </a>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <a href="#" data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none hover:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <span>
+                                    Developer resources
+                                </span>
+                            </a>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <a href="#" data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none hover:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <span>
+                                    Products
+                                </span>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <a href="#" data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none hover:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <span>
+                                    APIs & SDKs
+                                </span>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                            </a>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <a href="#" data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none hover:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <span>
+                                    Help
+                                </span>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--- Profile button --->
+                <a href="#" class="relative flex items-center justify-center gap-8 h-38 pl-12 pr-5 text-14 font-normal text-detail bg-neutral-0/65 border border-edge rounded-4 hover:border-brand-200 hover:text-primary-hover focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                    <span class="pb-2">Mike Stilling</span>
+                    <div class="relative flex items-center justify-center w-28 h-28 rounded-2 shadow-inset-border bg-headline text-neutral-0">
+                        <span class="font-serif text-center translate-x-0.5">M</span>
+                    </div>
+                </a>
+            </div>
+        </helm-container>
+    </header>
+    <helm-section class="overflow-hidden">
+        <helm-container class="relative px-16 grid grid-cols-2 gap-16">
+            <!--- Col --->
+            <div class="relative py-64">
+                <div class="relative w-full flex flex-col items-start justify-between h-288">
+                    <div class="relative pt-10">
+                        <h1 class="text-32/100 tracking-tight mb-16">
+                            Documentation
+                        </h1>
+                        <p class="text-18/[137.5%] text-content mb-24">
+                            Explore our guides and examples to integrate Stripe.
+                        </p>
+                        <div class="relative flex items-center gap-8">
+                            <a href="https://stripe.com/contact/sales" class="relative flex items-center justify-center gap-6 h-40 px-20 text-14 font-normal text-neutral-0 bg-primary rounded-4 hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                                <span class="pb-2">
+                                    Get started with Stripe
+                                </span>
+                                <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
+                            </a>
+                            <a href="https://stripe.com/contact/sales" class="relative flex items-center justify-center gap-6 h-40 px-20 text-14 font-normal text-primary bg-neutral-0/65 border border-brand-100 backdrop-blur-sm rounded-4 hover:border-brand-300 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                                <span class="pb-2">
+                                    Explore all products
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative flex flex-col items-start">
+                        <a href="https://dashboard.stripe.com/login" class="relative mb-6 flex items-center justify-center gap-4 text-14 text-content rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                            <span class="pb-2">
+                                Test card numbers
+                            </span>
+                            <icon-arrowanimate @size="sm" class="-translate-y-1"></icon-arrowanimate>
+                        </a>
+                        <div class="relative flex items-center gap-8 pl-10 pr-4 h-32 bg-foreground border border-edge rounded-4">
+                            <div class="relative h-16 flex aspect-4/3 rounded-2 bg-neutral-200 overflow-hidden">
+                                <div class="mt-3 bg-neutral-400 h-3 w-full"></div>
+                            </div>
+                            <span class="tracking-widest font-mono text-detail mr-12">4242 4242 4242 4242</span>
+                            <div class="h-24 flex items-center justify-center px-8 pb-2 text-12 font-normal text-primary bg-neutral-0/65 border border-brand-100 rounded-4 hover:border-brand-300 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                                Copy
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--- Col --->
+            <div class="relative flex py-64">
+                <div class="relative flex items-center justify-center h-288 p-24 bg-foreground border border-edge rounded-6 w-full overflow-hidden">
+                    <img src="/assets/images/util/wave-lines.jpg" width="3573" height="1233" alt="" class="relative w-full max-w-none h-auto brightness-110" eleventy:pictureattr:class="absolute top-32 translate-x-48 w-[calc(100%+24rem)] h-full rounded-6 overflow-hidden mix-blend-multiply">
+                    <div class="relative flex flex-col items-start w-full h-full">
+                        <div class="shrink-0 mb-16 text-neutral-400">
+                            Recently viewed
+                        </div>
+                        <div class="relative flex gap-16 w-[calc(100%+1.5rem)] h-full">
+                            <div class="relative w-224 flex flex-col items-start justify-between shrink-0 h-full bg-highlight/50 backdrop-blur-md shadow-[0_6px_16px_rgba(0,0,0,0.04)] border border-neutral-990/4 rounded-6 pt-20 pb-16 px-24 leading-110 tracking-tight">
+                                <div class="text-16 font-normal text-headline text-balance">
+                                    Platforms and marketplaces with Stripe
+                                </div>
+                                <a href="https://dashboard.stripe.com/login" class="relative flex items-center justify-center gap-4 text-14 text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                                    <span class="pb-2">
+                                        View docs
+                                    </span>
+                                    <icon-arrowanimate @size="sm" class="-translate-y-1"></icon-arrowanimate>
+                                </a>
+                            </div>
+                            <div class="relative w-224 flex flex-col items-start justify-between shrink-0 h-full bg-highlight/50 backdrop-blur-md shadow-[0_6px_16px_rgba(0,0,0,0.04)] border border-neutral-990/4 rounded-6 pt-20 pb-16 px-24 leading-110 tracking-tight">
+                                <div class="text-16 font-normal text-headline text-balance">
+                                    Financial accounts for platforms
+                                </div>
+                                <a href="https://dashboard.stripe.com/login" class="relative flex items-center justify-center gap-4 text-14 text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                                    <span class="pb-2">
+                                        View docs
+                                    </span>
+                                    <icon-arrowanimate @size="sm" class="-translate-y-1"></icon-arrowanimate>
+                                </a>
+                            </div>
+                            <div class="relative w-224 flex flex-col items-start justify-between shrink-0 h-full bg-highlight/50 backdrop-blur-md shadow-[0_6px_16px_rgba(0,0,0,0.04)] border border-neutral-990/4 rounded-6 pt-20 pb-16 px-24 leading-110 tracking-tight">
+                                <div class="relative text-16 font-normal text-headline text-balance">
+                                    Capabilities and information requirements
+                                </div>
+                                <a href="https://dashboard.stripe.com/login" class="relative flex items-center justify-center gap-4 text-14 text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                                    <span class="pb-2">
+                                        View docs
+                                    </span>
+                                    <icon-arrowanimate @size="sm" class="-translate-y-1"></icon-arrowanimate>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </helm-container>
+    </helm-section>
+    <helm-section class="overflow-hidden">
+        <helm-container class="relative px-16 grid grid-cols-3 gap-16">
+            <div class="absolute top-0 left-16 w-[calc(100%-2rem)] border-t border-edge"></div>
+            <div class="relative py-64">
+                <div class="absolute top-0 right-0 h-full border-l border-edge"></div>
+                <div class="text-18 font-normal text-headline text-balance">
+                    Payments
+                </div>
+                <ul class="text-16 text-primary mt-16">
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Accept payments online
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Collect payments with invoices
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Accept payments in-person
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="relative py-64">
+                <div class="absolute top-0 right-0 h-full border-l border-edge"></div>
+                <div class="text-18 font-normal text-headline text-balance">
+                    Revenue
+                </div>
+                <ul class="text-16 text-primary mt-16">
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Sell subscriptions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Offer usage-based pricing
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Set up the customer portal
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="relative py-64">
+                <div class="text-18 font-normal text-headline text-balance">
+                    Developers
+                </div>
+                <ul class="text-16 text-primary mt-16">
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Set up your development environment
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Build on Stripe with LLMs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-4 hover:text-primary-hover transition duration-200 ease-out">
+                            Integration quickstarts
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </helm-container>
+    </helm-section>
+    <helm-section class="overflow-hidden">
+        <helm-container class="relative px-16 pt-64 pb-128">
+            <div class="absolute top-0 left-16 w-[calc(100%-2rem)] border-t border-edge"></div>
+            <div class="text-18 font-normal text-headline text-balance mb-32">
+                Try it out
+            </div>
+            <div class="grid grid-cols-3 gap-16 h-448">
+                <div class="border border-edge rounded-6"></div>
+                <div class="col-span-2 border border-edge rounded-6 bg-foreground"></div>
+            </div>
+        </helm-container>
+    </helm-section>
+</div>

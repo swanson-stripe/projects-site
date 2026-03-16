@@ -1,0 +1,62 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <g clip-path="url(#chevronup8r)">
+        <path d="M7.115 6.27 4 3.146.884 6.27l-.353-.353-.355-.354 3.47-3.479L4 1.73l.354.354 3.47 3.479z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronup8r">
+        <path fill="#fff" d="M0 1.464h8v5.071H0z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '8' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <g clip-path="url(#chevronup8s)">
+        <path d="M7.038 6.536 4 3.406.962 6.535 0 5.588l3.518-3.627L4 1.464l.482.497L8 5.588z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronup8s">
+        <path fill="#fff" d="M0 1.464h8v5.071H0z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <g clip-path="url(#chevronup12r)">
+        <path d="M9.47 8.795 6 5.325l-3.47 3.47-1.06-1.06L6 3.205l4.53 4.53z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronup12r">
+        <path fill="#fff" d="M1.38 3.072h9.239v5.856H1.38z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <g clip-path="url(#chevronup12s)">
+        <path d="M9.38 8.928 6 5.548l-3.38 3.38L1.38 7.69l4-4L6 3.072l.62.618 4 4z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronup12s">
+        <path fill="#fff" d="M1.38 3.072h9.239v5.856H1.38z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#chevronup16s)">
+        <path d="M12.818 11.823 8 7.005l-4.818 4.818-1.414-1.414L8 4.177l6.232 6.232z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronup16s">
+        <path fill="#fff" d="M1.62 3.955H14.38v8.09H1.62z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#chevronup16r)">
+        <path d="M12.995 11.558 8 6.563l-4.995 4.995-1.06-1.06L8 4.442l6.056 6.056z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronup16r">
+        <path fill="#fff" d="M1.62 3.955H14.38v8.09H1.62z"/>
+        </clipPath>
+        </defs>
+    </svg>
+</div>

@@ -1,0 +1,20 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 9" width="8" height="9" class="w-8 h-9">
+        <path d="M3.531.198a3.334 3.334 0 0 1 3.334 3.333l-.005.172a3.3 3.3 0 0 1-.646 1.804l1.588 1.588-.707.707-1.59-1.589a3.3 3.3 0 0 1-1.974.652l-.17-.005A3.334 3.334 0 0 1 3.53.198m0 1a2.333 2.333 0 1 0 0 4.667 2.333 2.333 0 0 0 0-4.667"/>
+    </svg>
+    <svg webc:elseif="size === '8' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path d="M3.53.34c1.84 0 3.34 1.5 3.34 3.34l-.01.17a3.3 3.3 0 0 1-.55 1.65l1.62 1.62-.96.95-1.6-1.6Q4.56 7 3.52 7h-.17A3.33 3.33 0 0 1 3.53.34m0 1.35a1.98 1.98 0 1 0 0 3.97 1.98 1.98 0 0 0 0-3.97"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M5.16.16a5 5 0 0 1 4.025 7.965l2.655 2.655-1.06 1.06-2.655-2.655A5 5 0 1 1 5.16.16m0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M5.116.116a5 5 0 0 1 4.1 7.861l2.668 2.67-.618.62-.619.617-2.67-2.669a5 5 0 1 1-2.861-9.1m0 1.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M6.834.834a6 6 0 0 1 4.889 9.475l3.443 3.443-1.414 1.414-3.443-3.443A6 6 0 1 1 6.834.834m0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M6.922.922a6 6 0 0 1 4.739 9.678l3.417 3.417-1.06 1.06-3.418-3.416A6 6 0 1 1 6.922.923m0 1.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9"/>
+    </svg>
+</div>

@@ -1,0 +1,14 @@
+<div webc:root="override">
+    <svg webc:if="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M6 0a6 6 0 0 1 0 12A6 6 0 0 1 6 0m0 1.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9M4.23 3.814c0-.285.311-.462.557-.316L8.47 5.684c.24.143.24.49 0 .633L4.788 8.503a.369.369 0 0 1-.557-.316z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M6 0a6 6 0 1 1 0 12A6 6 0 0 1 6 0m0 1.75a4.25 4.25 0 1 0 .001 8.501 4.25 4.25 0 0 0 0-8.5M4.26 3.815c0-.286.311-.463.557-.317L8.5 5.684a.37.37 0 0 1 0 .634L4.817 8.504a.369.369 0 0 1-.557-.317z"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m0 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2M6.022 5.495c0-.286.311-.462.557-.317l4.218 2.505c.24.143.24.491 0 .634L6.58 10.82a.369.369 0 0 1-.557-.317z"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0m0 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.04 5.66c0-.286.311-.464.557-.318l4.218 2.505c.24.142.24.49 0 .633l-4.218 2.504a.369.369 0 0 1-.557-.316z"/>
+    </svg>
+</div>

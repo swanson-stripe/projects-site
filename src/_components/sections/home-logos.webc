@@ -1,0 +1,77 @@
+<div class="relative w-full" webc:root="override">
+    <helm-section class="relative border-b border-edge">
+        <helm-container class="relative h-72 border-x border-edge overflow-hidden">
+            <div data-hero-logos-container class="relative flex w-full h-full transform-gpu">
+                <ul data-hero-logos class="relative shrink-0 h-full flex items-center justify-center">
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-openai class="h-34 w-auto"></logo-openai>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-amazon class="h-34 w-auto"></logo-amazon>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-nvidia class="h-34 w-auto"></logo-nvidia>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-ford class="h-34 w-auto"></logo-ford>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-coinbase class="h-34 w-auto"></logo-coinbase>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-google class="h-34 w-auto"></logo-google>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-shopify class="h-34 w-auto"></logo-shopify>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-mindbody class="h-34 w-auto"></logo-mindbody>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-metlife class="h-34 w-auto"></logo-metlife>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-ramp class="h-34 w-auto"></logo-ramp>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-marriot class="h-34 w-auto"></logo-marriot>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-figma class="h-34 w-auto"></logo-figma>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-woo class="h-34 w-auto"></logo-woo>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-vercel class="h-34 w-auto"></logo-vercel>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-uber class="h-34 w-auto"></logo-uber>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-anthropic class="h-34 w-auto"></logo-anthropic>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-lightspeed class="h-34 w-auto"></logo-lightspeed>
+                    </li>
+                    <li class="w-172 h-full flex items-center justify-center shrink-0">
+                        <logo-cursor class="h-34 w-auto"></logo-cursor>
+                    </li>
+                </ul>
+            </div>
+        </helm-container>
+    </helm-section>
+</div>
+
+<script>
+
+    const heroLogosContainer = document.querySelector('[data-hero-logos-container]');
+    const heroLogos = document.querySelector('[data-hero-logos]');
+    const heroLogosClone = heroLogos.cloneNode(true);
+    heroLogosClone.removeAttribute('data-hero-logos');
+    heroLogosContainer.appendChild(heroLogosClone);
+    const carouselWidth = heroLogos.offsetWidth;
+    const tl = gsap.timeline({ repeat: -1 });
+    tl.to(heroLogosContainer, {x: -carouselWidth, duration: 90, ease: 'linear'});
+
+</script>

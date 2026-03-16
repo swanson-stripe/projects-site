@@ -1,0 +1,6 @@
+<div class="relative flex flex-col gap-12 prose" @html="this.content || this.templateContent"></div>
+
+<script webc:type="js">
+  // This ensures content is available
+  this.content || "";
+</script>

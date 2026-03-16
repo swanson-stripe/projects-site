@@ -1,0 +1,48 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path d="m1.7.762 3.124 3.114L1.7 6.992l.354.354.353.354 3.479-3.47.354-.353-.354-.355L2.407.052z"/>
+    </svg>
+    <svg webc:elseif="size === '8' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path d="m1.7 1.008 2.999 2.991L1.7 6.991l.477.478.476.478 3.479-3.47.48-.477-.48-.479L2.653.053z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <g clip-path="url(#chevronright12r)">
+        <path d="M3.383 2.53 6.853 6l-3.47 3.47 1.06 1.06L8.973 6l-4.53-4.53z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronright12r">
+        <path fill="#fff" d="M9.106 10.62V1.38H3.25v9.238z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <g clip-path="url(#chevronright12s)">
+        <path d="M3.25 2.62 6.63 6 3.25 9.38l1.238 1.24 4-4L9.106 6l-.618-.62-4-4z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronright12s">
+        <path fill="#fff" d="M9.106 10.62V1.38H3.25v9.238z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#chevronright16s)">
+        <path d="M4.722 3.182 9.54 8l-4.818 4.818 1.414 1.414L12.368 8 6.136 1.768z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronright16s">
+        <path fill="#fff" d="M12.59 14.38V1.62H4.5V14.38z"/>
+        </clipPath>
+        </defs>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <g clip-path="url(#chevronright16r)">
+        <path d="M4.987 3.005 9.982 8l-4.995 4.995 1.06 1.06L12.103 8 6.047 1.944z"/>
+        </g>
+        <defs>
+        <clipPath id="chevronright16r">
+        <path fill="#fff" d="M12.59 14.38V1.62H4.5V14.38z"/>
+        </clipPath>
+        </defs>
+    </svg>
+</div>

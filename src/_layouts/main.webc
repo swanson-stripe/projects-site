@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" color-scheme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" :href="base.url + page.url"/>
+
+    <!--- Search + Tab --->
+    <title @html="this.seoTitle"></title>
+    <meta name="description" :content="this.seoDesc">
+
+    <!--- OpenGraph --->
+    <meta property="og:site_name" :content="base.name" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" :content="this.ogTitle" />
+    <meta property="og:description" :content="this.ogDesc" />
+    <meta property="og:url" :content="base.url + page.url" />
+    <meta property="og:image" :content="base.url + this.ogImage" />
+    <meta property="og:image:alt" :content="this.ogImageAlt" />
+
+    <!--- Twitter --->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" :content="base.twitterHandle" />
+    <meta name="twitter:creator" :content="base.twitterHandle" />
+
+    <!--- Prevent Indexing --->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!--- Load fonts --->
+    <link rel="preload" href="/assets/fonts/sohne.woff2" as="font" type="font/woff2" crossorigin>
+    <!--- Font families --->
+    <style>
+        @font-face {
+            font-family: "Sohne";
+            src: url("/assets/fonts/sohne.woff2") format("woff2-variations");
+            font-weight: 1 1000;
+            font-display: block;
+        }
+        body {
+            font-family: "Sohne", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+
+    <!--- Styles --->
+    <link rel="stylesheet" href="/assets/css/main.css" webc:keep/>
+    <link webc:if="markdown" rel="stylesheet" href="/assets/css/markdown.css" webc:keep/>
+    <style @raw="getBundle('css')" webc:keep></style>
+
+    <!--- Icons --->
+    <link rel="icon" type="image/png" href="/assets/images/favicon/icon-96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png" />
+
+    <!--- Plausible --->
+    <script webc:if="base.env !== 'local'" webc:keep async src="https://plausible.io/js/pa-tq9B_F5RcJtNJMu8LenIq.js"></script>
+    <script webc:if="base.env !== 'local'" webc:keep>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}; plausible.init();</script>
+</head>
+
+<body class="text-headline bg-highlight font-sans font-light antialiased">
+    <div>
+        <!--- Content --->
+        <div @html="this.content">
+        </div>
+    </div>
+    <script webc:keep src="/assets/js/gsap.min.js"></script>
+    <script webc:keep src="/assets/js/ScrollTrigger.min.js"></script>
+    <script webc:keep src="/assets/js/ScrollToPlugin.min.js"></script>
+    <script webc:keep src="/assets/js/SplitText.min.js"></script>
+    <script webc:keep src="/assets/js/TextPlugin.min.js"></script>
+    <script @raw="getBundle('js')" webc:keep>gsap.registerPlugin(ScrollTrigger,ScrollToPlugin,TextPlugin,SplitText);</script>
+    <script webc:if="wave !== false" type="module" webc:keep src="/assets/js/NouveauBloomWave/NouveauBloomWave.js"></script>
+    <script webc:if="binaryCanvas" type="module" webc:keep src="/assets/js/BinaryFadeCanvas/BinaryFadeCanvas.js"></script>
+</body>
+</html>

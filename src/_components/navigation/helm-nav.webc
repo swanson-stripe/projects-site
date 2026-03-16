@@ -1,0 +1,532 @@
+<header class="relative flex items-center justify-center px-16 border-b border-neutral-990/10 z-50 group/header" webc:root="override">
+    <!--- Background --->
+    <div class="fixed top-0 left-0 w-full h-dvh backdrop-blur-sm pointer-events-none bg-linear-to-b from-transparent to-[rgb(236,239,241,0.8)] opacity-0 group-has-checked/header:opacity-100 transition-all duration-300 ease-out transition-discrete"></div>
+    <!--- Content --->
+    <helm-container class="relative py-12 px-16 flex items-center justify-between">
+        <!--- Left --->
+        <div class="relative flex items-center h-40 gap-4">
+            <!--- Logo --->
+            <a href="/" class="relative flex items-center h-full border border-transparent px-10 -ml-9 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
+                <icon-wordmark class="relative w-45 h-19"></icon-wordmark>
+            </a>
+            <!--- Navigation --->
+            <div class="relative h-full">
+                <nav data-tab-group class="relative h-full group/nav">
+                    <!--- Tab --->
+                    <div data-nav-tab class="absolute top-0 left-0 h-full bg-neutral-0/50 backdrop-blur-sm rounded-4 opacity-0 group-hover/nav:opacity-100 shadow-[0px_0px_0_1px_rgb(from_var(--hex-brand-600)_r_g_b/0.2)]"></div>
+                    <!--- List --->
+                    <ul class="relative h-full flex text-14 font-normal tracking-[0]">
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <div data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none has-hover:text-primary-hover has-focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <label for="nav-products">
+                                    Products
+                                </label>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-has-checked:translate-y-0 group-has-checked:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-has-checked:translate-y-0 group-has-checked:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                                <input type="radio" name="nav-item" value="nav-products" id="nav-products" class="absolute -top-1 left-0 w-full h-40 cursor-pointer opacity-0">
+                            </div>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <div data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none has-hover:text-primary-hover has-focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <label for="nav-solutions">
+                                    Solutions
+                                </label>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-has-checked:translate-y-0 group-has-checked:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-has-checked:translate-y-0 group-has-checked:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                                <input type="radio" name="nav-item" value="nav-solutions" id="nav-solutions" class="absolute -top-1 left-0 w-full h-40 cursor-pointer opacity-0">
+                            </div>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <div data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none has-hover:text-primary-hover has-focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <label for="nav-developers">
+                                    Developers
+                                </label>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-has-checked:translate-y-0 group-has-checked:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-has-checked:translate-y-0 group-has-checked:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                                <input type="radio" name="nav-item" value="nav-developers" id="nav-developers" class="absolute -top-1 left-0 w-full h-40 cursor-pointer opacity-0">
+                            </div>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <div data-nav-item class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none has-hover:text-primary-hover has-focus-visible:shadow-focus transition-all duration-250 cursor-pointer group">
+                                <label for="nav-resources">
+                                    Resources
+                                </label>
+                                <div class="relative flex items-center justify-center w-12 h-12">
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 -translate-x-1.75 rotate-45 group-has-checked:translate-y-0 group-has-checked:-rotate-45 transition-all duration-250 ease-out"></div>
+                                    <div class="absolute w-6 h-1.75 bg-current translate-y-1.5 translate-x-1.75 -rotate-45 group-has-checked:translate-y-0 group-has-checked:rotate-45 transition-all duration-250 ease-out"></div>
+                                </div>
+                                <input type="radio" name="nav-item" value="nav-resources" id="nav-resources" class="absolute -top-1 left-0 w-full h-40 cursor-pointer opacity-0">
+                            </div>
+                        </li>
+                        <!--- Item --->
+                        <li class="relative h-full">
+                            <a data-nav-link class="relative h-full flex items-center justify-center gap-6 px-12 pb-2 border border-transparent rounded-4 outline-none hover:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group" href="https://stripe.com/pricing">
+                                <span>
+                                    Pricing
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!--- Right --->
+        <div class="relative flex items-center gap-8">
+            <a href="https://stripe.com/contact/sales" class="relative flex items-center justify-center gap-6 h-40 px-20 text-14 font-normal text-primary bg-neutral-0/65 border border-transparent shadow-border backdrop-blur-sm rounded-4 hover:bg-neutral-0 focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                <span class="pb-2">
+                    Sign in
+                </span>
+            </a>
+            <a href="https://stripe.com/contact/sales" class="relative flex items-center justify-center gap-6 h-40 px-20 text-14 font-normal text-neutral-0 bg-primary rounded-4 hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                <span class="pb-2">
+                    Contact Sales
+                </span>
+                <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
+            </a>
+        </div>
+        <!--- Dropdowns --->
+        <div data-nav-dropdown class="absolute top-52 left-0 w-full px-16 pt-12 pointer-events-none group-has-checked/header:pointer-events-auto">
+            <div class="relative w-full bg-highlight/90 backdrop-blur-xl border border-edge rounded-6 shadow-[0_16px_32px_rgba(0,0,0,0.06)] overflow-hidden opacity-0 translate-y-[-5%] scale-90 pointer-events-none
+                        group-has-checked/header:opacity-100 group-has-checked/header:translate-y-0 group-has-checked/header:scale-100 group-has-checked/header:block group-has-checked/header:pointer-events-auto
+                        --group-has-[#nav-products:checked]/header:h-768
+                        --group-has-[#nav-solutions:checked]/header:h-640
+                        --group-has-[#nav-developers:checked]/header:h-512
+                        --group-has-[#nav-resources:checked]/header:h-384
+                        transition-all duration-300 ease-out transition-discrete">
+                <div class="absolute top-0 left-0 w-full">
+                    <ul class="absolute top-0 left-0 w-full text-14 text-detail">
+                        <!--- Products --->
+                        <li data-nav-dropdown-item class="absolute top-0 left-0 w-full opacity-0 invisible transition-discrete">
+                            <ul class="relative w-full grid grid-cols-5">
+                                <!--- Payments --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Payments"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/payments" @title="Payments" @description="Online Payments"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/payment-links" @title="Payment Links" @description="No-code payments"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/checkout" @title="Checkout" @description="Prebuilt payment form"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/elements" @title="Elements" @description="Flexible UI components"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/payments/payment-methods" @title="Payment methods" @description="Access to 100+"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/terminal" @title="Terminal" @description="In-person payments"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/payments/radar" @title="Radar" @description="Fraud prevention"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/authorization-boost" @title="Authorization Boost" @description="Acceptance optimizations"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/payments/link" @title="Link" @description="Accelerated checkout"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Revenue --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Revenue"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/billing" @title="Billing" @description="Subscription management"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/billing/usage-based-billing" @title="Usage-based billing" @description="Metered billing"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/invoicing" @title="Invoicing" @description="One-time or recurring"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/tax" @title="Tax" @description="Sales tax & VAT automation"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/revenue-recognition" @title="Revenue Recognition" @description="Accounting automation"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/sigma" @title="Stripe Sigma" @description="Custom reports"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/data-pipeline" @title="Data Pipeline" @description="Data sync"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Money Management --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Money Management"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/financial-accounts" @title="Financial Accounts" @description="Business finances"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/payouts" @title="Global Payouts" @description="Payouts to third parties"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/capital" @title="Capital" @description="Business financing"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/crypto" @title="Crypto" @description="Wallet, stablecoin issuing and card infrastructure"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- More --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Platforms and marketplaces"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/connect" @title="Connect" @description="Multiparty payments"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/capital/platforms" @title="Capital for platforms" @description="Customer financing"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/financial-accounts/platforms" @title="Financial Accounts for platforms" @description="Embedded financial services"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/issuing" @title="Issuing" @description="Physical and virtual cards"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- More --->
+                                <li data-nav-dropdown-item-col class="relative flex h-full pr-4 pt-4 pb-6">
+                                    <div class="relative flex flex-col justify-between w-full px-20 pt-23 pb-20 bg-neutral-990/6 border border-neutral-990/8 rounded-2">
+                                        <!--- Upper --->
+                                        <div class="relative">
+                                            <nav-coltitle @title="Platforms and marketplaces"></nav-coltitle>
+                                            <ul class="pt-6">
+                                                <!--- Item --->
+                                                <nav-subitem @href="https://stripe.com/atlas" @title="Atlas" @description="Startup incorporation"></nav-subitem>
+                                                <nav-subitem @href="https://stripe.com/climate" @title="Climate" @description="Carbon removal"></nav-subitem>
+                                                <nav-subitem @href="https://stripe.com/identity" @title="Identity" @description="Online identity verification"></nav-subitem>
+                                                <nav-subitem @href="https://stripe.com/financial-connections" @title="Financial Connections" @description="Linked financial account data"></nav-subitem>
+                                            </ul>
+                                        </div>
+                                        <!--- Ad slot --->
+                                        <a href="https://stripe.com/sessions" class="relative w-full bg-neutral-0 rounded-4 overflow-hidden group shadow-inset-border">
+                                            <img src="/assets/images/util/sessions-nav.jpg" alt="" width="576" height="240" class="absolute w-full h-auto group-hover:scale-110 transition-all duration-300 ease-out" eleventy:pictureattr:class="relative flex items-center justify-center w-full h-80 overflow-hidden">
+                                            <div class="px-16 py-12">
+                                                <p class="text-headline font-medium mb-4">
+                                                    Join us at Sessions
+                                                </p>
+                                                <p class="leading-130 mb-6">
+                                                    Register to attend our annual conference in San Francisco April 29-30.
+                                                </p>
+                                                <div class="relative font-normal text-primary">
+                                                    <p class="inline">Register now</p>
+                                                    <icon-arrowanimate @size="md" class="inline-block ml-4 translate-y-1.5"></icon-arrowanimate>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--- Solutions --->
+                        <li data-nav-dropdown-item class="absolute top-0 left-0 w-full opacity-0 invisible transition-discrete">
+                            <ul class="relative w-full grid grid-cols-4">
+                                <!--- Stage --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="By stage"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/enterprise" @title="Enterprise"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/startups" @title="Startups"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Use case --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="By use case"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/use-cases/agentic-commerce" @title="Enterprise"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/ecommerce" @title="Startups"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/embedded-finance" @title="Embedded finance"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/finance-automation" @title="Finance automation"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/global-businesses" @title="Global businesses"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/in-app-payments" @title="In-app payments"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/marketplaces" @title="Marketplaces"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/platforms" @title="Platforms"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/saas" @title="SaaS"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Industry --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="By industry"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/use-cases/ai" @title="AI companies"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/use-cases/creator-economy" @title="Creator economy"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/industries/travel" @title="Hospitality, travel and leisure"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/industries/insurance" @title="Insurance"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/industries/media-entertainment" @title="Media and entertainment"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/industries/nonprofits" @title="Nonprofits"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/industries/retail" @title="Retail"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Ecosystem --->
+                                <li data-nav-dropdown-item-col class="relative flex h-full pr-4 pt-4 pb-6">
+                                    <div class="relative flex flex-col justify-between w-full px-20 pt-23 pb-20 bg-neutral-990/6 border border-neutral-990/8 rounded-2">
+                                        <!--- Upper --->
+                                        <div class="relative">
+                                            <nav-coltitle @title="Ecosystem"></nav-coltitle>
+                                            <ul class="pt-6">
+                                                <!--- Item --->
+                                                <nav-subitem @href="https://stripe.com/partners" @title="Partnerships"></nav-subitem>
+                                                <nav-subitem @href="https://marketplace.stripe.com/" @title="Stripe App Marketplace"></nav-subitem>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--- Developers --->
+                        <li data-nav-dropdown-item class="absolute top-0 left-0 w-full opacity-0 invisible transition-discrete">
+                            <ul class="relative w-full grid grid-cols-3">
+                                <!--- Documentation --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Documentation"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/docs" @title="Overview"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/docs/api" @title="API reference"></nav-subitem>
+                                        <nav-subitem @href="https://docs.stripe.com/development" @title="Libraries and SDKs"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/apps" @title="Stripe Apps"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Guides --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Documentation"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://docs.stripe.com/payments" @title="Accept online payments"></nav-subitem>
+                                        <nav-subitem @href="https://docs.stripe.com/payments/checkout" @title="Implement a prebuilt checkout"></nav-subitem>
+                                        <nav-subitem @href="https://docs.stripe.com/connect" @title="Build a platform or marketplace"></nav-subitem>
+                                        <nav-subitem @href="https://docs.stripe.com/billing" @title="Manage subscriptions"></nav-subitem>
+                                        <nav-subitem @href="https://docs.stripe.com/billing/subscriptions/usage-based" @title="Offer usage-based billing"></nav-subitem>
+                                        <nav-subitem @href="https://docs.stripe.com/financial-accounts/stablecoins" @title="Issue stablecoin-backed cards"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Resources --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Resources"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://marketplace.stripe.com/" @title="App integrations"></nav-subitem>
+                                        <nav-subitem @href="https://github.com/stripe-samples" @title="Code samples"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.dev/" @title="Developer blog"></nav-subitem>
+                                        <nav-subitem @href="https://status.stripe.com/" @title="API status"></nav-subitem>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--- Resources --->
+                        <li data-nav-dropdown-item class="absolute top-0 left-0 w-full opacity-0 invisible transition-discrete">
+                            <ul class="relative w-full grid grid-cols-4">
+                                <!--- Learn --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Learn"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/blog" @title="Blog"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/customers" @title="Customer stories"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/guides" @title="Guides"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Support --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Support"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://support.stripe.com/" @title="Get support"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/support-plans" @title="Managed support plans"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/professional-services" @title="Professional services"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Company --->
+                                <li data-nav-dropdown-item-col class="px-24 py-28">
+                                    <nav-coltitle @title="Company"></nav-coltitle>
+                                    <ul class="pt-6">
+                                        <!--- Item --->
+                                        <nav-subitem @href="https://stripe.com/sessions" @title="Sessions annual conference"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/jobs" @title="Jobs"></nav-subitem>
+                                        <nav-subitem @href="https://stripe.com/newsroom" @title="Newsroom"></nav-subitem>
+                                        <nav-subitem @href="https://press.stripe.com/" @title="Stripe Press"></nav-subitem>
+                                    </ul>
+                                </li>
+                                <!--- Contact --->
+                                <li data-nav-dropdown-item-col class="relative flex h-full pr-4 pt-4 pb-6">
+                                    <div class="relative flex flex-col justify-between w-full px-20 pt-23 pb-20 bg-neutral-990/6 border border-neutral-990/8 rounded-2">
+                                        <!--- Upper --->
+                                        <div class="relative">
+                                            <nav-coltitle @title="Contact"></nav-coltitle>
+                                            <ul class="pt-6">
+                                                <!--- Item --->
+                                                <nav-subitem @href="https://stripe.com/contact/sales" @title="Contact sales"></nav-subitem>
+                                                <nav-subitem @href="https://stripe.com/partners/become-a-partner" @title="Become a partner"></nav-subitem>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </helm-container>
+</header>
+
+<script>
+
+    // Follow mouse on navigation tabs
+    function navTabs() {
+        const tabgroup = document.querySelectorAll('[data-tab-group]');
+        tabgroup.forEach(group => {
+            const tab = group.querySelector('[data-nav-tab]');
+            const options = group.querySelectorAll('a, button, input');
+
+            // Set initial styles for GPU-accelerated animation
+            tab.style.willChange = 'transform, width, height';
+            tab.style.transition = 'transform 300ms ease, width 300ms ease, height 300ms ease, opacity 300ms ease';
+
+            function getRelativePosition(option) {
+                const groupRect = group.getBoundingClientRect();
+                const optionRect = option.getBoundingClientRect();
+                return {
+                    x: optionRect.left - groupRect.left,
+                    y: optionRect.top - groupRect.top,
+                    width: optionRect.width,
+                    height: optionRect.height
+                };
+            }
+
+            function set() {
+                const pos = getRelativePosition(options[0]);
+                tab.style.width = pos.width + 'px';
+                tab.style.height = pos.height + 'px';
+                tab.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+            }
+            set();
+
+            function indicate(option) {
+                const pos = getRelativePosition(option);
+                tab.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+                tab.style.width = pos.width + 'px';
+                tab.style.height = pos.height + 'px';
+            }
+
+            options.forEach(option => {
+                option.addEventListener('mouseover', () => { indicate(option); });
+                window.addEventListener('resize', () => { set(); });
+            });
+
+        });
+    }
+
+    // Toggle navigation items
+    function toggleNavItems() {
+        const navItems = document.querySelectorAll('[data-nav-item]');
+        const allRadios = document.querySelectorAll('input[name="nav-item"]');
+        const dropdown = document.querySelector('[data-nav-dropdown]');
+        const dropdownContents = document.querySelector('[data-nav-dropdown]>div');
+        const allDropdownItems = document.querySelectorAll('[data-nav-dropdown-item]');
+        let previousDropdown = null;
+        let currentDropdown = null;
+        const hideTimeouts = new Map(); // element -> timeout ID, so we can cancel stale hides when switching quickly
+
+        function scheduleHide(el, delay, fn) {
+            if (hideTimeouts.has(el)) clearTimeout(hideTimeouts.get(el));
+            const id = setTimeout(() => {
+                hideTimeouts.delete(el);
+                fn();
+            }, delay);
+            hideTimeouts.set(el, id);
+        }
+
+        function cancelHide(el) {
+            if (hideTimeouts.has(el)) {
+                clearTimeout(hideTimeouts.get(el));
+                hideTimeouts.delete(el);
+            }
+        }
+
+        function uncheckAll() {
+            allRadios.forEach(r => r.checked = false);
+        }
+        
+        function hideAllDropdownItems() {
+            allDropdownItems.forEach(el => {
+                cancelHide(el);
+                el.style.opacity = '0';
+                el.style.visibility = 'hidden';
+            });
+        }
+        
+        navItems.forEach((item, index) => {
+            const radio = item.querySelector('input[name="nav-item"]');
+            const selectedDropdown = document.querySelectorAll('[data-nav-dropdown-item]')[index];
+            const dropdownOffset = '264px';
+
+            if (!radio) return;
+            
+            // Open dropdowns
+            const transitionIn = 'all 600ms cubic-bezier(0.33, 1, 0.68, 1)';
+            const transitionOut = 'transform 600ms cubic-bezier(0.33, 1, 0.68, 1), opacity 300ms linear';
+            const durationOut = 600;
+            item.addEventListener('mouseenter', () => {
+                radio.checked = true;
+                const prevIndex = currentDropdown;
+                previousDropdown = currentDropdown;
+                currentDropdown = index;
+
+                // Animate out previous dropdown (if any): exit left when we moved right, exit right when we moved left
+                if (prevIndex !== null) {
+                    const prevDropdown = allDropdownItems[prevIndex];
+                    const exitRight = prevIndex > index; // we moved left, so previous exits right
+                    prevDropdown.style.transition = transitionOut;
+                    prevDropdown.style.transitionBehavior = 'normal'; // override transition-discrete so opacity animates
+                    prevDropdown.style.transform = `translate3d(${exitRight ? dropdownOffset : `-${dropdownOffset}`},0,0)`;
+                    prevDropdown.style.opacity = '0';
+                    scheduleHide(prevDropdown, durationOut, () => {
+                        prevDropdown.style.visibility = 'hidden';
+                        prevDropdown.style.transition = 'none';
+                    });
+                }
+
+                dropdownContents.style.height = selectedDropdown.offsetHeight + 'px';
+                // New content: enter from right when moving right (or first open), from left when moving left
+                cancelHide(selectedDropdown); // don't let a stale hide from rapid switching run
+                const enterFromLeft = previousDropdown !== null && index < previousDropdown;
+                selectedDropdown.style.visibility = 'visible';
+                selectedDropdown.style.opacity = '0';
+                selectedDropdown.style.transform = `translate3d(${enterFromLeft ? `-${dropdownOffset}` : dropdownOffset},0,0)`;
+                selectedDropdown.style.transition = transitionIn;
+                selectedDropdown.style.transitionBehavior = 'normal'; // override transition-discrete so opacity animates
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        selectedDropdown.style.opacity = '1';
+                        selectedDropdown.style.transform = 'translate3d(0,0,0)';
+                    });
+                });
+            });
+
+            // Hide dropdown (or keep it open if moving into the dropdown pane)
+            item.addEventListener('mouseleave', (e) => {
+                const relatedTarget = e.relatedTarget;
+
+                // Keep dropdown visible when moving into the dropdown pane
+                if (relatedTarget && dropdown?.contains(relatedTarget)) { return; }
+
+                // Hide when moving to another nav item or leaving entirely (exit opposite to how we entered)
+                radio.checked = false;
+                const enteredFromLeft = previousDropdown !== null && index < previousDropdown;
+                selectedDropdown.style.transition = transitionOut;
+                selectedDropdown.style.transitionBehavior = 'normal'; // override transition-discrete so opacity animates
+                selectedDropdown.style.opacity = '0';
+                selectedDropdown.style.transform = `translate3d(${enteredFromLeft ? dropdownOffset : `-${dropdownOffset}`},0,0)`; // exit opposite side
+                scheduleHide(selectedDropdown, durationOut, () => {
+                    selectedDropdown.style.visibility = 'hidden';
+                    selectedDropdown.style.transition = 'none';
+                });
+            });
+            
+            radio.addEventListener('blur', () => {
+                uncheckAll();
+            });
+        });
+        
+        // When leaving the dropdown
+        if (dropdown) {
+            dropdown.addEventListener('mouseleave', (e) => {
+                const relatedTarget = e.relatedTarget;
+                if (relatedTarget && relatedTarget.closest('[data-nav-item]')) {
+                    // Moving to a nav item: hide all panels so the new item's content can show
+                    hideAllDropdownItems();
+                    return;
+                }
+                hideAllDropdownItems();
+                uncheckAll();
+            });
+        }
+    }
+
+    // once the page is fully loaded run the functions
+    document.addEventListener('DOMContentLoaded', () => {
+        navTabs();
+        toggleNavItems();
+    });
+    
+</script>

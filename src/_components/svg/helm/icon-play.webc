@@ -1,0 +1,20 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path fill-rule="evenodd" d="M.974 1.006c0-.391.425-.634.761-.435L6.78 3.566c.33.196.33.673 0 .869L1.735 7.429a.504.504 0 0 1-.761-.434zm1 5.119L5.55 4 1.974 1.875z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '8' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path fill-rule="evenodd" d="M.974 1.006c0-.391.425-.634.761-.435L6.78 3.566c.33.196.33.673 0 .869L1.735 7.429a.504.504 0 0 1-.761-.434zm1.35 4.504L4.865 4 2.323 2.49z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path fill-rule="evenodd" d="M1.462 1.501A.75.75 0 0 1 2.595.857l7.576 4.499a.75.75 0 0 1 0 1.289l-7.576 4.499a.75.75 0 0 1-1.133-.645zm1.5 7.68L8.319 6 2.962 2.817z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path fill-rule="evenodd" d="M1.462 1.501A.75.75 0 0 1 2.595.857l7.576 4.499a.75.75 0 0 1 0 1.289l-7.576 4.499a.75.75 0 0 1-1.133-.645zm1.75 7.24L7.829 6 3.212 3.258z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="M1.567 1.25A.75.75 0 0 1 2.7.607l11.366 6.749c.49.29.49 1 0 1.29L2.7 15.395a.75.75 0 0 1-1.133-.645zm2 11.302L11.234 8 3.567 3.447z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="M1.569 1.253A.75.75 0 0 1 2.7.608l11.364 6.747c.489.29.489.999 0 1.29L2.7 15.392a.75.75 0 0 1-1.132-.645zm1.5 12.176 9.143-5.43L3.07 2.57z" clip-rule="evenodd"/>
+    </svg>
+</div>

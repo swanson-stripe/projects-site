@@ -1,0 +1,12 @@
+<div webc:root="override">
+    <svg webc:if="size === '16'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M8.75 16h-1.5v-2h1.5zM4.288 12.773l-1.415 1.415-1.06-1.062 1.414-1.414zM14.188 13.127l-1.061 1.06-1.414-1.414 1.06-1.061z"/>
+        <path fill-rule="evenodd" d="M8 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6" clip-rule="evenodd"/>
+        <path d="M2 8.75H0v-1.5h2zM16 8.75h-2v-1.5h2zM8 .5c2.071 0 3.947.84 5.304 2.196l-1.062 1.062A5.98 5.98 0 0 0 8 2a5.98 5.98 0 0 0-4.242 1.758L2.696 2.696A7.48 7.48 0 0 1 8 .5"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" width="20" height="20" class="w-20 h-20">
+        <path d="M10.75 19h-1.5v-2.5h1.5zM5.935 15.127l-1.769 1.768-1.06-1.061 1.767-1.768zM16.895 15.834l-1.061 1.06-1.769-1.767 1.062-1.062z"/>
+        <path fill-rule="evenodd" d="M10 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7" clip-rule="evenodd"/>
+        <path d="M3.5 10.75H1v-1.5h2.5zM19 10.75h-2.5v-1.5H19zM10 2a7.99 7.99 0 0 1 6.245 3l-1.17.938A6.49 6.49 0 0 0 10 3.5c-2.052 0-3.882.95-5.075 2.438L3.755 5A7.99 7.99 0 0 1 10 2"/>
+    </svg>
+</div>

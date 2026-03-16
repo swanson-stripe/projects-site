@@ -1,0 +1,10 @@
+<div webc:root="override">
+    <svg webc:if="size === '16'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="M8 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6" clip-rule="evenodd"/>
+        <path d="M8 .5A7.5 7.5 0 0 1 15.5 8H14A6 6 0 0 0 2 8H.5A7.5 7.5 0 0 1 8 .5"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" width="20" height="20" class="w-20 h-20">
+        <path fill-rule="evenodd" d="M10 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7" clip-rule="evenodd"/>
+        <path d="M10 2a8 8 0 0 1 8 8h-1.5a6.5 6.5 0 0 0-13 0H2a8 8 0 0 1 8-8"/>
+    </svg>
+</div>

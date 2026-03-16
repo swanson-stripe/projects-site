@@ -1,0 +1,29 @@
+<header data-header class="relative w-full flex items-center justify-center px-16 z-50 group/header" webc:root="override">
+    <!--- Content --->
+    <helm-container class="relative pt-24 pb-12 px-16 flex items-center justify-between">
+        <!--- Left --->
+        <div class="relative flex items-center h-40 gap-4">
+            <!--- Logo --->
+            <a href="/" class="relative flex items-center h-full border border-transparent px-10 -ml-9 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
+                <icon-wordmark class="relative w-60 h-25"></icon-wordmark>
+            </a>
+        </div>
+        <!--- Right --->
+        <div class="relative flex items-center gap-8">
+            <link-btn size="40" color="outline" href="https://stripe.com/">
+                <span slot="label">Visit our full website</span>
+            </link-btn>
+            <a hidden href="https://stripe.com/contact/sales" class="relative flex items-center justify-center gap-6 h-40 px-20 text-14 font-normal text-neutral-0 bg-neutralDark-800/65 border border-neutral-0/8  backdrop-blur-sm rounded-4 hover:bg-neutralDark-700/65 focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                <span class="pb-2">
+                    Visit our full website
+                </span>
+            </a>
+            <a hidden href="https://stripe.com/contact/sales" class="relative flex items-center justify-center gap-6 h-40 px-20 text-14 font-normal text-neutral-0 bg-primary rounded-4 hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                <span class="pb-2">
+                    Join waitlist
+                </span>
+                <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
+            </a>
+        </div>
+    </helm-container>
+</header>

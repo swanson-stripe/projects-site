@@ -1,0 +1,20 @@
+<div webc:root="override">
+    <svg webc:if="size === '8' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 9" width="8" height="9" class="w-8 h-9">
+        <path d="M6.204.363A2 2 0 0 1 8 2.353v3.999l-.01.204A2 2 0 0 1 6 8.352H2a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h4zM2 1.352a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1zm2.5 5h-1V4.27h1zm0-2.911h-1v-1h1z"/>
+    </svg>
+    <svg webc:elseif="size === '9' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 9 9" width="9" height="9" class="w-9 h-9">
+        <path d="M6.266.218a2 2 0 0 1 1.796 1.99v4l-.01.204a2 2 0 0 1-1.99 1.796h-4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h4zm-4.204 1.34a.65.65 0 0 0-.65.65v4c0 .358.291.65.65.65h4a.65.65 0 0 0 .65-.65v-4a.65.65 0 0 0-.65-.65zm1.959 2.588.6.006-.02 2.05-1.2-.011.02-2.05zm.58-.603H3.4v-1.2h1.2z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M10.5 0A1.5 1.5 0 0 1 12 1.5v9a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 0 10.5v-9A1.5 1.5 0 0 1 1.5 0zm-9 10.5h9v-9h-9zm5.25-1.501h-1.5V7.5H4.5V6h2.25zM6 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M10.5 0A1.5 1.5 0 0 1 12 1.5v9a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 0 10.5v-9A1.5 1.5 0 0 1 1.5 0zM1.75 10.25h8.5v-8.5h-8.5zm5.125-1.251h-1.75V7.625H3.894v-1.75h2.981zm-.903-6.152a1.125 1.125 0 1 1-.001 2.25 1.125 1.125 0 0 1 0-2.25"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 14h12V2H2zm7-1.725H7v-3.03H5.629v-2H9zm-1.042-8.55a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path d="M14 0a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zM2 1.5a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5zm6.75 10.486h-1.5V8.44H5.417v-1.5H8.75zM8 4.014a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+    </svg>
+</div>

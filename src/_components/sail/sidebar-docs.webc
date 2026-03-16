@@ -1,0 +1,146 @@
+<div class="absolute top-0 left-0 w-224 h-full text-14/120" webc:root="override">
+    <div class="relative w-full h-full flex flex-col justify-between">
+        <!--- Upper --->
+        <div class="relative w-full h-full flex flex-col overflow-y-scroll scroll-smooth no-scrollbar">
+            <!--- User button -->
+            <div class="relative px-8 h-64 py-12 shrink-0">
+                <a href="#" class="relative h-full w-full px-10 flex justify-between items-center rounded-4 border border-transparent hover:opacity-60 focus-visible:shadow-focus transition-all duration-200 ease-out outline-none">
+                    <div class="relative flex items-center gap-5">
+                        <icon-wordmark class="relative w-60 h-25"></icon-wordmark>
+                        <div class="font-medium text-primary text-20 pb-2">
+                            DOCS
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!--- Divider -->
+            <div class="relative px-16 mb-12 mt-0.5 shrink-0">
+                <div class="border-t border-edge"></div>
+            </div>
+            <!--- Navigation list -->
+            <ul class="relative flex flex-col w-full shrink-0">
+                <sidebar-link>
+                    <span slot="label">Overview</span>
+                </sidebar-link>
+                <sidebar-link @icon="true">
+                    <span slot="label">About the APIs</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Stripe glossary</span>
+                </sidebar-link>
+            </ul>
+            <!--- Navigation list title -->
+            <div class="relative px-20 mb-8 mt-24 shrink-0">
+                <div class="text-12 text-detail font-normal">
+                    Start building
+                </div>
+            </div>
+            <!--- Navigation list -->
+            <ul class="relative flex flex-col w-full shrink-0">
+                <sidebar-link @icon="true">
+                    <span slot="label">Create an account</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Quickstarts</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+                <sidebar-link @icon="true">
+                    <span slot="label">Start developing</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Build with an LLM</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+                <sidebar-link @icon="true">
+                    <span slot="label">Use Stripe without code</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+                <sidebar-link @icon="true">
+                    <span slot="label">Migrate to Stripe</span>
+                    <div slot="icon">
+                        <div class="absolute w-6 h-1.75 bg-current -translate-x-1.75 rotate-45 group-hover:translate-y-0 group-hover:-rotate-45 transition-all duration-250 ease-out"></div>
+                        <div class="absolute w-6 h-1.75 bg-current translate-x-1.75 -rotate-45 group-hover:translate-y-0 group-hover:rotate-45 transition-all duration-250 ease-out"></div>
+                    </div>
+                </sidebar-link>
+            </ul>
+            <!--- Navigation list title -->
+            <div class="relative px-20 mb-8 mt-24 shrink-0">
+                <div class="text-12 text-detail font-normal">
+                    Common use cases
+                </div>
+            </div>
+            <!--- Navigation list -->
+            <ul class="relative flex flex-col w-full shrink-0">
+                <sidebar-link>
+                    <span slot="label">Overview</span>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Startups: accept payments</span>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">SaaS: sell subscriptions</span>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Usage-based pricing</span>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Accept in-person payments</span>
+                </sidebar-link>
+                <sidebar-link>
+                    <span slot="label">Send invoices to collect payments</span>
+                </sidebar-link>
+            </ul>
+        </div>
+        <!--- Lower -->
+        <div class="relative w-full flex flex-col shrink-0 pb-12">
+            <!--- Divider -->
+            <div class="relative px-16 mb-12 mt-0.5">
+                <div class="border-t border-edge"></div>
+            </div>
+            <!--- Navigation list -->
+            <ul class="relative flex flex-col w-full">
+                <sidebar-link @logo="true">
+                    <svg slot="logo" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16 mb-1">
+                        <path fill="#e25950" d="M14 14H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2"/>
+                        <path fill="#f6f9fc" d="M0 3.1h16v1.08H0zm0 2.17h16v1.1H0zm0 2.19h16v1.09H0zm0 2.18h16v1.09H0zm0 2.18h16v1.09H0z"/>
+                        <path fill="#e25950" d="M14 14H2a2 2 0 0 1-2-2V8.5h1V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H8V2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2" opacity=".1"/>
+                        <path fill="#43458b" d="M0 8.55V3.87C0 2.84.8 2 1.78 2H8v6.55z"/>
+                        <path fill="#fff" fill-rule="evenodd" d="M1.48 2a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m-7 1.11a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1" clip-rule="evenodd" opacity=".5"/>
+                        <path fill="#fff" d="M3 3.61a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M1.52 5.22a.5.5 0 1 1-.04-1 .5.5 0 0 1 .04 1m2 0a.5.5 0 1 1-.04-1 .5.5 0 0 1 .04 1m2 0a.5.5 0 1 1-.04-1 .5.5 0 0 1 .04 1"/>
+                        <path fill="#fff" fill-rule="evenodd" d="M7.48 4.22a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m-7 1.11a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1" clip-rule="evenodd" opacity=".5"/>
+                        <path fill="#fff" d="M3 5.83a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m-5.52.61a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1"/>
+                        <path fill="#fff" fill-rule="evenodd" d="M7.48 6.44a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m-7 1.11a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1m2 0a.5.5 0 1 1 .04 1 .5.5 0 0 1-.04-1" clip-rule="evenodd" opacity=".5"/>
+                    </svg>
+                    <span slot="label">United States</span>
+                </sidebar-link>
+                <sidebar-link @logo="true">
+                    <svg slot="logo" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16 mb-1">
+                        <path fill-rule="evenodd" d="M11 5a.8.8 0 0 1 .69.45l3.25 7.5a.75.75 0 1 1-1.38.6L12.9 12H9.11l-.67 1.55a.75.75 0 1 1-1.38-.6l3.25-7.5A.8.8 0 0 1 11 5m-1.24 5.5h2.48L11 7.64zM5 1a.75.75 0 0 1 .75.75v1.26a25 25 0 0 1 2.6.21.75.75 0 1 1-.2 1.49l-.66-.08a13 13 0 0 1-1.57 3.43q.36.46.75.87A.75.75 0 0 1 5.6 9.97L5 9.3a13 13 0 0 1-2.84 2.54.75.75 0 0 1-.83-1.25 12 12 0 0 0 2.75-2.54 13 13 0 0 1-.55-.94.75.75 0 1 1 1.32-.7l.15.26q.58-1.02.95-2.16a24 24 0 0 0-4.1.19.75.75 0 0 1-.2-1.49q1.28-.17 2.6-.2V1.74A.75.75 0 0 1 5 1" clip-rule="evenodd"/>
+                    </svg>
+                    <span slot="label">English (United States)</span>
+                </sidebar-link>
+            </ul>
+        </div>
+    </div>
+</div>

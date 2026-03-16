@@ -1,0 +1,14 @@
+<div webc:root="override">
+    <svg webc:if="size === '12' && weight === 'regular'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="m11.905 6-5.03 5.03-1.06-1.06 3.22-3.22H.094v-1.5h8.94l-3.22-3.22L6.874.97z"/>
+    </svg>
+    <svg webc:elseif="size === '12' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="m11.313 5.38.618.62-.618.62-4.5 4.5-1.238-1.24L8.58 6.876H.069v-1.75H8.58L5.575 2.119 6.813.881z"/>
+    </svg>
+    <svg webc:elseif="size === '16' && weight === 'strong'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="m15.812 8-6.708 6.708-1.414-1.415L11.984 9H.188V7h11.794L7.69 2.708l1.414-1.416z" clip-rule="evenodd"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="16" height="16" class="w-16 h-16">
+        <path fill-rule="evenodd" d="m15.812 8-6.53 6.53-1.061-1.06 4.72-4.721H.188v-1.5H12.94L8.22 2.53l1.061-1.06z" clip-rule="evenodd"/>
+    </svg>
+</div>

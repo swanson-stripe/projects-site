@@ -1,0 +1,198 @@
+<div class="absolute top-0 left-0 w-full h-full overflow-y-scroll scroll-smooth no-scrollbar border-t border-transparent text-14/120" web:root="override">
+    <!--- Navigation --->
+    <header class="sticky top-0 left-0 shrink-0 w-full h-64 flex items-center justify-center flex-col px-16 bg-highlight border-b border-edge z-10">
+        <helm-container class="relative w-full h-full flex items-center justify-between px-16">
+            <!--- Search --->
+            <div class="relative shrink-0 flex items-center justify-start  text-detail">
+                <div class="relative flex items-center justify-start h-38 w-448 pl-36 pr-12 pb-2 bg-neutral-0 border border-edge rounded-4">
+                    Search
+                </div>
+                <icon-search class="absolute left-12 w-16 h-16 -translate-y-1"></icon-search>
+            </div>
+            <!--- Button set --->
+            <div class="relative flex items-center gap-16 shrink-0">
+                <div class="relative shrink-0 flex items-center">
+                    <button class="relative w-38 h-38 flex items-center justify-center border border-transparent rounded-4 cursor-pointer outline-none hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out group">
+                        <div class="absolute opacity-0 w-[calc(100%-0.25rem)] h-[calc(100%-0.25rem)] rounded-4 border border-brand-100 group-hover:opacity-100 group-hover:w-full group-hover:h-full transition-all duration-200 ease-out"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" class="w-16 h-16">
+                            <path fill-rule="evenodd" d="M12.25 0a.75.75 0 0 1 .75.75V3h2.25a.75.75 0 0 1 0 1.5H13V7a.75.75 0 0 1-1.5 0V4.5H9A.75.75 0 0 1 9 3h2.5V.75a.75.75 0 0 1 .75-.75M5 2H2a.5.5 0 0 0-.5.5v3A.5.5 0 0 0 2 6h3a.5.5 0 0 0 .5-.5v-3A.5.5 0 0 0 5 2M2 .5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2zm3 10H2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5M2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2zm8.5 1.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m-2 .5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <button class="relative w-38 h-38 flex items-center justify-center border border-transparent rounded-4 cursor-pointer outline-none hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out group">
+                        <div class="absolute opacity-0 w-[calc(100%-0.25rem)] h-[calc(100%-0.25rem)] rounded-4 border border-brand-100 group-hover:opacity-100 group-hover:w-full group-hover:h-full transition-all duration-200 ease-out"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" class="w-16 h-16">
+                            <path fill-rule="evenodd" d="M6.89 4.92q-.38.38-.39 1.13a.75.75 0 1 1-1.5 0c0-.8.25-1.57.79-2.15S7.1 3 8 3s1.67.32 2.21.9c.54.57.79 1.34.79 2.15 0 1.23-.87 1.92-1.44 2.33l-.25.18-.45.34-.11.12v.48a.75.75 0 0 1-1.5 0V9c0-.56.33-.96.6-1.2.2-.18.45-.37.67-.52l.17-.12c.55-.4.81-.7.81-1.12q-.02-.74-.39-1.12A1.5 1.5 0 0 0 8 4.5c-.53 0-.89.18-1.11.42" clip-rule="evenodd"/>
+                            <path d="M9 12a1 1 0 0 1-2 0 1 1 0 0 1 2 0"/>
+                            <path fill-rule="evenodd" d="M8 14.5A6.5 6.5 0 1 0 1.5 8c0 1.02.18 1.6.6 2.4.32.59.41 1.31.18 2l-.66 1.98 1.98-.66a2.5 2.5 0 0 1 2 .18c.8.42 1.38.6 2.4.6M8 16a8 8 0 1 0-8-8c0 1.29.25 2.12.78 3.1q.21.4.08.83l-.8 2.42a1 1 0 0 0-.06.31V15a1 1 0 0 0 1 1h.34a1 1 0 0 0 .31-.05l2.42-.8c.27-.1.57-.07.82.07 1 .53 1.82.78 3.11.78" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <button class="relative w-38 h-38 flex items-center justify-center border border-transparent rounded-4 cursor-pointer outline-none hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out group">
+                        <div class="absolute opacity-0 w-[calc(100%-0.25rem)] h-[calc(100%-0.25rem)] rounded-4 border border-brand-100 group-hover:opacity-100 group-hover:w-full group-hover:h-full transition-all duration-200 ease-out"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" class="w-16 h-16">
+                            <path fill-rule="evenodd" d="M5 13H2.8a1.8 1.8 0 0 1-1.63-2.53l.48-1.05a12 12 0 0 0 1-4.02l.04-.41A5.34 5.34 0 0 1 8 0a5.34 5.34 0 0 1 5.32 4.99l.03.4a12 12 0 0 0 1.01 4.03l.48 1.05A1.8 1.8 0 0 1 13.2 13H11a3 3 0 0 1-3 3 3 3 0 0 1-3-3m-2.47-1.91L3 10.04A13 13 0 0 0 4.14 5.5l.03-.41A3.84 3.84 0 0 1 8 1.5a3.84 3.84 0 0 1 3.83 3.59l.03.4q.16 2.39 1.14 4.55l.47 1.05a.3.3 0 0 1-.26.41H2.79a.3.3 0 0 1-.26-.41M6.5 13a1.5 1.5 0 1 0 3 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <button class="relative w-38 h-38 flex items-center justify-center border border-transparent rounded-4 cursor-pointer outline-none hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out group">
+                        <div class="absolute opacity-0 w-[calc(100%-0.25rem)] h-[calc(100%-0.25rem)] rounded-4 border border-brand-100 group-hover:opacity-100 group-hover:w-full group-hover:h-full transition-all duration-200 ease-out"></div>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" class="w-16 h-16">
+                            <path fill-rule="evenodd" d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 1.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M7.41 14.5h1.18l.05-.83a1.8 1.8 0 0 1 1.08-1.51 1.8 1.8 0 0 1 1.83.3l.63.55.83-.83-.55-.63a1.8 1.8 0 0 1-.3-1.83 1.8 1.8 0 0 1 1.5-1.08l.84-.05V7.41l-.83-.05a1.8 1.8 0 0 1-1.51-1.08 1.8 1.8 0 0 1 .3-1.83l.55-.63-.83-.83-.63.55a1.8 1.8 0 0 1-1.83.3 1.8 1.8 0 0 1-1.08-1.5L8.6 1.5H7.41l-.05.83a1.8 1.8 0 0 1-1.08 1.51 1.8 1.8 0 0 1-1.83-.3l-.63-.55-.83.83.55.63a1.75 1.75 0 0 1-1.2 2.9l-.84.06v1.18l.83.05a1.8 1.8 0 0 1 1.51 1.08 1.8 1.8 0 0 1-.3 1.83l-.55.63.83.84.63-.56a1.8 1.8 0 0 1 1.83-.3 1.8 1.8 0 0 1 1.08 1.5zm-2.9-.12.19-.14.74-.65a.3.3 0 0 1 .26-.04.3.3 0 0 1 .16.21l.06.99a1 1 0 0 0 .07.35c.18.53.68.9 1.26.9h1.5a1.33 1.33 0 0 0 1.33-1.25l.06-.99a.3.3 0 0 1 .16-.22.3.3 0 0 1 .26.05l.74.65a1 1 0 0 0 .3.2c.5.24 1.12.16 1.53-.26l1.05-1.05a1.33 1.33 0 0 0 .06-1.83l-.65-.74a.3.3 0 0 1-.04-.26.3.3 0 0 1 .21-.16l.99-.06a1 1 0 0 0 .35-.07c.53-.18.9-.68.9-1.26v-1.5a1.33 1.33 0 0 0-1.25-1.33l-.99-.06a.3.3 0 0 1-.22-.16.3.3 0 0 1 .05-.26l.65-.74a1 1 0 0 0 .2-.3c.24-.5.16-1.12-.26-1.53l-1.05-1.06a1.33 1.33 0 0 0-1.83-.05l-.74.65a.3.3 0 0 1-.26.04.3.3 0 0 1-.16-.21l-.06-1A1 1 0 0 0 10 .9 1.3 1.3 0 0 0 8.75 0h-1.5a1.33 1.33 0 0 0-1.33 1.25l-.06.99a.3.3 0 0 1-.16.21.3.3 0 0 1-.26-.04l-.74-.65a1 1 0 0 0-.3-.2 1.3 1.3 0 0 0-1.53.26L1.81 2.87a1.33 1.33 0 0 0-.05 1.83l.65.74q.1.12.05.26a.3.3 0 0 1-.22.16l-.99.06A1 1 0 0 0 .9 6c-.53.18-.9.68-.9 1.26v1.5a1.33 1.33 0 0 0 1.25 1.33l.99.06q.16.01.21.16a.3.3 0 0 1-.04.26l-.65.74a1 1 0 0 0-.2.3c-.24.5-.16 1.12.26 1.53l1.05 1.05a1.3 1.3 0 0 0 1.64.2" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+                <button class="relative w-38 h-38 flex items-center justify-center border border-transparent rounded-4 cursor-pointer outline-none text-neutral-0 focus-visible:shadow-focus transition-all duration-200 ease-out group">
+                    <div class="absolute w-full h-full rounded-4 bg-primary border border-primary group-hover:bg-primary-hover group-hover:w-[calc(100%-0.25rem)] group-hover:h-[calc(100%-0.25rem)] transition-all duration-200 ease-out"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 12 12" fill="currentColor" class="relative w-12 h-12 group-hover:-rotate-90 transition-all duration-200 ease-out">
+                        <path d="M6.85 1a.85.85 0 1 0-1.7 0v4.15H1a.85.85 0 0 0 0 1.7h4.15V11a.85.85 0 1 0 1.7 0V6.85H11a.85.85 0 1 0 0-1.7H6.85z"/>
+                    </svg>
+                </button>
+            </div>
+        </helm-container>
+    </header>
+    <!--- Page contents -->
+    <helm-section class="relative shrink-0">
+        <helm-container class="relative pt-72 px-16">
+            <div class="relative w-full flex items-center justify-between mb-24">
+                <h1 class="text-32/120 tracking-tight">
+                    Today
+                </h1>
+                <a href="#" class="relative flex items-center justify-center gap-6 h-32 px-12 text-14 font-normal text-primary bg-neutral-0/65 border border-edge rounded-4 hover:border-brand-200 hover:text-primary-hover focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                    <span class="pb-1">
+                        Pay out funds
+                    </span>
+                </a>
+            </div>
+            <div class="relative w-full grid grid-cols-3 gap-16 h-288">
+                <!--- Col --->
+                <div class="col-span-2 flex flex-col border border-edge rounded-6">
+                    <!--- Upper --->
+                    <div class="relative flex p-24 gap-32 shrink-0">
+                        <!--- Col -->
+                        <div class="relative shrink-0">
+                            <div class="flex items-center gap-4 text-content mb-2">
+                                <span class="pb-2">Gross volume</span>
+                                <icon-chevrondown @size="md" @weight="strong" class="w-12 h-12"></icon-chevrondown>
+                            </div>
+                            <div class="text-24 mb-6">
+                                $4,242.42
+                            </div>
+                            <div class="text-12 text-neutral-400 tracking-wide">
+                                10:19 AM
+                            </div>
+                        </div>
+                        <!--- Col -->
+                        <div class="relative shrink-0">
+                            <div class="flex items-center gap-4 text-content mb-2">
+                                <span class="pb-2">Yesterday</span>
+                                <icon-chevrondown @size="md" @weight="strong" class="w-12 h-12"></icon-chevrondown>
+                            </div>
+                            <div class="text-24 mb-6">
+                                $4,242.42
+                            </div>
+                        </div>
+                        <div class="pt-1 w-full text-right text-neutral-400">
+                            Excludes <span class="underline">payment record</span> data.
+                        </div>
+                    </div>
+                    <!--- Graph -->
+                    <div class="relative w-full h-full flex flex-col justify-end px-24 pb-16">
+                        <div class="relative w-full h-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 789 185" class="absolute -bottom-2 left-0 w-full h-auto">
+                                <path fill="var(--color-primary)" opacity="0.2" class="mask-linear-b" d="M33.08 175 .13 184h295V68L262.7 87l-32.95 12-32.94 3-32.95 11.5-32.44 25.5-32.94 18-32.45 6.5z"/>
+                                <path stroke="var(--color-primary)" stroke-width="2" d="m.13 184 32.95-9 32.94-11.5 32.45-6.5 32.94-18 32.44-25.5L196.8 102l32.94-3 32.95-12 32.44-19"/>
+                                <circle cx="295.13" cy="68" r="3" fill="var(--color-primary)"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 789 185" class="absolute -bottom-2 left-0 w-full h-auto">
+                                <path stroke="var(--color-neutral-200)" stroke-width="2" stroke-dasharray="6" class="mask-linear-l-50" d="m.07 184 34.02-5.03 31.87-7.06 32.45-7.04 32.94-15.62 32.45-7.55 32.94-14.6 32.94-7.55 32.95 2.01 32.44-8.56"/>
+                                <circle cx="295.07" cy="113" r="3" fill="var(--color-neutral-200)"/>
+                            </svg>
+                        </div>
+                        <div class="w-full h-8 border-t border-x border-neutral-200 shrink-0 mb-4"></div>
+                        <div class="relative flex justify-between w-full text-12/120 text-neutral-400 shrink-0">
+                            <div>12:00 AM</div>
+                            <div>12:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+                <!--- Col --->
+                <div class="relative flex flex-col items-start border border-edge rounded-6 px-24 pt-23 overflow-hidden bg-foreground">
+                    <div class="absolute top-0 left-0 w-0 h-0 flex items-center justify-center">
+                        <div class="absolute w-1024 h-896 max-w-none flex aspect-square bg-radial from-highlight to-highlight/0 to-66%"></div>
+                    </div>
+                    <img src="/assets/images/util/wave-lines.jpg" width="3573" height="1233" alt="" class="absolute top-82 -right-224 w-768 max-w-none h-auto mix-blend-multiply brightness-110" eleventy:pictureattr:class="absolute top-0 left-0 w-full h-full rounded-6 overflow-hidden">
+                    <div class="relative bg-brand-50 border border-brand-100 text-primary text-12 font-normal px-6 py-2 rounded-4 mb-8">
+                        New
+                    </div>
+                    <div class="relative text-18 text-detail mb-8">
+                        Reopen paid invoices.<br/> <span class="text-headline">Fix reconciliation mistakes.</span>
+                    </div>
+                    <div class="relative text-content text-balance leading-140 mb-10">
+                        You can reopen paid invoices to fix reconciliation errors by applying or unapplying payments.
+                    </div>
+                    <a href="https://dashboard.stripe.com/login" class="relative flex items-center justify-center gap-4 text-14 font-normal text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                        <span class="translate-y-0.25">
+                            View the docs
+                        </span>
+                        <icon-arrowanimate @size="sm"></icon-arrowanimate>
+                    </a>
+                </div>
+            </div>
+        </helm-container>
+    </helm-section>
+    <helm-section class="relative shrink-0 pb-128">
+        <helm-container class="relative pt-72 px-16">
+            <h2 class="text-32/120 tracking-tight mb-12">
+                Your overview
+            </h2>
+            <div class="relative flex items-center justify-between mb-32">
+                <!--- Left --->
+                <div class="relative shrink-0 flex items-center gap-6 text-12 font-normal">
+                    <div class="flex items-center gap-8 border border-edge rounded-4 pl-8 pr-6 py-4">
+                        <span class="shrink-0 pb-1">Date range</span>
+                        <div class="h-14 w-1 bg-edge shrink-0"></div>
+                        <span class="shrink-0 pb-1 text-primary">Last 7 days</span>
+                        <icon-chevrondown @size="sm" @weight="strong" class="w-12 h-12 shrink-0 translate-y-2.5 -ml-4 text-primary"></icon-chevrondown>
+                    </div>
+                    <div class="flex items-center gap-8 border border-edge rounded-4 pl-8 pr-6 py-4">
+                        <span class="shrink-0 pb-1 text-primary">Daily</span>
+                        <icon-chevrondown @size="sm" @weight="strong" class="w-12 h-12 shrink-0 translate-y-2.5 -ml-4 text-primary"></icon-chevrondown>
+                    </div>
+                    <div class="flex items-center gap-8 border border-edge rounded-4 pl-8 pr-6 py-4">
+                        <span class="shrink-0 pb-1">Compare</span>
+                        <div class="h-14 w-1 bg-edge shrink-0"></div>
+                        <span class="shrink-0 pb-1 text-primary">Previous period</span>
+                        <icon-chevrondown @size="sm" @weight="strong" class="w-12 h-12 shrink-0 translate-y-2.5 -ml-4 text-primary"></icon-chevrondown>
+                    </div>
+                </div>
+                <!--- Right --->
+                <div class="relative flex items-center gap-6 shrink-0">
+                    <a href="#" class="relative flex items-center justify-center gap-6 h-32 pl-8 pr-12 text-14 font-normal text-primary bg-neutral-0/65 border border-edge rounded-4 hover:border-brand-200 hover:text-primary-hover focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                        <div class="relative w-16 h-16 flex items-center justify-center shrink-0">
+                            <div class="absolute w-1.5 h-10 bg-current"></div>
+                            <div class="absolute w-10 h-1.5 bg-current"></div>
+                        </div>
+                        <span>
+                            Add
+                        </span>
+                    </a>
+                    <a href="#" class="relative flex items-center justify-center gap-6 h-32 px-12 text-14 font-normal text-primary bg-neutral-0/65 border border-edge rounded-4 hover:border-brand-200 hover:text-primary-hover focus-visible:bg-neutral-0 focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14 shrink-0">
+                            <path d="m10.15 2.4.29.12 1.8-1.6 2.83 2.84-1.59 1.8.12.29L16 6v4l-2.4.15-.12.29 1.6 1.8-2.84 2.83-1.8-1.59-.3.12L10 16H6l-.15-2.4-.3-.12-1.8 1.6-2.82-2.84 1.59-1.8-.12-.3L0 10V6l2.4-.15.12-.29-1.6-1.8L3.77.93l1.8 1.59.29-.12L6 0h4zm-2.8.1-.06.95-.9.35-.22.09-.88.4-.72-.65L3.82 3 3 3.82l.65.75.64.72-.4.88-.08.22-.35.9-.96.06-.99.06v1.18l1 .06.95.06.35.9.09.22.4.88-.65.72-.65.75.83.83.75-.65.72-.64.88.39.22.09.9.35.06.96.06.99h1.18l.06-1 .06-.95.9-.35.22-.09.88-.4.72.65.75.65.83-.83-.65-.75-.64-.72.39-.88.1-.22.34-.9.96-.06.99-.06V7.41l-1-.06-.95-.06-.35-.9-.09-.22-.4-.88.65-.72.65-.75-.83-.83-.75.65-.72.64-.88-.4-.22-.08-.9-.35-.06-.96-.06-.99H7.41zm.65 2a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7M8 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                        </svg>
+                        <span>
+                            Edit
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="relative w-full grid grid-cols-3 gap-16 h-288">
+                <div class="relative flex aspect-square rounded-6 border border-edge"></div>
+                <div class="relative flex aspect-square rounded-6 border border-edge"></div>
+                <div class="relative flex aspect-square rounded-6 border border-edge"></div>
+                <div class="relative flex aspect-square rounded-6 border border-edge"></div>
+                <div class="relative col-span-2 rounded-6 border border-edge bg-foreground"></div>
+                <div class="relative col-span-3 h-112"></div>
+            </div>
+        </helm-container>
+    </helm-section>
+</div>

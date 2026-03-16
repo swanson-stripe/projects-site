@@ -1,0 +1,14 @@
+<div webc:root="override">
+    <svg webc:if="size === '5'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 5 8" width="5" height="8" class="w-5 h-8">
+        <path d="m4.37 3.438.47.475-.47.475L.958 7.825 0 6.874l2.94-2.962L0 .952.959 0z"/>
+    </svg>
+    <svg webc:elseif="size === '6'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 6 9" width="6" height="9" class="w-6 h-9">
+        <path d="m4.848 3.634.611.616-.611.616L1.242 8.5 0 7.267l2.993-3.018L0 1.232 1.242 0z"/>
+    </svg>
+    <svg webc:elseif="size === '8'" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 8" width="8" height="8" class="w-8 h-8">
+        <path d="M5.949 3.525 6.42 4l-.471.475-3.41 3.438-.96-.952L4.52 4l-2.94-2.961.96-.952z"/>
+    </svg>
+    <svg webc:else xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" width="12" height="12" class="w-12 h-12">
+        <path d="M8.118 5.384 8.73 6l-.61.617-3.606 3.632L3.27 9.018 6.264 6 3.27 2.983 4.513 1.75z"/>
+    </svg>
+</div>
