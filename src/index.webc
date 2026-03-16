@@ -584,14 +584,14 @@ changefreq: "weekly"
                         <icon-add @size="16" weight="strong"></icon-add>
                     </div>
                     <h3 class="font-normal mb-4">
-                        Suggest a provider
+                        Missing a provider?
                     </h3>
                     <p class="text-content text-balance mb-16">
                         Recommend a provider for Stripe Projects.
                     </p>
                     <a href="mailto:provider-request@stripe.com?subject=Provider%20Request" target="_blank" class="relative flex items-center justify-center gap-6 text-16 font-normal text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
                         <span class="pb-2">
-                            Suggest provider
+                            Suggest a provider
                         </span>
                         <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
                     </a>
@@ -602,14 +602,14 @@ changefreq: "weekly"
                         <icon-rocket @size="16" weight="strong" class="translate-y-0.5"></icon-rocket>
                     </div>
                     <h3 class="font-normal mb-4">
-                        Become a provider
+                        Want to become a provider
                     </h3>
                     <p class="text-content text-balance mb-16">
                         Join the growing list of providers for Stripe Projects.
                     </p>
                     <a href="mailto:provider-request@stripe.com?subject=Provider%20Partnership" target="_blank" class="relative flex items-center justify-center gap-6 text-16 font-normal text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
                         <span class="pb-2">
-                            Join the list
+                            Become a provider
                         </span>
                         <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
                     </a>
