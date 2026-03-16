@@ -170,13 +170,12 @@ changefreq: "weekly"
                                             <span class="text-detail">›</span>
                                             <span><span>stripe projects</span> <span>services update</span> <span data-hero-type-next>vercel/hosting</span></span>
                                         </div>
-                                        <div class="relative w-full pb-3">
-                                            <span class="text-detail">○</span>
-                                            <span> Updating <span data-hero-updating>Vercel</span></span>
+                                        <div class="relative w-full text-detail pb-6">
+                                            ○ Updating <span data-hero-updating>Vercel</span>
                                         </div>
                                         <div class="relative pb-2">
                                             <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[2ch]"><span class="text-primary mr-[1ch]">›</span><span class="text-primary" style="display:inline-block;width:7ch">Tier A</span><span class="text-primary">Free ($0/mo)</span></span>
+                                            <span class="inline-block pl-[3ch]"><span class="text-primary">›</span><span class="text-primary" style="display:inline-block;width:7ch">Tier A</span><span class="text-primary">Free ($0/mo)</span></span>
                                         </div>
                                         <div class="relative pb-2">
                                             <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
