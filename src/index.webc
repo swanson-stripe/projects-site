@@ -18,7 +18,7 @@ changefreq: "weekly"
         <helm-container class="relative pt-24 pb-12 flex items-center justify-center">
             <div data-header="logo" class="relative flex items-center h-40 gap-4">
                 <a href="https://stripe.com/" class="relative flex items-center gap-6 h-full border border-transparent px-10 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
-                    <icon-wordmark class="relative h-21 aspect-[116/14] shrink-0"></icon-wordmark>
+                    <icon-wordmark class="relative h-21 w-[174px] shrink-0"></icon-wordmark>
                 </a>
             </div>
         </helm-container>
@@ -627,7 +627,7 @@ changefreq: "weekly"
     <footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
         <helm-container class="relative flex items-center justify-between py-24 border-t border-edge">
             <div class="flex items-center">
-                <icon-wordmark class="relative h-14 aspect-[116/14]"></icon-wordmark>
+                <icon-wordmark class="relative h-14 w-[116px]"></icon-wordmark>
             </div>
             <div class="flex items-center gap-16">
                 <a href="https://stripe.com/privacy" class="text-14/150 text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
