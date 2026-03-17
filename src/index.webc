@@ -689,8 +689,8 @@ changefreq: "weekly"
             addCheckLine(tl, provLines[1], 0.5);               // Configuration complete
             addCheckLine(tl, provLines[2], 0.4);               // Credentials generated & synced
 
-            // Hold 2s, then provider ready block
-            tl.set(readyBlock, { autoAlpha: 1 }, '+=2');
+            // Provider ready block appears immediately after provisioning completes
+            tl.set(readyBlock, { autoAlpha: 1 });
             const readyLines = readyBlock.querySelectorAll('[data-term-line]');
             tl.set(readyLines[0], { autoAlpha: 1 });           // "● Provider ready"
             addCheckLine(tl, readyLines[1], 0.4);              // Created
