@@ -148,11 +148,11 @@ changefreq: "weekly"
                                             </div>
                                             <div data-term-line class="relative pb-6 text-detail">
                                                 <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;<div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Configuration complete</span>
+                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0"><span data-check-dot class="absolute inset-0 flex items-center leading-none text-detail">○</span><span data-check-icon class="absolute inset-0 text-[#006F3A]" style="visibility:hidden"><icon-check size="var"></icon-check></span></span>Configuration complete</span>
                                             </div>
                                             <div data-term-line class="relative pb-6 text-detail">
                                                 <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                                <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Credentials generated &amp; synced</span>
+                                                <span class="inline-block pl-[4ch]"><span class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0"><span data-check-dot class="absolute inset-0 flex items-center leading-none text-detail">○</span><span data-check-icon class="absolute inset-0 text-[#006F3A]" style="visibility:hidden"><icon-check size="var"></icon-check></span></span>Credentials generated &amp; synced</span>
                                             </div>
                                         </div>
                                         <!--- Provider ready block --->
@@ -162,15 +162,15 @@ changefreq: "weekly"
                                             </div>
                                             <div data-term-line class="relative pb-6">
                                                 <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                                <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Created</span>
+                                                <span class="inline-block pl-[4ch]"><span class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0"><span data-check-dot class="absolute inset-0 flex items-center leading-none text-detail">○</span><span data-check-icon class="absolute inset-0 text-[#006F3A]" style="visibility:hidden"><icon-check size="var"></icon-check></span></span>Created</span>
                                             </div>
                                             <div data-term-line class="relative pb-6">
                                                 <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                                <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Added 4 environment variables in <span class="text-primary">.env</span></span>
+                                                <span class="inline-block pl-[4ch]"><span class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0"><span data-check-dot class="absolute inset-0 flex items-center leading-none text-detail">○</span><span data-check-icon class="absolute inset-0 text-[#006F3A]" style="visibility:hidden"><icon-check size="var"></icon-check></span></span>Added 4 environment variables in <span class="text-primary">.env</span></span>
                                             </div>
                                             <div data-term-line class="relative">
                                                 <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                                <span class="inline-block pl-[4ch]"><div class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0 text-[#006F3A]"><icon-check size="var"></icon-check></div>Modified <span class="text-primary">.projects/vault/vault.json</span></span>
+                                                <span class="inline-block pl-[4ch]"><span class="relative inline-block w-[1em] h-[1em] sm:w-[0.75em] sm:h-[0.75em] mr-[1ch] translate-y-[0.125em] sm:translate-y-0 shrink-0"><span data-check-dot class="absolute inset-0 flex items-center leading-none text-detail">○</span><span data-check-icon class="absolute inset-0 text-[#006F3A]" style="visibility:hidden"><icon-check size="var"></icon-check></span></span>Modified <span class="text-primary">.projects/vault/vault.json</span></span>
                                             </div>
                                         </div>
                                         <!--- Upgrade block --->
@@ -612,7 +612,7 @@ changefreq: "weekly"
 
     // Terminal sequence
     function terminalSequence() {
-        const typeEl   = document.querySelector('[data-hero-type]');
+        const typeEl     = document.querySelector('[data-hero-type]');
         const provBlock  = document.querySelector('[data-term="provisioning"]');
         const readyBlock = document.querySelector('[data-term="ready"]');
         const upgrBlock  = document.querySelector('[data-term="upgrade"]');
@@ -620,20 +620,36 @@ changefreq: "weekly"
 
         const providers = ['vercel/hosting', 'neon/database', 'clerk/auth'];
 
-        // Hide all secondary blocks + their lines initially
+        // Initial hide
         gsap.set([provBlock, readyBlock, upgrBlock], { autoAlpha: 0 });
         gsap.set('[data-term-line]', { autoAlpha: 0 });
+        gsap.set('[data-check-icon]', { autoAlpha: 0 });
 
-        // Blinking dot
-        const dot = upgrBlock ? upgrBlock.querySelector('[data-blink-dot]') : null;
-        if (dot) {
+        // Blinking select-a-service dot
+        const selectDot = upgrBlock ? upgrBlock.querySelector('[data-blink-dot]') : null;
+        if (selectDot) {
             const frames = ['○', '●'];
             let di = 0;
             setInterval(() => {
                 di = (di + 1) % frames.length;
-                dot.textContent = frames[di];
-                dot.style.opacity = di === 1 ? '0.35' : '1';
+                selectDot.textContent = frames[di];
+                selectDot.style.opacity = di === 1 ? '0.35' : '1';
             }, 600);
+        }
+
+        // Adds a check line to the timeline: appear instantly, dot blinks ~1s, swaps to checkmark
+        function addCheckLine(tl, line, holdBefore) {
+            const dot  = line.querySelector('[data-check-dot]');
+            const icon = line.querySelector('[data-check-icon]');
+            tl.set(line, { autoAlpha: 1 }, `+=${holdBefore}`);
+            if (dot && icon) {
+                tl.set(dot,  { autoAlpha: 1, opacity: 1 });
+                tl.set(icon, { autoAlpha: 0 });
+                // Blink: opacity 1 → 0.25 → 1 → 0.25 over ~1s (4 × 0.25s)
+                tl.to(dot, { opacity: 0.25, duration: 0.25, repeat: 1, yoyo: true, ease: 'none' });
+                tl.set(dot,  { autoAlpha: 0 });
+                tl.set(icon, { autoAlpha: 1 });
+            }
         }
 
         function erase(tl, text, holdBefore) {
@@ -657,6 +673,8 @@ changefreq: "weekly"
             tl.set(typeEl, { text: providers[0] });
             tl.set([provBlock, readyBlock, upgrBlock], { autoAlpha: 0 });
             tl.set('[data-term-line]', { autoAlpha: 0 });
+            tl.set('[data-check-dot]',  { autoAlpha: 1, opacity: 1 });
+            tl.set('[data-check-icon]', { autoAlpha: 0 });
 
             // Cycle provider 0 → 1 → 2
             erase(tl, providers[0], 1.5);
@@ -664,20 +682,20 @@ changefreq: "weekly"
             erase(tl, providers[1], 1.5);
             type(tl, providers[2]);
 
-            // Show provisioning block line by line
+            // Provisioning block — lines appear instantly, check items blink then resolve
             tl.set(provBlock, { autoAlpha: 1 }, '+=0.6');
             const provLines = provBlock.querySelectorAll('[data-term-line]');
-            tl.to(provLines[0], { autoAlpha: 1, duration: 0.25 });
-            tl.to(provLines[1], { autoAlpha: 1, duration: 0.25 }, '+=0.4');
-            tl.to(provLines[2], { autoAlpha: 1, duration: 0.25 }, '+=0.35');
+            tl.set(provLines[0], { autoAlpha: 1 });           // "○ Provisioning service..."
+            addCheckLine(tl, provLines[1], 0.5);               // Configuration complete
+            addCheckLine(tl, provLines[2], 0.4);               // Credentials generated & synced
 
-            // Hold 2s, then show provider ready block line by line
+            // Hold 2s, then provider ready block
             tl.set(readyBlock, { autoAlpha: 1 }, '+=2');
             const readyLines = readyBlock.querySelectorAll('[data-term-line]');
-            tl.to(readyLines[0], { autoAlpha: 1, duration: 0.25 });
-            tl.to(readyLines[1], { autoAlpha: 1, duration: 0.25 }, '+=0.35');
-            tl.to(readyLines[2], { autoAlpha: 1, duration: 0.25 }, '+=0.3');
-            tl.to(readyLines[3], { autoAlpha: 1, duration: 0.25 }, '+=0.3');
+            tl.set(readyLines[0], { autoAlpha: 1 });           // "● Provider ready"
+            addCheckLine(tl, readyLines[1], 0.4);              // Created
+            addCheckLine(tl, readyLines[2], 0.4);              // Added 4 env vars
+            addCheckLine(tl, readyLines[3], 0.4);              // Modified
 
             // Hold 2s, then show upgrade block
             tl.set(upgrBlock, { autoAlpha: 1 }, '+=2');
