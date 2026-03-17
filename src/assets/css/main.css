@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../../src/**/*.webc";
 
 :root {
     --hex-brand-25: #f5f5ff;
@@ -373,4 +374,16 @@
 @keyframes loading-rotate {
     0%   { transition-timing-function: linear; transform: rotate3d(0,0,1,0deg); }
     100% { transition-timing-function: linear; transform: rotate3d(0,0,1,360deg); }
+}
+
+.animate-icon-gradient {
+    background: linear-gradient(135deg, #ff6118, #f44bcc, #9966ff, #533afd, #f44bcc, #ff6118);
+    background-size: 300% 300%;
+    animation: icon-gradient-flow 4s ease infinite;
+}
+
+@keyframes icon-gradient-flow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }

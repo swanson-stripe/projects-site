@@ -48,7 +48,7 @@ changefreq: "weekly"
                                     <path fill-rule="evenodd" d="M2.57 3.38a.56.56 0 0 1 .8-.06l2.62 2.25a.56.56 0 0 1 0 .86L3.37 8.68a.56.56 0 1 1-.74-.86L4.76 6 2.63 4.18a.56.56 0 0 1-.06-.8M6 8.06a.56.56 0 0 1 .56-.56H9.2a.56.56 0 1 1 0 1.12H6.56A.56.56 0 0 1 6 8.06" clip-rule="evenodd"/>
                                 </svg>
                                 <span class="pb-2">
-                                    Install the CLI
+                                    Install CLI
                                 </span>
                                 <input data-checkbox="show-install" type="checkbox" name="stripe-cli" id="stripe-cli" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
                             </div>
@@ -56,14 +56,14 @@ changefreq: "weekly"
                         <!--- CTA --->
                         <div data-hero="cta" class="relative hidden min-[448px]:block">
                             <link-btn size="48" color="outline" href="https://docs.stripe.com/stripe-projects">
-                                <span slot="label">View the docs</span>
+                                <span slot="label">View docs</span>
                                 <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                             </link-btn>
                         </div>
                         <!--- CTA --->
                         <div data-hero="cta" class="relative min-[448px]:hidden">
                             <link-btn size="48" color="primary" href="https://docs.stripe.com/stripe-projects">
-                                <span slot="label">View the docs</span>
+                                <span slot="label">View docs</span>
                                 <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                             </link-btn>
                         </div>
@@ -137,7 +137,7 @@ changefreq: "weekly"
                                     <div class="relative w-full h-full font-mono text-12 min-[448px]:text-14 sm:text-16 px-16 pt-10 pb-24 whitespace-nowrap tracking-tighter sm:tracking-normal">
                                         <div class="relative w-full pb-6">
                                             <span class="text-detail">›</span>
-                                            <span><span>stripe projects</span> <span>services add</span> <span data-hero-type>vercel/hosting</span></span>
+                                            <span><span>stripe projects</span> <span>add</span> <span data-hero-type>vercel/hosting</span></span>
                                             <icon-logo class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
                                         </div>
                                         <div class="relative w-full text-detail pb-6">
@@ -168,7 +168,7 @@ changefreq: "weekly"
                                         </div>
                                         <div class="relative w-full pb-6 mt-6">
                                             <span class="text-detail">›</span>
-                                            <span><span>stripe projects</span> <span>services update</span></span>
+                                            <span><span>stripe projects</span> <span>upgrade</span></span>
                                         </div>
                                         <div class="relative w-full text-detail pb-6">
                                             ○ Select a service
@@ -272,9 +272,9 @@ changefreq: "weekly"
                         <!--- Terminal title --->
                         <div class="relative w-full flex items-center justify-between px-4">
                             <div class="relative flex gap-4 shrink-0">
-                                <div class="w-10 h-10 rounded-full" style="background:#FF5F57"></div>
-                                <div class="w-10 h-10 rounded-full" style="background:#FFBD2E"></div>
-                                <div class="w-10 h-10 rounded-full" style="background:#9B72E6"></div>
+                                <div class="w-10 h-10 rounded-full" style="background:rgba(255,255,255,0.15)"></div>
+                                <div class="w-10 h-10 rounded-full" style="background:rgba(255,255,255,0.15)"></div>
+                                <div class="w-10 h-10 rounded-full" style="background:rgba(255,255,255,0.15)"></div>
                             </div>
                             <div class="text-14 pb-2 shrink-0 whitespace-nowrap" style="color:rgba(255,255,255,0.35)">
                                 Stripe Projects commands
@@ -286,7 +286,7 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <a href="https://docs.stripe.com/stripe-cli/install#install" target="_blank" class="inline-flex items-center gap-4 text-12 hover:opacity-70 transition-opacity duration-200" style="color:#9966FF">Install Stripe CLI<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-10 h-10 shrink-0"><path fill-rule="evenodd" d="M13 3.75a.75.75 0 0 0-.75-.75h-6.5a.75.75 0 0 0 0 1.5h4.69L2.22 12.72a.75.75 0 0 0 1.06 1.06L11.5 5.56v4.69a.75.75 0 0 0 1.5 0v-6.5Z" clip-rule="evenodd"/></svg></a>
+                                        <a href="https://docs.stripe.com/stripe-cli/install#install" target="_blank" class="inline-flex items-center gap-4 text-12 hover:underline" style="color:#9966FF">Install Stripe CLI<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-10 h-10 shrink-0"><path fill-rule="evenodd" d="M13 3.75a.75.75 0 0 0-.75-.75h-6.5a.75.75 0 0 0 0 1.5h4.69L2.22 12.72a.75.75 0 0 0 1.06 1.06L11.5 5.56v4.69a.75.75 0 0 0 1.5 0v-6.5Z" clip-rule="evenodd"/></svg></a>
                                         <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
                                             brew install stripe/stripe-cli/stripe
                                         </div>
@@ -374,13 +374,13 @@ changefreq: "weekly"
                             </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects services add <provider>/<service>" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer text-left outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
+                        <button data-copy-cli="stripe projects add <provider>/<service>" data-container-hover-follow class="relative w-full h-64 p-1 rounded-4 overflow-hidden group cursor-pointer text-left outline-none focus-visible:shadow-focus transition-all duration-400 ease-in-out" style="background:rgba(255,255,255,0.05)">
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
                                         <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.35)">Add provider</div>
                                         <div class="font-mono text-14 whitespace-nowrap overflow-hidden transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
-                                            stripe projects services add &lt;provider&gt;/&lt;service&gt;
+                                            stripe projects add &lt;provider&gt;/&lt;service&gt;
                                         </div>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-12">
@@ -438,10 +438,10 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Simplify provisioning
+                                Programmatic provisioning
                             </h3>
                             <p class="text-content">
-                                Provision services in one place. No more opening multiple dashboards or stitching together tools manually.
+                                Provision and manage multiple services from the command line. No more juggling multiple dashboards or stitching together tools manually.
                             </p>
                         </div>
                     </li>
@@ -465,8 +465,8 @@ changefreq: "weekly"
                         <div class="text-12 font-normal text-neutral-0 flex items-center justify-center w-40 h-40 bg-linear-to-b from-brand-500 to-brand-700 rounded-12 shrink-0 tabular-nums relative overflow-hidden">
                             <div class="absolute inset-0 animate-icon-gradient opacity-0 group-hover/feature:opacity-100 transition-opacity duration-500"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative z-10 w-16 h-16">
-                                <path d="M8 9a1.25 1.25 0 0 1 .75 2.25V13h-1.5v-1.75A1.25 1.25 0 0 1 8 9"/>
-                                <path fill-rule="evenodd" d="M8.5 0a4 4 0 0 1 4 4v.5H11V4a2.5 2.5 0 0 0-2.5-2.5h-1A2.5 2.5 0 0 0 5 4v2h9.5v7a3 3 0 0 1-3 3h-7a3 3 0 0 1-3-3V6h2V4a4 4 0 0 1 3.8-4h1.2M3 13c0 .83.67 1.5 1.5 1.5h7c.83 0 1.5-.67 1.5-1.5V7.5H3z" clip-rule="evenodd"/>
+                                <path d="M7.25 1a.75.75 0 0 1 1.5 0v7.19l2.22-2.22a.75.75 0 1 1 1.06 1.06l-3.5 3.5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 0 1 1.06-1.06l2.22 2.22V1z"/>
+                                <path d="M2.75 11a.75.75 0 0 1 .75.75v1.5c0 .14.11.25.25.25h8.5c.14 0 .25-.11.25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 12.25 15h-8.5A1.75 1.75 0 0 1 2 12.75v-1.5a.75.75 0 0 1 .75-.75z"/>
                             </svg>
                         </div>
                         <div>
@@ -487,10 +487,10 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Automate payment setup
+                                Manage payments, in one place
                             </h3>
                             <p class="text-content">
-                                Set up billing details once and use them across providers. Directly manage account upgrades from your CLI.
+                                Set up your billing details once and reuse them across providers. You can manage tiers, usage, and subscriptions from your CLI.
                             </p>
                         </div>
                     </li>
@@ -504,10 +504,10 @@ changefreq: "weekly"
                 <!--- Headline --->
                 <div class="relative sm:col-span-2 mb-48">
                     <h2 class="text-32/110 tracking-[-0.02em] mb-16">
-                        Start with the CLI
+                        Get started
                     </h2>
                     <p class="text-16 sm:text-18 text-detail text-balance mb-32">
-                        Install Stripe Projects to try it locally, or read the docs to see how provisioning works.
+                        Install Stripe Projects to try it locally. For more information, check out the docs to see how provisioning works.
                     </p>
                     <!--- CTAs --->
                     <div class="relative grid grid-cols-1 gap-8 w-auto min-[448px]:grid-cols-2 sm:flex flex-col sm:flex-row justify-start gap-8">
@@ -519,7 +519,7 @@ changefreq: "weekly"
                                     <path fill-rule="evenodd" d="M2.57 3.38a.56.56 0 0 1 .8-.06l2.62 2.25a.56.56 0 0 1 0 .86L3.37 8.68a.56.56 0 1 1-.74-.86L4.76 6 2.63 4.18a.56.56 0 0 1-.06-.8M6 8.06a.56.56 0 0 1 .56-.56H9.2a.56.56 0 1 1 0 1.12H6.56A.56.56 0 0 1 6 8.06" clip-rule="evenodd"/>
                                 </svg>
                                 <span class="pb-2">
-                                    Install the CLI
+                                    Install CLI
                                 </span>
                             </div>
                             <div data-copy-cli-clicked class="absolute translate-y-24 scale-75 opacity-0 invisible">
@@ -530,7 +530,7 @@ changefreq: "weekly"
                         </button>
                         <!--- CTA --->
                         <link-btn size="48" color="outline" href="https://docs.stripe.com/stripe-projects">
-                            <span slot="label">View the docs</span>
+                            <span slot="label">View docs</span>
                             <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                         </link-btn>
                     </div>
@@ -542,7 +542,7 @@ changefreq: "weekly"
                         <icon-add @size="16" weight="strong" class="relative z-10"></icon-add>
                     </div>
                     <h3 class="font-normal mb-4">
-                        Missing a provider?
+                        We're adding more providers
                     </h3>
                     <p class="text-content text-balance mb-16">
                         Recommend a provider for Stripe Projects.
