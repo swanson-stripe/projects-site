@@ -6,8 +6,9 @@
         <!--- Left --->
         <div class="relative flex items-center h-40 gap-4">
             <!--- Logo --->
-            <a href="/" class="relative flex items-center h-full border border-transparent px-10 -ml-9 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
-                <icon-wordmark class="relative h-19 w-[157px]"></icon-wordmark>
+            <a href="/" class="relative flex items-center gap-6 h-full border border-transparent px-10 -ml-9 rounded-4 outline-none hover:opacity-60 focus-visible:shadow-focus transition-all duration-250">
+                <icon-logo class="h-[1em] w-auto text-headline"></icon-logo>
+                <span class="text-16 font-semibold text-headline pb-1">Stripe Projects</span>
             </a>
             <!--- Navigation --->
             <div class="relative h-full">
