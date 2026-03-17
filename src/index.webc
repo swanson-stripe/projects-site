@@ -276,7 +276,7 @@ changefreq: "weekly"
                                 <div class="w-10 h-10 rounded-full" style="background:rgba(255,255,255,0.15)"></div>
                                 <div class="w-10 h-10 rounded-full" style="background:rgba(255,255,255,0.15)"></div>
                             </div>
-                            <div class="text-14 pb-2 shrink-0 whitespace-nowrap" style="color:rgba(255,255,255,0.35)">
+                            <div class="text-14 pb-2 shrink-0 whitespace-nowrap" style="color:rgba(255,255,255,0.55)">
                                 Stripe Projects commands
                             </div>
                             <div class="w-38 shrink-0"></div>
@@ -287,7 +287,7 @@ changefreq: "weekly"
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
                                         <a href="https://docs.stripe.com/stripe-cli/install#install" target="_blank" class="inline-flex items-center gap-4 text-12 hover:underline" style="color:#9966FF">Install Stripe CLI<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-10 h-10 shrink-0"><path fill-rule="evenodd" d="M13 3.75a.75.75 0 0 0-.75-.75h-6.5a.75.75 0 0 0 0 1.5h4.69L2.22 12.72a.75.75 0 0 0 1.06 1.06L11.5 5.56v4.69a.75.75 0 0 0 1.5 0v-6.5Z" clip-rule="evenodd"/></svg></a>
-                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
+                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.92)">
                                             brew install stripe/stripe-cli/stripe
                                         </div>
                                     </div>
@@ -309,8 +309,8 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.35)">Install Stripe Projects</div>
-                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
+                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.6)">Install Stripe Projects</div>
+                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.92)">
                                             stripe plugin install projects
                                         </div>
                                     </div>
@@ -332,8 +332,8 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.35)">Create project</div>
-                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
+                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.6)">Create project</div>
+                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.92)">
                                             stripe projects init my-app
                                         </div>
                                     </div>
@@ -355,8 +355,8 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.35)">View all providers</div>
-                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
+                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.6)">View all providers</div>
+                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.92)">
                                             stripe projects catalog
                                         </div>
                                     </div>
@@ -378,8 +378,8 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.35)">Add provider</div>
-                                        <div class="font-mono text-14 whitespace-nowrap overflow-hidden transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
+                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.6)">Add provider</div>
+                                        <div class="font-mono text-14 whitespace-nowrap overflow-hidden transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.92)">
                                             stripe projects add &lt;provider&gt;/&lt;service&gt;
                                         </div>
                                     </div>
@@ -401,8 +401,8 @@ changefreq: "weekly"
                             <div class="relative w-full h-full rounded-3 border border-transparent group-hover:border-neutral-0/20 transition-all duration-400" style="background:rgba(255,255,255,0.03)">
                                 <div class="relative w-full h-full flex items-center justify-between rounded-3 transition-all duration-400 ease-in-out group-hover:bg-white/5">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.35)">Get help</div>
-                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.75)">
+                                        <div class="text-12 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.6)">Get help</div>
+                                        <div class="font-mono text-14 transition-colors duration-300 group-hover:!text-neutral-0" style="color:rgba(255,255,255,0.92)">
                                             stripe projects --help
                                         </div>
                                     </div>
