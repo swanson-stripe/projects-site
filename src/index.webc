@@ -171,19 +171,7 @@ changefreq: "weekly"
                                             <span><span>stripe projects</span> <span>upgrade</span></span>
                                         </div>
                                         <div class="relative w-full text-detail pb-6">
-                                            ○ Select a service
-                                        </div>
-                                        <div data-tier="0" class="relative pb-2">
-                                            <div class="absolute -top-[0.25em] left-[2ch] w-[1ch] h-[1em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><span data-tier-name class="text-primary">Starter ‹</span></span>
-                                        </div>
-                                        <div data-tier="1" class="relative pb-2">
-                                            <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><span data-tier-name class="text-detail">Hobby</span></span>
-                                        </div>
-                                        <div data-tier="2" class="relative">
-                                            <div class="absolute -top-[1.25em] left-[2ch] w-[1ch] h-[2em] border-l border-b border-neutral-200"></div>
-                                            <span class="inline-block pl-[4ch]"><span data-tier-name class="text-detail">Pro</span></span>
+                                            <span data-blink-dot class="inline-block mr-[0.5ch]">○</span> Select a service
                                         </div>
                                     </div>
                                 </div>
@@ -640,42 +628,17 @@ changefreq: "weekly"
     }
     heroTyping();
 
-    // Terminal tier keyboard navigation
+    // Blinking dot
     (function() {
-        const terminal = document.querySelector('[data-hero="terminal"]');
-        if (!terminal) return;
-        const tiers = ['Starter', 'Hobby', 'Pro'];
-        let selectedIdx = 0;
-        let focused = false;
-
-        function updateTiers() {
-            terminal.querySelectorAll('[data-tier-name]').forEach((el, i) => {
-                if (i === selectedIdx) {
-                    el.className = 'text-primary';
-                    el.textContent = tiers[i] + ' ‹';
-                } else {
-                    el.className = 'text-detail';
-                    el.textContent = tiers[i];
-                }
-            });
-        }
-
-        terminal.addEventListener('click', () => { focused = true; });
-        document.addEventListener('click', (e) => {
-            if (!terminal.contains(e.target)) focused = false;
-        });
-        document.addEventListener('keydown', (e) => {
-            if (!focused) return;
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                selectedIdx = (selectedIdx + 1) % tiers.length;
-                updateTiers();
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                selectedIdx = (selectedIdx - 1 + tiers.length) % tiers.length;
-                updateTiers();
-            }
-        });
+        const dot = document.querySelector('[data-blink-dot]');
+        if (!dot) return;
+        const frames = ['○', '●'];
+        let i = 0;
+        setInterval(() => {
+            i = (i + 1) % frames.length;
+            dot.textContent = frames[i];
+            dot.style.opacity = i === 1 ? '0.4' : '1';
+        }, 600);
     })();
 
     // Logo carousel
