@@ -585,8 +585,8 @@ changefreq: "weekly"
                 <icon-wordmark class="relative h-14 w-[116px]"></icon-wordmark>
             </div>
             <div class="flex items-center gap-16">
-                <a href="https://stripe.com" class="text-14/150 font-semibold text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
-                <a href="https://stripe.com/privacy" class="text-14/150 font-semibold text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+                <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
                 <p class="text-14/150 text-detail" @text="`©` + base.currentYear() + ` Stripe`"></p>
             </div>
         </helm-container>
