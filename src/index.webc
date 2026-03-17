@@ -1,8 +1,8 @@
 ---
 layout: "main.webc"
 title: "Home"
-seoTitle: "Stripe Projects: Provision your stack from your CLI"
-ogTitle: "Stripe Projects: Provision your stack from your CLI"
+seoTitle: "Stripe Projects: Provision your stack from the CLI"
+ogTitle: "Stripe Projects: Provision your stack from the CLI"
 seoDesc: Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
 ogDesc: Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
 ogImage: "/assets/images/og/default.jpg"
@@ -35,7 +35,7 @@ changefreq: "weekly"
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
                         <h1 data-hero="headline" class="relative text-[10vw]/100 min-[640px]:text-[9vw]/100 min-[768px]:text-64/100 tracking-tighter mb-18 max-w-640">
-                            Provision your stack<br>from your CLI
+                            Provision your stack<br>from the CLI
                         </h1>
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
                             Stripe Projects gives developers and coding agents a reliable way to provision services and manage credentials across the stack from the CLI. Set up hosting, databases, auth, AI, observability, analytics, and more.
@@ -229,7 +229,7 @@ changefreq: "weekly"
             <helm-container class="relative text-pretty md:grid md:grid-cols-2 gap-16 items-start">
                 <!--- Headline --->
                 <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline mb-16 md:mb-0">
-                    Code generation got fast.<br>Infrastructure didn’t.
+                    Code generation got fast.<br>Provisioning didn’t.
                 </h2>
                 <p class="text-16 sm:text-18 text-content">
                     Agents write code fast, but they still need real services and real credentials to run it. Developers spend hours signing up for accounts, copying credentials, and configuring services by hand. Stripe Projects replaces that setup with a single command, without replacing the tools you already use.
