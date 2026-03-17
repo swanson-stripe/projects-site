@@ -139,7 +139,7 @@ changefreq: "weekly"
                                         <div class="relative w-full pb-6">
                                             <span class="text-detail">›</span>
                                             <span><span>stripe projects</span> <span>add</span> <span data-hero-type>vercel/hosting</span></span>
-                                            <icon-logo data-term-cursor class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
+                                            <span data-term-cursor class="inline-block w-[0.55em] h-[0.85em] bg-primary animate-carat align-text-bottom ml-[0.1em]"></span>
                                         </div>
                                         <!--- Provisioning block --->
                                         <div data-term="provisioning">
@@ -178,7 +178,7 @@ changefreq: "weekly"
                                             <div data-upgrade-cmd class="relative w-full pb-6 mt-6">
                                                 <span class="text-detail">›</span>
                                                 <span><span data-upgrade-type></span></span>
-                                                <icon-logo data-upgrade-cursor class="w-[0.75em] text-primary -translate-y-[0.125em] h-[1em] inline-block animate-carat -ml-[0.375em]"></icon-logo>
+                                                <span data-upgrade-cursor class="inline-block w-[0.55em] h-[0.85em] bg-primary animate-carat align-text-bottom ml-[0.1em]"></span>
                                             </div>
                                             <div data-upgrade-select>
                                                 <div data-select-header class="relative w-full text-detail pb-6">
