@@ -77,9 +77,6 @@ changefreq: "weekly"
                             <!--- Left --->
                             <div class="relative flex items-center w-full min-w-0 h-32 mt-8 bg-highlight/50 rounded-6 shadow-inset-border">
                                 <!--- Label --->
-                                <div class="relative border-r border-headline/10 text-detail h-32 hidden sm:flex items-center justify-center pb-2 px-12"> 
-                                    Install
-                                </div>
                                 <!--- Text --->
                                 <div class="relative flex items-center w-full min-w-0 h-32 justify-between px-12 sm:px-8">
                                     <div data-install-text class="relative w-full font-mono text-15 truncate">
@@ -87,8 +84,8 @@ changefreq: "weekly"
                                     </div>
                                 </div>
                             </div>
-                            <!--- Copy button--->
-                            <div class="relative flex items-center h-full shrink-0">
+                            <!--- Buttons --->
+                            <div class="relative flex items-center gap-8 h-full shrink-0">
                                 <button data-copy-install class="relative flex items-center justify-center gap-8 px-16 h-32 rounded-4 text-14 text-highlight bg-primary font-normal text-content group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none">
                                     <!--- Copy contents --->
                                     <div data-copy-install-copy class="relative flex items-center justify-center gap-8">
@@ -105,6 +102,9 @@ changefreq: "weekly"
                                         <span class="relative pb-1">Copied</span>
                                     </div>
                                 </button>
+                                <a href="/docs/install" class="relative hidden sm:flex items-center justify-center px-16 h-32 rounded-4 text-14 font-normal text-content bg-headline/6 hover:bg-headline/10 focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap">
+                                    More install options
+                                </a>
                             </div>
                         </div>
                     </div>
