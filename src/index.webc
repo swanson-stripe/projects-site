@@ -139,7 +139,7 @@ changefreq: "weekly"
                                         <div class="relative w-full pb-6">
                                             <span class="text-detail">›</span>
                                             <span><span>stripe projects</span> <span>add</span> <span data-hero-type>vercel/hosting</span></span>
-                                            <icon-logo class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
+                                            <icon-logo data-term-cursor class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
                                         </div>
                                         <!--- Provisioning block --->
                                         <div data-term="provisioning">
@@ -671,6 +671,7 @@ changefreq: "weekly"
 
             // Reset everything
             tl.set(typeEl, { text: providers[0] });
+            tl.set('[data-term-cursor]', { autoAlpha: 1 });
             tl.set([provBlock, readyBlock, upgrBlock], { autoAlpha: 0 });
             tl.set('[data-term-line]', { autoAlpha: 0 });
             tl.set('[data-check-dot]',  { autoAlpha: 1, opacity: 1 });
@@ -684,6 +685,7 @@ changefreq: "weekly"
 
             // Provisioning block — lines appear instantly, check items blink then resolve
             tl.set(provBlock, { autoAlpha: 1 }, '+=0.6');
+            tl.set('[data-term-cursor]', { autoAlpha: 0 });
             const provLines = provBlock.querySelectorAll('[data-term-line]');
             tl.set(provLines[0], { autoAlpha: 1 });           // "○ Provisioning service..."
             addCheckLine(tl, provLines[1], 0.5);               // Configuration complete
