@@ -190,46 +190,34 @@ changefreq: "weekly"
         <!--- Logos --->
         <helm-section class="relative z-10 pt-32 sm:pt-16 pb-36 md:pb-0 overflow-hidden">
             <helm-container class="relative flex md:h-64">
-                <div class="relative grid grid-cols-2 sm:grid-cols-5 md:grid-cols-6 w-full items-center justify-center gap-16 sm:gap-0">
-                    <div class="relative sm:pb-8 md:pb-0 col-span-2 sm:col-span-5 md:col-span-1 flex items-center justify-center md:justify-start shrink-0 overflow-hidden h-16">
+                <div class="relative flex flex-wrap sm:flex-nowrap items-center w-full gap-y-16">
+                    <!--- Label --->
+                    <div class="relative w-full sm:w-auto sm:mr-24 md:mr-32 shrink-0 h-16 flex items-center">
                         <span data-logo-label="1" class="absolute uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
                         <span data-logo-label="2" class="absolute uppercase text-detail text-12 tracking-widest whitespace-nowrap" style="transform:translateY(48px);opacity:0;visibility:hidden;">More providers coming</span>
                     </div>
-                    <div class="relative flex items-center justify-center">
-                        <logo-vercel data-logo-wall="1" data-provider-slug="vercel/hosting" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-vercel>
-                        <logo-railway data-logo-wall="2" data-provider-slug="railway/deploy" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
-                    </div>
-                    <div class="relative flex items-center justify-center">
-                        <logo-supabase data-logo-wall="1" data-provider-slug="supabase/db" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-supabase>
-                        <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
-                    </div>
-                    <div class="relative flex items-center justify-center">
-                        <logo-runloop data-logo-wall="1" data-provider-slug="runloop/compute" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-runloop>
-                        <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/db" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
-                    </div>
-                    <div class="relative flex items-center justify-center">
-                        <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-turso>
-                        <logo-chroma data-logo-wall="2" data-provider-slug="chroma/ai" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
-                    </div>
-                    <div class="relative flex items-center justify-center">
-                        <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-clerk>
-                        <logo-neon data-logo-wall="2" data-provider-slug="neon/database" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
-                    </div>
-                    <!--- Mobile only --->
-                    <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-railway data-logo-wall="1" data-provider-slug="railway/deploy" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-railway>
-                    </div>
-                    <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-posthog data-logo-wall="1" data-provider-slug="posthog/analytics" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-posthog>
-                    </div>
-                    <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-planetscale data-logo-wall="1" data-provider-slug="planetscale/db" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-planetscale>
-                    </div>
-                    <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-chroma data-logo-wall="1" data-provider-slug="chroma/ai" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-chroma>
-                    </div>
-                    <div class="relative flex sm:hidden items-center justify-center">
-                        <logo-neon data-logo-wall="1" data-provider-slug="neon/database" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-neon>
+                    <!--- Logos --->
+                    <div class="flex-1 flex items-center justify-end sm:justify-end md:justify-between gap-16 sm:gap-0">
+                        <div class="relative flex items-center justify-center h-40">
+                            <logo-vercel data-logo-wall="1" data-provider-slug="vercel/hosting" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-vercel>
+                            <logo-railway data-logo-wall="2" data-provider-slug="railway/deploy" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
+                        </div>
+                        <div class="relative flex items-center justify-center h-40">
+                            <logo-supabase data-logo-wall="1" data-provider-slug="supabase/db" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-supabase>
+                            <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
+                        </div>
+                        <div class="relative flex items-center justify-center h-40">
+                            <logo-runloop data-logo-wall="1" data-provider-slug="runloop/compute" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-runloop>
+                            <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/db" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
+                        </div>
+                        <div class="relative flex items-center justify-center h-40">
+                            <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-turso>
+                            <logo-chroma data-logo-wall="2" data-provider-slug="chroma/ai" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
+                        </div>
+                        <div class="relative flex items-center justify-center h-40">
+                            <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-clerk>
+                            <logo-neon data-logo-wall="2" data-provider-slug="neon/database" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
+                        </div>
                     </div>
                 </div>
             </helm-container>
@@ -254,7 +242,7 @@ changefreq: "weekly"
                 <!--- Content col --->
                 <div class="relative flex flex-col items-start text-16 sm:text-18/150 text-content pr-80">
                     <h2 class="text-headline text-28/110 sm:text-36/110 tracking-[-0.0375em] mb-16">
-                        Automate building your stack
+                        Prompt to provision
                     </h2>
                     <p class="md:mb-24">
                         Add the services your app needs from the CLI—or let an agent do it. Stripe Projects provisions resources in provider accounts you own and stores credentials in your secret store. Every command is deterministic and auditable, so the same inputs produce the same result. Your project configuration stays portable, reviewable, and ready to deploy.
@@ -270,12 +258,12 @@ changefreq: "weekly"
                             </div>
                         </div>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects init my-app" data-container-hover-follow class="relative w-full h-64 rounded-4 group cursor-pointer text-left outline-none focus-visible:shadow-focus border border-edge hover:bg-highlight transition-[background-color] duration-50 ease-in-out">
+                        <button data-copy-cli="stripe projects init helloworld-app" data-container-hover-follow class="relative w-full h-64 rounded-4 group cursor-pointer text-left outline-none focus-visible:shadow-focus border border-edge hover:bg-highlight transition-[background-color] duration-50 ease-in-out">
                             <div class="relative w-full h-full flex items-center justify-between">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
                                         <div class="text-12 text-detail">Create project</div>
                                         <div class="font-mono text-14 text-headline">
-                                            stripe projects <span style="color:#635BFF">init my-app</span>
+                                            stripe projects <span style="color:#635BFF">init helloworld-app</span>
                                         </div>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-12">
@@ -361,7 +349,7 @@ changefreq: "weekly"
         <!--- Content --->
         <helm-section class="relative pt-32 pb-32 md:pt-64 md:pb-64 z-10">
             <helm-container class="relative flex flex-col relative text-pretty">
-                <h2 class="relative text-headline text-28/110 sm:text-36/110 tracking-[-0.0375em] max-w-416 mb-32 sm:mb-48">
+                <h2 class="relative text-headline text-28/110 sm:text-36/110 tracking-[-0.0375em] mb-32 sm:mb-48 whitespace-nowrap">
                     Fast, secure, and portable infrastructure provisioning
                 </h2>
                 <ul class="relative w-full grid sm:grid-cols-2 gap-x-16 gap-y-32 sm:gap-y-48 leading-150 text-headline text-16 sm:text-18/150">
@@ -430,15 +418,15 @@ changefreq: "weekly"
 
         <!--- CTAs --->
         <helm-section class="relative mt-32 lg:mt-0 lg:pt-64 bg-foreground border-t border-edge lg:border-none lg:bg-transparent">
-            <div class="w-full max-w-1266 bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">
-            <helm-container class="relative py-72 lg:py-96 grid-cols-1 sm:grid-cols-2 grid md:grid-cols-4 leading-140">
+            <div class="w-full max-w-[calc(79.125rem+6rem)] bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">
+            <helm-container class="mx-auto relative py-72 lg:py-96 grid-cols-1 sm:grid-cols-2 grid md:grid-cols-4 leading-140">
                 <!--- Headline --->
                 <div class="relative sm:col-span-2 mb-48">
                     <h2 class="text-32/110 tracking-[-0.02em] mb-16">
                         Get started
                     </h2>
                     <p class="text-16 sm:text-18 text-detail text-balance mb-32">
-                        Install Stripe Projects to try it locally. For more information, check out the docs to see how provisioning works.
+                        Install Stripe Projects to start provisioning via CLI.<br>Read our docs to learn more.
                     </p>
                     <!--- CTAs --->
                     <div class="relative grid grid-cols-1 gap-8 w-auto min-[448px]:grid-cols-2 sm:flex flex-col sm:flex-row justify-start gap-8">
@@ -472,10 +460,10 @@ changefreq: "weekly"
                         <icon-add @size="16" weight="strong"></icon-add>
                     </div>
                     <h3 class="font-normal mb-4">
-                        We're adding more providers
+                        Recommend a provider
                     </h3>
                     <p class="text-content text-balance mb-16">
-                        Recommend a provider for Stripe Projects.
+                        Let us know what services we should add next.
                     </p>
                     <a href="mailto:provider-request@stripe.com?subject=Provider%20Request" target="_blank" class="relative flex items-center justify-center gap-6 text-16 font-normal text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
                         <span class="pb-2">
@@ -490,10 +478,10 @@ changefreq: "weekly"
                         <icon-rocket @size="16" weight="strong" class="translate-y-0.5"></icon-rocket>
                     </div>
                     <h3 class="font-normal mb-4">
-                        Want to become a provider?
+                        Join us!
                     </h3>
                     <p class="text-content text-balance mb-16">
-                        Join the growing list of providers for Stripe Projects.
+                        Stripe Projects helps providers programmatically reach developers.
                     </p>
                     <a href="mailto:provider-request@stripe.com?subject=Provider%20Partnership" target="_blank" class="relative flex items-center justify-center gap-6 text-16 font-normal text-primary rounded-4 hover:text-primary-hover focus-visible:text-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer group outline-none">
                         <span class="pb-2">
