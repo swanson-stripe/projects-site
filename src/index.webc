@@ -1,8 +1,8 @@
 ---
 layout: "main.webc"
 title: "Home"
-seoTitle: "Provision your entire stack directly from your CLI | Stripe Projects"
-ogTitle: "Provision your entire stack directly from your CLI | Stripe Projects"
+seoTitle: "Stripe Projects: Provision your stack from your CLI"
+ogTitle: "Stripe Projects: Provision your stack from your CLI"
 seoDesc: Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
 ogDesc: Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
 ogImage: "/assets/images/og/default.jpg"
@@ -190,14 +190,15 @@ changefreq: "weekly"
         <!--- Logos --->
         <helm-section class="relative z-10 pt-32 sm:pt-16 pb-36 md:pb-0 overflow-hidden">
             <helm-container class="relative flex md:h-64">
-                <div class="relative flex flex-wrap sm:flex-nowrap items-center w-full gap-y-16">
+                <div class="relative w-full flex flex-col sm:flex-row sm:items-center gap-y-16">
                     <!--- Label --->
-                    <div class="relative w-full sm:w-auto sm:mr-24 md:mr-32 shrink-0 h-16 flex items-center">
+                    <div class="relative shrink-0 sm:pr-32 h-16 flex items-center overflow-hidden">
+                        <span class="invisible select-none pointer-events-none uppercase text-detail text-12 tracking-widest whitespace-nowrap" aria-hidden="true">More providers coming</span>
                         <span data-logo-label="1" class="absolute uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
                         <span data-logo-label="2" class="absolute uppercase text-detail text-12 tracking-widest whitespace-nowrap" style="transform:translateY(48px);opacity:0;visibility:hidden;">More providers coming</span>
                     </div>
-                    <!--- Logos --->
-                    <div class="flex-1 flex items-center justify-end sm:justify-end md:justify-between gap-16 sm:gap-0">
+                    <!--- Logos: 5-col grid so slots are always equal width --->
+                    <div class="grid grid-cols-5 flex-1 items-center">
                         <div class="relative flex items-center justify-center h-40">
                             <logo-vercel data-logo-wall="1" data-provider-slug="vercel/hosting" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-vercel>
                             <logo-railway data-logo-wall="2" data-provider-slug="railway/deploy" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
@@ -321,12 +322,12 @@ changefreq: "weekly"
                                 </div>
                         </button>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects --help" data-container-hover-follow class="relative w-full h-64 rounded-4 group cursor-pointer text-left outline-none focus-visible:shadow-focus border border-edge hover:bg-highlight transition-[background-color] duration-50 ease-in-out">
+                        <button data-copy-cli="stripe projects upgrade <provider>" data-container-hover-follow class="relative w-full h-64 rounded-4 group cursor-pointer text-left outline-none focus-visible:shadow-focus border border-edge hover:bg-highlight transition-[background-color] duration-50 ease-in-out">
                             <div class="relative w-full h-full flex items-center justify-between">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
-                                        <div class="text-12 text-detail">Get help</div>
-                                        <div class="font-mono text-14 text-headline">
-                                            stripe projects <span style="color:#635BFF">--help</span>
+                                        <div class="text-12 text-detail">Upgrade provider</div>
+                                        <div class="font-mono text-14 text-headline whitespace-nowrap overflow-hidden">
+                                            stripe projects <span style="color:#635BFF">upgrade &lt;provider&gt;</span>
                                         </div>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-12">
