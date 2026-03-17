@@ -693,9 +693,9 @@ changefreq: "weekly"
             tl.set(readyBlock, { autoAlpha: 1 });
             const readyLines = readyBlock.querySelectorAll('[data-term-line]');
             tl.set(readyLines[0], { autoAlpha: 1 });           // "● Provider ready"
-            addCheckLine(tl, readyLines[1], 0.4);              // Created
-            addCheckLine(tl, readyLines[2], 0.4);              // Added 4 env vars
-            addCheckLine(tl, readyLines[3], 0.4);              // Modified
+            tl.set(readyLines[1], { autoAlpha: 1 }, '+=0.1'); tl.set(readyLines[1].querySelector('[data-check-dot]'), { autoAlpha: 0 }); tl.set(readyLines[1].querySelector('[data-check-icon]'), { autoAlpha: 1 });
+            tl.set(readyLines[2], { autoAlpha: 1 }, '+=0.1'); tl.set(readyLines[2].querySelector('[data-check-dot]'), { autoAlpha: 0 }); tl.set(readyLines[2].querySelector('[data-check-icon]'), { autoAlpha: 1 });
+            tl.set(readyLines[3], { autoAlpha: 1 }, '+=0.1'); tl.set(readyLines[3].querySelector('[data-check-dot]'), { autoAlpha: 0 }); tl.set(readyLines[3].querySelector('[data-check-icon]'), { autoAlpha: 1 });
 
             // Hold 2s, then show upgrade block
             tl.set(upgrBlock, { autoAlpha: 1 }, '+=2');
