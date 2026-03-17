@@ -102,7 +102,7 @@ changefreq: "weekly"
                                         <span class="relative pb-1">Copied</span>
                                     </div>
                                 </button>
-                                <a href="/docs/install" class="relative hidden sm:flex items-center justify-center px-16 h-32 rounded-4 text-14 font-normal text-content bg-headline/6 hover:bg-headline/10 focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap">
+                                <a href="/docs/install" class="relative hidden sm:flex items-center justify-center px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap">
                                     More install options
                                 </a>
                             </div>
