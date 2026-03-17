@@ -624,7 +624,7 @@ changefreq: "weekly"
         const providerPool = [
             'vercel/hosting', 'neon/database',   'clerk/auth',
             'railway/deploy', 'supabase/db',      'posthog/analytics',
-            'turso/database', 'planetscale/db',   'chroma/vectors'
+            'turso/database', 'planetscale/db',   'chroma/ai'
         ];
         function pickProviders() {
             return [...providerPool].sort(() => Math.random() - 0.5).slice(0, 3);
