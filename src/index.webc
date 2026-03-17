@@ -177,7 +177,7 @@ changefreq: "weekly"
                                         <div data-term="upgrade">
                                             <div data-upgrade-cmd class="relative w-full pb-6 mt-6">
                                                 <span class="text-detail">›</span>
-                                                <span><span data-upgrade-type></span></span><icon-logo data-upgrade-cursor class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
+                                                <span><span>stripe projects</span> <span data-upgrade-type></span></span><icon-logo data-upgrade-cursor class="w-12 text-primary -translate-y-2 h-auto inline-block animate-carat -ml-6"></icon-logo>
                                             </div>
                                             <div data-upgrade-select>
                                                 <div class="relative w-full text-detail pb-6">
@@ -711,7 +711,7 @@ changefreq: "weekly"
 
             // Blink twice (~2s), then type the command
             tl.to({}, { duration: 2 });
-            tl.to('[data-upgrade-type]', { text: 'stripe projects upgrade', duration: 'stripe projects upgrade'.length * 0.055, ease: 'none' });
+            tl.to('[data-upgrade-type]', { text: 'upgrade', duration: 'upgrade'.length * 0.09, ease: 'none' });
 
             // Hide cursor, show select block
             tl.set('[data-upgrade-cursor]', { autoAlpha: 0 });
