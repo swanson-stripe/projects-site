@@ -246,7 +246,7 @@ changefreq: "weekly"
             <helm-container class="relative text-pretty flex flex-col gap-16">
                 <!--- Headline --->
                 <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline text-center">
-                    Code generation got fast. Infrastructure didn’t
+                    Code generation got fast. Infrastructure didn’t.
                 </h2>
                 <p class="text-16 sm:text-18 text-content" style="max-width: 65%; margin-left: auto; margin-right: auto;">
                     Agents write code fast, but they still need real services and real credentials to run it. Developers spend hours signing up for accounts, copying credentials, and configuring services by hand. Stripe Projects replaces that setup with a single command, without replacing the tools you already use.
