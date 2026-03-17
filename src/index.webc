@@ -732,8 +732,8 @@ changefreq: "weekly"
             tl.set('[data-select-header]', { autoAlpha: 1 });
             tierItems.forEach((t, i) => tl.set(t, { autoAlpha: 1 }, `+=${i === 0 ? 0.5 : 0.15}`));
 
-            // Hold 3s then loop
-            tl.to({}, { duration: 3 });
+            // Hold 5s then loop
+            tl.to({}, { duration: 5 });
         }
 
         runSequence();
