@@ -215,7 +215,7 @@ changefreq: "weekly"
                     <!--- Label (static) --->
                     <div class="relative shrink-0 sm:pr-32 flex flex-col sm:flex-row sm:items-center gap-8 items-center">
                         <span class="uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
-                        <span class="inline-flex items-center px-8 py-4 rounded-full bg-foreground border border-edge text-12 tracking-widest uppercase text-detail whitespace-nowrap">+ More soon</span>
+                        <span class="inline-flex items-center px-8 py-4 rounded-full bg-foreground text-10 tracking-widest uppercase text-detail whitespace-nowrap">+ More soon</span>
                     </div>
                     <!--- Logos: mobile = two sub-grids (3 top + 2 centered below), sm+ = 5-col single row --->
                     <div class="logo-main-grid flex-1">
