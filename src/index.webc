@@ -40,6 +40,9 @@ changefreq: "weekly"
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
                             Stripe Projects gives developers and coding agents a reliable way to provision services and manage credentials across the stack from the CLI. Set up hosting, databases, auth, AI, observability, analytics, and more.
                         </p>
+                        <p class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
+                            We're adding dozens of new providers in the coming weeks!
+                        </p>
                     </div>
                     <!--- CTAs --->
                     <div data-hero="cta" class="relative">
