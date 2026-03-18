@@ -51,30 +51,51 @@ changefreq: "weekly"
                 </div>
                 <!--- Visual --->
                 <div class="relative w-full">
-                    <!--- Install --->
-                    <div class="absolute top-0 left-0 flex rounded-12 bg-foreground border border-edge -mb-6 pb-6 -translate-y-48 -translate-x-8 w-[calc(100%+1rem)] h-[calc(100%+3.5rem)]">
+                    <!--- Install bar: simple flow bar on mobile, absolute card on sm+ --->
+                    <!--- Mobile bar --->
+                    <div class="sm:hidden relative w-screen left-1/2 -translate-x-1/2 flex items-center gap-8 h-48 px-16 bg-foreground border-b border-edge">
+                        <div class="relative flex items-center w-full min-w-0 h-32 bg-highlight/50 rounded-6 shadow-inset-border">
+                            <div class="relative flex items-center w-full min-w-0 h-32 justify-between px-12">
+                                <div data-install-text class="relative w-full font-mono text-14 truncate">
+                                    brew install&nbsp;<span class="text-primary">stripe/stripe-cli/stripe</span>&nbsp;&&&nbsp;<span class="text-primary">stripe</span>&nbsp;plugin install&nbsp;<span class="text-primary">projects</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative flex items-center gap-8 h-full shrink-0">
+                            <button data-copy-install class="relative flex items-center justify-center gap-8 px-16 h-32 rounded-4 text-14 text-highlight bg-primary font-normal text-content group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none">
+                                <div data-copy-install-copy class="relative flex items-center justify-center gap-8">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-16 h-16">
+                                        <path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/>
+                                    </svg>
+                                    <span class="relative pb-1">Copy</span>
+                                </div>
+                                <div data-copy-install-copied class="absolute top-0 left-0 w-full h-full flex items-center justify-center gap-8 translate-y-32 opacity-0 invisible scale-75">
+                                    <div data-copy-checked class="relative w-16 h-16 bg-highlight rounded-full flex items-center justify-center text-primary">
+                                        <icon-check @size="8" @weight="strong" ></icon-check>
+                                    </div>
+                                    <span class="relative pb-1">Copied</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <!--- Desktop card (sm+) --->
+                    <div class="hidden sm:flex absolute top-0 left-0 rounded-12 bg-foreground border border-edge -mb-6 pb-6 -translate-y-48 -translate-x-8 w-[calc(100%+1rem)] h-[calc(100%+3.5rem)]">
                         <div class="absolute top-0 left-0 w-full flex gap-8 h-48 px-8 overflow-hidden">
-                            <!--- Left --->
                             <div class="relative flex items-center w-full min-w-0 h-32 mt-8 bg-highlight/50 rounded-6 shadow-inset-border">
-                                <!--- Label --->
-                                <!--- Text --->
-                                <div class="relative flex items-center w-full min-w-0 h-32 justify-between px-12 sm:px-8">
+                                <div class="relative flex items-center w-full min-w-0 h-32 justify-between px-8">
                                     <div data-install-text class="relative w-full font-mono text-14 truncate">
                                         brew install&nbsp;<span class="text-primary">stripe/stripe-cli/stripe</span>&nbsp;&&&nbsp;<span class="text-primary">stripe</span>&nbsp;plugin install&nbsp;<span class="text-primary">projects</span>
                                     </div>
                                 </div>
                             </div>
-                            <!--- Buttons --->
                             <div class="relative flex items-center gap-8 h-full shrink-0">
                                 <button data-copy-install class="relative flex items-center justify-center gap-8 px-16 h-32 rounded-4 text-14 text-highlight bg-primary font-normal text-content group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none">
-                                    <!--- Copy contents --->
                                     <div data-copy-install-copy class="relative flex items-center justify-center gap-8">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-16 h-16">
                                             <path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/>
                                         </svg>
                                         <span class="relative pb-1">Copy</span>
                                     </div>
-                                    <!--- Copied contents --->
                                     <div data-copy-install-copied class="absolute top-0 left-0 w-full h-full flex items-center justify-center gap-8 translate-y-32 opacity-0 invisible scale-75">
                                         <div data-copy-checked class="relative w-16 h-16 bg-highlight rounded-full flex items-center justify-center text-primary">
                                             <icon-check @size="8" @weight="strong" ></icon-check>
@@ -82,7 +103,7 @@ changefreq: "weekly"
                                         <span class="relative pb-1">Copied</span>
                                     </div>
                                 </button>
-                                <a href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install" target="_blank" rel="noopener" class="relative hidden sm:flex items-center justify-center px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap">
+                                <a href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install" target="_blank" rel="noopener" class="relative flex items-center justify-center px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap">
                                     More install options
                                 </a>
                             </div>
@@ -114,11 +135,11 @@ changefreq: "weekly"
                                         </div>
                                     </div>
                                     <!--- Terminal contents --->
-                                    <div class="relative w-full h-full font-mono text-10 min-[448px]:text-12 sm:text-14 px-16 pt-10 pb-24 whitespace-nowrap tracking-tighter sm:tracking-normal">
+                                    <div class="relative w-full h-full font-mono text-10 sm:text-14 px-16 pt-10 pb-24 whitespace-nowrap tracking-normal">
                                         <!--- Command line (always visible) --->
                                         <div class="relative w-full pb-6">
                                             <span class="text-detail">›</span>
-                                            <span><span>stripe projects</span> <span>add</span> <span data-hero-type>vercel/hosting</span></span>
+                                            <span><span>stripe projects</span> <span>add</span> <span data-hero-type>vercel/project</span></span>
                                             <span data-term-cursor class="inline-block w-[0.69em] h-[1.32em] bg-primary animate-carat -ml-[0.54em] [vertical-align:-0.24em]"></span>
                                         </div>
                                         <!--- Provisioning block --->
@@ -191,33 +212,42 @@ changefreq: "weekly"
         <helm-section class="relative z-10 pt-32 sm:pt-16 pb-36 md:pb-0 overflow-hidden">
             <helm-container class="relative flex md:h-64">
                 <div class="relative w-full flex flex-col sm:flex-row sm:items-center gap-y-16">
-                    <!--- Label --->
-                    <div class="relative shrink-0 sm:pr-32 h-16 flex items-center overflow-hidden">
-                        <span class="invisible select-none pointer-events-none uppercase text-detail text-12 tracking-widest whitespace-nowrap" aria-hidden="true">More providers coming</span>
-                        <span data-logo-label="1" class="absolute uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
-                        <span data-logo-label="2" class="absolute uppercase text-detail text-12 tracking-widest whitespace-nowrap" style="transform:translateY(48px);opacity:0;visibility:hidden;">More providers coming</span>
+                    <!--- Label (static) --->
+                    <div class="relative shrink-0 sm:pr-32 h-16 flex items-center">
+                        <span class="uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
                     </div>
-                    <!--- Logos: 5-col grid so slots are always equal width --->
-                    <div class="grid grid-cols-5 flex-1 items-center">
-                        <div class="relative flex items-center justify-center h-40">
-                            <logo-vercel data-logo-wall="1" data-provider-slug="vercel/hosting" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-vercel>
-                            <logo-railway data-logo-wall="2" data-provider-slug="railway/deploy" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
+                    <!--- Logos: mobile = two sub-grids (3 top + 2 centered below), sm+ = 5-col single row --->
+                    <div class="logo-main-grid flex-1">
+                        <!--- Row 1: 3 logos --->
+                        <div class="logo-sub-grid grid grid-cols-3">
+                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
+                                <logo-vercel data-logo-wall="1" data-provider-slug="vercel/project" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-vercel>
+                                <logo-railway data-logo-wall="2" data-provider-slug="railway/hosting" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
+                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                            </div>
+                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
+                                <logo-supabase data-logo-wall="1" data-provider-slug="supabase/supabase:free" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-supabase>
+                                <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
+                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                            </div>
+                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
+                                <logo-runloop data-logo-wall="1" data-provider-slug="runloop/sandbox" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-runloop>
+                                <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/postgresql" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
+                                <span data-logo-wall="3" class="absolute text-12 uppercase tracking-widest text-detail whitespace-nowrap translate-y-48 opacity-0 invisible">more providers coming</span>
+                            </div>
                         </div>
-                        <div class="relative flex items-center justify-center h-40">
-                            <logo-supabase data-logo-wall="1" data-provider-slug="supabase/db" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-supabase>
-                            <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
-                        </div>
-                        <div class="relative flex items-center justify-center h-40">
-                            <logo-runloop data-logo-wall="1" data-provider-slug="runloop/compute" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-runloop>
-                            <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/db" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
-                        </div>
-                        <div class="relative flex items-center justify-center h-40">
-                            <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-turso>
-                            <logo-chroma data-logo-wall="2" data-provider-slug="chroma/ai" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
-                        </div>
-                        <div class="relative flex items-center justify-center h-40">
-                            <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-40 w-auto shrink-0 cursor-pointer"></logo-clerk>
-                            <logo-neon data-logo-wall="2" data-provider-slug="neon/database" class="absolute h-40 w-auto shrink-0 translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
+                        <!--- Row 2: 2 logos centered on mobile, inline on sm+ --->
+                        <div class="logo-sub-grid grid grid-cols-2 w-2/3 mx-auto">
+                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
+                                <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-turso>
+                                <logo-chroma data-logo-wall="2" data-provider-slug="chroma/database" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
+                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                            </div>
+                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
+                                <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-clerk>
+                                <logo-neon data-logo-wall="2" data-provider-slug="neon/database" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
+                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -232,7 +262,7 @@ changefreq: "weekly"
                     Code generation got fast.<br>Provisioning didn’t.
                 </h2>
                 <p class="text-16 sm:text-18 text-content">
-                    Agents write code fast, but they still need real services and real credentials to run it. Developers spend hours signing up for accounts, copying credentials, and configuring services by hand. Stripe Projects replaces that setup with a single command, without replacing the tools you already use.
+                    Shipping an app has always meant a second job: jumping between dashboards, signing up for services, copying API keys, and clicking through configuration pages before your code is live. AI coding tools can now build an entire app in minutes, which means provisioning is now the slowest part of the process. Stripe Projects replaces all of that with a single command that handles account creation, infrastructure provisioning, credential management, and payments across providers — ready for both developers and agents to use.
                 </p>
             </helm-container>
         </helm-section>
@@ -350,7 +380,7 @@ changefreq: "weekly"
         <!--- Content --->
         <helm-section class="relative pt-32 pb-32 md:pt-64 md:pb-64 z-10">
             <helm-container class="relative flex flex-col relative text-pretty">
-                <h2 class="relative text-headline text-28/110 sm:text-36/110 tracking-[-0.0375em] mb-32 sm:mb-48 whitespace-nowrap">
+                <h2 class="relative text-headline text-28/110 sm:text-36/110 tracking-[-0.0375em] mb-32 sm:mb-48 md:whitespace-nowrap">
                     Fast, secure, and portable infrastructure provisioning
                 </h2>
                 <ul class="relative w-full grid sm:grid-cols-2 gap-x-16 gap-y-32 sm:gap-y-48 leading-150 text-headline text-16 sm:text-18/150">
@@ -420,7 +450,7 @@ changefreq: "weekly"
         <!--- CTAs --->
         <helm-section class="relative mt-32 lg:mt-0 lg:pt-64 bg-foreground border-t border-edge lg:border-none lg:bg-transparent">
             <div class="w-full max-w-[calc(79.125rem+6rem)] bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">
-            <helm-container class="mx-auto relative py-72 lg:py-96 grid-cols-1 sm:grid-cols-2 grid md:grid-cols-4 leading-140">
+            <helm-container class="mx-auto relative py-72 lg:py-96 grid-cols-1 sm:grid-cols-2 grid lg:grid-cols-4 leading-140">
                 <!--- Headline --->
                 <div class="relative sm:col-span-2 mb-48">
                     <h2 class="text-32/110 tracking-[-0.02em] mb-16">
@@ -456,7 +486,7 @@ changefreq: "weekly"
                     </div>
                 </div>
                 <!--- Item --->
-                <div class="relative flex flex-col items-start justify-center sm:pr-16 md:pr-32 md:-mt-10 sm:h-full mb-32 sm:mb-0 group/feature">
+                <div class="relative flex flex-col items-start justify-center sm:pr-16 lg:pr-32 lg:-mt-10 sm:h-full mb-32 sm:mb-0 group/feature">
                     <div class="w-40 flex items-center justify-center aspect-square text-neutral-0 rounded-4 mb-16 bg-primary">
                         <icon-add @size="16" weight="strong"></icon-add>
                     </div>
@@ -474,7 +504,7 @@ changefreq: "weekly"
                     </a>
                 </div>
                 <!--- Item --->
-                <div class="relative flex flex-col items-start justify-center sm:pr-16 md:pr-32 md:-mt-10 sm:h-full group/feature">
+                <div class="relative flex flex-col items-start justify-center sm:pr-16 lg:pr-32 lg:-mt-10 sm:h-full group/feature">
                     <div class="w-40 flex items-center justify-center aspect-square text-neutral-0 rounded-4 mb-16 bg-primary">
                         <icon-rocket @size="16" weight="strong" class="translate-y-0.5"></icon-rocket>
                     </div>
@@ -507,7 +537,7 @@ changefreq: "weekly"
     <footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
         <helm-container class="relative flex items-center justify-between py-24 border-t border-edge">
             <div class="flex items-center gap-16">
-                <p class="text-14/150 text-detail" @text="`©` + base.currentYear() + ` Stripe`"></p>
+                <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
                 <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
             </div>
             <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
@@ -516,19 +546,39 @@ changefreq: "weekly"
 
 </div>
 
+<style>
+  @media (min-width: 40rem) {
+    .logo-main-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: center;
+      gap: 0;
+    }
+    .logo-sub-grid {
+      display: contents;
+    }
+  }
+  @media (max-width: 39.9375rem) {
+    .logo-main-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+  }
+</style>
+
 <script>
 
     // Copy install
     function copyInstall() {
         const install = document.querySelector('[data-install-text]').textContent;
         navigator.clipboard.writeText(install);
-        console.log(install);
         const tl = gsap.timeline({
             onStart: () => {
-                document.querySelector('[data-copy-install]').classList.add('pointer-events-none');
+                document.querySelectorAll('[data-copy-install]').forEach(el => el.classList.add('pointer-events-none'));
             },
             onComplete: () => {
-                document.querySelector('[data-copy-install]').classList.remove('pointer-events-none');
+                document.querySelectorAll('[data-copy-install]').forEach(el => el.classList.remove('pointer-events-none'));
             }
         });
         tl
@@ -538,8 +588,8 @@ changefreq: "weekly"
         .to('[data-copy-install-copied]', { y: 32, autoAlpha: 0, scale:0.75, duration: 0.25, ease: 'power3.out' }, 3)
     }
     
-    // Copy install hero events
-    document.querySelector('[data-copy-install]').addEventListener('click', () => { copyInstall(); });
+    // Copy install hero events — attach to all instances (mobile + desktop)
+    document.querySelectorAll('[data-copy-install]').forEach(el => el.addEventListener('click', () => { copyInstall(); }));
 
     // Copy CLI
     function copyCLI(el) {
@@ -570,9 +620,10 @@ changefreq: "weekly"
         if (!typeEl) return;
 
         const providerPool = [
-            'vercel/hosting', 'neon/database',   'clerk/auth',
-            'railway/deploy', 'supabase/db',      'posthog/analytics',
-            'turso/database', 'planetscale/db',   'chroma/ai'
+            'vercel/project',      'neon/database',       'clerk/auth',
+            'railway/hosting',     'supabase/supabase:free',   'posthog/analytics',
+            'turso/database',      'planetscale/postgresql', 'chroma/database',
+            'runloop/sandbox'
         ];
         function pickProviders() {
             return [...providerPool].sort(() => Math.random() - 0.5).slice(0, 3);
@@ -693,18 +744,22 @@ changefreq: "weekly"
         const mediaQuery = window.matchMedia('(min-width: 640px)');
 
         function logoAnimate() {
-            const tl = gsap.timeline({ repeat: -1, repeatDelay: 6 });
+            // Each set is shown for 3s. Transition: exit 0.5s, enter starts at +0.375s, enter 0.75s, total ~1.25s.
+            // Timeline: set1(3s) → set2(3s) → set3(3s) → repeat
+            const tl = gsap.timeline({ repeat: -1 });
             tl
-            .to('[data-logo-wall="1"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 0)
-            .to('[data-logo-label="1"]', { y: -24, autoAlpha: 0, duration: 0.4, ease: 'power3.in' }, 0)
-            .to('[data-logo-wall="2"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 0.375)
-            .to('[data-logo-label="2"]', { y: 0, autoAlpha: 1, duration: 0.5, ease: 'power3.out' }, 0.375)
-            .set('[data-logo-wall="1"]', { y: 48, autoAlpha: 0}, 1.25)
-            .set('[data-logo-label="1"]', { y: 24, autoAlpha: 0 }, 1.25)
-            .to('[data-logo-wall="2"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 6.75)
-            .to('[data-logo-label="2"]', { y: -24, autoAlpha: 0, duration: 0.4, ease: 'power3.in' }, 6.75)
-            .to('[data-logo-wall="1"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 7.125)
-            .to('[data-logo-label="1"]', { y: 0, autoAlpha: 1, duration: 0.5, ease: 'power3.out' }, 7.125);
+            // 1 → 2 (t=3)
+            .to('[data-logo-wall="1"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 3)
+            .to('[data-logo-wall="2"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 3.375)
+            .set('[data-logo-wall="1"]', { y: 48, autoAlpha: 0 }, 4.25)
+            // 2 → 3 (t=7.125: 3.375+0.75+3)
+            .to('[data-logo-wall="2"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 7.125)
+            .to('[data-logo-wall="3"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 7.5)
+            .set('[data-logo-wall="2"]', { y: 48, autoAlpha: 0 }, 8.375)
+            // 3 → 1 (t=11.25: 7.5+0.75+3)
+            .to('[data-logo-wall="3"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 11.25)
+            .to('[data-logo-wall="1"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 11.625)
+            .set('[data-logo-wall="3"]', { y: 48, autoAlpha: 0 }, 12.5);
             return tl;
         }
 
@@ -720,8 +775,7 @@ changefreq: "weekly"
                 logoTl.kill();
                 gsap.set('[data-logo-wall="1"]', { clearProps: 'all' });
                 gsap.set('[data-logo-wall="2"]', { clearProps: 'all' });
-                gsap.set('[data-logo-label="1"]', { clearProps: 'all' });
-                gsap.set('[data-logo-label="2"]', { clearProps: 'all' });
+                gsap.set('[data-logo-wall="3"]', { clearProps: 'all' });
                 logoTl = null;
             }
         });
