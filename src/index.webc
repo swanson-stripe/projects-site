@@ -223,12 +223,18 @@ changefreq: "weekly"
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-vercel data-logo-wall="1" data-provider-slug="vercel/project" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-vercel>
                                 <logo-railway data-logo-wall="2" data-provider-slug="railway/hosting" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
-                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
+                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
+                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
+                                </div>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-supabase data-logo-wall="1" data-provider-slug="supabase/supabase:free" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-supabase>
                                 <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
-                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
+                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
+                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
+                                </div>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-runloop data-logo-wall="1" data-provider-slug="runloop/sandbox" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-runloop>
@@ -241,12 +247,18 @@ changefreq: "weekly"
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-turso>
                                 <logo-chroma data-logo-wall="2" data-provider-slug="chroma/database" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
-                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
+                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
+                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
+                                </div>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-clerk>
                                 <logo-neon data-logo-wall="2" data-provider-slug="neon/postgres" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
-                                <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
+                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
+                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
+                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
