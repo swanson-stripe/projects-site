@@ -631,14 +631,20 @@ changefreq: "weekly"
         const upgrBlock  = document.querySelector('[data-term="upgrade"]');
         if (!typeEl) return;
 
-        const providerPool = [
-            'vercel/project',      'neon/postgres',       'clerk/auth',
-            'railway/hosting',     'supabase/supabase:free',   'posthog/analytics',
-            'turso/database',      'planetscale/postgresql', 'chroma/database',
-            'runloop/sandbox'
-        ];
+        const providerPool = {
+            hosting:   ['vercel/project', 'railway/hosting'],
+            database:  ['neon/postgres', 'supabase/supabase:free', 'turso/database', 'planetscale/postgresql', 'chroma/database'],
+            auth:      ['clerk/auth'],
+            analytics: ['posthog/analytics'],
+            sandbox:   ['runloop/sandbox'],
+        };
         function pickProviders() {
-            return [...providerPool].sort(() => Math.random() - 0.5).slice(0, 3);
+            // Pick 3 distinct categories at random, then one provider from each
+            const categories = Object.keys(providerPool).sort(() => Math.random() - 0.5).slice(0, 3);
+            return categories.map(cat => {
+                const opts = providerPool[cat];
+                return opts[Math.floor(Math.random() * opts.length)];
+            });
         }
 
         // Initial hide
