@@ -348,7 +348,7 @@ changefreq: "weekly"
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
                                         <div class="text-12 text-detail">Add provider</div>
                                         <div class="font-mono text-14 text-headline whitespace-nowrap overflow-hidden">
-                                            stripe projects <span style="color:#635BFF">add &lt;provider&gt;</span>
+                                            stripe projects <span style="color:#635BFF">add &lt;provider&gt;/&lt;service&gt;</span>
                                         </div>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-12">
