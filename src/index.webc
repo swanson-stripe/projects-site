@@ -245,7 +245,7 @@ changefreq: "weekly"
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-clerk>
-                                <logo-neon data-logo-wall="2" data-provider-slug="neon/database" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
+                                <logo-neon data-logo-wall="2" data-provider-slug="neon/postgres" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
                                 <div data-logo-wall="3" class="absolute h-16 w-[70%] rounded-4 bg-neutral-100 translate-y-48 opacity-0 invisible"></div>
                             </div>
                         </div>
@@ -620,7 +620,7 @@ changefreq: "weekly"
         if (!typeEl) return;
 
         const providerPool = [
-            'vercel/project',      'neon/database',       'clerk/auth',
+            'vercel/project',      'neon/postgres',       'clerk/auth',
             'railway/hosting',     'supabase/supabase:free',   'posthog/analytics',
             'turso/database',      'planetscale/postgresql', 'chroma/database',
             'runloop/sandbox'
