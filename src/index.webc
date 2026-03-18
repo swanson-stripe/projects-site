@@ -223,23 +223,14 @@ changefreq: "weekly"
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-vercel data-logo-wall="1" data-provider-slug="vercel/project" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-vercel>
                                 <logo-railway data-logo-wall="2" data-provider-slug="railway/hosting" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
-                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
-                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
-                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
-                                </div>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-supabase data-logo-wall="1" data-provider-slug="supabase/supabase:free" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-supabase>
                                 <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
-                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
-                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
-                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
-                                </div>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-runloop data-logo-wall="1" data-provider-slug="runloop/sandbox" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-runloop>
                                 <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/postgresql" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
-                                <span data-logo-wall="3" class="absolute text-12 uppercase tracking-widest text-detail whitespace-nowrap translate-y-48 opacity-0 invisible">more providers coming</span>
                             </div>
                         </div>
                         <!--- Row 2: 2 logos centered on mobile, inline on sm+ --->
@@ -247,18 +238,10 @@ changefreq: "weekly"
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-turso>
                                 <logo-chroma data-logo-wall="2" data-provider-slug="chroma/database" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
-                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
-                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
-                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
-                                </div>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
                                 <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-clerk>
                                 <logo-neon data-logo-wall="2" data-provider-slug="neon/postgres" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
-                                <div data-logo-wall="3" class="absolute flex items-center gap-8 translate-y-48 opacity-0 invisible">
-                                    <div class="h-16 w-16 rounded-4 bg-neutral-100 shrink-0"></div>
-                                    <div class="h-10 w-28 rounded-4 bg-neutral-100"></div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -770,14 +753,10 @@ changefreq: "weekly"
             .to('[data-logo-wall="1"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 3)
             .to('[data-logo-wall="2"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 3.375)
             .set('[data-logo-wall="1"]', { y: 48, autoAlpha: 0 }, 4.25)
-            // 2 → 3 (t=7.125: 3.375+0.75+3)
+            // 2 → 1 (t=7.125: 3.375+0.75+3)
             .to('[data-logo-wall="2"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 7.125)
-            .to('[data-logo-wall="3"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 7.5)
-            .set('[data-logo-wall="2"]', { y: 48, autoAlpha: 0 }, 8.375)
-            // 3 → 1 (t=11.25: 7.5+0.75+3)
-            .to('[data-logo-wall="3"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 11.25)
-            .to('[data-logo-wall="1"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 11.625)
-            .set('[data-logo-wall="3"]', { y: 48, autoAlpha: 0 }, 12.5);
+            .to('[data-logo-wall="1"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 7.5)
+            .set('[data-logo-wall="2"]', { y: 48, autoAlpha: 0 }, 8.375);
             return tl;
         }
 
@@ -793,7 +772,6 @@ changefreq: "weekly"
                 logoTl.kill();
                 gsap.set('[data-logo-wall="1"]', { clearProps: 'all' });
                 gsap.set('[data-logo-wall="2"]', { clearProps: 'all' });
-                gsap.set('[data-logo-wall="3"]', { clearProps: 'all' });
                 logoTl = null;
             }
         });
