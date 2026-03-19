@@ -446,7 +446,7 @@ changefreq: "weekly"
         <!--- CTAs --->
         <helm-section class="relative mt-32 lg:mt-0 lg:pt-64 bg-foreground border-t border-edge lg:border-none lg:bg-transparent">
             <div class="w-full max-w-[calc(79.125rem+6rem)] bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">
-            <helm-container class="mx-auto relative py-72 lg:py-96 grid-cols-1 sm:grid-cols-2 grid lg:grid-cols-4 leading-140">
+            <helm-container class="mx-auto relative py-72 min-[88rem]:py-96 grid-cols-1 sm:grid-cols-2 grid min-[88rem]:grid-cols-4 leading-140">
                 <!--- Headline --->
                 <div class="relative sm:col-span-2 mb-48">
                     <h2 class="text-32/110 tracking-[-0.02em] mb-16">
@@ -482,7 +482,7 @@ changefreq: "weekly"
                     </div>
                 </div>
                 <!--- Item --->
-                <div class="relative flex flex-col items-start justify-center sm:pr-16 lg:pr-32 lg:-mt-10 sm:h-full mb-32 sm:mb-0 group/feature">
+                <div class="relative flex flex-col items-start justify-center sm:pr-16 min-[88rem]:pr-32 min-[88rem]:-mt-10 sm:h-full mb-32 sm:mb-0 group/feature">
                     <div class="w-40 flex items-center justify-center aspect-square text-neutral-0 rounded-4 mb-16 bg-primary">
                         <icon-add @size="16" weight="strong"></icon-add>
                     </div>
@@ -500,7 +500,7 @@ changefreq: "weekly"
                     </a>
                 </div>
                 <!--- Item --->
-                <div class="relative flex flex-col items-start justify-center sm:pr-16 lg:pr-32 lg:-mt-10 sm:h-full group/feature">
+                <div class="relative flex flex-col items-start justify-center sm:pr-16 min-[88rem]:pr-32 min-[88rem]:-mt-10 sm:h-full group/feature">
                     <div class="w-40 flex items-center justify-center aspect-square text-neutral-0 rounded-4 mb-16 bg-primary">
                         <icon-rocket @size="16" weight="strong" class="translate-y-0.5"></icon-rocket>
                     </div>
