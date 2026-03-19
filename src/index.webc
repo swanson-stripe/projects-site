@@ -267,7 +267,7 @@ changefreq: "weekly"
         <helm-section class="relative pt-64 pb-32 md:pt-64 md:pb-64 z-10">
             <helm-container class="md:grid md:grid-cols-2 items-center relative text-pretty">
                 <!--- Content col --->
-                <div class="relative flex flex-col items-start text-16 sm:text-18/150 text-content pr-80">
+                <div class="relative flex flex-col items-start text-16 sm:text-18/150 text-content md:pr-80">
                     <h2 class="text-headline text-28/110 sm:text-36/110 tracking-[-0.0375em] mb-16">
                         Prompt to provision
                     </h2>
