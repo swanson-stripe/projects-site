@@ -258,7 +258,7 @@ changefreq: "weekly"
                     Code generation got fast.<br>Provisioning didn’t.
                 </h2>
                 <p class="text-16 sm:text-18 text-content">
-                    Shipping an app has always meant a second job: jumping between dashboards, signing up for services, copying API keys, and clicking through configuration pages before your code is live. AI coding tools can now build an entire app in minutes, which means provisioning is now the slowest part of the process. Stripe Projects replaces all of that with a single command that handles account creation, infrastructure provisioning, credential management, and payments across providers — ready for both developers and agents to use.
+                    Shipping an app has always meant a second job: jumping between dashboards, signing up for services, copying API keys, and clicking through configuration pages before your code is live. AI coding tools can now build an entire app in minutes, which means provisioning is now the slowest part of the process. Stripe Projects replaces all of that with a single command that handles account creation, infrastructure provisioning, credential management, and payments across providers—ready for both developers and agents to use.
                 </p>
             </helm-container>
         </helm-section>
@@ -432,7 +432,7 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Manage payments, in one place
+                                Manage payments in one place
                             </h3>
                             <p class="text-content">
                                 Set up your billing details once and securely reuse them across providers. You can manage tiers, usage, and subscriptions from your CLI.
@@ -453,7 +453,7 @@ changefreq: "weekly"
                         Get started
                     </h2>
                     <p class="text-16 sm:text-18 text-detail text-balance mb-32">
-                        Install Stripe Projects to start provisioning via CLI.<br>Read our docs to learn more.
+                        Install Stripe Projects in your CLI to start provisioning.
                     </p>
                     <!--- CTAs --->
                     <div class="relative grid grid-cols-1 gap-8 w-auto min-[448px]:grid-cols-2 sm:flex flex-col sm:flex-row justify-start gap-8">
