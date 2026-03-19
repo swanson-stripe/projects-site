@@ -43,7 +43,7 @@ changefreq: "weekly"
                     </div>
                     <!--- CTAs --->
                     <div data-hero="cta" class="relative">
-                        <link-btn size="48" color="outline" href="https://docs.stripe.com/stripe-projects">
+                        <link-btn size="48" color="outline" href="https://docs.stripe.com/projects">
                             <span slot="label">View docs</span>
                             <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                         </link-btn>
@@ -222,27 +222,27 @@ changefreq: "weekly"
                         <!--- Row 1: 3 logos --->
                         <div class="logo-sub-grid grid grid-cols-3">
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-vercel data-logo-wall="1" data-provider-slug="vercel/project" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-vercel>
-                                <logo-railway data-logo-wall="2" data-provider-slug="railway/hosting" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
+                                <logo-vercel data-logo-wall="1" data-provider-slug="vercel/project" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
+                                <logo-railway data-logo-wall="2" data-provider-slug="railway/hosting" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-supabase data-logo-wall="1" data-provider-slug="supabase/supabase:free" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-supabase>
-                                <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
+                                <logo-supabase data-logo-wall="1" data-provider-slug="supabase/supabase:free" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
+                                <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-runloop data-logo-wall="1" data-provider-slug="runloop/sandbox" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-runloop>
-                                <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/postgresql" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
+                                <logo-runloop data-logo-wall="1" data-provider-slug="runloop/sandbox" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-runloop>
+                                <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/postgresql" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
                             </div>
                         </div>
                         <!--- Row 2: 2 logos centered on mobile, inline on sm+ --->
                         <div class="logo-sub-grid grid grid-cols-2 w-2/3 mx-auto">
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-turso>
-                                <logo-chroma data-logo-wall="2" data-provider-slug="chroma/database" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
+                                <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-turso>
+                                <logo-chroma data-logo-wall="2" data-provider-slug="chroma/database" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
                             </div>
                             <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto cursor-pointer"></logo-clerk>
-                                <logo-neon data-logo-wall="2" data-provider-slug="neon/postgres" class="absolute h-28 sm:h-40 w-auto translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
+                                <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-clerk>
+                                <logo-neon data-logo-wall="2" data-provider-slug="neon/postgres" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ changefreq: "weekly"
                     Code generation got fast.<br>Provisioning didn’t.
                 </h2>
                 <p class="text-16 sm:text-18 text-content">
-                    Shipping an app has always meant a second job: jumping between dashboards, signing up for services, copying API keys, and clicking through configuration pages before your code is live. AI coding tools can now build an entire app in minutes, which means provisioning is now the slowest part of the process. Stripe Projects replaces all of that with a single command that handles account creation, infrastructure provisioning, credential management, and payments across providers—ready for both developers and agents to use.
+                    Being a software engineer has always meant having a nagging second job: signing up for services, managing accounts, securing API keys, jumping between dashboards, and clicking through configuration pages—just to get your first code live. With AI, we can now code entire applications in minutes, but provisioning services remains manually cumbersome. The software factory is bottlenecked. Stripe Projects replaces all those laborious steps with programmatic commands to create accounts, provision services, store credentials, and manage billing across multiple providers. All from the CLI, ready for developers and agents, alike.
                 </p>
             </helm-container>
         </helm-section>
@@ -475,7 +475,7 @@ changefreq: "weekly"
                             </div>
                         </button>
                         <!--- CTA --->
-                        <link-btn size="48" color="outline" href="https://docs.stripe.com/stripe-projects">
+                        <link-btn size="48" color="outline" href="https://docs.stripe.com/projects">
                             <span slot="label">View docs</span>
                             <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                         </link-btn>

@@ -435,8 +435,8 @@ function PurposeContent() {
       boxSizing:     'border-box',
     }}>
       <p style={{ fontSize: '0.75rem', color: 'var(--color-text-ui)', lineHeight: 1.65, margin: 0 }}>
-        <strong style={{ fontWeight: 700 }}>Code generation got fast. Infrastructure didn't.</strong>{' '}
-        Developers still spend hours switching between dashboards, copying credentials, and configuring services by hand. Stripe Projects makes that work programmable.
+        <strong style={{ fontWeight: 700 }}>Code generation got fast. Provisioning didn't.</strong>{' '}
+        Being a software engineer has always meant a nagging second job—signing up for services, managing accounts, securing API keys, and clicking through dashboards. Stripe Projects replaces all those steps with programmatic commands, ready for developers and agents alike.
       </p>
     </div>
   );

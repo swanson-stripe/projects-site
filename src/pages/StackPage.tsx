@@ -491,7 +491,7 @@ function CtaButtons({ width }: { width?: number }) {
         How it works <ArrowUpRight size={11} strokeWidth={1.5} />
       </a>
       <a
-        href="https://stripe.com/docs/projects"
+        href="https://docs.stripe.com/projects"
         target="_blank"
         rel="noopener noreferrer"
         style={BTN_STYLE}
