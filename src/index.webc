@@ -39,7 +39,7 @@ changefreq: "weekly"
                             from the CLI
                         </h1>
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
-                            Stripe Projects lets you provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, observability, analytics, and more in a few commands.
+                            Stripe Projects lets you or your agents provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, analytics, and more in a few commands.
                         </p>
                     </div>
                     <!--- CTAs --->
@@ -270,7 +270,7 @@ changefreq: "weekly"
                         Prompt to provision
                     </h2>
                     <p class="md:mb-24">
-                        Add the services your app needs from the CLI—or let an agent do it. Stripe Projects provisions services in provider accounts you own and stores credentials in your secret store. Every command is deterministic and auditable, so the same inputs produce the same result. Your project configuration stays portable, reviewable, and ready to deploy.
+                        Add the services your app needs from the CLI—or let your agent do it. Resources are provisioned in accounts you own, credentials sync back to your environment, and changes are auditable and repeatable.
                     </p>
                 </div>
                 <!--- Commands col -->
