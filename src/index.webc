@@ -34,15 +34,28 @@ changefreq: "weekly"
                 <!--- Content --->
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
-                        <h1 data-hero="headline" class="relative text-[10vw]/100 min-[640px]:text-[9vw]/100 min-[768px]:text-64/100 tracking-tighter mb-18 max-w-640">
-                            Provision your stack<br>from the CLI
+                        <h1 data-hero="headline" class="relative text-[10vw]/100 min-[640px]:text-[9vw]/100 min-[768px]:text-64/100 tracking-tighter mb-18 text-balance min-[1024px]:text-pretty">
+                            Provision and manage services<br class="hidden min-[1024px]:inline">
+                            from the CLI
                         </h1>
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
-                            Stripe Projects gives developers and coding agents a reliable way to provision services and manage credentials across the stack from the CLI. Set up hosting, databases, auth, AI, observability, analytics, and more.
+                            Stripe Projects lets you provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, observability, analytics, and more in a few commands.
                         </p>
                     </div>
                     <!--- CTAs --->
-                    <div data-hero="cta" class="relative">
+                    <div data-hero="cta" class="relative flex flex-col min-[448px]:flex-row items-center gap-8">
+                        <button data-copy-install-cmd class="relative flex items-center justify-center px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+                            <div data-copy-install-cmd-default class="relative flex items-center gap-8">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" class="w-16 h-16 mb-1">
+                                    <path fill-rule="evenodd" d="M9.75 1.88h-7.5A1.13 1.13 0 0 0 1.13 3v6a1.13 1.13 0 0 0 1.12 1.13h7.5A1.1 1.1 0 0 0 10.88 9V3a1.1 1.1 0 0 0-1.13-1.12M2.25.75A2.25 2.25 0 0 0 0 3v6a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 12 9V3A2.25 2.25 0 0 0 9.75.75z" clip-rule="evenodd"/>
+                                    <path fill-rule="evenodd" d="M2.57 3.38a.56.56 0 0 1 .8-.06l2.62 2.25a.56.56 0 0 1 0 .86L3.37 8.68a.56.56 0 1 1-.74-.86L4.76 6 2.63 4.18a.56.56 0 0 1-.06-.8M6 8.06a.56.56 0 0 1 .56-.56H9.2a.56.56 0 1 1 0 1.12H6.56A.56.56 0 0 1 6 8.06" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="pb-2">Install CLI</span>
+                            </div>
+                            <div data-copy-install-cmd-clicked class="absolute translate-y-24 scale-75 opacity-0 invisible">
+                                <div class="-translate-y-1">Copied</div>
+                            </div>
+                        </button>
                         <link-btn size="48" color="outline" href="https://docs.stripe.com/projects">
                             <span slot="label">View docs</span>
                             <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
@@ -53,58 +66,43 @@ changefreq: "weekly"
                 <div class="relative w-full">
                     <!--- Install bar: simple flow bar on mobile, absolute card on sm+ --->
                     <!--- Mobile bar --->
-                    <div class="sm:hidden relative w-screen left-1/2 -translate-x-1/2 flex items-center gap-8 h-48 px-16 bg-foreground border-b border-edge">
-                        <div class="relative flex items-center w-full min-w-0 h-32 bg-highlight/50 rounded-6 shadow-inset-border">
-                            <div class="relative flex items-center w-full min-w-0 h-32 justify-between px-12">
-                                <div data-install-text class="relative w-full font-mono text-14 truncate">
-                                    brew install&nbsp;<span class="text-primary">stripe/stripe-cli/stripe</span>&nbsp;&&&nbsp;<span class="text-primary">stripe</span>&nbsp;plugin install&nbsp;<span class="text-primary">projects</span>
+                    <div class="sm:hidden relative w-screen left-1/2 -translate-x-1/2 flex items-center h-48 px-16 bg-foreground">
+                        <button data-copy-bar class="relative flex items-center justify-between w-full min-w-0 h-32 px-12 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none group gap-8">
+                            <div class="relative min-w-0 font-mono text-14 truncate">
+                                brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                            </div>
+                            <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
+                                <div data-copy-bar-icon class="flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                </div>
+                                <div data-copy-bar-check class="absolute flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                    <icon-check @size="12" @weight="strong"></icon-check>
                                 </div>
                             </div>
-                        </div>
-                        <div class="relative flex items-center gap-8 h-full shrink-0">
-                            <button data-copy-install class="relative flex items-center justify-center gap-8 px-16 h-32 rounded-4 text-14 text-highlight bg-primary font-normal text-content group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none">
-                                <div data-copy-install-copy class="relative flex items-center justify-center gap-8">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-16 h-16">
-                                        <path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/>
-                                    </svg>
-                                    <span class="relative pb-1">Copy</span>
-                                </div>
-                                <div data-copy-install-copied class="absolute top-0 left-0 w-full h-full flex items-center justify-center gap-8 translate-y-32 opacity-0 invisible scale-75">
-                                    <div data-copy-checked class="relative w-16 h-16 bg-highlight rounded-full flex items-center justify-center text-primary">
-                                        <icon-check @size="8" @weight="strong" ></icon-check>
-                                    </div>
-                                    <span class="relative pb-1">Copied</span>
-                                </div>
-                            </button>
-                        </div>
+                        </button>
                     </div>
                     <!--- Desktop card (sm+) --->
                     <div class="hidden sm:flex absolute top-0 left-0 rounded-12 bg-foreground border border-edge -mb-6 pb-6 -translate-y-48 -translate-x-8 w-[calc(100%+1rem)] h-[calc(100%+3.5rem)]">
                         <div class="absolute top-0 left-0 w-full flex gap-8 h-48 px-8 overflow-hidden">
-                            <div class="relative flex items-center w-full min-w-0 h-32 mt-8 bg-highlight/50 rounded-6 shadow-inset-border">
-                                <div class="relative flex items-center w-full min-w-0 h-32 justify-between px-8">
-                                    <div data-install-text class="relative w-full font-mono text-14 truncate">
-                                        brew install&nbsp;<span class="text-primary">stripe/stripe-cli/stripe</span>&nbsp;&&&nbsp;<span class="text-primary">stripe</span>&nbsp;plugin install&nbsp;<span class="text-primary">projects</span>
+                            <button data-copy-bar class="relative flex items-center w-full min-w-0 h-32 mt-8 px-8 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none text-left group">
+                                <div class="relative flex items-center justify-between w-full min-w-0 h-32 gap-8">
+                                    <div class="relative min-w-0 font-mono text-14 truncate">
+                                        brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                    </div>
+                                    <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
+                                        <div data-copy-bar-icon class="flex items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                        </div>
+                                        <div data-copy-bar-check class="absolute flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                            <icon-check @size="12" @weight="strong"></icon-check>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </button>
                             <div class="relative flex items-center gap-8 h-full shrink-0">
-                                <button data-copy-install class="relative flex items-center justify-center gap-8 px-16 h-32 rounded-4 text-14 text-highlight bg-primary font-normal text-content group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none">
-                                    <div data-copy-install-copy class="relative flex items-center justify-center gap-8">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-16 h-16">
-                                            <path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/>
-                                        </svg>
-                                        <span class="relative pb-1">Copy</span>
-                                    </div>
-                                    <div data-copy-install-copied class="absolute top-0 left-0 w-full h-full flex items-center justify-center gap-8 translate-y-32 opacity-0 invisible scale-75">
-                                        <div data-copy-checked class="relative w-16 h-16 bg-highlight rounded-full flex items-center justify-center text-primary">
-                                            <icon-check @size="8" @weight="strong" ></icon-check>
-                                        </div>
-                                        <span class="relative pb-1">Copied</span>
-                                    </div>
-                                </button>
-                                <a href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install" target="_blank" rel="noopener" class="relative flex items-center justify-center px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap">
-                                    More install options
+                                <a href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install" target="_blank" rel="noopener" class="relative flex items-center justify-center gap-4 px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap group">
+                                    <span class="-translate-y-px">More install options</span>
+                                    <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
                                 </a>
                             </div>
                         </div>
@@ -258,7 +256,7 @@ changefreq: "weekly"
                     Code generation got fast.<br>Provisioning didn’t.
                 </h2>
                 <p class="text-16 sm:text-18 text-content">
-                    Being a software engineer has always meant having a nagging second job: signing up for services, managing accounts, securing API keys, jumping between dashboards, and clicking through configuration pages—just to get your first code live. With AI, we can now code entire applications in minutes, but provisioning services remains manually cumbersome. The software factory is bottlenecked. Stripe Projects replaces all those laborious steps with programmatic commands to create accounts, provision services, store credentials, and manage billing across multiple providers. All from the CLI, ready for developers and agents, alike.
+                    Provisioning your app stack is still too manual: signing up for multiple services, managing accounts, securing API keys, jumping between dashboards, and clicking configuration pages. Stripe Projects lets you (or your agents) create and manage your software stack from the command line.
                 </p>
             </helm-container>
         </helm-section>
@@ -272,7 +270,7 @@ changefreq: "weekly"
                         Prompt to provision
                     </h2>
                     <p class="md:mb-24">
-                        Add the services your app needs from the CLI—or let an agent do it. Stripe Projects provisions resources in provider accounts you own and stores credentials in your secret store. Every command is deterministic and auditable, so the same inputs produce the same result. Your project configuration stays portable, reviewable, and ready to deploy.
+                        Add the services your app needs from the CLI—or let an agent do it. Stripe Projects provisions services in provider accounts you own and stores credentials in your secret store. Every command is deterministic and auditable, so the same inputs produce the same result. Your project configuration stays portable, reviewable, and ready to deploy.
                     </p>
                 </div>
                 <!--- Commands col -->
@@ -386,10 +384,10 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Programmatic provisioning
+                                Programmatic
                             </h3>
                             <p class="text-content">
-                                Provision and manage multiple services from the command line. No more juggling multiple dashboards or stitching together tools manually.
+                                One workflow to provision services, manage credentials, and upgrade plans, instead of different tools and workflows for every provider.
                             </p>
                         </div>
                     </li>
@@ -401,10 +399,10 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Securely create and store keys
+                                Billing
                             </h3>
                             <p class="text-content">
-                                Generate, store, and return credentials that both developers and agents can use safely and securely. 
+                                Set up your billing details once and securely share them with your SaaS stack. Upgrade and downgrade tiers, monitor usage, and manage subscriptions from the CLI.
                             </p>
                         </div>
                     </li>
@@ -417,10 +415,10 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Keep your stack portable
+                                Portable
                             </h3>
                             <p class="text-content">
-                                Work directly in provider accounts you own, with configuration that stays auditable and easy to move.
+                                Keep environment variables portable across local setups, machines, teammates, and agents.
                             </p>
                         </div>
                     </li>
@@ -432,10 +430,10 @@ changefreq: "weekly"
                         </div>
                         <div>
                             <h3 class="text-headline leading-130 font-normal mb-4">
-                                Manage payments in one place
+                                Secure
                             </h3>
                             <p class="text-content">
-                                Set up your billing details once and securely reuse them across providers. You can manage tiers, usage, and subscriptions from your CLI.
+                                Generate, store, and return service credentials for both developers and agents.
                             </p>
                         </div>
                     </li>
@@ -453,7 +451,7 @@ changefreq: "weekly"
                         Get started
                     </h2>
                     <p class="text-16 sm:text-18 text-detail text-balance mb-32">
-                        Install Stripe Projects in your CLI to start provisioning.
+                        Install Stripe Projects CLI.
                     </p>
                     <!--- CTAs --->
                     <div class="relative grid grid-cols-1 gap-8 w-auto min-[448px]:grid-cols-2 sm:flex flex-col sm:flex-row justify-start gap-8">
@@ -523,20 +521,20 @@ changefreq: "weekly"
 
     </main>
 
-    <!--- Provider copy toast --->
-    <div data-provider-toast class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 px-16 h-40 bg-headline text-highlight rounded-8 text-14 font-normal shadow-lg pointer-events-none" style="opacity:0;visibility:hidden;">
+    <!--- Copy toast --->
+    <div data-copy-toast class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 px-16 h-40 bg-headline text-highlight rounded-8 text-14 font-normal shadow-lg pointer-events-none" style="opacity:0;visibility:hidden;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-14 h-14 text-[#4ade80] shrink-0"><path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd"/></svg>
-        <span><span data-provider-toast-label>Provider</span> install command copied</span>
+        <span data-copy-toast-label>Command copied</span>
     </div>
 
     <!--- Footer --->
     <footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
-        <helm-container class="relative flex items-center justify-between py-24 border-t border-edge">
-            <div class="flex items-center gap-16">
-                <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+        <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+            <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
                 <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
             </div>
-            <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
         </helm-container>
     </footer>
 
@@ -565,27 +563,65 @@ changefreq: "weekly"
 
 <script>
 
-    // Copy install
-    function copyInstall() {
-        const install = document.querySelector('[data-install-text]').textContent;
-        navigator.clipboard.writeText(install);
-        const tl = gsap.timeline({
-            onStart: () => {
-                document.querySelectorAll('[data-copy-install]').forEach(el => el.classList.add('pointer-events-none'));
-            },
-            onComplete: () => {
-                document.querySelectorAll('[data-copy-install]').forEach(el => el.classList.remove('pointer-events-none'));
-            }
+    // Hero Install CLI button — copies plain text install command
+    (function heroInstallCopy() {
+        const btn = document.querySelector('[data-copy-install-cmd]');
+        if (!btn) return;
+        const command = 'brew install stripe/stripe-cli/stripe && stripe plugin install projects';
+        btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(command);
+            const defaultEl = btn.querySelector('[data-copy-install-cmd-default]');
+            const clickedEl = btn.querySelector('[data-copy-install-cmd-clicked]');
+            const tl = gsap.timeline({
+                onStart: () => btn.classList.add('pointer-events-none'),
+                onComplete: () => btn.classList.remove('pointer-events-none')
+            });
+            tl
+            .to(defaultEl, { y: -24, autoAlpha: 0, scale: 0.75, duration: 0.25, ease: 'power3.inOut' })
+            .to(clickedEl, { y: 0, autoAlpha: 1, scale: 1, duration: 0.25, ease: 'power3.inOut' }, 0)
+            .to(defaultEl, { y: 0, autoAlpha: 1, scale: 1, duration: 0.25, ease: 'power3.inOut' }, 2)
+            .to(clickedEl, { y: 24, autoAlpha: 0, scale: 0.75, duration: 0.25, ease: 'power3.inOut' }, 2);
         });
-        tl
-        .to('[data-copy-install-copy]', { y: -32, autoAlpha: 0, scale:0.75, duration: 0.25, ease: 'power3.out' })
-        .to('[data-copy-install-copied]', { y: 0, autoAlpha: 1, scale:1, duration: 0.25, ease: 'power3.out' }, 0)
-        .to('[data-copy-install-copy]', { y: 0, autoAlpha: 1, scale:1, duration: 0.25, ease: 'power3.out' }, 3)
-        .to('[data-copy-install-copied]', { y: 32, autoAlpha: 0, scale:0.75, duration: 0.25, ease: 'power3.out' }, 3)
+    })();
+
+    // Shared toast
+    function showCopyToast(message) {
+        const toast = document.querySelector('[data-copy-toast]');
+        const label = document.querySelector('[data-copy-toast-label]');
+        if (!toast) return;
+        if (label) label.textContent = message;
+        gsap.killTweensOf(toast);
+        gsap.fromTo(toast,
+            { autoAlpha: 0, y: 8 },
+            { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' }
+        );
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+            gsap.to(toast, { autoAlpha: 0, y: 8, duration: 0.25, ease: 'power2.in' });
+        }, 2500);
     }
-    
-    // Copy install hero events — attach to all instances (mobile + desktop)
-    document.querySelectorAll('[data-copy-install]').forEach(el => el.addEventListener('click', () => { copyInstall(); }));
+
+    // Copy bar (install command bar — mobile + desktop)
+    (function copyBarSetup() {
+        const command = 'brew install stripe/stripe-cli/stripe && stripe plugin install projects';
+        document.querySelectorAll('[data-copy-bar]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigator.clipboard.writeText(command);
+                showCopyToast('Command copied');
+                const icon = btn.querySelector('[data-copy-bar-icon]');
+                const check = btn.querySelector('[data-copy-bar-check]');
+                const tl = gsap.timeline({
+                    onStart: () => btn.classList.add('pointer-events-none'),
+                    onComplete: () => btn.classList.remove('pointer-events-none')
+                });
+                tl
+                .to(icon, { autoAlpha: 0, scale: 0.75, duration: 0.2, ease: 'power3.inOut' })
+                .to(check, { autoAlpha: 1, scale: 1, duration: 0.2, ease: 'power3.inOut' }, 0)
+                .to(icon, { autoAlpha: 1, scale: 1, duration: 0.2, ease: 'power3.inOut' }, 2)
+                .to(check, { autoAlpha: 0, scale: 0.75, duration: 0.2, ease: 'power3.inOut' }, 2);
+            });
+        });
+    })();
 
     // Copy CLI
     function copyCLI(el) {
@@ -851,29 +887,13 @@ changefreq: "weekly"
 
     // Provider logo click — copy install command + show toast
     (function providerCopy() {
-        const toast = document.querySelector('[data-provider-toast]');
-        const toastLabel = document.querySelector('[data-provider-toast-label]');
-        let toastTimer;
-
-        function showToast(name) {
-            if (!toast) return;
-            if (toastLabel) toastLabel.textContent = name;
-            clearTimeout(toastTimer);
-            gsap.killTweensOf(toast);
-            gsap.fromTo(toast,
-                { autoAlpha: 0, y: 8 },
-                { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' }
-            );
-            toastTimer = setTimeout(() => {
-                gsap.to(toast, { autoAlpha: 0, y: 8, duration: 0.25, ease: 'power2.in' });
-            }, 2500);
-        }
-
         document.querySelectorAll('[data-provider-slug]').forEach(el => {
             el.addEventListener('click', () => {
                 const slug = el.getAttribute('data-provider-slug');
                 const name = slug.split('/')[0].replace(/^\w/, c => c.toUpperCase());
-                navigator.clipboard.writeText(`stripe projects add ${slug}`).then(() => showToast(name));
+                navigator.clipboard.writeText(`stripe projects add ${slug}`).then(() => {
+                    showCopyToast(`${name} install command copied`);
+                });
             });
         });
     })();
