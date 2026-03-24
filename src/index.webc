@@ -1,12 +1,12 @@
 ---
 layout: "main.webc"
 title: "Home"
-seoTitle: "Stripe Projects: Provision your stack from the CLI"
-ogTitle: "Stripe Projects: Provision your stack from the CLI"
-seoDesc: Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
-ogDesc: Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
-ogImage: "/assets/images/og/default.jpg"
-ogImageAlt: ""
+seoTitle: "Stripe Projects: Provision and manage services from the CLI"
+ogTitle: "Stripe Projects: Provision and manage services from the CLI"
+seoDesc: "Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
+ogDesc: "Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
+ogImage: "/assets/images/og/og.png"
+ogImageAlt: "Stripe Projects — Provision your stack from the CLI"
 changefreq: "weekly"
 ---
 
@@ -447,9 +447,9 @@ changefreq: "weekly"
         </helm-section>
 
         <!--- CTAs --->
-        <helm-section class="relative mt-32 lg:mt-0 lg:pt-64 bg-foreground border-t border-edge lg:border-none lg:bg-transparent">
-            <div class="w-full max-w-[calc(79.125rem+6rem)] bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">
-            <helm-container class="mx-auto relative py-72 min-[88rem]:py-96 grid-cols-1 sm:grid-cols-2 grid min-[88rem]:grid-cols-4 leading-140">
+        <helm-section class="relative mt-32 lg:mt-0 lg:pt-64 bg-foreground border-t border-edge lg:border-none lg:bg-transparent lg:px-16">
+            <div class="w-full max-w-[calc(79.125rem+6rem)] mx-auto bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">
+            <helm-container class="mx-auto relative py-72 min-[88rem]:py-96 px-16 sm:px-24 grid-cols-1 sm:grid-cols-2 grid min-[88rem]:grid-cols-4 leading-140">
                 <!--- Headline --->
                 <div class="relative sm:col-span-2 mb-48">
                     <h2 class="text-32/110 tracking-[-0.02em] mb-16">

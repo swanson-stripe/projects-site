@@ -20,12 +20,12 @@
     <meta property="og:image:alt" :content="this.ogImageAlt" />
 
     <!--- Twitter --->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" :content="base.twitterHandle" />
-    <meta name="twitter:creator" :content="base.twitterHandle" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@stripe" />
+    <meta name="twitter:title" :content="this.ogTitle" />
+    <meta name="twitter:description" :content="this.ogDesc" />
+    <meta name="twitter:image" :content="base.url + this.ogImage" />
 
-    <!--- Prevent Indexing --->
-    <meta name="robots" content="noindex, nofollow">
 
     <!--- Load fonts --->
     <link rel="preload" href="/assets/fonts/Sohne.woff2" as="font" type="font/woff2" crossorigin>
@@ -49,10 +49,7 @@
     <style @raw="getBundle('css')" webc:keep></style>
 
     <!--- Icons --->
-    <link rel="icon" type="image/png" href="/assets/images/favicon/icon-96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/images/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png" />
 
     <!--- Plausible --->
     <script webc:if="base.env !== 'local'" webc:keep async src="https://plausible.io/js/pa-tq9B_F5RcJtNJMu8LenIq.js"></script>
