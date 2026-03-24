@@ -15,7 +15,7 @@ changefreq: "weekly"
 
     <!--- Header --->
     <header class="relative w-full flex items-center justify-center px-16 z-50 group/header">
-        <helm-container class="relative pt-24 pb-12 flex items-center justify-center">
+        <helm-container class="relative pt-24 pb-0 flex items-center justify-center">
             <div data-header="logo" class="relative flex items-center h-40 gap-4">
                 <div class="relative flex items-center gap-8 h-full px-10 -ml-9">
                     <icon-logo class="h-[1em] w-auto text-headline"></icon-logo>
@@ -30,7 +30,10 @@ changefreq: "weekly"
 
         <!--- Hero --->
         <helm-section class="relative z-20">
-            <helm-container class="relative flex flex-col pt-24 sm:pt-48">
+            <helm-container class="relative flex flex-col items-center pt-12 sm:pt-12">
+                <span class="inline-flex items-center px-8 py-4 rounded-full text-10 tracking-widest uppercase text-neutral-0 whitespace-nowrap bg-cover bg-center mb-40" style="background-image: url('/assets/images/badge-bg.png');">Developer Preview</span>
+            </helm-container>
+            <helm-container class="relative flex flex-col pt-0">
                 <!--- Content --->
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
@@ -69,7 +72,7 @@ changefreq: "weekly"
                     <div class="sm:hidden relative w-screen left-1/2 -translate-x-1/2 flex items-center h-48 px-16 bg-foreground">
                         <button data-copy-bar class="relative flex items-center justify-between w-full min-w-0 h-32 px-12 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none group gap-8">
                             <div class="relative min-w-0 font-mono text-14 truncate">
-                                brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                             </div>
                             <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
                                 <div data-copy-bar-icon class="flex items-center justify-center">
@@ -87,7 +90,7 @@ changefreq: "weekly"
                             <button data-copy-bar class="relative flex items-center w-full min-w-0 h-32 mt-8 px-8 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none text-left group">
                                 <div class="relative flex items-center justify-between w-full min-w-0 h-32 gap-8">
                                     <div class="relative min-w-0 font-mono text-14 truncate">
-                                        brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                        <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                                     </div>
                                     <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
                                         <div data-copy-bar-icon class="flex items-center justify-center">
@@ -207,42 +210,44 @@ changefreq: "weekly"
         </helm-section>
 
         <!--- Logos --->
-        <helm-section class="relative z-10 pt-32 sm:pt-16 pb-36 md:pb-0 overflow-hidden">
-            <helm-container class="relative flex md:h-64">
-                <div class="relative w-full flex flex-col sm:flex-row sm:items-center gap-y-16">
-                    <!--- Label (static) --->
-                    <div class="relative shrink-0 sm:pr-32 flex flex-col sm:flex-row sm:items-center gap-8 items-center">
-                        <span class="uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
-                        <span class="inline-flex items-center px-8 py-4 rounded-full bg-foreground text-10 tracking-widest uppercase text-detail whitespace-nowrap">+ More soon</span>
+        <helm-section class="relative z-10 pt-32 sm:pt-40 pb-36 md:pb-0 overflow-hidden">
+            <helm-container class="relative flex flex-col items-center gap-24">
+                <!--- Label --->
+                <div class="relative flex flex-col sm:flex-row items-center gap-8">
+                    <span class="uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
+                    <span class="inline-flex items-center px-8 py-4 rounded-full bg-foreground text-10 tracking-widest uppercase text-detail whitespace-nowrap">+ More soon</span>
+                </div>
+                <!--- Logo grid: 5 cols x 2 rows --->
+                <div class="grid grid-cols-3 sm:grid-cols-5 gap-y-24 gap-x-16 w-full max-w-896">
+                    <div class="flex items-center justify-center h-40">
+                        <logo-vercel data-provider-slug="vercel/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
                     </div>
-                    <!--- Logos: mobile = two sub-grids (3 top + 2 centered below), sm+ = 5-col single row --->
-                    <div class="logo-main-grid flex-1">
-                        <!--- Row 1: 3 logos --->
-                        <div class="logo-sub-grid grid grid-cols-3">
-                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-vercel data-logo-wall="1" data-provider-slug="vercel/project" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
-                                <logo-railway data-logo-wall="2" data-provider-slug="railway/hosting" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-railway>
-                            </div>
-                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-supabase data-logo-wall="1" data-provider-slug="supabase/supabase:free" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
-                                <logo-posthog data-logo-wall="2" data-provider-slug="posthog/analytics" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-posthog>
-                            </div>
-                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-runloop data-logo-wall="1" data-provider-slug="runloop/sandbox" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-runloop>
-                                <logo-planetscale data-logo-wall="2" data-provider-slug="planetscale/postgresql" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-planetscale>
-                            </div>
-                        </div>
-                        <!--- Row 2: 2 logos centered on mobile, inline on sm+ --->
-                        <div class="logo-sub-grid grid grid-cols-2 w-2/3 mx-auto">
-                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-turso data-logo-wall="1" data-provider-slug="turso/database" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-turso>
-                                <logo-chroma data-logo-wall="2" data-provider-slug="chroma/database" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-chroma>
-                            </div>
-                            <div class="relative overflow-hidden flex items-center justify-center h-32 sm:h-40">
-                                <logo-clerk data-logo-wall="1" data-provider-slug="clerk/auth" class="relative h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-clerk>
-                                <logo-neon data-logo-wall="2" data-provider-slug="neon/postgres" class="absolute h-28 sm:h-40 w-auto max-w-full translate-y-48 opacity-0 invisible cursor-pointer"></logo-neon>
-                            </div>
-                        </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-supabase data-provider-slug="supabase/supabase:free" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-runloop data-provider-slug="runloop/sandbox" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-runloop>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-turso data-provider-slug="turso/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-turso>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-clerk data-provider-slug="clerk/auth" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-clerk>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-railway data-provider-slug="railway/hosting" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-railway>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-planetscale data-provider-slug="planetscale/postgresql" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-planetscale>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-chroma data-provider-slug="chroma/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-chroma>
+                    </div>
+                    <div class="flex items-center justify-center h-40 col-start-2 sm:col-auto">
+                        <logo-neon data-provider-slug="neon/postgres" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-neon>
                     </div>
                 </div>
             </helm-container>
@@ -540,26 +545,6 @@ changefreq: "weekly"
 
 </div>
 
-<style>
-  @media (min-width: 40rem) {
-    .logo-main-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      align-items: center;
-      gap: 0;
-    }
-    .logo-sub-grid {
-      display: contents;
-    }
-  }
-  @media (max-width: 39.9375rem) {
-    .logo-main-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 2.25rem;
-    }
-  }
-</style>
 
 <script>
 
@@ -777,43 +762,6 @@ changefreq: "weekly"
     }
     terminalSequence();
 
-    // Logo carousel
-    function responsiveLogos() {
-        const mediaQuery = window.matchMedia('(min-width: 640px)');
-
-        function logoAnimate() {
-            // Each set is shown for 3s. Transition: exit 0.5s, enter starts at +0.375s, enter 0.75s, total ~1.25s.
-            // Timeline: set1(3s) → set2(3s) → set3(3s) → repeat
-            const tl = gsap.timeline({ repeat: -1 });
-            tl
-            // 1 → 2 (t=3)
-            .to('[data-logo-wall="1"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 3)
-            .to('[data-logo-wall="2"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 3.375)
-            .set('[data-logo-wall="1"]', { y: 48, autoAlpha: 0 }, 4.25)
-            // 2 → 1 (t=7.125: 3.375+0.75+3)
-            .to('[data-logo-wall="2"]', { y: -48, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: 'power3.in' }, 7.125)
-            .to('[data-logo-wall="1"]', { y: 0, autoAlpha: 1, duration: 0.75, stagger: 0.05, ease: 'power3.out' }, 7.5)
-            .set('[data-logo-wall="2"]', { y: 48, autoAlpha: 0 }, 8.375);
-            return tl;
-        }
-
-        let logoTl;
-        if (mediaQuery.matches) {
-            logoTl = logoAnimate();
-        }
-
-        mediaQuery.addEventListener('change', (e) => {
-            if (e.matches) {
-                logoTl = logoAnimate();
-            } else if (logoTl) {
-                logoTl.kill();
-                gsap.set('[data-logo-wall="1"]', { clearProps: 'all' });
-                gsap.set('[data-logo-wall="2"]', { clearProps: 'all' });
-                logoTl = null;
-            }
-        });
-    }
-    responsiveLogos();
 
     // Input gradient follow cursor (supports multiple [data-container-hover-follow] elements)
     function followCursorOnHover() {

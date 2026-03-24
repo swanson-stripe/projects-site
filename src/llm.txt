@@ -1,0 +1,126 @@
+# Stripe Projects
+
+> Provision and manage services from the CLI.
+
+Stripe Projects lets you or your agents provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, analytics, and more in a few commands.
+
+- Website: https://projects.dev
+- Provider catalog: https://projects.dev/providers/
+- Documentation: https://docs.stripe.com/projects
+- Install options: https://docs.stripe.com/stripe-cli/install
+
+## Install
+
+Stripe Projects is a plugin for the Stripe CLI. Install both with:
+
+```
+brew install stripe/stripe-cli/stripe && stripe plugin install projects
+```
+
+For other install methods (Windows, Linux, Docker), see: https://docs.stripe.com/stripe-cli/install
+
+## What It Does
+
+Stripe Projects replaces the manual process of signing up for services, managing accounts, securing API keys, jumping between dashboards, and clicking through configuration pages. Instead, you provision and manage your entire software stack from the command line.
+
+Key capabilities:
+
+- **Programmatic**: One workflow to provision services, manage credentials, and upgrade plans, instead of different tools and workflows for every provider.
+- **Billing**: Set up your billing details once and securely share them with your SaaS stack. Upgrade and downgrade tiers, monitor usage, and manage subscriptions from the CLI.
+- **Portable**: Keep environment variables portable across local setups, machines, teammates, and agents.
+- **Secure**: Generate, store, and return service credentials for both developers and agents.
+
+## Supported Providers
+
+Stripe Projects currently supports the following providers and services:
+
+| Provider | Service slug | Category |
+|---|---|---|
+| Vercel | vercel/project | Hosting |
+| Railway | railway/hosting | Hosting |
+| Supabase | supabase/supabase:free | Database |
+| Neon | neon/postgres | Database |
+| Turso | turso/database | Database |
+| PlanetScale | planetscale/postgresql | Database |
+| Chroma | chroma/database | Database (vector) |
+| Clerk | clerk/auth | Authentication |
+| PostHog | posthog/analytics | Analytics |
+| Runloop | runloop/sandbox | Sandbox / Compute |
+
+More providers are being added. To suggest a provider, email provider-request@stripe.com.
+
+## CLI Commands
+
+### Project lifecycle
+
+```
+stripe projects init <project-name>     # Create a new project
+stripe projects status                   # View current project, linked providers, and resources
+```
+
+### Browsing providers
+
+```
+stripe projects catalog                  # List all available providers and services
+stripe projects providers                # List providers you have linked
+stripe projects providers link <provider> # Authenticate with a specific provider
+```
+
+### Provisioning services
+
+```
+stripe projects services add <provider>/<service>             # Provision a service
+stripe projects services add <provider>/<service> --name <n>  # Provision with a custom resource name
+stripe projects services add <provider>/<service> --config '<json>' # Provision with configuration
+```
+
+When you provision a service, Stripe Projects:
+1. Creates the resource in the provider account you own
+2. Generates credentials
+3. Syncs credentials to your local environment (.env)
+4. Stores configuration in .projects/
+
+### Managing credentials
+
+```
+stripe projects env                # View credentials (redacted by default)
+stripe projects env --reveal       # View actual credential values
+stripe projects env sync           # Write credentials to local .env file
+```
+
+### Upgrading services
+
+```
+stripe projects upgrade <provider>  # Upgrade a provider's service tier
+```
+
+## Agent Usage
+
+Stripe Projects is designed to be used by both developers and AI coding agents. Agents can:
+
+1. Run `stripe projects status` to inspect the current project state.
+2. Use `stripe projects catalog` to discover available services.
+3. Provision services with `stripe projects services add <provider>/<service>`.
+4. Access credentials via `stripe projects env` or by reading the synced `.env` file.
+5. Use the `--json` flag on any command for structured output that is easier to parse programmatically.
+
+Important rules for agents:
+- Never read or edit files in the `.projects/` directory directly. The CLI manages that state.
+- Never read the `.env` file directly to discover what's available. Use `stripe projects env` instead.
+- Commands can be run from the project root or any nested directory within the project.
+
+## Deployment
+
+To deploy a project provisioned with Stripe Projects, copy these files to the remote host:
+
+- `.env`
+- `.projects/state.json`
+- `.projects/state.local.json`
+
+Deploying may require provisioning a compute provider (e.g., Vercel or Railway) first.
+
+## Contact
+
+- Provider partnership inquiries: provider-request@stripe.com
+- Documentation: https://docs.stripe.com/projects
+- Privacy & Terms: https://stripe.com/privacy
