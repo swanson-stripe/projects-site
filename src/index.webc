@@ -5,8 +5,9 @@ seoTitle: "Stripe Projects: Provision and manage services from the CLI"
 ogTitle: "Stripe Projects: Provision and manage services from the CLI"
 seoDesc: "Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
 ogDesc: "Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack."
-ogImage: "/assets/images/og/og.png"
+ogImage: "/assets/images/og/og.jpg"
 ogImageAlt: "Stripe Projects — Provision your stack from the CLI"
+twitterImage: "/assets/images/og/twitter-large.jpg"
 changefreq: "weekly"
 ---
 
@@ -38,8 +39,7 @@ changefreq: "weekly"
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
                         <h1 data-hero="headline" class="relative text-[10vw]/100 min-[640px]:text-[9vw]/100 min-[768px]:text-64/100 tracking-tighter mb-18 text-balance min-[1024px]:text-pretty">
-                            Provision and manage services<br class="hidden min-[1024px]:inline">
-                            from the CLI
+                            Provision and manage services<br class="hidden min-[1024px]:inline"> from the CLI
                         </h1>
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
                             Stripe Projects lets you or your agents provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, analytics, and more in a few commands.
