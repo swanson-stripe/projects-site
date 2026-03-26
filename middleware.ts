@@ -150,34 +150,7 @@ export default async function middleware(req: Request): Promise<Response | void>
   const url = new URL(req.url);
   const path = url.pathname;
 
-  /* ── Password gate (production only) ─────────────────────────── */
-  if (process.env.VERCEL_ENV === 'production') {
-    const sitePassword = process.env.SITE_PASSWORD ?? '';
-
-    /* Handle POST /auth — validate password and set cookie */
-    if (req.method === 'POST' && path === '/auth') {
-      const form = await req.formData();
-      const submitted = form.get('password') as string ?? '';
-      const redirectTo = (form.get('redirect') as string) || '/';
-
-      if (submitted === sitePassword) {
-        return new Response(null, {
-          status: 302,
-          headers: {
-            'Location': redirectTo,
-            'Set-Cookie': `auth=${sitePassword}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
-          },
-        });
-      }
-      return passwordFormHtml(redirectTo, true);
-    }
-
-    /* All other requests — check for valid auth cookie */
-    const authCookie = getCookie(req, 'auth');
-    if (authCookie !== sitePassword) {
-      return passwordFormHtml(url.pathname + url.search);
-    }
-  }
+  /* ── Password gate — DISABLED for public access ─────────────── */
 
   /* ── Bot / OG handling ────────────────────────────────────────── */
   if (!isBot(req)) return;

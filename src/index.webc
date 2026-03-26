@@ -39,14 +39,14 @@ changefreq: "weekly"
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
                         <h1 data-hero="headline" class="relative text-[10vw]/100 min-[640px]:text-[9vw]/100 min-[768px]:text-64/100 tracking-tighter mb-18 text-balance min-[1024px]:text-pretty">
-                            Provision and manage services<br class="hidden min-[1024px]:inline"> from the CLI
+                            Provision and manage services from the CLI
                         </h1>
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
                             Stripe Projects lets you or your agents provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, analytics, and more in a few commands.
                         </p>
                     </div>
                     <!--- CTAs --->
-                    <div data-hero="cta" class="relative w-full grid grid-cols-1 gap-8 min-[448px]:flex min-[448px]:flex-row min-[448px]:justify-center min-[448px]:w-auto">
+                    <div data-hero="cta" class="relative flex flex-col min-[448px]:flex-row items-center gap-8">
                         <!--- Variant: install --->
                         <button webc:if="base.ctaMode === 'install'" data-copy-install-cmd class="relative flex items-center justify-center px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                             <div data-copy-install-cmd-default class="relative flex items-center gap-8">
@@ -474,7 +474,7 @@ changefreq: "weekly"
                         Get early access to Stripe Projects.
                     </p>
                     <!--- CTAs --->
-                    <div class="relative grid grid-cols-1 gap-8 w-auto min-[448px]:grid-cols-2 sm:flex flex-col sm:flex-row justify-start gap-8">
+                    <div class="relative flex flex-col min-[448px]:flex-row items-start gap-8">
                         <!--- Variant: install --->
                         <button webc:if="base.ctaMode === 'install'" data-copy-cli="brew install stripe/stripe-cli/stripe && stripe plugin install projects" class="relative flex items-center justify-center px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                             <div data-copy-cli-default class="relative flex items-center gap-8">
