@@ -158,10 +158,11 @@ export default async function middleware(req: Request): Promise<Response | void>
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
     return ogHtml({
-      title: 'stripe projects',
-      description: 'From idea to production. One command, real infrastructure.',
-      imageUrl: `${SITE_URL}/api/og?type=home`,
+      title: 'Stripe Projects: Provision and manage services from the CLI',
+      description: 'Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack.',
+      imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
       pageUrl: SITE_URL,
+      siteName: 'Stripe Projects',
     });
   }
 
@@ -189,7 +190,7 @@ export default async function middleware(req: Request): Promise<Response | void>
     return ogHtml({
       title,
       description,
-      imageUrl: `${SITE_URL}/api/og?code=${code}`,
+      imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
       pageUrl: `${SITE_URL}/${code}`,
     });
   }
