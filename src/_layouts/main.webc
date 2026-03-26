@@ -56,6 +56,9 @@
     <!--- Plausible --->
     <script webc:if="base.env !== 'local'" webc:keep async src="https://plausible.io/js/pa-tq9B_F5RcJtNJMu8LenIq.js"></script>
     <script webc:if="base.env !== 'local'" webc:keep>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}; plausible.init();</script>
+
+    <!--- Vercel Analytics --->
+    <script webc:keep defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 
 <body class="text-headline bg-highlight font-sans font-light antialiased">
