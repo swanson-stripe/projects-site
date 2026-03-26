@@ -46,7 +46,7 @@ changefreq: "weekly"
                         </p>
                     </div>
                     <!--- CTAs --->
-                    <div data-hero="cta" class="relative flex flex-col min-[448px]:flex-row items-center gap-8">
+                    <div data-hero="cta" class="relative w-full grid grid-cols-1 gap-8 min-[448px]:flex min-[448px]:flex-row min-[448px]:justify-center min-[448px]:w-auto">
                         <!--- Variant: install --->
                         <button webc:if="base.ctaMode === 'install'" data-copy-install-cmd class="relative flex items-center justify-center px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                             <div data-copy-install-cmd-default class="relative flex items-center gap-8">
@@ -881,12 +881,13 @@ changefreq: "weekly"
             modal = document.createElement('div');
             modal.style.cssText = 'position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;';
             modal.innerHTML = '<div data-request-modal-backdrop style="position:absolute;inset:0;background:rgba(6,27,49,0.6);backdrop-filter:blur(4px);"></div>'
-                + '<div style="position:relative;width:100%;max-width:50rem;height:min(90vh,720px);margin:0 1rem;background:#fff;border-radius:0.75rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);overflow:hidden;display:flex;flex-direction:column;">'
-                + '<div style="display:flex;align-items:center;justify-content:flex-end;height:3rem;padding:0 0.5rem;flex-shrink:0;">'
-                + '<button onclick="closeRequestModal()" style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:0.25rem;border:none;background:transparent;color:#6b7280;cursor:pointer;" onmouseover="this.style.color=\'#111\';this.style.background=\'#f3f4f6\'" onmouseout="this.style.color=\'#6b7280\';this.style.background=\'transparent\'">'
+                + '<div style="position:relative;width:calc(100% - 2rem);max-width:50rem;height:calc(100% - 2rem);max-height:720px;background:#fff;border-radius:0.75rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);overflow:hidden;">'
+                + '<button onclick="closeRequestModal()" style="position:absolute;top:0.75rem;right:0.75rem;z-index:10;display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:0.25rem;border:none;background:rgba(255,255,255,0.9);color:#6b7280;cursor:pointer;backdrop-filter:blur(4px);" onmouseover="this.style.color=\'#111\';this.style.background=\'rgba(243,244,246,0.95)\'" onmouseout="this.style.color=\'#6b7280\';this.style.background=\'rgba(255,255,255,0.9)\'">'
                 + '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>'
-                + '</button></div>'
-                + '<iframe src="https://go.stripe.global/agentic-commerce-contact-sales.html" style="width:100%;flex:1;border:0;" allow="clipboard-write"></iframe>'
+                + '</button>'
+                + '<div style="width:100%;height:100%;overflow:hidden;">'
+                + '<iframe src="https://go.stripe.global/Stripe-Projects.html" style="width:calc(100% + 20px);height:100%;border:0;display:block;" allow="clipboard-write"></iframe>'
+                + '</div>'
                 + '</div>';
             document.body.appendChild(modal);
 
