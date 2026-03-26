@@ -164,8 +164,8 @@ export default async function middleware(req: Request): Promise<Response | void>
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
     return ogHtml({
-      title: 'Stripe Projects: Provision and manage services from the CLI',
-      description: 'Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack.',
+      title: 'Stripe Projects | Provision and Manage Services from the CLI',
+      description: 'Enable you or your agents to provision hosting, databases, auth, AI, and more from the CLI. Generate credentials and manage usage and billing in one place.',
       imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
       pageUrl: SITE_URL,
       twitterImage: `${SITE_URL}/assets/images/og/twitter-large.jpg`,
