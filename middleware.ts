@@ -118,26 +118,32 @@ function ogHtml(tags: {
   imageUrl: string;
   pageUrl: string;
   siteName?: string;
+  twitterImage?: string;
 }): Response {
-  const { title, description, imageUrl, pageUrl, siteName = 'projects' } = tags;
+  const { title, description, imageUrl, pageUrl, siteName = 'Stripe Projects', twitterImage } = tags;
+  const twImg = twitterImage || imageUrl;
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>${title}</title>
-  <link rel="icon" type="image/svg+xml" href="${SITE_URL}/logo-24-stripe.svg" />
+  <meta name="description" content="${description}" />
+  <link rel="icon" type="image/svg+xml" href="${SITE_URL}/assets/images/favicon/favicon.svg" />
   <meta property="og:site_name" content="${siteName}" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${title}" />
   <meta property="og:description" content="${description}" />
-  <meta property="og:image" content="${imageUrl}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
   <meta property="og:url" content="${pageUrl}" />
+  <meta property="og:image" content="${imageUrl}" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="535" />
+  <meta property="og:image:alt" content="${title}" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@stripe" />
   <meta name="twitter:title" content="${title}" />
   <meta name="twitter:description" content="${description}" />
-  <meta name="twitter:image" content="${imageUrl}" />
+  <meta name="twitter:image" content="${twImg}" />
 </head>
 <body></body>
 </html>`;
@@ -162,7 +168,7 @@ export default async function middleware(req: Request): Promise<Response | void>
       description: 'Set up hosting, databases, auth, AI, observability, analytics, and more from the CLI. Stripe Projects gives developers and coding agents a reliable way to provision real services, manage credentials, and keep track of usage across the stack.',
       imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
       pageUrl: SITE_URL,
-      siteName: 'Stripe Projects',
+      twitterImage: `${SITE_URL}/assets/images/og/twitter-large.jpg`,
     });
   }
 
