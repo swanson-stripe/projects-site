@@ -876,7 +876,7 @@ changefreq: "weekly"
         let modal = null;
 
         window.openRequestModal = function() {
-            if (modal) { modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; gsap.fromTo(modal, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' }); return; }
+            if (modal) { modal.remove(); modal = null; }
 
             modal = document.createElement('div');
             modal.style.cssText = 'position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;';
@@ -902,12 +902,12 @@ changefreq: "weekly"
         window.closeRequestModal = function() {
             if (!modal) return;
             gsap.to(modal, { opacity: 0, duration: 0.2, ease: 'power2.in',
-                onComplete: () => { modal.style.display = 'none'; document.body.style.overflow = ''; }
+                onComplete: () => { modal.remove(); modal = null; document.body.style.overflow = ''; }
             });
         };
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal && modal.style.display !== 'none') closeRequestModal();
+            if (e.key === 'Escape' && modal) closeRequestModal();
         });
     })();
 
