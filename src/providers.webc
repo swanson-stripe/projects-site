@@ -31,7 +31,7 @@ wave: false
         <helm-section class="relative z-10">
             <helm-container class="pt-24 sm:pt-48 pb-32">
                 <h1 class="text-36/110 sm:text-48/110 tracking-tighter text-headline mb-8">Providers</h1>
-                <p class="text-16 sm:text-18/150 text-content max-w-640">Browse and provision services from supported providers. Click any install command to copy it.</p>
+                <p class="text-16 sm:text-18/150 text-content">Browse and provision services from supported providers. Click any install command to copy it.</p>
             </helm-container>
         </helm-section>
 
