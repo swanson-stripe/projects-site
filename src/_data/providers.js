@@ -56,7 +56,7 @@ export default [
   {
     name: "Chroma",
     slug: "chroma/database",
-    category: "ai",
+    category: "vector-db",
     description: "AI-native vector database",
     longDescription: "Fast, serverless, and scalable search engine supporting vector, full-text, regex, and metadata search. Built on object storage and trusted by millions of developers. Open-source Apache 2.0.",
     url: "https://trychroma.com",
@@ -83,7 +83,7 @@ export default [
   {
     name: "Runloop",
     slug: "runloop/sandbox",
-    category: "ai",
+    category: "sandbox",
     description: "AI dev infrastructure",
     longDescription: "Runloop provides secure execution infrastructure for AI agents. Run agent workloads inside isolated micro-VM sandboxes, allowing agents to safely execute code, use tools, and access external systems.",
     url: "https://runloop.ai",
