@@ -1,0 +1,526 @@
+---
+layout: "main.webc"
+title: "Providers"
+seoTitle: "Stripe Projects: Providers"
+ogTitle: "Stripe Projects: Providers"
+seoDesc: "Browse all supported providers in the Stripe Projects catalog. Provision hosting, databases, auth, AI, analytics, and more from the CLI."
+ogDesc: "Browse all supported providers in the Stripe Projects catalog. Provision hosting, databases, auth, AI, analytics, and more from the CLI."
+ogImage: "/assets/images/og/default.jpg"
+ogImageAlt: ""
+changefreq: "weekly"
+wave: false
+---
+
+<div class="relative w-full">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50">
+        <helm-container class="relative pt-24 pb-12 flex items-center justify-center">
+            <a href="/" class="relative flex items-center h-40 gap-4">
+                <div class="relative flex items-center gap-8 h-full px-10 -ml-9">
+                    <icon-logo class="h-[1em] w-auto text-headline"></icon-logo>
+                    <span class="text-16 font-normal text-headline">Stripe Projects</span>
+                </div>
+            </a>
+        </helm-container>
+    </header>
+
+    <main id="main">
+
+        <!--- Page header --->
+        <helm-section class="relative z-10">
+            <helm-container class="pt-24 sm:pt-48 pb-32">
+                <h1 class="text-36/110 sm:text-48/110 tracking-tighter text-headline mb-8">Providers</h1>
+                <p class="text-16 sm:text-18/150 text-content max-w-640">Browse and provision services from supported providers. Click any install command to copy it.</p>
+            </helm-container>
+        </helm-section>
+
+        <!--- Main content --->
+        <helm-section class="relative z-10 pb-64">
+            <helm-container class="relative md:grid md:grid-cols-[1fr_280px] gap-32 items-start">
+
+                <!--- Left column --->
+                <div class="relative">
+
+                    <!--- Search + filter --->
+                    <div class="relative flex flex-col sm:flex-row gap-12 mb-24">
+                        <div class="relative flex-1">
+                            <input data-provider-search type="text" placeholder="Search providers..." class="w-full h-40 px-12 bg-highlight rounded-6 shadow-inset-border text-14 text-headline placeholder:text-detail outline-none focus:shadow-focus transition-shadow duration-200">
+                        </div>
+                        <div data-category-pills class="relative flex items-center gap-6 flex-wrap">
+                            <button data-category="all" class="provider-pill active px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">All</button>
+                            <button data-category="hosting" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Hosting</button>
+                            <button data-category="database" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Database</button>
+                            <button data-category="ai" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">AI</button>
+                            <button data-category="auth" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Auth</button>
+                            <button data-category="analytics" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Analytics</button>
+                        </div>
+                    </div>
+
+                    <!--- Provider table --->
+                    <div class="relative rounded-6 border border-edge overflow-hidden">
+
+                        <!--- Table header --->
+                        <div class="hidden sm:grid grid-cols-[2fr_3fr_auto] gap-16 px-16 py-10 bg-foreground border-b border-edge text-12 text-detail uppercase tracking-wider">
+                            <span>Provider</span>
+                            <span>Description</span>
+                            <span class="text-right">Install command</span>
+                        </div>
+
+                        <!--- Provider rows --->
+                        <div data-provider-list>
+
+                            <!--- Vercel --->
+                            <div data-provider-row data-name="vercel" data-category="hosting" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-vercel class="h-28 w-auto max-w-full"></logo-vercel>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Vercel</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Hosting</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Frontend cloud platform. Deploy to the edge with automatic CI/CD, edge functions, and global CDN.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add vercel/project" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add vercel/project</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Railway --->
+                            <div data-provider-row data-name="railway" data-category="hosting" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-railway class="h-28 w-auto max-w-full"></logo-railway>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Railway</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Hosting</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Infrastructure for devs. Deploy servers, databases, and cron jobs with zero ops overhead.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add railway/hosting" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add railway/hosting</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Supabase --->
+                            <div data-provider-row data-name="supabase" data-category="database" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-supabase class="h-28 w-auto max-w-full"></logo-supabase>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Supabase</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Database</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Open source Firebase alternative with managed Postgres, Auth, Storage, Edge Functions, Realtime, and Vector search.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add supabase/supabase:free" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add supabase/supabase:free</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Neon --->
+                            <div data-provider-row data-name="neon" data-category="database" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-neon class="h-28 w-auto max-w-full"></logo-neon>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Neon</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Database</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Serverless Postgres with instant provisioning, autoscaling, and database branching.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add neon/postgres" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add neon/postgres</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Turso --->
+                            <div data-provider-row data-name="turso" data-category="database" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-turso class="h-28 w-auto max-w-full"></logo-turso>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Turso</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Database</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">SQLite for the agentic era. Lightweight, replicated databases with built-in vector search and automatic sync.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add turso/database" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add turso/database</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- PlanetScale --->
+                            <div data-provider-row data-name="planetscale" data-category="database" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-planetscale class="h-28 w-auto max-w-full"></logo-planetscale>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">PlanetScale</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Database</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Serverless MySQL platform with NVMe-backed performance, horizontal sharding, and enterprise-grade reliability.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add planetscale/postgresql" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add planetscale/postgresql</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Chroma --->
+                            <div data-provider-row data-name="chroma" data-category="ai" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-chroma class="h-28 w-auto max-w-full"></logo-chroma>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Chroma</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">AI</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">AI-native vector database. Fast, serverless search supporting vector, full-text, regex, and metadata queries.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add chroma/database" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add chroma/database</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Clerk --->
+                            <div data-provider-row data-name="clerk" data-category="auth" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-clerk class="h-28 w-auto max-w-full"></logo-clerk>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Clerk</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Auth</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Drop-in authentication with social login, magic links, MFA, and full user management UI.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add clerk/auth" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add clerk/auth</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- PostHog --->
+                            <div data-provider-row data-name="posthog" data-category="analytics" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 border-b border-edge items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-posthog class="h-28 w-auto max-w-full"></logo-posthog>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">PostHog</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">Analytics</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Product analytics with session replay, feature flags, A/B testing, data warehouse, and CDP in one platform.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add posthog/analytics" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add posthog/analytics</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--- Runloop --->
+                            <div data-provider-row data-name="runloop" data-category="ai" class="provider-row relative grid grid-cols-1 sm:grid-cols-[2fr_3fr_auto] gap-8 sm:gap-16 px-16 py-16 sm:py-12 items-center hover:bg-foreground transition-colors duration-100 group">
+                                <div class="flex items-center gap-12">
+                                    <div class="w-32 h-32 flex items-center justify-center shrink-0">
+                                        <logo-runloop class="h-28 w-auto max-w-full"></logo-runloop>
+                                    </div>
+                                    <div>
+                                        <div class="text-headline font-normal text-16 leading-130">Runloop</div>
+                                        <span class="text-12 text-detail uppercase tracking-wider sm:hidden">AI</span>
+                                    </div>
+                                </div>
+                                <p class="text-14 text-content leading-140">Secure execution infrastructure for AI agents. Isolated micro-VM sandboxes for safe code execution and tool use.</p>
+                                <div class="flex items-center gap-8">
+                                    <button data-copy-provider="stripe projects services add runloop/sandbox" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150 group/copy">
+                                        <span class="truncate max-w-[280px]">stripe projects services add runloop/sandbox</span>
+                                        <div class="relative w-14 h-14 shrink-0">
+                                            <div data-copy-provider-icon class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
+                                            </div>
+                                            <div data-copy-provider-check class="absolute inset-0 flex items-center justify-center opacity-0 invisible text-[#006F3A]">
+                                                <icon-check @size="8" @weight="strong"></icon-check>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--- Empty state --->
+                        <div data-provider-empty class="hidden flex-col items-center justify-center py-48 text-detail text-14">
+                            <p>No providers match your search.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--- Right sidebar --->
+                <div class="relative mt-32 md:mt-0">
+                    <div class="md:sticky md:top-48 flex flex-col gap-16">
+
+                        <!--- Agent card --->
+                        <div class="rounded-6 border border-edge bg-foreground p-24">
+                            <h2 class="text-16 font-normal text-headline mb-8">Use with agents</h2>
+                            <p class="text-14 text-content leading-140 mb-16">Tell Claude, Codex, or any coding agent to use Stripe Projects to provision services. Point your agent to the llms.txt for full service documentation.</p>
+                            <div class="rounded-4 bg-highlight p-12 mb-16 font-mono text-12 text-detail shadow-inset-border overflow-x-auto">
+                                <span class="text-detail select-none">$ </span>stripe projects services add &lt;provider&gt;/&lt;service&gt;
+                            </div>
+                            <div class="flex flex-col gap-8">
+                                <a href="/llm.txt" target="_blank" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                                    <div>
+                                        <div class="text-14 font-normal text-headline">llms.txt</div>
+                                        <div class="text-12 text-detail">Service discovery for agents</div>
+                                    </div>
+                                    <icon-arrowanimate @size="sm" class="text-detail group-hover:text-headline transition-colors duration-150"></icon-arrowanimate>
+                                </a>
+                                <a href="https://docs.stripe.com/projects" target="_blank" rel="noopener" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                                    <div>
+                                        <div class="text-14 font-normal text-headline">Projects docs</div>
+                                        <div class="text-12 text-detail">Full documentation</div>
+                                    </div>
+                                    <icon-arrowanimate @size="sm" class="text-detail group-hover:text-headline transition-colors duration-150"></icon-arrowanimate>
+                                </a>
+                                <a href="https://docs.stripe.com/stripe-cli" target="_blank" rel="noopener" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                                    <div>
+                                        <div class="text-14 font-normal text-headline">Stripe CLI</div>
+                                        <div class="text-12 text-detail">Install and setup guide</div>
+                                    </div>
+                                    <icon-arrowanimate @size="sm" class="text-detail group-hover:text-headline transition-colors duration-150"></icon-arrowanimate>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!--- Suggest provider card --->
+                        <div class="rounded-6 border border-edge bg-foreground p-24">
+                            <h2 class="text-16 font-normal text-headline mb-8">Missing a provider?</h2>
+                            <p class="text-14 text-content leading-140 mb-16">Let us know what services we should add next.</p>
+                            <a href="mailto:provider-request@stripe.com?subject=Provider%20Request" class="relative flex items-center justify-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-250 cursor-pointer group outline-none">
+                                <span class="pb-1">Suggest a provider</span>
+                                <icon-arrowanimate @size="sm" class=""></icon-arrowanimate>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </helm-container>
+        </helm-section>
+
+    </main>
+
+    <!--- Copy toast --->
+    <div data-copy-toast class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 px-16 h-40 bg-headline text-highlight rounded-8 text-14 font-normal shadow-lg pointer-events-none" style="opacity:0;visibility:hidden;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-14 h-14 text-[#4ade80] shrink-0"><path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd"/></svg>
+        <span data-copy-toast-label>Command copied</span>
+    </div>
+
+    <!--- Footer --->
+    <footer class="w-full flex items-center justify-center flex-col px-16">
+        <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+            <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+                <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+            </div>
+        </helm-container>
+    </footer>
+
+</div>
+
+<style>
+    .provider-pill {
+        background-color: var(--color-foreground);
+        color: var(--color-detail);
+        border: 1px solid var(--color-edge);
+    }
+    .provider-pill:hover {
+        background-color: var(--color-highlight);
+        color: var(--color-headline);
+    }
+    .provider-pill.active {
+        background-color: var(--color-primary);
+        color: var(--color-highlight);
+        border-color: var(--color-primary);
+    }
+    .provider-pill:focus-visible {
+        box-shadow: var(--shadow-focus);
+    }
+</style>
+
+<script>
+    // Toast
+    function showCopyToast(message) {
+        const toast = document.querySelector('[data-copy-toast]');
+        const label = document.querySelector('[data-copy-toast-label]');
+        if (!toast) return;
+        if (label) label.textContent = message;
+        gsap.killTweensOf(toast);
+        gsap.fromTo(toast,
+            { autoAlpha: 0, y: 8 },
+            { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' }
+        );
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+            gsap.to(toast, { autoAlpha: 0, y: 8, duration: 0.25, ease: 'power2.in' });
+        }, 2500);
+    }
+
+    // Copy provider command
+    document.querySelectorAll('[data-copy-provider]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const command = btn.getAttribute('data-copy-provider');
+            navigator.clipboard.writeText(command);
+            showCopyToast('Command copied');
+            const icon = btn.querySelector('[data-copy-provider-icon]');
+            const check = btn.querySelector('[data-copy-provider-check]');
+            if (icon && check) {
+                const tl = gsap.timeline({
+                    onStart: () => btn.classList.add('pointer-events-none'),
+                    onComplete: () => btn.classList.remove('pointer-events-none')
+                });
+                tl
+                .to(icon, { autoAlpha: 0, scale: 0.75, duration: 0.2, ease: 'power3.inOut' })
+                .to(check, { autoAlpha: 1, scale: 1, duration: 0.2, ease: 'power3.inOut' }, 0)
+                .to(icon, { autoAlpha: 1, scale: 1, duration: 0.2, ease: 'power3.inOut' }, 2)
+                .to(check, { autoAlpha: 0, scale: 0.75, duration: 0.2, ease: 'power3.inOut' }, 2);
+            }
+        });
+    });
+
+    // Search + filter
+    (function providerFilter() {
+        const searchInput = document.querySelector('[data-provider-search]');
+        const pills = document.querySelectorAll('.provider-pill');
+        const rows = document.querySelectorAll('[data-provider-row]');
+        const emptyState = document.querySelector('[data-provider-empty]');
+        let activeCategory = 'all';
+
+        function filterRows() {
+            const query = (searchInput?.value || '').toLowerCase().trim();
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name') || '';
+                const category = row.getAttribute('data-category') || '';
+                const matchesCategory = activeCategory === 'all' || category === activeCategory;
+                const matchesSearch = !query || name.includes(query);
+                const visible = matchesCategory && matchesSearch;
+                row.style.display = visible ? '' : 'none';
+                if (visible) visibleCount++;
+            });
+
+            if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? 'flex' : 'none';
+            }
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterRows);
+        }
+
+        pills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                pills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                activeCategory = pill.getAttribute('data-category') || 'all';
+                filterRows();
+            });
+        });
+    })();
+</script>
