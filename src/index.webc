@@ -16,13 +16,18 @@ changefreq: "weekly"
 
     <!--- Header --->
     <header class="relative w-full flex items-center justify-center px-16 z-50 group/header">
-        <helm-container class="relative pt-24 pb-0 flex items-center justify-center">
-            <div data-header="logo" class="relative flex items-center h-40 gap-4">
-                <div class="relative flex items-center gap-8 h-full px-10 -ml-9">
+        <helm-container class="relative pt-24 pb-0 grid grid-cols-3 items-center">
+            <div></div>
+            <div data-header="logo" class="relative flex items-center justify-center h-40 gap-4">
+                <div class="relative flex items-center gap-8 h-full px-10">
                     <icon-logo class="h-[1em] w-auto text-headline"></icon-logo>
                     <span class="text-16 font-normal text-headline">Stripe Projects</span>
                 </div>
             </div>
+            <a href="/providers/" class="hidden sm:flex items-center justify-end gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                <span>View providers</span>
+                <icon-arrowanimate @size="sm" class=""></icon-arrowanimate>
+            </a>
         </helm-container>
     </header>
 
