@@ -276,7 +276,7 @@ changefreq: "weekly"
                         <logo-openrouter data-provider-slug="openrouter/api" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-openrouter>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-huggingface data-provider-slug="huggingface/platform" class="h-20 sm:h-32 w-auto max-w-full cursor-pointer"></logo-huggingface>
+                        <logo-huggingface data-provider-slug="huggingface/platform" class="h-22 sm:h-36 w-auto max-w-full cursor-pointer"></logo-huggingface>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-inngest data-provider-slug="inngest/app" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-inngest>
@@ -285,7 +285,7 @@ changefreq: "weekly"
                         <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
                     </div>
                     <div class="flex items-center justify-center h-40 sm:col-start-2">
-                        <logo-amplitude data-provider-slug="amplitude/analytics" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-amplitude>
+                        <logo-amplitude data-provider-slug="amplitude/analytics" class="h-18 sm:h-24 w-auto max-w-full cursor-pointer"></logo-amplitude>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-mixpanel data-provider-slug="mixpanel/analytics" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-mixpanel>
