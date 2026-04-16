@@ -46,6 +46,14 @@ Stripe Projects currently supports the following providers and services:
 | Clerk | clerk/auth | Authentication |
 | PostHog | posthog/analytics | Analytics |
 | Runloop | runloop/sandbox | Sandbox / Compute |
+| Cloudflare | cloudflare/worker | Hosting |
+| Fly.io | flyio/app | Hosting |
+| Openrouter | openrouter/api | AI |
+| Hugging Face | huggingface/platform | AI |
+| Inngest | inngest/app | AI |
+| Firecrawl | firecrawl/api | Search |
+| Amplitude | amplitude/analytics | Analytics |
+| Mixpanel | mixpanel/analytics | Analytics |
 
 More providers are being added. To suggest a provider, email provider-request@stripe.com.
 
