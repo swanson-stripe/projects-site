@@ -249,7 +249,7 @@ changefreq: "weekly"
                         <logo-cloudflare data-provider-slug="cloudflare/worker" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-cloudflare>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-flyio data-provider-slug="flyio/app" class="h-28 sm:h-36 w-auto max-w-full cursor-pointer"></logo-flyio>
+                        <logo-flyio data-provider-slug="flyio/app" class="h-20 sm:h-32 w-auto max-w-full cursor-pointer"></logo-flyio>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-neon data-provider-slug="neon/postgres" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-neon>
