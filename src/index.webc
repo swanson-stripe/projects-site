@@ -276,7 +276,7 @@ changefreq: "weekly"
                         <logo-openrouter data-provider-slug="openrouter/api" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-openrouter>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-huggingface data-provider-slug="huggingface/platform" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-huggingface>
+                        <logo-huggingface data-provider-slug="huggingface/platform" class="h-20 sm:h-32 w-auto max-w-full cursor-pointer"></logo-huggingface>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-inngest data-provider-slug="inngest/app" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-inngest>
