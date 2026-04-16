@@ -249,13 +249,13 @@ changefreq: "weekly"
                         <logo-cloudflare data-provider-slug="cloudflare/worker" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-cloudflare>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-flyio data-provider-slug="flyio/app" class="h-20 sm:h-32 w-auto max-w-full cursor-pointer"></logo-flyio>
+                        <logo-flyio data-provider-slug="flyio/app" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-flyio>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-neon data-provider-slug="neon/postgres" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-neon>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-turso data-provider-slug="turso/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-turso>
+                        <logo-turso data-provider-slug="turso/database" class="h-24 sm:h-36 w-auto max-w-full cursor-pointer"></logo-turso>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-planetscale data-provider-slug="planetscale/postgresql" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-planetscale>
@@ -264,7 +264,7 @@ changefreq: "weekly"
                         <logo-chroma data-provider-slug="chroma/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-chroma>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-clerk data-provider-slug="clerk/auth" class="h-32 sm:h-44 w-auto max-w-full cursor-pointer"></logo-clerk>
+                        <logo-clerk data-provider-slug="clerk/auth" class="h-36 sm:h-48 w-auto max-w-full cursor-pointer"></logo-clerk>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
@@ -279,7 +279,7 @@ changefreq: "weekly"
                         <logo-huggingface data-provider-slug="huggingface/platform" class="h-22 sm:h-36 w-auto max-w-full cursor-pointer"></logo-huggingface>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-inngest data-provider-slug="inngest/app" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-inngest>
+                        <logo-inngest data-provider-slug="inngest/app" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-inngest>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
