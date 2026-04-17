@@ -94,7 +94,6 @@ wave: false
                             <button data-category="all" class="provider-pill active px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">All</button>
                             <button data-category="hosting" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Hosting</button>
                             <button data-category="database" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Database</button>
-                            <button data-category="vector-db" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Vector DB</button>
                             <button data-category="sandbox" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Sandbox</button>
                             <button data-category="auth" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Auth</button>
                             <button data-category="analytics" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Analytics</button>
@@ -150,9 +149,9 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Serverless MySQL platform with NVMe-backed performance, horizontal sharding, and enterprise-grade reliability.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add planetscale/postgresql" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add planetscale/postgresql</span></button></td>
                             </tr>
-                            <tr data-provider-row data-name="chroma" data-category="vector-db" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                            <tr data-provider-row data-name="chroma" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Chroma</td>
-                                <td class="px-16 py-12 text-14 text-content align-top">Vector DB</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">AI-native vector database. Fast, serverless search supporting vector, full-text, regex, and metadata queries.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add chroma/database" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add chroma/database</span></button></td>
                             </tr>
@@ -321,6 +320,15 @@ wave: false
             showCopyToast('Command copied');
         });
     });
+
+    // Sort table rows alphabetically by provider name on load
+    (function sortProviders() {
+        const tbody = document.querySelector('[data-provider-list]');
+        if (!tbody) return;
+        const rows = Array.from(tbody.querySelectorAll('[data-provider-row]'));
+        rows.sort((a, b) => (a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || ''));
+        rows.forEach(row => tbody.appendChild(row));
+    })();
 
     // Search + filter
     (function providerFilter() {
