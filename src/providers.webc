@@ -113,41 +113,11 @@ wave: false
                             </tr>
                         </thead>
                         <tbody data-provider-list>
-                            <tr data-provider-row data-name="vercel" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Vercel</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Frontend cloud platform. Deploy to the edge with automatic CI/CD, edge functions, and global CDN.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add vercel/project" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add vercel/project</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="railway" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Railway</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Infrastructure for devs. Deploy servers, databases, and cron jobs with zero ops overhead.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add railway/hosting" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add railway/hosting</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="supabase" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Supabase</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Open source Firebase alternative with managed Postgres, Auth, Storage, Edge Functions, Realtime, and Vector search.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add supabase/supabase:free" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add supabase/supabase:free</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="neon" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Neon</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Serverless Postgres with instant provisioning, autoscaling, and database branching.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add neon/postgres" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add neon/postgres</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="turso" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Turso</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">SQLite for the agentic era. Lightweight, replicated databases with built-in vector search and automatic sync.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add turso/database" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add turso/database</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="planetscale" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">PlanetScale</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Serverless MySQL platform with NVMe-backed performance, horizontal sharding, and enterprise-grade reliability.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add planetscale/postgresql" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add planetscale/postgresql</span></button></td>
+                            <tr data-provider-row data-name="amplitude" data-category="analytics" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Amplitude</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Analytics</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Digital analytics platform for understanding user behavior, building funnels, measuring retention, and running A/B experiments to drive product growth.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add amplitude/analytics" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add amplitude/analytics</span></button></td>
                             </tr>
                             <tr data-provider-row data-name="chroma" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Chroma</td>
@@ -161,35 +131,23 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Drop-in authentication with social login, magic links, MFA, and full user management UI.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add clerk/auth" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add clerk/auth</span></button></td>
                             </tr>
-                            <tr data-provider-row data-name="posthog" data-category="analytics" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">PostHog</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Analytics</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Product analytics with session replay, feature flags, A/B testing, data warehouse, and CDP in one platform.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add posthog/analytics" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add posthog/analytics</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="runloop" data-category="sandbox" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Runloop</td>
-                                <td class="px-16 py-12 text-14 text-content align-top">Sandbox</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Secure execution infrastructure for AI agents. Isolated micro-VM sandboxes for safe code execution and tool use.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add runloop/sandbox" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add runloop/sandbox</span></button></td>
-                            </tr>
                             <tr data-provider-row data-name="cloudflare" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Cloudflare</td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Edge platform for running, securing, and accelerating apps without managing infrastructure. Global network with routing, protection, and performance built in.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add cloudflare/worker" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add cloudflare/worker</span></button></td>
                             </tr>
+                            <tr data-provider-row data-name="firecrawl" data-category="search" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Firecrawl</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Search</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Web scraping and crawling API that turns any website into clean, structured data for AI apps. Supports JS rendering, markdown output, and LLM-ready formatting.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add firecrawl/api" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add firecrawl/api</span></button></td>
+                            </tr>
                             <tr data-provider-row data-name="fly.io" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Fly.io</td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Deploy full-stack apps and databases globally on fast hardware with low-latency networking and built-in Postgres and Redis.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add flyio/app" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add flyio/app</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="openrouter" data-category="ai" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Openrouter</td>
-                                <td class="px-16 py-12 text-14 text-content align-top">AI</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Single API to access hundreds of models from OpenAI, Anthropic, Google, Meta, and more. Route to the best model for cost, speed, or capability automatically.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add openrouter/api" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add openrouter/api</span></button></td>
                             </tr>
                             <tr data-provider-row data-name="hugging face" data-category="ai" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Hugging Face</td>
@@ -203,23 +161,65 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Event-driven platform for background jobs, scheduled tasks, and long-running AI workflows with built-in retries, step functions, and full observability.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add inngest/app" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add inngest/app</span></button></td>
                             </tr>
-                            <tr data-provider-row data-name="firecrawl" data-category="search" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Firecrawl</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Search</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Web scraping and crawling API that turns any website into clean, structured data for AI apps. Supports JS rendering, markdown output, and LLM-ready formatting.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add firecrawl/api" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add firecrawl/api</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="amplitude" data-category="analytics" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Amplitude</td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Analytics</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Digital analytics platform for understanding user behavior, building funnels, measuring retention, and running A/B experiments to drive product growth.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add amplitude/analytics" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add amplitude/analytics</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-name="mixpanel" data-category="analytics" class="hover:bg-foreground transition-colors duration-100">
+                            <tr data-provider-row data-name="mixpanel" data-category="analytics" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Mixpanel</td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Analytics</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Event-based analytics for tracking user actions, building conversion funnels, and measuring retention to make data-driven product decisions.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add mixpanel/analytics" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add mixpanel/analytics</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="neon" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Neon</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Serverless Postgres with instant provisioning, autoscaling, and database branching.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add neon/postgres" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add neon/postgres</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="openrouter" data-category="ai" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">OpenRouter</td>
+                                <td class="px-16 py-12 text-14 text-content align-top">AI</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Single API to access hundreds of models from OpenAI, Anthropic, Google, Meta, and more. Route to the best model for cost, speed, or capability automatically.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add openrouter/api" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add openrouter/api</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="planetscale" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">PlanetScale</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Serverless MySQL platform with NVMe-backed performance, horizontal sharding, and enterprise-grade reliability.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add planetscale/postgresql" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add planetscale/postgresql</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="posthog" data-category="analytics" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">PostHog</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Analytics</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Product analytics with session replay, feature flags, A/B testing, data warehouse, and CDP in one platform.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add posthog/analytics" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add posthog/analytics</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="railway" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Railway</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Infrastructure for devs. Deploy servers, databases, and cron jobs with zero ops overhead.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add railway/hosting" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add railway/hosting</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="runloop" data-category="sandbox" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Runloop</td>
+                                <td class="px-16 py-12 text-14 text-content align-top">Sandbox</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Secure execution infrastructure for AI agents. Isolated micro-VM sandboxes for safe code execution and tool use.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add runloop/sandbox" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add runloop/sandbox</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="supabase" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Supabase</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Open source Firebase alternative with managed Postgres, Auth, Storage, Edge Functions, Realtime, and Vector search.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add supabase/supabase:free" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add supabase/supabase:free</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="turso" data-category="database" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Turso</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Database</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">SQLite for the agentic era. Lightweight, replicated databases with built-in vector search and automatic sync.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add turso/database" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add turso/database</span></button></td>
+                            </tr>
+                            <tr data-provider-row data-name="vercel" data-category="hosting" class="hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">Vercel</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Frontend cloud platform. Deploy to the edge with automatic CI/CD, edge functions, and global CDN.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add vercel/project" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add vercel/project</span></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -320,15 +320,6 @@ wave: false
             showCopyToast('Command copied');
         });
     });
-
-    // Sort table rows alphabetically by provider name on load
-    (function sortProviders() {
-        const tbody = document.querySelector('[data-provider-list]');
-        if (!tbody) return;
-        const rows = Array.from(tbody.querySelectorAll('[data-provider-row]'));
-        rows.sort((a, b) => (a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || ''));
-        rows.forEach(row => tbody.appendChild(row));
-    })();
 
     // Search + filter
     (function providerFilter() {
