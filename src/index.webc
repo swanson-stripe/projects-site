@@ -234,31 +234,22 @@ changefreq: "weekly"
                     <span class="uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
                     <span class="inline-flex items-center px-8 py-4 rounded-full bg-foreground text-10 tracking-widest uppercase text-detail whitespace-nowrap">+ More soon</span>
                 </div>
-                <!--- Logo grid: 4 cols x 5 rows (4+4+4+4+2) --->
+                <!--- Logo grid: 2 cols default, 4 cols sm+; last row spanned and flex-centered (reliable vs col-start if root .webc not in Tailwind @source) --->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-y-24 gap-x-16 w-full max-w-896">
                     <div class="flex items-center justify-center h-40">
-                        <logo-vercel data-provider-slug="vercel/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
+                        <logo-agentmail data-provider-slug="agentmail/api-key" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-agentmail>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-supabase data-provider-slug="supabase/supabase:free" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
+                        <logo-algolia data-provider-slug="algolia/application" class="h-18 sm:h-25 w-auto max-w-full cursor-pointer"></logo-algolia>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-railway data-provider-slug="railway/hosting" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-railway>
+                        <logo-amplitude data-provider-slug="amplitude/analytics" class="h-18 sm:h-24 w-auto max-w-full cursor-pointer"></logo-amplitude>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-cloudflare data-provider-slug="cloudflare/worker" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-cloudflare>
+                        <logo-auth0 data-provider-slug="auth0/client" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-auth0>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-flyio data-provider-slug="flyio/app" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-flyio>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-neon data-provider-slug="neon/postgres" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-neon>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-turso data-provider-slug="turso/database" class="h-24 sm:h-36 w-auto max-w-full cursor-pointer"></logo-turso>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-planetscale data-provider-slug="planetscale/postgresql" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-planetscale>
+                        <logo-browserbase data-provider-slug="browserbase/app" class="h-21 sm:h-31 w-auto max-w-full cursor-pointer"></logo-browserbase>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-chroma data-provider-slug="chroma/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-chroma>
@@ -267,13 +258,22 @@ changefreq: "weekly"
                         <logo-clerk data-provider-slug="clerk/auth" class="h-36 sm:h-48 w-auto max-w-full cursor-pointer"></logo-clerk>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
+                        <logo-cloudflare data-provider-slug="cloudflare/worker" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-cloudflare>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-runloop data-provider-slug="runloop/sandbox" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-runloop>
+                        <logo-daytona data-provider-slug="daytona/sandbox" class="h-20 sm:h-29 w-auto max-w-full cursor-pointer"></logo-daytona>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-openrouter data-provider-slug="openrouter/api" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-openrouter>
+                        <logo-elevenlabs data-provider-slug="elevenlabs/api" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-elevenlabs>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-flyio data-provider-slug="flyio/app" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-flyio>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-gitlab data-provider-slug="gitlab/project" class="h-29 sm:h-43 w-auto max-w-full cursor-pointer"></logo-gitlab>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-huggingface data-provider-slug="huggingface/platform" class="h-22 sm:h-36 w-auto max-w-full cursor-pointer"></logo-huggingface>
@@ -282,13 +282,55 @@ changefreq: "weekly"
                         <logo-inngest data-provider-slug="inngest/app" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-inngest>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
-                    </div>
-                    <div class="flex items-center justify-center h-40 sm:col-start-2">
-                        <logo-amplitude data-provider-slug="amplitude/analytics" class="h-18 sm:h-24 w-auto max-w-full cursor-pointer"></logo-amplitude>
+                        <logo-mixpanel data-provider-slug="mixpanel/analytics" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-mixpanel>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-mixpanel data-provider-slug="mixpanel/analytics" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-mixpanel>
+                        <logo-neon data-provider-slug="neon/postgres" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-neon>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-netlify data-provider-slug="netlify/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-netlify>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-openrouter data-provider-slug="openrouter/api" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-openrouter>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-planetscale data-provider-slug="planetscale/postgresql" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-planetscale>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-privy data-provider-slug="privy/app" class="h-14 sm:h-26 w-auto max-w-full cursor-pointer"></logo-privy>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-railway data-provider-slug="railway/hosting" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-railway>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-render data-provider-slug="render/static-site" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-render>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-runloop data-provider-slug="runloop/sandbox" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-runloop>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-sentry data-provider-slug="sentry/project" class="h-19 sm:h-29 w-auto max-w-full cursor-pointer"></logo-sentry>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-supabase data-provider-slug="supabase/supabase:free" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-turso data-provider-slug="turso/database" class="h-24 sm:h-36 w-auto max-w-full cursor-pointer"></logo-turso>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-twilio data-provider-slug="twilio/email" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-twilio>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-upstash data-provider-slug="upstash/redis" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-upstash>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-vercel data-provider-slug="vercel/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-workos data-provider-slug="workos/auth" class="h-14 sm:h-24 w-auto max-w-full cursor-pointer"></logo-workos>
                     </div>
                 </div>
             </helm-container>
@@ -691,13 +733,18 @@ changefreq: "weekly"
         if (!typeEl) return;
 
         const providerPool = {
-            hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'cloudflare/worker'],
+            hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'cloudflare/worker', 'netlify/project', 'render/static-site'],
             database:  ['neon/postgres', 'supabase/supabase:free', 'turso/database', 'planetscale/postgresql', 'chroma/database'],
-            auth:      ['clerk/auth'],
+            auth:      ['clerk/auth', 'auth0/client', 'workos/auth'],
             analytics: ['posthog/analytics', 'amplitude/analytics', 'mixpanel/analytics'],
-            sandbox:   ['runloop/sandbox'],
-            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app'],
-            search:    ['firecrawl/api'],
+            sandbox:   ['runloop/sandbox', 'daytona/sandbox'],
+            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/app', 'elevenlabs/api'],
+            search:    ['firecrawl/api', 'algolia/application'],
+            communications: ['agentmail/api-key', 'twilio/email'],
+            payments:  ['privy/app'],
+            cache:     ['upstash/redis'],
+            cicd:      ['gitlab/project'],
+            observability: ['sentry/project'],
         };
         function pickProviders() {
             // Pick 3 distinct categories at random, then one provider from each

@@ -3,7 +3,7 @@ export default {
     domain: "https://projects.dev/",
     name: "Stripe Projects",
     env: process.env.ENVIRONMENT || "local",
-    ctaMode: "request-modal", // "install" | "request-docs" | "request-modal"
+    ctaMode: "install", // "install" | "request-docs" | "request-modal"
 
     currentYear() {
         const today = new Date();

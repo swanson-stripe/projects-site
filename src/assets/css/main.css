@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../../../src/**/*.webc";
+@source "../../../src/*.webc";
 
 :root {
     --hex-brand-25: #f5f5ff;

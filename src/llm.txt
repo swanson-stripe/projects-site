@@ -36,24 +36,38 @@ Stripe Projects currently supports the following providers and services:
 
 | Provider | Service slug | Category |
 |---|---|---|
-| Vercel | vercel/project | Hosting |
-| Railway | railway/hosting | Hosting |
-| Supabase | supabase/supabase:free | Database |
-| Neon | neon/postgres | Database |
-| Turso | turso/database | Database |
-| PlanetScale | planetscale/postgresql | Database |
-| Chroma | chroma/database | Database (vector) |
-| Clerk | clerk/auth | Authentication |
-| PostHog | posthog/analytics | Analytics |
-| Runloop | runloop/sandbox | Sandbox / Compute |
+| AgentMail | agentmail/api-key | Communications |
+| Algolia | algolia/application | Search |
+| Amplitude | amplitude/analytics | Analytics |
+| Auth0/Okta | auth0/client | Auth |
+| Browserbase | browserbase/app | AI |
+| Chroma | chroma/database | Database |
+| Clerk | clerk/auth | Auth |
 | Cloudflare | cloudflare/worker | Hosting |
+| Daytona | daytona/sandbox | Sandbox |
+| ElevenLabs | elevenlabs/api | AI |
+| Firecrawl | firecrawl/api | Search |
 | Fly.io | flyio/app | Hosting |
-| Openrouter | openrouter/api | AI |
+| GitLab | gitlab/project | CI/CD |
 | Hugging Face | huggingface/platform | AI |
 | Inngest | inngest/app | AI |
-| Firecrawl | firecrawl/api | Search |
-| Amplitude | amplitude/analytics | Analytics |
 | Mixpanel | mixpanel/analytics | Analytics |
+| Neon | neon/postgres | Database |
+| Netlify | netlify/project | Hosting |
+| OpenRouter | openrouter/api | AI |
+| PlanetScale | planetscale/postgresql | Database |
+| PostHog | posthog/analytics | Analytics |
+| Privy | privy/app | Payments |
+| Railway | railway/hosting | Hosting |
+| Render | render/static-site | Hosting |
+| Runloop | runloop/sandbox | Sandbox |
+| Sentry | sentry/project | Observability |
+| Supabase | supabase/supabase:free | Database |
+| Turso | turso/database | Database |
+| Twilio | twilio/email | Communications |
+| Upstash | upstash/redis | Cache |
+| Vercel | vercel/project | Hosting |
+| WorkOS | workos/auth | Auth |
 
 More providers are being added. To suggest a provider, email provider-request@stripe.com.
 
