@@ -19,8 +19,8 @@ changefreq: "weekly"
         <helm-container class="relative pt-24 pb-0 grid grid-cols-3 items-center">
             <div></div>
             <div data-header="logo" class="relative flex items-center justify-center h-40 gap-4">
-                <div class="relative flex items-center gap-8 h-full px-10">
-                    <icon-logo class="h-[1em] w-auto text-headline"></icon-logo>
+                <div class="relative flex items-center gap-8 h-full px-10 whitespace-nowrap">
+                    <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
                     <span class="text-16 font-normal text-headline">Stripe Projects</span>
                 </div>
             </div>
@@ -333,6 +333,11 @@ changefreq: "weekly"
                         <logo-workos data-provider-slug="workos/auth" class="h-14 sm:h-24 w-auto max-w-full cursor-pointer"></logo-workos>
                     </div>
                 </div>
+                <!--- View providers link: mobile only (header has it on sm+) --->
+                <a href="/providers/" class="flex sm:hidden items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                    <span>View providers</span>
+                    <icon-arrowanimate @size="sm" class=""></icon-arrowanimate>
+                </a>
             </helm-container>
         </helm-section>
 
