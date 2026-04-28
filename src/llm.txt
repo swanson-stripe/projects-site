@@ -40,12 +40,12 @@ Stripe Projects currently supports the following providers and services:
 | Algolia | algolia/application | Search |
 | Amplitude | amplitude/analytics | Analytics |
 | Auth0/Okta | auth0/client | Auth |
-| Browserbase | browserbase/app | AI |
+| Browserbase | browserbase/project | AI |
 | Chroma | chroma/database | Database |
 | Clerk | clerk/auth | Auth |
 | Cloudflare | cloudflare/worker | Hosting |
 | Daytona | daytona/sandbox | Sandbox |
-| ElevenLabs | elevenlabs/api | AI |
+| ElevenLabs | elevenlabs/tts | AI |
 | Firecrawl | firecrawl/api | Search |
 | Fly.io | flyio/app | Hosting |
 | GitLab | gitlab/project | CI/CD |
@@ -62,7 +62,7 @@ Stripe Projects currently supports the following providers and services:
 | Render | render/static-site | Hosting |
 | Runloop | runloop/sandbox | Sandbox |
 | Sentry | sentry/project | Observability |
-| Supabase | supabase/supabase:free | Database |
+| Supabase | supabase/project | Database |
 | Turso | turso/database | Database |
 | Twilio | twilio/email | Communications |
 | Upstash | upstash/redis | Cache |

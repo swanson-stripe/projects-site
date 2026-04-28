@@ -249,7 +249,7 @@ changefreq: "weekly"
                         <logo-auth0 data-provider-slug="auth0/client" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-auth0>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-browserbase data-provider-slug="browserbase/app" class="h-21 sm:h-31 w-auto max-w-full cursor-pointer"></logo-browserbase>
+                        <logo-browserbase data-provider-slug="browserbase/project" class="h-21 sm:h-31 w-auto max-w-full cursor-pointer"></logo-browserbase>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-chroma data-provider-slug="chroma/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-chroma>
@@ -264,7 +264,7 @@ changefreq: "weekly"
                         <logo-daytona data-provider-slug="daytona/sandbox" class="h-20 sm:h-29 w-auto max-w-full cursor-pointer"></logo-daytona>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-elevenlabs data-provider-slug="elevenlabs/api" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-elevenlabs>
+                        <logo-elevenlabs data-provider-slug="elevenlabs/tts" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-elevenlabs>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
@@ -300,7 +300,7 @@ changefreq: "weekly"
                         <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-privy data-provider-slug="privy/app" class="h-14 sm:h-26 w-auto max-w-full cursor-pointer"></logo-privy>
+                        <logo-privy data-provider-slug="privy/app" class="h-9 sm:h-22 w-auto max-w-full cursor-pointer"></logo-privy>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-railway data-provider-slug="railway/hosting" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-railway>
@@ -315,7 +315,7 @@ changefreq: "weekly"
                         <logo-sentry data-provider-slug="sentry/project" class="h-19 sm:h-29 w-auto max-w-full cursor-pointer"></logo-sentry>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-supabase data-provider-slug="supabase/supabase:free" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
+                        <logo-supabase data-provider-slug="supabase/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-turso data-provider-slug="turso/database" class="h-24 sm:h-36 w-auto max-w-full cursor-pointer"></logo-turso>
@@ -734,11 +734,11 @@ changefreq: "weekly"
 
         const providerPool = {
             hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'cloudflare/worker', 'netlify/project', 'render/static-site'],
-            database:  ['neon/postgres', 'supabase/supabase:free', 'turso/database', 'planetscale/postgresql', 'chroma/database'],
+            database:  ['neon/postgres', 'supabase/project', 'turso/database', 'planetscale/postgresql', 'chroma/database'],
             auth:      ['clerk/auth', 'auth0/client', 'workos/auth'],
             analytics: ['posthog/analytics', 'amplitude/analytics', 'mixpanel/analytics'],
             sandbox:   ['runloop/sandbox', 'daytona/sandbox'],
-            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/app', 'elevenlabs/api'],
+            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/project', 'elevenlabs/tts'],
             search:    ['firecrawl/api', 'algolia/application'],
             communications: ['agentmail/api-key', 'twilio/email'],
             payments:  ['privy/app'],

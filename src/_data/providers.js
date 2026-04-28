@@ -19,7 +19,7 @@ export default [
   },
   {
     name: "Supabase",
-    slug: "supabase/supabase:free",
+    slug: "supabase/project",
     category: "database",
     description: "Open source Firebase alternative",
     longDescription: "Supabase is the easy-to-use, open-source managed Postgres with integrated backend services — Database, Auth, Storage, Edge Functions, Realtime, and Vector search.",
@@ -199,7 +199,7 @@ export default [
   },
   {
     name: "Browserbase",
-    slug: "browserbase/app",
+    slug: "browserbase/project",
     category: "ai",
     description: "Platform for browser agents",
     longDescription: "Platform for building and deploying browser agents that interact with the web like humans, enabling developers to spin up thousands of headless browsers in milliseconds, globally.",
@@ -235,7 +235,7 @@ export default [
   },
   {
     name: "ElevenLabs",
-    slug: "elevenlabs/api",
+    slug: "elevenlabs/tts",
     category: "ai",
     description: "AI voice and audio generation",
     longDescription: "AI tools for generating human-like speech, voice cloning, and audio content to make communication and creation seamless.",
