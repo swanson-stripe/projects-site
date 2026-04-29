@@ -36,7 +36,7 @@ Stripe Projects currently supports the following providers and services:
 
 | Provider | Service slug | Category |
 |---|---|---|
-| AgentMail | agentmail/api-key | Communications |
+| AgentMail | agentmail/api | Communications |
 | Algolia | algolia/application | Search |
 | Amplitude | amplitude/analytics | Analytics |
 | Auth0/Okta | auth0/client | Auth |

@@ -145,7 +145,7 @@ export default [
   },
   {
     name: "AgentMail",
-    slug: "agentmail/api-key",
+    slug: "agentmail/api",
     category: "communications",
     description: "Email inbox API for AI agents",
     longDescription: "The email inbox API for AI agents. Agents can communicate with any internet user and authenticate with any internet service.",
