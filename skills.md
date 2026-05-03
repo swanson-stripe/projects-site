@@ -1,0 +1,135 @@
+---
+name: stripe-projects-provision
+description: Use when the user needs to provision a third-party service, get an API key or token, sign up for a service, or references projects.dev. Handles the full flow from checking provider availability through project initialization, then hands off to locally installed skills.
+user-invocable: true
+allowed-tools:
+  - Bash(stripe *)
+  - Bash(which stripe)
+  - Bash(brew install *)
+  - Bash(scoop *)
+  - Bash(sudo apt *)
+  - Bash(sudo yum *)
+  - Bash(curl *)
+  - Bash(docker run *)
+  - WebFetch
+---
+
+# Stripe Projects — Service Provisioning
+
+Provision third-party services and retrieve API keys/tokens using the Stripe Projects CLI plugin.
+
+## Workflow
+
+### Step 1: Verify Provider Availability
+
+Before doing anything else, fetch `https://projects.dev/providers` and check whether the requested provider appears in the directory listing.
+
+- If the provider is **not listed** on that page, inform the user that this provider is **not supported** by Stripe Projects and stop.
+- If the provider **is listed**, continue.
+
+### Step 2: Ensure Stripe CLI is Installed
+
+Check if the Stripe CLI is available:
+
+```bash
+which stripe && stripe --version
+```
+
+If not installed, install based on the user's platform:
+
+**macOS (Homebrew):**
+
+```bash
+brew install stripe/stripe-cli/stripe
+```
+
+**Linux (Debian/Ubuntu via APT):**
+
+```bash
+curl -s https://packages.stripe.dev/api/security/keypair/stripe-cli-gpg/public | gpg --dearmor | sudo tee /usr/share/keyrings/stripe.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/stripe.gpg] https://packages.stripe.dev/stripe-cli-debian-local stable main" | sudo tee -a /etc/apt/sources.list.d/stripe.list
+sudo apt update
+sudo apt install stripe
+```
+
+**Linux (RPM-based via YUM):**
+
+```bash
+echo -e "[Stripe]\nname=stripe\nbaseurl=https://packages.stripe.dev/stripe-cli-rpm-local/\nenabled=1\ngpgcheck=0" >> /etc/yum.repos.d/stripe.repo
+sudo yum install stripe
+```
+
+**Windows (Scoop):**
+
+```bash
+scoop bucket add stripe https://github.com/stripe/scoop-stripe-cli.git
+scoop install stripe
+```
+
+**Docker:**
+
+```bash
+docker run --rm -it stripe/stripe-cli:latest
+```
+
+### Step 3: Ensure Stripe Projects Plugin is Installed
+
+```bash
+stripe projects --version 2>/dev/null || stripe plugin install projects
+```
+
+### Step 4: Search the Catalog
+
+Confirm the specific service is available:
+
+```bash
+stripe projects search <query> --json
+```
+
+If `result_count` is 0, inform the user the service was not found in the catalog and stop.
+
+### Step 5: Initialize a Project
+
+Check if a project is already initialized:
+
+```bash
+stripe projects status --json
+```
+
+If not initialized:
+
+```bash
+stripe projects init --json --yes
+```
+
+Note: If the user is not logged in to the Stripe CLI, `projects init` will redirect them to a browser to either log in to an existing Stripe account or create a new Stripe Projects account. When this happens, prompt the user:
+
+> ▎ Stripe Projects is redirecting you to the browser to authenticate.
+> ▎ - If you have an existing Stripe account, log in with your credentials.
+> ▎ - If you're new, you can create a free Stripe Projects account in seconds.
+> ▎
+> ▎ Complete the sign-in in your browser, then come back here and let me know when you're done.
+
+Wait for the user to confirm before proceeding.
+
+### Step 6: Add the Service
+
+```bash
+stripe projects add <provider>/<service> --json --yes
+```
+
+### Step 7: Hand Off
+
+After the project is initialized and the service is added, check if the provider installed a local skill (look for new skill files in `.claude/skills/` or similar). If a local skill was installed, inform the user and defer to it for further configuration. If not, report the provisioned credentials and any next steps from the CLI output.
+
+## Non-Interactive Mode
+
+Always use `--json --yes` flags to suppress interactive prompts. If a paid service requires confirmation, add `--confirm-paid-service`.
+
+## Error Handling
+
+- Provider not listed at `projects.dev/providers` → stop early, tell the user it's not supported
+- Stripe CLI missing → install per platform instructions above
+- Plugin missing → install via `stripe plugin install projects`
+- `projects init` triggers browser login → prompt user, wait for confirmation
+- Service not in catalog → inform user, suggest `stripe projects catalog --json` to browse alternatives

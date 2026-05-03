@@ -8,6 +8,7 @@ Stripe Projects lets you or your agents provision multiple services, generate an
 - Provider catalog: https://projects.dev/providers/
 - Documentation: https://docs.stripe.com/projects
 - Install options: https://docs.stripe.com/stripe-cli/install
+- Agent skill (Claude/Cursor): https://projects.dev/skills.md
 
 ## Install
 
@@ -130,6 +131,14 @@ Important rules for agents:
 - Never read or edit files in the `.projects/` directory directly. The CLI manages that state.
 - Never read the `.env` file directly to discover what's available. Use `stripe projects env` instead.
 - Commands can be run from the project root or any nested directory within the project.
+
+### Drop-in agent skill
+
+A ready-to-install Claude/Cursor skill that drives the full provisioning workflow (verify provider → install CLI → install plugin → search catalog → init project → add service → hand off) is published at:
+
+- https://projects.dev/skills.md
+
+Save it as `SKILL.md` inside `.claude/skills/stripe-projects-provision/` (or your agent's equivalent skills directory) to give the agent end-to-end provisioning capability.
 
 ## Deployment
 
