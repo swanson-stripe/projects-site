@@ -1,6 +1,6 @@
 ---
 name: stripe-projects-provision
-description: Use when the user needs to provision a third-party service, get an API key or token, sign up for a service, or references projects.dev. Handles the full flow from checking provider availability through project initialization, then hands off to locally installed skills.
+description: Use when the user needs to provision a third-party service, create or retrieve a provider API key or token, sign up for a service, or references projects.dev. Handles the full flow from checking provider availability through project initialization, then hands off to locally installed skills.
 user-invocable: true
 allowed-tools:
   - Bash(stripe *)
