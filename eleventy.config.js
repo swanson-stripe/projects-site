@@ -33,7 +33,7 @@ export default function(eleventyConfig)  {
     eleventyConfig.addPassthroughCopy({"src/assets/css/markdown.css":"assets/css/markdown.css"});
     eleventyConfig.addPassthroughCopy({"src/llm.txt":"llm.txt"});
     eleventyConfig.addPassthroughCopy({"skill.md":"skill.md"});
-    eleventyConfig.addPassthroughCopy({"skill.md":"skills.md"});
+    eleventyConfig.addPassthroughCopy({"skills.md":"skills.md"});
 
     // Minify HTML only in production build (skip in --serve for faster reloads)
     if (!isServe) {
