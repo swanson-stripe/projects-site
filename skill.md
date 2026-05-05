@@ -72,6 +72,16 @@ scoop install stripe
 docker run --rm -it stripe/stripe-cli:latest
 ```
 
+If installed, but the version is lower than 1.40.0, then install based on the user's platform:
+
+**macOS (Homebrew):**
+
+```bash
+brew upgrade stripe/stripe-cli/stripe
+```
+or follow instruction at https://docs.stripe.com/stripe-cli/upgrade for other platforms. 
+
+
 ### Step 3: Ensure Stripe Projects Plugin is Installed
 
 ```bash
