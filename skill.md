@@ -82,11 +82,12 @@ brew upgrade stripe/stripe-cli/stripe
 or follow instruction at https://docs.stripe.com/stripe-cli/upgrade for other platforms. 
 
 
-### Step 3: Ensure Stripe Projects Plugin is Installed
+### Step 3: Ensure Stripe Projects Plugin is Installed and on Latest
 
 ```bash
-stripe projects --version 2>/dev/null || stripe plugin install projects
+stripe plugin install projects
 ```
+
 
 ### Step 4: Search the Catalog
 
