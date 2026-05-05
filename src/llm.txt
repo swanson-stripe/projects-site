@@ -4,13 +4,23 @@
 
 Stripe Projects lets you or your agents provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, analytics, and more in a few commands.
 
+## Install the Agent Skill
+
+To give your agent end-to-end provisioning capability, install the skill:
+
+```
+install https://projects.dev/skill.md
+```
+
+This skill drives the full workflow: verify provider → install CLI → install plugin → search catalog → init project → add service → hand off.
+
 - Website: https://projects.dev
 - Provider catalog: https://projects.dev/providers/
 - Documentation: https://docs.stripe.com/projects
 - Install options: https://docs.stripe.com/stripe-cli/install
-- Agent skill (Claude/Cursor): https://projects.dev/skills.md
+- Agent skill: https://projects.dev/skill.md
 
-## Install
+## Install CLI
 
 Stripe Projects is a plugin for the Stripe CLI. Install both with:
 
@@ -134,11 +144,13 @@ Important rules for agents:
 
 ### Drop-in agent skill
 
-A ready-to-install Claude/Cursor skill that drives the full provisioning workflow (verify provider → install CLI → install plugin → search catalog → init project → add service → hand off) is published at:
+Install the skill directly:
 
-- https://projects.dev/skills.md
+```
+install https://projects.dev/skill.md
+```
 
-Save it as `SKILL.md` inside `.claude/skills/stripe-projects-provision/` (or your agent's equivalent skills directory) to give the agent end-to-end provisioning capability.
+Or save it manually as `SKILL.md` inside `.claude/skills/stripe-projects-provision/` (or your agent's equivalent skills directory).
 
 ## Deployment
 
