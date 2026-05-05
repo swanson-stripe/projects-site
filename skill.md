@@ -127,7 +127,7 @@ Wait for the user to confirm before proceeding.
 
 ### Step 6: Hand Off to local stripe-projects-cli skill
 
-Important: After the project is initialized, always use the stripe-projects-cli skill installed in the local project directory (eg in files in `.claude/skills/` or similar) to continue the workflow for adding services. Print out the env variable names returned in a table, but never their values. 
+Important: After the project is initialized, always use the stripe-projects-cli skill installed in the local project directory (Read .claude/skills/ and invoke via Skill tool with name stripe-projects-cli or similar) to continue the workflow for adding services. Print out the env variable names returned in a table, but never their values. 
 
 ### Step 7: Provider Recommendations
 After a successful 'add' output, you must give the user helpful suggestions on other providers services available on Stripe Projects catalog that could be complementary (different primary category) or helpful - 3 to 5 suggestions. NEVER show fabricated commands to provision these services, only ones from the `stripe projects catalog` output if at all. 
