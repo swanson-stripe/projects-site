@@ -386,12 +386,12 @@ changefreq: "weekly"
                             </div>
                         </div>
                         <!--- CLI command --->
-                        <button data-copy-cli="stripe projects init helloworld-app" data-container-hover-follow class="relative w-full h-64 rounded-4 group cursor-pointer text-left outline-none focus-visible:shadow-focus border border-edge hover:bg-highlight transition-[background-color] duration-50 ease-in-out">
+                        <button data-copy-cli="stripe projects init" data-container-hover-follow class="relative w-full h-64 rounded-4 group cursor-pointer text-left outline-none focus-visible:shadow-focus border border-edge hover:bg-highlight transition-[background-color] duration-50 ease-in-out">
                             <div class="relative w-full h-full flex items-center justify-between">
                                     <div class="flex-1 min-w-0 flex flex-col justify-center pl-16 gap-4">
                                         <div class="text-12 text-detail">Create project</div>
                                         <div class="font-mono text-14 text-headline">
-                                            stripe projects <span style="color:#635BFF">init helloworld-app</span>
+                                            stripe projects <span style="color:#635BFF">init</span>
                                         </div>
                                     </div>
                                     <div class="relative flex items-center shrink-0 pr-12">
