@@ -1,7 +1,7 @@
 declare const process: { env: Record<string, string | undefined> };
 
 export const config = {
-  matcher: ['/', '/:code*'],
+  matcher: ['/', '/:code*', '/s/:path*'],
 };
 
 const SITE_URL = 'https://projects.dev';
@@ -152,11 +152,69 @@ function ogHtml(tags: {
   });
 }
 
+function decodeStackServices(encoded: string): { provider: string; service: string }[] {
+  const colonIdx = encoded.indexOf(':');
+  if (colonIdx <= 0) return [];
+  const version = encoded.slice(0, colonIdx);
+  if (version !== 'v1') return [];
+  const payload = encoded.slice(colonIdx + 1);
+  if (!payload) return [];
+  const services: { provider: string; service: string }[] = [];
+  for (const part of payload.split(',')) {
+    const tildeIdx = part.indexOf('~');
+    if (tildeIdx <= 0) continue;
+    const provider = decodeURIComponent(part.slice(0, tildeIdx));
+    const service = decodeURIComponent(part.slice(tildeIdx + 1));
+    services.push({ provider, service });
+  }
+  return services;
+}
+
+const PROVIDER_NAMES: Record<string, string> = {
+  agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
+  browserbase: 'Browserbase', chroma: 'Chroma', clerk: 'Clerk', cloudflare: 'Cloudflare',
+  daytona: 'Daytona', elevenlabs: 'ElevenLabs', firecrawl: 'Firecrawl', flyio: 'Fly.io',
+  gitlab: 'GitLab', huggingface: 'Hugging Face', inngest: 'Inngest', mixpanel: 'Mixpanel',
+  neon: 'Neon', netlify: 'Netlify', openrouter: 'OpenRouter', planetscale: 'PlanetScale',
+  posthog: 'PostHog', privy: 'Privy', railway: 'Railway', render: 'Render',
+  runloop: 'Runloop', sentry: 'Sentry', supabase: 'Supabase', turso: 'Turso',
+  twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
+};
+
 export default async function middleware(req: Request): Promise<Response | void> {
   const url = new URL(req.url);
   const path = url.pathname;
 
   /* ── Password gate — DISABLED for public access ─────────────── */
+
+  /* ── Stack Share path-based URLs (/s/v1:...) ────────────────── */
+  if (path.startsWith('/s/') && path.length > 3) {
+    const encoded = path.slice(3);
+    const services = decodeStackServices(encoded);
+    const names = services.map(s => PROVIDER_NAMES[s.provider] || s.provider);
+    const count = services.length;
+
+    if (isBot(req)) {
+      const title = count > 0
+        ? `Stack: ${names.join(', ')} | Stripe Projects`
+        : 'Stack Share | Stripe Projects';
+      const description = count > 0
+        ? `A shared stack with ${count} service${count !== 1 ? 's' : ''}: ${names.join(', ')}. Clone it with Stripe Projects CLI.`
+        : 'View and clone a shared Stripe Projects stack.';
+      return ogHtml({
+        title,
+        description,
+        imageUrl: `${SITE_URL}/api/og-stack?s=${encodeURIComponent(encoded)}`,
+        pageUrl: `${SITE_URL}/s/${encoded}`,
+      });
+    }
+
+    // Non-bot: redirect to hash-based URL
+    return new Response(null, {
+      status: 302,
+      headers: { Location: `${SITE_URL}/s#${encoded}` },
+    });
+  }
 
   /* ── Bot / OG handling ────────────────────────────────────────── */
   if (!isBot(req)) return;

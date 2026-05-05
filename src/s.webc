@@ -1,0 +1,470 @@
+---
+layout: "main.webc"
+title: "Stack Share"
+seoTitle: "Stack Share | Stripe Projects"
+ogTitle: "Stack Share | Stripe Projects"
+seoDesc: "View and clone a shared Stripe Projects stack."
+ogDesc: "View and clone a shared Stripe Projects stack."
+ogImage: "/assets/images/og/og.jpg"
+ogImageAlt: "Stripe Projects — Stack Share"
+changefreq: "weekly"
+wave: false
+binaryCanvas: false
+---
+
+<style webc:keep>
+[data-stack-card-inner][data-theme="light"] {
+    background: var(--color-foreground);
+    border-color: var(--color-edge);
+}
+[data-stack-card-inner][data-theme="light"] .stack-text-primary { color: var(--color-headline); }
+[data-stack-card-inner][data-theme="light"] .stack-text-secondary { color: var(--color-detail); }
+[data-stack-card-inner][data-theme="light"] .border-edge { border-color: var(--color-edge); }
+[data-stack-card-inner][data-theme="light"] .bg-highlight { background: var(--color-highlight); }
+
+[data-stack-card-inner][data-theme="dark"] {
+    background: #0a0f1a;
+    border-color: #1e293b;
+}
+[data-stack-card-inner][data-theme="dark"] .stack-text-primary { color: #f1f5f9; }
+[data-stack-card-inner][data-theme="dark"] .stack-text-secondary { color: #94a3b8; }
+[data-stack-card-inner][data-theme="dark"] .stack-service-badge { background: rgba(99,91,255,0.2) !important; color: #a5b4fc !important; }
+[data-stack-card-inner][data-theme="dark"] .border-edge { border-color: #1e293b; }
+[data-stack-card-inner][data-theme="dark"] .bg-highlight { background: #1e293b; }
+[data-stack-card-inner][data-theme="dark"] .text-headline { color: #f1f5f9; }
+[data-stack-card-inner][data-theme="dark"] .text-detail { color: #64748b; }
+[data-stack-card-inner][data-theme="dark"] [data-provider-row]:hover { background: rgba(99,91,255,0.08); }
+[data-stack-card-inner][data-theme="dark"] [data-stack-cta-clone] { background: #7c6aff; }
+[data-stack-card-inner][data-theme="dark"] [data-stack-cta-clone]:hover { background: #a5b4fc; }
+[data-stack-card-inner][data-theme="dark"] [data-stack-cta-share] { color: #94a3b8 !important; border-color: #334155 !important; }
+[data-stack-card-inner][data-theme="dark"] [data-stack-cta-share]:hover { background: #1e293b !important; color: #f1f5f9 !important; }
+[data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] { background: #1e293b !important; border-color: #334155 !important; }
+[data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button { color: #f1f5f9 !important; }
+[data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button:hover { background: #334155 !important; }
+[data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button + button { border-color: #334155 !important; }
+[data-stack-card-inner][data-theme="dark"] [data-expand-btn] { color: #a5b4fc; }
+[data-stack-card-inner][data-theme="dark"] img[alt="Vercel"],
+[data-stack-card-inner][data-theme="dark"] img[alt="Clerk"],
+[data-stack-card-inner][data-theme="dark"] img[alt="WorkOS"],
+[data-stack-card-inner][data-theme="dark"] img[alt="Render"],
+[data-stack-card-inner][data-theme="dark"] img[alt="Inngest"],
+[data-stack-card-inner][data-theme="dark"] img[alt="Fly.io"],
+[data-stack-card-inner][data-theme="dark"] img[alt="GitLab"] { filter: brightness(0) invert(1); }
+
+/* Animated gradient header */
+@keyframes stack-gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+[data-stack-header] {
+    background: linear-gradient(135deg, #635BFF 0%, #7c3aed 25%, #f97316 50%, #f59e0b 75%, #635BFF 100%);
+    background-size: 200% 200%;
+    animation: stack-gradient-shift 8s ease infinite;
+}
+
+/* Header glow */
+[data-stack-glow] {
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3rem;
+    background: radial-gradient(ellipse at center, rgba(99,91,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Provider row hover */
+[data-provider-row] {
+    transition: background 0.15s;
+    border-radius: 0.25rem;
+    margin: 0 -0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+[data-provider-row]:hover {
+    background: rgba(99,91,255,0.04);
+}
+[data-provider-row]:hover .stack-service-badge {
+    background: rgba(99,91,255,0.15) !important;
+}
+
+/* Connector line */
+[data-stack-providers] {
+    position: relative;
+}
+[data-connector-line] {
+    position: absolute;
+    left: 1rem;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 1.5px;
+    background: linear-gradient(180deg, #635BFF 0%, var(--color-edge, #e2e8f0) 100%);
+}
+[data-stack-card-inner][data-theme="dark"] [data-connector-line] {
+    background: linear-gradient(180deg, #635BFF 0%, #1e293b 100%);
+}
+[data-connector-dot] {
+    position: absolute;
+    left: calc(1rem - 3px);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid #635BFF;
+    box-shadow: 0 0 0 2px rgba(99,91,255,0.1);
+}
+[data-stack-card-inner][data-theme="dark"] [data-connector-dot] {
+    background: #0a0f1a;
+}
+</style>
+
+<!--- Stack Share Page --->
+<div class="relative w-full min-h-[calc(100dvh-8rem)]">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50">
+        <helm-container class="relative pt-24 pb-12 grid grid-cols-3 items-center">
+            <div></div>
+            <a href="/" class="relative flex items-center justify-center h-40 gap-4">
+                <div class="relative flex items-center gap-8 h-full px-10 whitespace-nowrap">
+                    <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
+                    <span class="text-16 font-normal text-headline">Stripe Projects</span>
+                </div>
+            </a>
+            <div class="flex items-center justify-end">
+                <button data-theme-toggle style="position:relative;width:2.25rem;height:1.25rem;border-radius:0.625rem;background:#e2e8f0;border:none;cursor:pointer;transition:background 0.2s;outline:none;padding:0;" aria-label="Toggle dark mode">
+                    <span data-theme-toggle-knob style="position:absolute;top:0.125rem;left:0.125rem;width:1rem;height:1rem;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.15);transition:transform 0.2s,background 0.2s;display:flex;align-items:center;justify-content:center;">
+                        <svg data-theme-icon-light xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" stroke="#f59e0b" stroke-width="1.5" style="width:0.625rem;height:0.625rem;">
+                            <circle cx="8" cy="8" r="3"/>
+                            <path stroke-linecap="round" d="M8 2v1M8 13v1M3 8H2M14 8h-1M4.93 4.93l-.7-.7M11.77 11.77l-.7-.7M4.93 11.07l-.7.7M11.77 4.23l-.7.7"/>
+                        </svg>
+                        <svg data-theme-icon-dark xmlns="http://www.w3.org/2000/svg" fill="#6366f1" viewBox="0 0 16 16" style="width:0.625rem;height:0.625rem;display:none;">
+                            <path d="M6 1a7 7 0 1 0 8.4 8.4A5.5 5.5 0 0 1 6 1z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </helm-container>
+    </header>
+
+    <!--- Card --->
+    <helm-section class="relative z-10">
+        <helm-container class="flex flex-col items-center pt-24 sm:pt-48 pb-64">
+
+            <!--- Loading state --->
+            <div data-stack-loading class="text-14 text-detail">Loading stack...</div>
+
+            <!--- Empty state (invalid URL) --->
+            <div data-stack-empty class="hidden flex flex-col items-center gap-16 text-center">
+                <p class="text-16 text-content">No stack found in this URL.</p>
+                <a href="/" class="text-14 text-primary hover:text-primary-hover transition-colors duration-200">Go to Stripe Projects</a>
+            </div>
+
+            <!--- Stack card --->
+            <div data-stack-card class="hidden w-full" style="max-width: 30rem;">
+                <!--- Card wrapper (theme controlled) --->
+                <div data-stack-card-inner class="relative w-full rounded-12 border border-edge bg-foreground transition-colors duration-300" style="box-shadow: 0 4px 24px rgba(99,91,255,0.06), 0 12px 48px rgba(0,0,0,0.04);">
+
+                    <!--- Card header with wave gradient --->
+                    <div data-stack-header style="position:relative;padding:1rem 1rem;border-radius:0.75rem 0.75rem 0 0;">
+                        <div data-stack-title style="font-size:1.125rem;font-weight:600;color:#fff;letter-spacing:-0.02em;">Stack Share</div>
+                    </div>
+
+                    <!--- Glow effect --->
+                    <div style="position:relative;">
+                        <div data-stack-glow></div>
+                    </div>
+
+                    <!--- Provider list --->
+                    <div data-stack-providers style="position:relative;padding:0.25rem 1rem;"></div>
+
+                    <!--- CTAs --->
+                    <div class="px-16 py-12 border-t border-edge flex flex-col items-center gap-8">
+                        <!--- Button row --->
+                        <div style="display:flex;gap:0.5rem;justify-content:center;width:100%;">
+                            <!--- Clone (primary) --->
+                            <div style="position:relative;">
+                                <button data-stack-cta-clone style="display:flex;align-items:center;gap:0.375rem;padding:0.5rem 0.875rem;border-radius:0.375rem;background:#635BFF;color:#fff;font-size:0.8125rem;font-weight:500;border:none;cursor:pointer;transition:background 0.15s;outline:none;" onmouseover="this.style.background='#4f46e5'" onmouseout="this.style.background='#635BFF'">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" style="width:0.8125rem;height:0.8125rem;flex-shrink:0;">
+                                        <path d="M8 1a.5.5 0 0 1 .5.5V2h1a.5.5 0 0 1 0 1h-1v.5a.5.5 0 0 1-1 0V3h-1a.5.5 0 0 1 0-1h1v-.5A.5.5 0 0 1 8 1z"/>
+                                        <path d="M3 5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5z"/>
+                                        <path d="M6 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM6.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3z"/>
+                                        <path d="M5 12h1v1.5a.5.5 0 0 1-1 0V12zm5 0h1v1.5a.5.5 0 0 1-1 0V12z"/>
+                                    </svg>
+                                    <span>Clone</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" style="width:0.625rem;height:0.625rem;flex-shrink:0;margin-left:0.125rem;opacity:0.7;">
+                                        <path d="M4.427 5.427a.75.75 0 0 1 1.06-.073L8 7.7l2.513-2.346a.75.75 0 1 1 1.024 1.092l-3 2.8a.75.75 0 0 1-1.024 0l-3-2.8a.75.75 0 0 1-.086-1.019z"/>
+                                    </svg>
+                                </button>
+                                <!--- Dropdown --->
+                                <div data-clone-dropdown style="display:none;position:absolute;top:calc(100% + 0.25rem);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #e2e8f0;border-radius:0.5rem;box-shadow:0 4px 12px rgba(0,0,0,0.1);overflow:hidden;z-index:10;min-width:10rem;">
+                                    <button data-stack-cta-cli style="display:flex;align-items:center;gap:0.375rem;padding:0.5rem 0.75rem;width:100%;font-size:0.75rem;color:#0a0a0a;background:none;border:none;cursor:pointer;transition:background 0.1s;text-align:left;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" style="width:0.75rem;height:0.75rem;flex-shrink:0;opacity:0.6;">
+                                            <path fill-rule="evenodd" d="M9.75 1.88h-7.5A1.13 1.13 0 0 0 1.13 3v6a1.13 1.13 0 0 0 1.12 1.13h7.5A1.1 1.1 0 0 0 10.88 9V3a1.1 1.1 0 0 0-1.13-1.12M2.25.75A2.25 2.25 0 0 0 0 3v6a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 12 9V3A2.25 2.25 0 0 0 9.75.75z" clip-rule="evenodd"/>
+                                            <path fill-rule="evenodd" d="M2.57 3.38a.56.56 0 0 1 .8-.06l2.62 2.25a.56.56 0 0 1 0 .86L3.37 8.68a.56.56 0 1 1-.74-.86L4.76 6 2.63 4.18a.56.56 0 0 1-.06-.8M6 8.06a.56.56 0 0 1 .56-.56H9.2a.56.56 0 1 1 0 1.12H6.56A.56.56 0 0 1 6 8.06" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Copy CLI command</span>
+                                    </button>
+                                    <button data-stack-cta-agent style="display:flex;align-items:center;gap:0.375rem;padding:0.5rem 0.75rem;width:100%;font-size:0.75rem;color:#0a0a0a;background:none;border:none;cursor:pointer;transition:background 0.1s;text-align:left;border-top:1px solid #e2e8f0;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='none'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" style="width:0.75rem;height:0.75rem;flex-shrink:0;opacity:0.6;">
+                                            <path d="M8 1a.5.5 0 0 1 .5.5V2h1a.5.5 0 0 1 0 1h-1v.5a.5.5 0 0 1-1 0V3h-1a.5.5 0 0 1 0-1h1v-.5A.5.5 0 0 1 8 1z"/>
+                                            <path d="M3 5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5z"/>
+                                            <path d="M6 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM6.5 8a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3z"/>
+                                            <path d="M5 12h1v1.5a.5.5 0 0 1-1 0V12zm5 0h1v1.5a.5.5 0 0 1-1 0V12z"/>
+                                        </svg>
+                                        <span>Copy agent prompt</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--- Share (secondary) --->
+                            <button data-stack-cta-share style="display:flex;align-items:center;gap:0.375rem;padding:0.5rem 0.875rem;border-radius:0.375rem;background:none;color:#0a0a0a;font-size:0.8125rem;font-weight:500;border:1px solid #e2e8f0;cursor:pointer;transition:background 0.15s,border-color 0.15s;outline:none;" onmouseover="this.style.background='#f8fafc';this.style.borderColor='#cbd5e1'" onmouseout="this.style.background='none';this.style.borderColor='#e2e8f0'">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="1.5" style="width:0.8125rem;height:0.8125rem;flex-shrink:0;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 10l4-4M4.5 7.5L3 9a2.83 2.83 0 004 4l1.5-1.5M11.5 8.5L13 7a2.83 2.83 0 00-4-4L7.5 4.5"/>
+                                </svg>
+                                <span>Share</span>
+                            </button>
+                        </div>
+                        <!--- Footer badge --->
+                        <div style="display:flex;justify-content:center;padding-top:0.5rem;">
+                            <span style="font-size:0.625rem;color:#94a3b8;letter-spacing:0.04em;">Built with Stripe Projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </helm-container>
+    </helm-section>
+
+</div>
+
+<!--- Copy toast (reuse from main page pattern) --->
+<div data-copy-toast class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 px-16 h-40 bg-headline text-highlight rounded-8 text-14 font-normal shadow-lg pointer-events-none" style="opacity:0;visibility:hidden;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-14 h-14 text-[#4ade80] shrink-0"><path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd"/></svg>
+    <span data-copy-toast-label>Copied</span>
+</div>
+
+<script webc:keep>
+(function stackShare() {
+    const PROVIDERS = {
+        agentmail:    { name: 'AgentMail',    desc: 'Email API for agents' },
+        algolia:      { name: 'Algolia',      desc: 'Search & discovery' },
+        amplitude:    { name: 'Amplitude',    desc: 'Product analytics' },
+        auth0:        { name: 'Auth0',        desc: 'Identity platform' },
+        browserbase:  { name: 'Browserbase',  desc: 'Headless browsers' },
+        chroma:       { name: 'Chroma',       desc: 'Vector database' },
+        clerk:        { name: 'Clerk',        desc: 'Auth & user management' },
+        cloudflare:   { name: 'Cloudflare',   desc: 'Edge compute' },
+        daytona:      { name: 'Daytona',      desc: 'Dev sandboxes' },
+        elevenlabs:   { name: 'ElevenLabs',   desc: 'Text to speech' },
+        firecrawl:    { name: 'Firecrawl',    desc: 'Web scraping API' },
+        flyio:        { name: 'Fly.io',       desc: 'App hosting' },
+        gitlab:       { name: 'GitLab',       desc: 'DevOps platform' },
+        huggingface:  { name: 'Hugging Face', desc: 'ML models' },
+        inngest:      { name: 'Inngest',      desc: 'Background jobs' },
+        mixpanel:     { name: 'Mixpanel',     desc: 'Event analytics' },
+        neon:         { name: 'Neon',         desc: 'Serverless Postgres' },
+        netlify:      { name: 'Netlify',      desc: 'Web hosting' },
+        openrouter:   { name: 'OpenRouter',   desc: 'LLM router' },
+        planetscale:  { name: 'PlanetScale',  desc: 'Managed database' },
+        posthog:      { name: 'PostHog',      desc: 'Product analytics' },
+        privy:        { name: 'Privy',        desc: 'Wallet auth' },
+        railway:      { name: 'Railway',      desc: 'App infrastructure' },
+        render:       { name: 'Render',       desc: 'Cloud hosting' },
+        runloop:      { name: 'Runloop',      desc: 'Agent sandboxes' },
+        sentry:       { name: 'Sentry',       desc: 'Error monitoring' },
+        supabase:     { name: 'Supabase',     desc: 'Postgres + backend' },
+        turso:        { name: 'Turso',        desc: 'Edge SQLite' },
+        twilio:       { name: 'Twilio',       desc: 'Email & SMS' },
+        upstash:      { name: 'Upstash',      desc: 'Serverless Redis' },
+        vercel:       { name: 'Vercel',       desc: 'Frontend cloud' },
+        workos:       { name: 'WorkOS',       desc: 'Enterprise auth' },
+    };
+
+    function decodeHash() {
+        const hash = window.location.hash.slice(1);
+        if (!hash) return null;
+        const colonIdx = hash.indexOf(':');
+        if (colonIdx <= 0) return null;
+        const version = hash.slice(0, colonIdx);
+        if (version !== 'v1') return null;
+        const payload = hash.slice(colonIdx + 1);
+        if (!payload) return null;
+        const services = [];
+        for (const part of payload.split(',')) {
+            const tildeIdx = part.indexOf('~');
+            if (tildeIdx <= 0) continue;
+            const provider = decodeURIComponent(part.slice(0, tildeIdx));
+            const service = decodeURIComponent(part.slice(tildeIdx + 1));
+            services.push({ provider, service });
+        }
+        return services.length > 0 ? services : null;
+    }
+
+    function getStackUrl() {
+        return window.location.origin + '/s' + window.location.hash;
+    }
+
+    function getShareUrl() {
+        const hash = window.location.hash.slice(1);
+        return window.location.origin + '/s/' + hash;
+    }
+
+    function showToast(msg) {
+        const toast = document.querySelector('[data-copy-toast]');
+        const label = document.querySelector('[data-copy-toast-label]');
+        if (!toast) return;
+        if (label) label.textContent = msg;
+        gsap.killTweensOf(toast);
+        gsap.fromTo(toast, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' });
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+            gsap.to(toast, { autoAlpha: 0, y: 8, duration: 0.25, ease: 'power2.in' });
+        }, 2500);
+    }
+
+    function renderProviderRow(provider, service) {
+        const info = PROVIDERS[provider] || { name: provider, desc: '' };
+        const logoPath = `/assets/images/svg/provider-icons/${provider}.svg`;
+
+        const row = document.createElement('div');
+        row.setAttribute('data-provider-row', '');
+        row.style.cssText = 'display:flex;align-items:center;gap:0.75rem;padding:0.625rem 0.25rem;opacity:0;transform:translateY(8px);';
+        row.innerHTML = `
+            <img src="${logoPath}" alt="${info.name}" style="width:1.5rem;height:1.5rem;flex-shrink:0;object-fit:contain;" onerror="this.style.display='none'">
+            <div style="display:flex;flex-direction:column;gap:0.0625rem;flex:1;min-width:0;">
+                <span class="stack-text-primary" style="font-size:0.875rem;font-weight:500;">${info.name}</span>
+                <span class="stack-text-secondary" style="font-size:0.6875rem;">${info.desc}</span>
+            </div>
+            <span class="stack-service-badge" style="font-size:0.6875rem;padding:0.125rem 0.4rem;border-radius:0.75rem;background:rgba(99,91,255,0.08);color:#635BFF;font-family:monospace;white-space:nowrap;transition:background 0.15s;flex-shrink:0;">${service}</span>
+        `;
+        return row;
+    }
+
+    function render() {
+        const loadingEl = document.querySelector('[data-stack-loading]');
+        const emptyEl = document.querySelector('[data-stack-empty]');
+        const cardEl = document.querySelector('[data-stack-card]');
+
+        const services = decodeHash();
+
+        if (!services) {
+            loadingEl.classList.add('hidden');
+            emptyEl.classList.remove('hidden');
+            return;
+        }
+
+        loadingEl.classList.add('hidden');
+        cardEl.classList.remove('hidden');
+
+        // Render providers
+        const container = document.querySelector('[data-stack-providers]');
+        container.innerHTML = '';
+
+        const rows = [];
+        services.forEach(({ provider, service }) => {
+            const row = renderProviderRow(provider, service);
+            container.appendChild(row);
+            rows.push(row);
+        });
+
+        // Staggered entrance animation
+        gsap.to(rows, {
+            opacity: 1,
+            y: 0,
+            duration: 0.35,
+            stagger: 0.06,
+            ease: 'power2.out',
+            delay: 0.15,
+        });
+
+        // Clone dropdown toggle
+        const cloneBtn = document.querySelector('[data-stack-cta-clone]');
+        const dropdown = document.querySelector('[data-clone-dropdown]');
+        cloneBtn.addEventListener('click', () => {
+            const open = dropdown.style.display !== 'none';
+            dropdown.style.display = open ? 'none' : 'block';
+        });
+        document.addEventListener('click', (e) => {
+            if (!cloneBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Button copy feedback helper
+        function flashButton(btn, originalHtml) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" style="width:0.75rem;height:0.75rem;"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/></svg><span style="margin-left:0.25rem;">Copied!</span>';
+            setTimeout(() => { btn.innerHTML = orig; }, 1500);
+        }
+
+        // CLI CTA
+        const cliBtn = document.querySelector('[data-stack-cta-cli]');
+        cliBtn.addEventListener('click', () => {
+            const cmd = `stripe projects init --from ${getStackUrl()}`;
+            navigator.clipboard.writeText(cmd);
+            flashButton(cliBtn, cliBtn.innerHTML);
+            showToast('CLI command copied');
+            dropdown.style.display = 'none';
+        });
+
+        // Agent CTA
+        const agentBtn = document.querySelector('[data-stack-cta-agent]');
+        agentBtn.addEventListener('click', () => {
+            const prompt = `use https://projects.dev/skill.md to clone this stack: stripe projects init --from ${getStackUrl()}`;
+            navigator.clipboard.writeText(prompt);
+            flashButton(agentBtn, agentBtn.innerHTML);
+            showToast('Agent prompt copied');
+            dropdown.style.display = 'none';
+        });
+
+        // Share link CTA
+        const shareBtn = document.querySelector('[data-stack-cta-share]');
+        const shareOriginal = shareBtn.innerHTML;
+        shareBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(getShareUrl());
+            flashButton(shareBtn, shareOriginal);
+            showToast('Share link copied');
+        });
+    }
+
+    // Theme toggle
+    function initTheme() {
+        const toggle = document.querySelector('[data-theme-toggle]');
+        const knob = document.querySelector('[data-theme-toggle-knob]');
+        const iconLight = document.querySelector('[data-theme-icon-light]');
+        const iconDark = document.querySelector('[data-theme-icon-dark]');
+        const card = document.querySelector('[data-stack-card-inner]');
+        if (!toggle || !card) return;
+
+        let dark = localStorage.getItem('stack-theme') === 'dark';
+
+        function apply() {
+            if (dark) {
+                card.setAttribute('data-theme', 'dark');
+                toggle.style.background = '#334155';
+                knob.style.transform = 'translateX(1rem)';
+                knob.style.background = '#1e293b';
+                iconLight.style.display = 'none';
+                iconDark.style.display = 'block';
+            } else {
+                card.setAttribute('data-theme', 'light');
+                toggle.style.background = '#e2e8f0';
+                knob.style.transform = 'translateX(0)';
+                knob.style.background = '#fff';
+                iconLight.style.display = 'block';
+                iconDark.style.display = 'none';
+            }
+            localStorage.setItem('stack-theme', dark ? 'dark' : 'light');
+        }
+
+        toggle.addEventListener('click', () => { dark = !dark; apply(); });
+        apply();
+    }
+
+    render();
+    initTheme();
+    window.addEventListener('hashchange', render);
+})();
+</script>
