@@ -43,13 +43,10 @@ binaryCanvas: false
 [data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button:hover { background: #334155 !important; }
 [data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button + button { border-color: #334155 !important; }
 [data-stack-card-inner][data-theme="dark"] [data-expand-btn] { color: #a5b4fc; }
-[data-stack-card-inner][data-theme="dark"] img[alt="Vercel"],
-[data-stack-card-inner][data-theme="dark"] img[alt="Clerk"],
-[data-stack-card-inner][data-theme="dark"] img[alt="WorkOS"],
-[data-stack-card-inner][data-theme="dark"] img[alt="Render"],
-[data-stack-card-inner][data-theme="dark"] img[alt="Inngest"],
-[data-stack-card-inner][data-theme="dark"] img[alt="Fly.io"],
-[data-stack-card-inner][data-theme="dark"] img[alt="GitLab"] { filter: brightness(0) invert(1); }
+[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="#000"],
+[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="#131316"],
+[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="#0a0a0a"] { fill: #f1f5f9; }
+[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="currentColor"] { fill: #f1f5f9; }
 
 /* Animated gradient header */
 @keyframes stack-gradient-shift {
@@ -73,6 +70,13 @@ binaryCanvas: false
     height: 3rem;
     background: radial-gradient(ellipse at center, rgba(99,91,255,0.15) 0%, transparent 70%);
     pointer-events: none;
+}
+
+/* Provider logos */
+.stack-logo svg {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
 }
 
 /* Provider row hover */
@@ -246,7 +250,16 @@ binaryCanvas: false
 </div>
 
 <script webc:keep>
-(function stackShare() {
+(async function stackShare() {
+    // Load provider logos
+    let LOGOS_SVG = {};
+    try {
+        const res = await fetch('/assets/js/provider-logos.js');
+        const text = await res.text();
+        const fn = new Function(text + '; return window.__PROVIDER_LOGOS;');
+        LOGOS_SVG = fn() || {};
+    } catch(e) {}
+
     const PROVIDERS = {
         agentmail:    { name: 'AgentMail',    desc: 'Email API for agents' },
         algolia:      { name: 'Algolia',      desc: 'Search & discovery' },
@@ -326,13 +339,18 @@ binaryCanvas: false
 
     function renderProviderRow(provider, service) {
         const info = PROVIDERS[provider] || { name: provider, desc: '' };
-        const logoPath = `/assets/images/svg/provider-icons/${provider}.svg`;
+        const logoSvg = LOGOS_SVG[provider] || '';
 
         const row = document.createElement('div');
         row.setAttribute('data-provider-row', '');
         row.style.cssText = 'display:flex;align-items:center;gap:0.75rem;padding:0.625rem 0.25rem;opacity:0;transform:translateY(8px);';
+
+        const logoHtml = logoSvg
+            ? `<div class="stack-logo" style="width:8.5rem;height:2.25rem;flex-shrink:0;display:flex;align-items:center;">${logoSvg}</div>`
+            : `<div style="width:8.5rem;height:2.25rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(99,91,255,0.05);border-radius:0.25rem;"><span style="font-size:0.75rem;font-weight:500;color:#635BFF;">${info.name}</span></div>`;
+
         row.innerHTML = `
-            <img src="${logoPath}" alt="${info.name}" style="width:1.5rem;height:1.5rem;flex-shrink:0;object-fit:contain;" onerror="this.style.display='none'">
+            ${logoHtml}
             <div style="display:flex;flex-direction:column;gap:0.0625rem;flex:1;min-width:0;">
                 <span class="stack-text-primary" style="font-size:0.875rem;font-weight:500;">${info.name}</span>
                 <span class="stack-text-secondary" style="font-size:0.6875rem;">${info.desc}</span>
