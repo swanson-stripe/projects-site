@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path fill="url(#supabase-icon-a)" d="M13.85 23.52c-.64.8-1.93.37-1.95-.67l-.22-15.02h10.1a2.18 2.18 0 0 1 1.7 3.55z"/>
+    <path fill="url(#supabase-icon-b)" fill-opacity=".2" d="M13.85 23.52c-.64.8-1.93.37-1.95-.67l-.22-15.02h10.1a2.18 2.18 0 0 1 1.7 3.55z"/>
+    <path fill="#3ecf8e" d="M10.14.48a1.09 1.09 0 0 1 1.95.66l.1 15.03H2.25a2.18 2.18 0 0 1-1.72-3.55z"/>
+    <defs>
+      <linearGradient id="supabase-icon-a" x1="11.68" x2="20.64" y1="10.86" y2="14.63" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#249361"/>
+        <stop offset="1" stop-color="#3ecf8e"/>
+      </linearGradient>
+      <linearGradient id="supabase-icon-b" x1="7.72" x2="11.8" y1="5.42" y2="13.12" gradientUnits="userSpaceOnUse">
+        <stop/>
+        <stop offset="1" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+</svg>
