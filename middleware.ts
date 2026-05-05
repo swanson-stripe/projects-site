@@ -204,7 +204,7 @@ export default async function middleware(req: Request): Promise<Response | void>
       return ogHtml({
         title,
         description,
-        imageUrl: `${SITE_URL}/api/og-stack?s=${encodeURIComponent(encoded)}`,
+        imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
         pageUrl: `${SITE_URL}/s/${encoded}`,
       });
     }
