@@ -230,34 +230,5 @@ export default async function middleware(req: Request): Promise<Response | void>
     });
   }
 
-  /* ── stack pages ──────────────────────────────────────────────── */
-  const code = path.slice(1);
-  if (code.startsWith('STACK-')) {
-    let title = 'projects';
-    let description = 'Stack generated with Stripe projects.';
-
-    try {
-      const apiRes = await fetch(`${SITE_URL}/api/stacks/${code}`);
-      if (apiRes.ok) {
-        const data = await apiRes.json() as { appName: string; services: string[]; createdAt: string };
-        const providerCount = data.services.length;
-        const date = new Date(data.createdAt).toLocaleDateString('en-US', {
-          month: 'short', day: 'numeric', year: 'numeric',
-        });
-        title = `${data.appName} · stripe projects`;
-        description = `${providerCount} provider${providerCount !== 1 ? 's' : ''} · generated ${date}`;
-      }
-    } catch {
-      // fall through to defaults
-    }
-
-    return ogHtml({
-      title,
-      description,
-      imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
-      pageUrl: `${SITE_URL}/${code}`,
-    });
-  }
-
   return;
 }
