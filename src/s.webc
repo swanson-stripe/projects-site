@@ -337,7 +337,7 @@ binaryCanvas: false
         }, 2500);
     }
 
-    function renderProviderRow(provider, service) {
+    function renderProviderRow(provider, serviceList) {
         const info = PROVIDERS[provider] || { name: provider, desc: '' };
         const logoSvg = LOGOS_SVG[provider] || '';
 
@@ -349,13 +349,17 @@ binaryCanvas: false
             ? `<div class="stack-logo" style="width:4.5rem;height:1rem;flex-shrink:0;display:flex;align-items:center;margin:0 2rem;">${logoSvg}</div>`
             : `<div style="width:4.5rem;height:1rem;flex-shrink:0;display:flex;align-items:center;margin:0 2rem;"><span style="font-size:0.6875rem;font-weight:500;color:#635BFF;">${info.name}</span></div>`;
 
+        const badges = serviceList.map(s =>
+            `<span class="stack-service-badge" style="font-size:0.6875rem;padding:0.125rem 0.4rem;border-radius:0.75rem;background:rgba(99,91,255,0.08);color:#635BFF;font-family:monospace;white-space:nowrap;transition:background 0.15s;flex-shrink:0;">${s}</span>`
+        ).join('');
+
         row.innerHTML = `
             ${logoHtml}
             <div style="display:flex;flex-direction:column;gap:0.0625rem;flex:1;min-width:0;">
                 <span class="stack-text-primary" style="font-size:0.875rem;font-weight:500;">${info.name}</span>
                 <span class="stack-text-secondary" style="font-size:0.6875rem;">${info.desc}</span>
             </div>
-            <span class="stack-service-badge" style="font-size:0.6875rem;padding:0.125rem 0.4rem;border-radius:0.75rem;background:rgba(99,91,255,0.08);color:#635BFF;font-family:monospace;white-space:nowrap;transition:background 0.15s;flex-shrink:0;">${service}</span>
+            <div style="display:flex;gap:0.25rem;flex-wrap:wrap;flex-shrink:0;">${badges}</div>
         `;
         return row;
     }
@@ -376,13 +380,20 @@ binaryCanvas: false
         loadingEl.classList.add('hidden');
         cardEl.classList.remove('hidden');
 
+        // Group services by provider (preserving first-seen order)
+        const grouped = new Map();
+        services.forEach(({ provider, service }) => {
+            if (!grouped.has(provider)) grouped.set(provider, []);
+            grouped.get(provider).push(service);
+        });
+
         // Render providers
         const container = document.querySelector('[data-stack-providers]');
         container.innerHTML = '';
 
         const rows = [];
-        services.forEach(({ provider, service }) => {
-            const row = renderProviderRow(provider, service);
+        grouped.forEach((serviceList, provider) => {
+            const row = renderProviderRow(provider, serviceList);
             container.appendChild(row);
             rows.push(row);
         });
