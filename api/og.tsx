@@ -96,7 +96,7 @@ export default async function handler(req: Request) {
   const logoUris: Record<string, string | null> = {};
   for (const g of displayProviders) {
     const svg = logos[g.provider];
-    logoUris[g.provider] = svg ? `data:image/svg+xml;base64,${btoa(svg)}` : null;
+    logoUris[g.provider] = svg ? `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}` : null;
   }
 
   const rowHeight = Math.floor((630 - 100 - 64 - 48) / maxVisible);
