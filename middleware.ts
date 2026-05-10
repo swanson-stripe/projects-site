@@ -135,9 +135,9 @@ function ogHtml(tags: {
   <meta property="og:description" content="${description}" />
   <meta property="og:url" content="${pageUrl}" />
   <meta property="og:image" content="${imageUrl}" />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1024" />
-  <meta property="og:image:height" content="535" />
+  <meta property="og:image:type" content="${imageUrl.includes('/api/og') ? 'image/png' : 'image/jpeg'}" />
+  <meta property="og:image:width" content="${imageUrl.includes('/api/og') ? '1200' : '1024'}" />
+  <meta property="og:image:height" content="${imageUrl.includes('/api/og') ? '630' : '535'}" />
   <meta property="og:image:alt" content="${title}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@stripe" />
@@ -201,10 +201,13 @@ export default async function middleware(req: Request): Promise<Response | void>
       const description = count > 0
         ? `A shared stack with ${count} service${count !== 1 ? 's' : ''}: ${names.join(', ')}. Clone it with Stripe Projects CLI.`
         : 'View and clone a shared Stripe Projects stack.';
+      const imageUrl = count > 0
+        ? `${SITE_URL}/api/og?stack=${encodeURIComponent(encoded)}`
+        : `${SITE_URL}/assets/images/og/og.jpg`;
       return ogHtml({
         title,
         description,
-        imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
+        imageUrl,
         pageUrl: `${SITE_URL}/s/${encoded}`,
       });
     }
