@@ -4,7 +4,12 @@ export const config = {
   matcher: ['/', '/:code*', '/s/:path*'],
 };
 
-const SITE_URL = 'https://projects.dev';
+const SITE_URL_FALLBACK = 'https://projects.dev';
+
+function getSiteUrl(req: Request): string {
+  const url = new URL(req.url);
+  return url.origin || SITE_URL_FALLBACK;
+}
 
 const BOT_UA = /slack|twitterbot|facebookexternalhit|linkedinbot|whatsapp|discordbot|telegrambot|iMessage|applebot|Googlebot|bingbot|yahoo/i;
 
@@ -25,7 +30,7 @@ function passwordFormHtml(redirectTo: string, error = false): Response {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>stripe projects</title>
-  <link rel="icon" type="image/svg+xml" href="${SITE_URL}/logo-24-stripe.svg" />
+  <link rel="icon" type="image/svg+xml" href="${SITE_URL_FALLBACK}/logo-24-stripe.svg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -128,7 +133,7 @@ function ogHtml(tags: {
   <meta charset="UTF-8" />
   <title>${title}</title>
   <meta name="description" content="${description}" />
-  <link rel="icon" type="image/svg+xml" href="${SITE_URL}/assets/images/favicon/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="${SITE_URL_FALLBACK}/assets/images/favicon/favicon.svg" />
   <meta property="og:site_name" content="${siteName}" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${title}" />
@@ -184,6 +189,7 @@ const PROVIDER_NAMES: Record<string, string> = {
 export default async function middleware(req: Request): Promise<Response | void> {
   const url = new URL(req.url);
   const path = url.pathname;
+  const SITE_URL = getSiteUrl(req);
 
   /* ── Password gate — DISABLED for public access ─────────────── */
 

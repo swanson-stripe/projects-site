@@ -4,7 +4,7 @@ export const config = {
   runtime: 'edge',
 };
 
-const SITE_URL = 'https://projects.dev';
+const SITE_URL_FALLBACK = 'https://projects.dev';
 
 const PROVIDER_NAMES: Record<string, string> = {
   agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
@@ -62,28 +62,12 @@ function groupByProvider(services: { provider: string; service: string }[]) {
   return grouped;
 }
 
-async function loadProviderLogo(provider: string): Promise<string | null> {
-  try {
-    const resp = await fetch(`${SITE_URL}/assets/js/provider-logos.js`);
-    if (!resp.ok) return null;
-    const content = await resp.text();
-    const start = content.indexOf('{');
-    const end = content.lastIndexOf('}') + 1;
-    const logos = JSON.parse(content.slice(start, end));
-    const svg = logos[provider];
-    if (!svg) return null;
-    return `data:image/svg+xml;base64,${btoa(svg)}`;
-  } catch {
-    return null;
-  }
-}
-
 let _logosCache: Record<string, string> | null = null;
 
-async function getLogos(): Promise<Record<string, string>> {
+async function getLogos(siteUrl: string): Promise<Record<string, string>> {
   if (_logosCache) return _logosCache;
   try {
-    const resp = await fetch(`${SITE_URL}/assets/js/provider-logos.js`);
+    const resp = await fetch(`${siteUrl}/assets/js/provider-logos.js`);
     if (!resp.ok) return {};
     const content = await resp.text();
     const start = content.indexOf('{');
@@ -97,6 +81,7 @@ async function getLogos(): Promise<Record<string, string>> {
 
 export default async function handler(req: Request) {
   const url = new URL(req.url);
+  const siteUrl = url.origin || SITE_URL_FALLBACK;
   const stack = url.searchParams.get('stack') || '';
   const services = decodeStackServices(stack);
   const grouped = groupByProvider(services);
@@ -109,7 +94,7 @@ export default async function handler(req: Request) {
     fetch(
       'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf'
     ).then(res => res.arrayBuffer()).catch(() => null),
-    getLogos(),
+    getLogos(siteUrl),
   ]);
 
   const logoUris: Record<string, string | null> = {};
