@@ -24,20 +24,6 @@ const PROVIDER_NAMES: Record<string, string> = {
   twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
 };
 
-const PROVIDER_DESCRIPTIONS: Record<string, string> = {
-  agentmail: 'Email for AI agents', algolia: 'Search & discovery', amplitude: 'Product analytics',
-  auth0: 'Authentication', browserbase: 'Headless browsers', chroma: 'Vector database',
-  clerk: 'Auth & user management', cloudflare: 'Edge compute', daytona: 'Dev environments',
-  elevenlabs: 'Voice AI', firecrawl: 'Web scraping', flyio: 'App hosting',
-  gitlab: 'DevOps platform', huggingface: 'ML models', inngest: 'Background jobs',
-  mixpanel: 'Product analytics', neon: 'Serverless Postgres', netlify: 'Web hosting',
-  openrouter: 'LLM routing', planetscale: 'MySQL platform', posthog: 'Product analytics',
-  privy: 'Web3 auth', railway: 'App hosting', render: 'Cloud hosting',
-  runloop: 'AI dev tools', sentry: 'Error monitoring', supabase: 'Backend as a service',
-  turso: 'Edge database', twilio: 'Communications', upstash: 'Serverless Redis',
-  vercel: 'Frontend hosting', workos: 'Enterprise SSO',
-};
-
 function decodeStackServices(encoded: string): { provider: string; service: string }[] {
   const colonIdx = encoded.indexOf(':');
   if (colonIdx <= 0) return [];
@@ -86,6 +72,17 @@ async function getLogos(siteUrl: string): Promise<Record<string, string>> {
   }
 }
 
+async function fetchAsDataUri(url: string, mime: string): Promise<string | null> {
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) return null;
+    const buf = Buffer.from(await resp.arrayBuffer());
+    return `data:${mime};base64,${buf.toString('base64')}`;
+  } catch {
+    return null;
+  }
+}
+
 function h(type: string, props: any, ...children: any[]): any {
   const flat = children.flat().filter(c => c !== undefined && c !== null && c !== false);
   return {
@@ -105,15 +102,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const services = decodeStackServices(stack);
   const grouped = groupByProvider(services);
 
-  const maxVisible = grouped.length > 5 ? 5 : grouped.length;
+  const maxVisible = grouped.length > 7 ? 7 : grouped.length;
   const displayProviders = grouped.slice(0, maxVisible);
-  const overflow = grouped.length > 5 ? grouped.length - 5 : 0;
+  const count = displayProviders.length;
 
-  const [fontData, logos] = await Promise.all([
-    fetch(
-      'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf'
-    ).then(r => r.arrayBuffer()).catch(() => null),
+  const [fontData, fontBoldData, logos, bgDataUri, stripeLogoUri] = await Promise.all([
+    fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf')
+      .then(r => r.arrayBuffer()).catch(() => null),
+    fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf')
+      .then(r => r.arrayBuffer()).catch(() => null),
     getLogos(siteUrl),
+    fetchAsDataUri(`${siteUrl}/assets/images/og/og-gradient-bg.jpg`, 'image/jpeg'),
+    fetchAsDataUri(`${siteUrl}/assets/images/og/stripe-projects-logo.png`, 'image/png'),
   ]);
 
   const logoUris: Record<string, string | null> = {};
@@ -122,55 +122,91 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     logoUris[g.provider] = svg ? `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}` : null;
   }
 
-  const rowHeight = Math.floor((630 - 100 - 64 - 48) / maxVisible);
+  // Dynamic sizing
+  const cardTop = count <= 2 ? '100px' : count <= 4 ? '60px' : count <= 6 ? '40px' : '30px';
+  const cardPadTop = count <= 3 ? '48px' : count <= 5 ? '40px' : '36px';
+  const rowGap = count <= 3 ? '40px' : count <= 5 ? '30px' : '22px';
+  const logoHeight = count <= 4 ? 42 : count <= 6 ? 36 : 30;
+  const badgePad = count <= 4 ? '10px 20px' : '8px 16px';
+  const badgeFont = count <= 4 ? '20px' : '17px';
 
-  const element = h('div', { style: { width: '1200px', height: '630px', display: 'flex', flexDirection: 'column', background: '#ffffff', fontFamily: '"Inter"', overflow: 'hidden' } },
-    h('div', { style: { width: '100%', height: '100px', background: 'linear-gradient(135deg, #635BFF 0%, #7c3aed 30%, #f97316 70%, #f59e0b 100%)', display: 'flex', alignItems: 'center', padding: '0 64px' } },
-      h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' } },
-        h('span', { style: { color: '#ffffff', fontSize: '28px', fontWeight: 700 } }, 'Stack Share'),
-        h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
-          h('svg', { width: 20, height: 20, viewBox: '0 0 16 16', fill: 'white' },
-            h('path', { d: 'M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z' })
+  // Title: dynamic for single provider
+  let title: string;
+  if (count === 1) {
+    const providerName = PROVIDER_NAMES[displayProviders[0].provider] || displayProviders[0].provider;
+    const serviceName = displayProviders[0].services[0];
+    title = `Provision ${providerName} ${serviceName}`;
+  } else {
+    title = 'Clone this stack';
+  }
+
+  const element = h('div', { style: { width: '1200px', height: '630px', display: 'flex', fontFamily: '"Inter"', overflow: 'hidden', position: 'relative' } },
+    // Background
+    bgDataUri
+      ? h('img', { src: bgDataUri, width: 1200, height: 630, style: { position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px' } })
+      : h('div', { style: { position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', background: 'linear-gradient(135deg, #f97316 0%, #a855f7 50%, #635BFF 100%)', display: 'flex' } }),
+
+    // Left column
+    h('div', { style: { display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', padding: '48px 0 48px 64px', width: '440px', flexShrink: 0 } },
+      stripeLogoUri
+        ? h('div', { style: { display: 'flex', alignItems: 'center', marginBottom: '32px' } },
+            h('img', { src: stripeLogoUri, height: 28 })
+          )
+        : h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' } },
+            h('svg', { width: 18, height: 18, viewBox: '0 0 16 16', fill: '#635BFF' },
+              h('path', { d: 'M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z' })
+            ),
+            h('span', { style: { color: '#0f172a', fontSize: '17px', fontWeight: 600 } }, 'Stripe Projects')
           ),
-          h('span', { style: { color: 'rgba(255,255,255,0.9)', fontSize: '16px', fontWeight: 500 } }, 'Stripe Projects')
-        )
-      )
+      h('span', { style: { color: '#0f172a', fontSize: '58px', fontWeight: 700, lineHeight: 1.1 } }, title)
     ),
-    h('div', { style: { display: 'flex', flexDirection: 'column', padding: '32px 64px', flex: 1 } },
-      ...displayProviders.map((g, i) =>
-        h('div', { style: { display: 'flex', alignItems: 'center', height: `${rowHeight}px`, borderBottom: i < displayProviders.length - 1 ? '1px solid #f1f5f9' : 'none' } },
-          h('div', { style: { display: 'flex', alignItems: 'center', width: '180px', height: '28px', flexShrink: 0 } },
-            logoUris[g.provider]
-              ? h('img', { src: logoUris[g.provider], height: 28 })
-              : h('span', { style: { color: '#0f172a', fontSize: '18px', fontWeight: 700 } }, PROVIDER_NAMES[g.provider] || g.provider)
+
+    // Right — card anchored to bottom-right
+    h('div', { style: { position: 'absolute', right: '-24px', bottom: '0px', width: '660px', display: 'flex' } },
+      // Glass rim
+      h('div', { style: { display: 'flex', flexDirection: 'column', width: '100%', borderRadius: '20px 0 0 0', background: 'linear-gradient(160deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.25) 100%)', padding: '8px 0 0 8px' } },
+        // Inner white card
+        h('div', { style: { display: 'flex', flexDirection: 'column', background: '#ffffff', borderRadius: '14px 0 0 0', padding: `${cardPadTop} 56px 0 48px`, boxShadow: '-4px -4px 40px rgba(0,0,0,0.06)' } },
+          // Provider rows
+          h('div', { style: { display: 'flex', flexDirection: 'column', gap: rowGap } },
+            ...displayProviders.map(g => {
+              return h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
+                h('div', { style: { display: 'flex', alignItems: 'center', height: `${logoHeight}px`, flex: 1 } },
+                  logoUris[g.provider]
+                    ? h('img', { src: logoUris[g.provider], height: logoHeight })
+                    : h('span', { style: { color: '#0f172a', fontSize: '28px', fontWeight: 700 } }, PROVIDER_NAMES[g.provider] || g.provider)
+                ),
+                h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 } },
+                  ...g.services.map(svc =>
+                    h('div', { style: { display: 'flex', alignItems: 'center', padding: badgePad, background: '#ede9fe', borderRadius: '22px' } },
+                      h('span', { style: { color: '#4c1d95', fontSize: badgeFont, fontWeight: 500 } }, svc)
+                    )
+                  )
+                )
+              );
+            })
           ),
-          h('div', { style: { display: 'flex', flexDirection: 'column', flex: 1, paddingLeft: '32px' } },
-            h('span', { style: { color: '#0f172a', fontSize: '22px', fontWeight: 700 } }, PROVIDER_NAMES[g.provider] || g.provider),
-            h('span', { style: { color: '#64748b', fontSize: '15px', marginTop: '4px' } }, PROVIDER_DESCRIPTIONS[g.provider] || '')
-          ),
-          h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 } },
-            ...g.services.map(svc =>
-              h('div', { style: { display: 'flex', alignItems: 'center', padding: '6px 14px', background: '#f0edff', borderRadius: '16px' } },
-                h('span', { style: { color: '#5b52cc', fontSize: '15px' } }, svc)
-              )
+          // Divider
+          h('div', { style: { width: '100%', height: '1px', background: '#e2e8f0', marginTop: '28px' } }),
+          // Clone button
+          h('div', { style: { display: 'flex', justifyContent: 'center', padding: '24px 0 24px' } },
+            h('div', { style: { display: 'flex', alignItems: 'center', padding: '16px 40px', background: '#635BFF', borderRadius: '10px' } },
+              h('span', { style: { color: '#ffffff', fontSize: '22px', fontWeight: 600 } }, 'Clone')
             )
           )
         )
-      ),
-      ...(overflow > 0 ? [
-        h('div', { style: { display: 'flex', alignItems: 'center', height: '48px', paddingLeft: '212px' } },
-          h('span', { style: { color: '#94a3b8', fontSize: '16px' } }, `+${overflow} more provider${overflow !== 1 ? 's' : ''}`)
-        )
-      ] : [])
+      )
     )
   );
+
+  const fonts: any[] = [];
+  if (fontData) fonts.push({ name: 'Inter', data: fontData, style: 'normal' as const, weight: 400 as const });
+  if (fontBoldData) fonts.push({ name: 'Inter', data: fontBoldData, style: 'normal' as const, weight: 700 as const });
 
   const imageResponse = new ImageResponse(element, {
     width: 1200,
     height: 630,
-    ...(fontData ? {
-      fonts: [{ name: 'Inter', data: fontData, style: 'normal' as const, weight: 400 as const }],
-    } : {}),
+    ...(fonts.length > 0 ? { fonts } : {}),
   });
 
   const buffer = Buffer.from(await imageResponse.arrayBuffer());
