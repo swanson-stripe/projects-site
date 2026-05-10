@@ -15,17 +15,6 @@ const PROVIDER_NAMES: Record<string, string> = {
   twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
 };
 
-const PROVIDER_COLORS: Record<string, string> = {
-  agentmail: '#635BFF', algolia: '#003DFF', amplitude: '#1E61F0', auth0: '#EB5424',
-  browserbase: '#FF6B35', chroma: '#FF6B6B', clerk: '#6C47FF', cloudflare: '#F6821F',
-  daytona: '#1C1C1C', elevenlabs: '#000000', firecrawl: '#FF6B35', flyio: '#7B3FE4',
-  gitlab: '#FC6D26', huggingface: '#FFD21E', inngest: '#5D5FEF', mixpanel: '#7856FF',
-  neon: '#34D59A', netlify: '#32E6E2', openrouter: '#6366F1', planetscale: '#000000',
-  posthog: '#1D4AFF', privy: '#6851FF', railway: '#0B0D0E', render: '#46E3B7',
-  runloop: '#635BFF', sentry: '#4E2A9A', supabase: '#3ECF8E', turso: '#4FF8D2',
-  twilio: '#F22F46', upstash: '#00E9A3', vercel: '#000000', workos: '#6363F1',
-};
-
 function decodeStackServices(encoded: string): { provider: string; service: string }[] {
   const colonIdx = encoded.indexOf(':');
   if (colonIdx <= 0) return [];
@@ -44,6 +33,20 @@ function decodeStackServices(encoded: string): { provider: string; service: stri
   return services;
 }
 
+const SITE_URL = 'https://projects.dev';
+
+async function loadProviderIcon(provider: string): Promise<string | null> {
+  try {
+    const resp = await fetch(`${SITE_URL}/assets/images/svg/provider-icons/${provider}.svg`);
+    if (!resp.ok) return null;
+    const svg = await resp.text();
+    const base64 = btoa(svg);
+    return `data:image/svg+xml;base64,${base64}`;
+  } catch {
+    return null;
+  }
+}
+
 export default async function handler(req: Request) {
   const url = new URL(req.url);
   const stack = url.searchParams.get('stack') || '';
@@ -53,9 +56,12 @@ export default async function handler(req: Request) {
   const displayServices = services.slice(0, maxVisible);
   const overflow = services.length > 5 ? services.length - 5 : 0;
 
-  const fontData = await fetch(
-    'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf'
-  ).then(res => res.arrayBuffer()).catch(() => null);
+  const [fontData, ...icons] = await Promise.all([
+    fetch(
+      'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf'
+    ).then(res => res.arrayBuffer()).catch(() => null),
+    ...displayServices.map(s => loadProviderIcon(s.provider)),
+  ]);
 
   return new ImageResponse(
     (
@@ -71,7 +77,7 @@ export default async function handler(req: Request) {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle grid background */}
+        {/* Dot grid */}
         <div
           style={{
             position: 'absolute',
@@ -79,8 +85,8 @@ export default async function handler(req: Request) {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(99,91,255,0.06) 1px, transparent 0)',
-            backgroundSize: '24px 24px',
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(99,91,255,0.05) 1px, transparent 0)',
+            backgroundSize: '32px 32px',
             display: 'flex',
           }}
         />
@@ -95,13 +101,14 @@ export default async function handler(req: Request) {
           }}
         />
 
-        {/* Content area */}
+        {/* Main content */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            padding: '48px 64px',
+            padding: '48px 80px',
             flex: 1,
+            justifyContent: 'center',
           }}
         >
           {/* Header */}
@@ -109,49 +116,56 @@ export default async function handler(req: Request) {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              marginBottom: '40px',
+              justifyContent: 'space-between',
+              marginBottom: '36px',
             }}
           >
-            {/* Stripe Projects icon */}
-            <svg width="28" height="28" viewBox="0 0 16 16" fill="none">
-              <rect width="16" height="16" rx="4" fill="#635BFF"/>
-              <circle cx="5" cy="8" r="1.5" fill="white"/>
-              <circle cx="8" cy="8" r="1.5" fill="white"/>
-              <circle cx="11" cy="8" r="1.5" fill="white"/>
-            </svg>
-            <span style={{ color: '#94a3b8', fontSize: '20px', fontWeight: 500 }}>
-              Stack Share
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <svg width="28" height="28" viewBox="0 0 16 16" fill="none">
+                <rect width="16" height="16" rx="4" fill="#635BFF"/>
+                <circle cx="5" cy="8" r="1.5" fill="white"/>
+                <circle cx="8" cy="8" r="1.5" fill="white"/>
+                <circle cx="11" cy="8" r="1.5" fill="white"/>
+              </svg>
+              <span style={{ color: '#94a3b8', fontSize: '20px', fontWeight: 500 }}>
+                Stack Share
+              </span>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '8px 18px',
+                background: 'rgba(99,91,255,0.08)',
+                borderRadius: '8px',
+                border: '1px solid rgba(99,91,255,0.15)',
+              }}
+            >
+              <span style={{ color: '#94a3b8', fontSize: '16px' }}>
+                {services.length} service{services.length !== 1 ? 's' : ''}
+              </span>
+            </div>
           </div>
 
           {/* Provider list */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0px',
-              flex: 1,
-            }}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             {displayServices.map((s, i) => (
               <div
                 key={i}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '16px',
-                  height: '64px',
+                  height: '72px',
                 }}
               >
-                {/* Connector dot + line */}
+                {/* Connector */}
                 <div
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '20px',
-                    height: '64px',
+                    width: '32px',
+                    height: '72px',
                     position: 'relative',
                   }}
                 >
@@ -159,10 +173,11 @@ export default async function handler(req: Request) {
                     <div
                       style={{
                         position: 'absolute',
-                        top: 0,
+                        top: '0',
+                        left: '15px',
                         width: '2px',
-                        height: '26px',
-                        background: 'rgba(99,91,255,0.3)',
+                        height: '28px',
+                        background: 'rgba(99,91,255,0.25)',
                         display: 'flex',
                       }}
                     />
@@ -170,12 +185,13 @@ export default async function handler(req: Request) {
                   <div
                     style={{
                       position: 'absolute',
-                      top: '26px',
+                      top: '28px',
+                      left: '10px',
                       width: '12px',
                       height: '12px',
                       borderRadius: '50%',
-                      background: PROVIDER_COLORS[s.provider] || '#635BFF',
-                      border: '2px solid rgba(255,255,255,0.1)',
+                      background: 'rgba(99,91,255,0.4)',
+                      border: '2px solid rgba(99,91,255,0.6)',
                       display: 'flex',
                     }}
                   />
@@ -183,17 +199,42 @@ export default async function handler(req: Request) {
                     <div
                       style={{
                         position: 'absolute',
-                        top: '40px',
+                        top: '42px',
+                        left: '15px',
                         width: '2px',
-                        height: '24px',
-                        background: 'rgba(99,91,255,0.3)',
+                        height: '30px',
+                        background: 'rgba(99,91,255,0.25)',
                         display: 'flex',
                       }}
                     />
                   )}
                 </div>
 
-                {/* Provider name */}
+                {/* Logo */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '40px',
+                    height: '40px',
+                    marginLeft: '16px',
+                    marginRight: '20px',
+                    borderRadius: '8px',
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                  }}
+                >
+                  {icons[i] ? (
+                    <img src={icons[i]!} width={22} height={22} />
+                  ) : (
+                    <span style={{ color: '#f1f5f9', fontSize: '14px', fontWeight: 600 }}>
+                      {(PROVIDER_NAMES[s.provider] || s.provider).slice(0, 2)}
+                    </span>
+                  )}
+                </div>
+
+                {/* Name */}
                 <span
                   style={{
                     color: '#f1f5f9',
@@ -210,19 +251,13 @@ export default async function handler(req: Request) {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '6px 14px',
-                    background: 'rgba(99,91,255,0.12)',
+                    padding: '6px 16px',
+                    background: 'rgba(99,91,255,0.1)',
                     borderRadius: '20px',
                     border: '1px solid rgba(99,91,255,0.2)',
                   }}
                 >
-                  <span
-                    style={{
-                      color: '#a5b4fc',
-                      fontSize: '16px',
-                      fontFamily: 'monospace',
-                    }}
-                  >
+                  <span style={{ color: '#a5b4fc', fontSize: '16px' }}>
                     {s.service}
                   </span>
                 </div>
@@ -234,12 +269,11 @@ export default async function handler(req: Request) {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '16px',
                   height: '48px',
-                  paddingLeft: '36px',
+                  paddingLeft: '48px',
                 }}
               >
-                <span style={{ color: '#64748b', fontSize: '18px' }}>
+                <span style={{ color: '#64748b', fontSize: '17px' }}>
                   +{overflow} more service{overflow !== 1 ? 's' : ''}
                 </span>
               </div>
@@ -253,35 +287,15 @@ export default async function handler(req: Request) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 64px 36px',
+            padding: '0 80px 32px',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-          >
-            <span style={{ color: '#475569', fontSize: '16px' }}>
-              projects.dev
-            </span>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '8px 16px',
-              background: 'rgba(99,91,255,0.08)',
-              borderRadius: '8px',
-              border: '1px solid rgba(99,91,255,0.15)',
-            }}
-          >
-            <span style={{ color: '#94a3b8', fontSize: '15px' }}>
-              {services.length} service{services.length !== 1 ? 's' : ''}
-            </span>
-          </div>
+          <span style={{ color: '#334155', fontSize: '16px' }}>
+            projects.dev
+          </span>
+          <span style={{ color: '#334155', fontSize: '14px' }}>
+            npx stripe-projects clone
+          </span>
         </div>
       </div>
     ),

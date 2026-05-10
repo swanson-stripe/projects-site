@@ -1,10 +1,11 @@
 import { ImageResponse } from '@vercel/og';
-import { writeFileSync, readFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
+const ICONS_DIR = join(ROOT, 'src/assets/images/svg/provider-icons');
 
 const PROVIDER_NAMES = {
   agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
@@ -15,17 +16,6 @@ const PROVIDER_NAMES = {
   posthog: 'PostHog', privy: 'Privy', railway: 'Railway', render: 'Render',
   runloop: 'Runloop', sentry: 'Sentry', supabase: 'Supabase', turso: 'Turso',
   twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
-};
-
-const PROVIDER_COLORS = {
-  agentmail: '#635BFF', algolia: '#003DFF', amplitude: '#1E61F0', auth0: '#EB5424',
-  browserbase: '#FF6B35', chroma: '#FF6B6B', clerk: '#6C47FF', cloudflare: '#F6821F',
-  daytona: '#1C1C1C', elevenlabs: '#ffffff', firecrawl: '#FF6B35', flyio: '#7B3FE4',
-  gitlab: '#FC6D26', huggingface: '#FFD21E', inngest: '#5D5FEF', mixpanel: '#7856FF',
-  neon: '#34D59A', netlify: '#32E6E2', openrouter: '#6366F1', planetscale: '#ffffff',
-  posthog: '#1D4AFF', privy: '#6851FF', railway: '#ffffff', render: '#46E3B7',
-  runloop: '#635BFF', sentry: '#4E2A9A', supabase: '#3ECF8E', turso: '#4FF8D2',
-  twilio: '#F22F46', upstash: '#00E9A3', vercel: '#ffffff', workos: '#6363F1',
 };
 
 const STACKS = {
@@ -53,11 +43,32 @@ const STACKS = {
 };
 
 const variant = process.argv[2] || 'standard';
-const services = STACKS[variant] || STACKS.standard;
+let services;
+if (variant.includes('~')) {
+  services = variant.split(',').map(part => {
+    const [provider, service] = part.replace(/^v1:/, '').split('~');
+    return { provider, service };
+  });
+} else {
+  services = STACKS[variant] || STACKS.standard;
+}
 
-// Download Inter font for preview generation
+function loadSvgData(provider) {
+  const path = join(ICONS_DIR, `${provider}.svg`);
+  if (!existsSync(path)) return null;
+  const content = readFileSync(path, 'utf-8');
+  const base64 = Buffer.from(content).toString('base64');
+  return `data:image/svg+xml;base64,${base64}`;
+}
+
 const fontResp = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf');
 const fontData = Buffer.from(await fontResp.arrayBuffer());
+const fontBoldResp = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf');
+const fontBoldData = Buffer.from(await fontBoldResp.arrayBuffer());
+
+const maxVisible = services.length > 5 ? 5 : services.length;
+const displayServices = services.slice(0, maxVisible);
+const overflow = services.length > 5 ? services.length - 5 : 0;
 
 const element = {
   type: 'div',
@@ -83,13 +94,13 @@ const element = {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(99,91,255,0.06) 1px, transparent 0)',
-            backgroundSize: '24px 24px',
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(99,91,255,0.05) 1px, transparent 0)',
+            backgroundSize: '32px 32px',
             display: 'flex',
           },
         },
       },
-      // Gradient bar
+      // Top gradient bar
       {
         type: 'div',
         props: {
@@ -101,48 +112,77 @@ const element = {
           },
         },
       },
-      // Content
+      // Main content — centered
       {
         type: 'div',
         props: {
           style: {
             display: 'flex',
             flexDirection: 'column',
-            padding: '48px 64px',
+            padding: '48px 80px',
             flex: 1,
+            justifyContent: 'center',
           },
           children: [
-            // Header
+            // Header row
             {
               type: 'div',
               props: {
                 style: {
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  marginBottom: '40px',
+                  justifyContent: 'space-between',
+                  marginBottom: '36px',
                 },
                 children: [
                   {
-                    type: 'svg',
+                    type: 'div',
                     props: {
-                      width: 28,
-                      height: 28,
-                      viewBox: '0 0 16 16',
-                      fill: 'none',
+                      style: { display: 'flex', alignItems: 'center', gap: '12px' },
                       children: [
-                        { type: 'rect', props: { width: 16, height: 16, rx: 4, fill: '#635BFF' } },
-                        { type: 'circle', props: { cx: 5, cy: 8, r: 1.5, fill: 'white' } },
-                        { type: 'circle', props: { cx: 8, cy: 8, r: 1.5, fill: 'white' } },
-                        { type: 'circle', props: { cx: 11, cy: 8, r: 1.5, fill: 'white' } },
+                        {
+                          type: 'svg',
+                          props: {
+                            width: 28,
+                            height: 28,
+                            viewBox: '0 0 16 16',
+                            fill: 'none',
+                            children: [
+                              { type: 'rect', props: { width: 16, height: 16, rx: 4, fill: '#635BFF' } },
+                              { type: 'circle', props: { cx: 5, cy: 8, r: 1.5, fill: 'white' } },
+                              { type: 'circle', props: { cx: 8, cy: 8, r: 1.5, fill: 'white' } },
+                              { type: 'circle', props: { cx: 11, cy: 8, r: 1.5, fill: 'white' } },
+                            ],
+                          },
+                        },
+                        {
+                          type: 'span',
+                          props: {
+                            style: { color: '#94a3b8', fontSize: '20px', fontWeight: 500 },
+                            children: 'Stack Share',
+                          },
+                        },
                       ],
                     },
                   },
                   {
-                    type: 'span',
+                    type: 'div',
                     props: {
-                      style: { color: '#94a3b8', fontSize: '20px', fontWeight: 500 },
-                      children: 'Stack Share',
+                      style: {
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '8px 18px',
+                        background: 'rgba(99,91,255,0.08)',
+                        borderRadius: '8px',
+                        border: '1px solid rgba(99,91,255,0.15)',
+                      },
+                      children: {
+                        type: 'span',
+                        props: {
+                          style: { color: '#94a3b8', fontSize: '16px' },
+                          children: `${services.length} service${services.length !== 1 ? 's' : ''}`,
+                        },
+                      },
                     },
                   },
                 ],
@@ -152,132 +192,164 @@ const element = {
             {
               type: 'div',
               props: {
-                style: { display: 'flex', flexDirection: 'column', flex: 1 },
+                style: { display: 'flex', flexDirection: 'column', gap: '0' },
                 children: [
-                  ...services.slice(0, services.length > 5 ? 5 : services.length).map((s, i) => ({
-                  type: 'div',
-                  props: {
-                    style: {
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '16px',
-                      height: '72px',
-                    },
-                    children: [
-                      // Connector column
-                      {
-                        type: 'div',
-                        props: {
-                          style: {
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            width: '24px',
-                            height: '72px',
-                            position: 'relative',
-                          },
-                          children: [
-                            ...(i > 0 ? [{
-                              type: 'div',
-                              props: {
-                                style: {
-                                  position: 'absolute',
-                                  top: '0',
-                                  left: '11px',
-                                  width: '2px',
-                                  height: '30px',
-                                  background: 'rgba(99,91,255,0.3)',
-                                  display: 'flex',
-                                },
+                  ...displayServices.map((s, i) => {
+                    const logoSrc = loadSvgData(s.provider);
+                    return {
+                      type: 'div',
+                      props: {
+                        style: {
+                          display: 'flex',
+                          alignItems: 'center',
+                          height: '72px',
+                          gap: '0',
+                        },
+                        children: [
+                          // Connector column
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                width: '32px',
+                                height: '72px',
+                                position: 'relative',
                               },
-                            }] : []),
-                            {
-                              type: 'div',
-                              props: {
-                                style: {
-                                  position: 'absolute',
-                                  top: '30px',
-                                  left: '6px',
-                                  width: '12px',
-                                  height: '12px',
-                                  borderRadius: '50%',
-                                  background: PROVIDER_COLORS[s.provider] || '#635BFF',
-                                  display: 'flex',
+                              children: [
+                                ...(i > 0 ? [{
+                                  type: 'div',
+                                  props: {
+                                    style: {
+                                      position: 'absolute',
+                                      top: '0',
+                                      left: '15px',
+                                      width: '2px',
+                                      height: '28px',
+                                      background: 'rgba(99,91,255,0.25)',
+                                      display: 'flex',
+                                    },
+                                  },
+                                }] : []),
+                                {
+                                  type: 'div',
+                                  props: {
+                                    style: {
+                                      position: 'absolute',
+                                      top: '28px',
+                                      left: '10px',
+                                      width: '12px',
+                                      height: '12px',
+                                      borderRadius: '50%',
+                                      background: 'rgba(99,91,255,0.4)',
+                                      border: '2px solid rgba(99,91,255,0.6)',
+                                      display: 'flex',
+                                    },
+                                  },
+                                },
+                                ...(i < displayServices.length - 1 ? [{
+                                  type: 'div',
+                                  props: {
+                                    style: {
+                                      position: 'absolute',
+                                      top: '42px',
+                                      left: '15px',
+                                      width: '2px',
+                                      height: '30px',
+                                      background: 'rgba(99,91,255,0.25)',
+                                      display: 'flex',
+                                    },
+                                  },
+                                }] : []),
+                              ],
+                            },
+                          },
+                          // Logo
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '40px',
+                                height: '40px',
+                                marginLeft: '16px',
+                                marginRight: '20px',
+                                borderRadius: '8px',
+                                background: 'rgba(255,255,255,0.05)',
+                                border: '1px solid rgba(255,255,255,0.08)',
+                              },
+                              children: logoSrc ? {
+                                type: 'img',
+                                props: {
+                                  src: logoSrc,
+                                  width: 22,
+                                  height: 22,
+                                },
+                              } : {
+                                type: 'span',
+                                props: {
+                                  style: { color: '#f1f5f9', fontSize: '14px', fontWeight: 600 },
+                                  children: (PROVIDER_NAMES[s.provider] || s.provider).slice(0, 2),
                                 },
                               },
                             },
-                            ...(i < Math.min(services.length, 5) - 1 ? [{
-                              type: 'div',
-                              props: {
-                                style: {
-                                  position: 'absolute',
-                                  top: '44px',
-                                  left: '11px',
-                                  width: '2px',
-                                  height: '28px',
-                                  background: 'rgba(99,91,255,0.3)',
-                                  display: 'flex',
-                                },
-                              },
-                            }] : []),
-                          ],
-                        },
-                      },
-                      // Provider name
-                      {
-                        type: 'span',
-                        props: {
-                          style: {
-                            color: '#f1f5f9',
-                            fontSize: '26px',
-                            fontWeight: 600,
-                            width: '240px',
                           },
-                          children: PROVIDER_NAMES[s.provider] || s.provider,
-                        },
-                      },
-                      // Service badge
-                      {
-                        type: 'div',
-                        props: {
-                          style: {
-                            display: 'flex',
-                            alignItems: 'center',
-                            padding: '6px 16px',
-                            background: 'rgba(99,91,255,0.12)',
-                            borderRadius: '20px',
-                            border: '1px solid rgba(99,91,255,0.25)',
-                          },
-                          children: {
+                          // Provider name
+                          {
                             type: 'span',
                             props: {
                               style: {
-                                color: '#a5b4fc',
-                                fontSize: '17px',
+                                color: '#f1f5f9',
+                                fontSize: '24px',
+                                fontWeight: 600,
+                                width: '220px',
                               },
-                              children: s.service,
+                              children: PROVIDER_NAMES[s.provider] || s.provider,
                             },
                           },
-                        },
+                          // Service badge
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '6px 16px',
+                                background: 'rgba(99,91,255,0.1)',
+                                borderRadius: '20px',
+                                border: '1px solid rgba(99,91,255,0.2)',
+                              },
+                              children: {
+                                type: 'span',
+                                props: {
+                                  style: { color: '#a5b4fc', fontSize: '16px' },
+                                  children: s.service,
+                                },
+                              },
+                            },
+                          },
+                        ],
                       },
-                    ],
-                  },
-                })),
-                  ...(services.length > 5 ? [{
+                    };
+                  }),
+                  ...(overflow > 0 ? [{
                     type: 'div',
                     props: {
                       style: {
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '16px',
                         height: '48px',
-                        paddingLeft: '36px',
+                        paddingLeft: '48px',
                       },
                       children: {
                         type: 'span',
                         props: {
-                          style: { color: '#64748b', fontSize: '18px' },
-                          children: `+${services.length - 5} more service${services.length - 5 !== 1 ? 's' : ''}`,
+                          style: { color: '#64748b', fontSize: '17px' },
+                          children: `+${overflow} more service${overflow !== 1 ? 's' : ''}`,
                         },
                       },
                     },
@@ -296,34 +368,21 @@ const element = {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 64px 36px',
+            padding: '0 80px 32px',
           },
           children: [
             {
               type: 'span',
               props: {
-                style: { color: '#475569', fontSize: '16px' },
+                style: { color: '#334155', fontSize: '16px' },
                 children: 'projects.dev',
               },
             },
             {
-              type: 'div',
+              type: 'span',
               props: {
-                style: {
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '8px 16px',
-                  background: 'rgba(99,91,255,0.08)',
-                  borderRadius: '8px',
-                  border: '1px solid rgba(99,91,255,0.15)',
-                },
-                children: {
-                  type: 'span',
-                  props: {
-                    style: { color: '#94a3b8', fontSize: '15px' },
-                    children: `${services.length} services`,
-                  },
-                },
+                style: { color: '#334155', fontSize: '14px' },
+                children: 'npx stripe-projects clone',
               },
             },
           ],
@@ -338,19 +397,15 @@ async function generate() {
     width: 1200,
     height: 630,
     fonts: [
-      {
-        name: 'Inter',
-        data: fontData,
-        style: 'normal',
-        weight: 400,
-      },
+      { name: 'Inter', data: fontData, style: 'normal', weight: 400 },
+      { name: 'Inter', data: fontBoldData, style: 'normal', weight: 700 },
     ],
   });
 
   const buffer = Buffer.from(await response.arrayBuffer());
-  const outPath = join(ROOT, `og-preview-${variant}.png`);
+  const outPath = join(ROOT, `og-preview.png`);
   writeFileSync(outPath, buffer);
-  console.log(`✓ Generated OG preview: ${outPath} (${(buffer.length / 1024).toFixed(1)} KB)`);
+  console.log(`✓ Generated: ${outPath} (${(buffer.length / 1024).toFixed(1)} KB)`);
 }
 
 generate().catch(console.error);
