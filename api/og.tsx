@@ -1,8 +1,15 @@
+import type { IncomingMessage, ServerResponse } from 'http';
 import { ImageResponse } from '@vercel/og';
 
-export const config = {
-  runtime: 'edge',
-};
+interface VercelRequest extends IncomingMessage {
+  query: Record<string, string | string[]>;
+}
+
+interface VercelResponse extends ServerResponse {
+  status(code: number): VercelResponse;
+  send(body: Buffer): void;
+  setHeader(name: string, value: string): this;
+}
 
 const SITE_URL_FALLBACK = 'https://projects.dev';
 
@@ -79,10 +86,11 @@ async function getLogos(siteUrl: string): Promise<Record<string, string>> {
   }
 }
 
-export default async function handler(req: Request) {
-  const url = new URL(req.url);
-  const siteUrl = url.origin || SITE_URL_FALLBACK;
-  const stack = url.searchParams.get('stack') || '';
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'projects.dev';
+  const siteUrl = `${protocol}://${host}`;
+  const stack = (req.query.stack as string) || '';
   const services = decodeStackServices(stack);
   const grouped = groupByProvider(services);
 
@@ -105,7 +113,7 @@ export default async function handler(req: Request) {
 
   const rowHeight = Math.floor((630 - 100 - 64 - 48) / maxVisible);
 
-  return new ImageResponse(
+  const imageResponse = new ImageResponse(
     (
       <div
         style={{
@@ -261,4 +269,9 @@ export default async function handler(req: Request) {
       } : {}),
     },
   );
+
+  const buffer = Buffer.from(await imageResponse.arrayBuffer());
+  res.setHeader('Content-Type', 'image/png');
+  res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+  res.status(200).send(buffer);
 }
