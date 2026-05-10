@@ -197,7 +197,7 @@ export default async function middleware(req: Request): Promise<Response | void>
   if (path.startsWith('/s/') && path.length > 3) {
     const encoded = path.slice(3);
     const services = decodeStackServices(encoded);
-    const names = services.map(s => PROVIDER_NAMES[s.provider] || s.provider);
+    const names = [...new Set(services.map(s => PROVIDER_NAMES[s.provider] || s.provider))];
     const count = services.length;
 
     if (isBot(req)) {
