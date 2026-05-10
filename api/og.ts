@@ -86,6 +86,17 @@ async function getLogos(siteUrl: string): Promise<Record<string, string>> {
   }
 }
 
+function h(type: string, props: any, ...children: any[]): any {
+  const flat = children.flat().filter(c => c !== undefined && c !== null && c !== false);
+  return {
+    type,
+    props: {
+      ...props,
+      children: flat.length === 0 ? undefined : flat.length === 1 ? flat[0] : flat,
+    },
+  };
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const protocol = req.headers['x-forwarded-proto'] || 'https';
   const host = req.headers['x-forwarded-host'] || req.headers.host || 'projects.dev';
@@ -101,7 +112,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const [fontData, logos] = await Promise.all([
     fetch(
       'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf'
-    ).then(res => res.arrayBuffer()).catch(() => null),
+    ).then(r => r.arrayBuffer()).catch(() => null),
     getLogos(siteUrl),
   ]);
 
@@ -113,162 +124,54 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const rowHeight = Math.floor((630 - 100 - 64 - 48) / maxVisible);
 
-  const imageResponse = new ImageResponse(
-    (
-      <div
-        style={{
-          width: '1200px',
-          height: '630px',
-          display: 'flex',
-          flexDirection: 'column',
-          background: '#ffffff',
-          fontFamily: '"Inter"',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Gradient header */}
-        <div
-          style={{
-            width: '100%',
-            height: '100px',
-            background: 'linear-gradient(135deg, #635BFF 0%, #7c3aed 30%, #f97316 70%, #f59e0b 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 64px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-            <span style={{ color: '#ffffff', fontSize: '28px', fontWeight: 700 }}>
-              Stack Share
-            </span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <svg width="20" height="20" viewBox="0 0 16 16" fill="white">
-                <path d="M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z"/>
-              </svg>
-              <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: '16px', fontWeight: 500 }}>
-                Stripe Projects
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Provider rows */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '32px 64px',
-            flex: 1,
-          }}
-        >
-          {displayProviders.map((g, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                height: `${rowHeight}px`,
-                borderBottom: i < displayProviders.length - 1 ? '1px solid #f1f5f9' : 'none',
-              }}
-            >
-              {/* Wordmark logo */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '180px',
-                  height: '28px',
-                  flexShrink: 0,
-                }}
-              >
-                {logoUris[g.provider] ? (
-                  <img src={logoUris[g.provider]!} height={28} />
-                ) : (
-                  <span style={{ color: '#0f172a', fontSize: '18px', fontWeight: 700 }}>
-                    {PROVIDER_NAMES[g.provider] || g.provider}
-                  </span>
-                )}
-              </div>
-
-              {/* Name + description */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flex: 1,
-                  paddingLeft: '32px',
-                }}
-              >
-                <span style={{ color: '#0f172a', fontSize: '22px', fontWeight: 700 }}>
-                  {PROVIDER_NAMES[g.provider] || g.provider}
-                </span>
-                <span style={{ color: '#64748b', fontSize: '15px', marginTop: '4px' }}>
-                  {PROVIDER_DESCRIPTIONS[g.provider] || ''}
-                </span>
-              </div>
-
-              {/* Service badges */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  flexShrink: 0,
-                }}
-              >
-                {g.services.map((svc, j) => (
-                  <div
-                    key={j}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '6px 14px',
-                      background: '#f0edff',
-                      borderRadius: '16px',
-                    }}
-                  >
-                    <span style={{ color: '#5b52cc', fontSize: '15px' }}>
-                      {svc}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          {overflow > 0 && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                height: '48px',
-                paddingLeft: '212px',
-              }}
-            >
-              <span style={{ color: '#94a3b8', fontSize: '16px' }}>
-                +{overflow} more provider{overflow !== 1 ? 's' : ''}
-              </span>
-            </div>
-          )}
-        </div>
-
-      </div>
+  const element = h('div', { style: { width: '1200px', height: '630px', display: 'flex', flexDirection: 'column', background: '#ffffff', fontFamily: '"Inter"', overflow: 'hidden' } },
+    h('div', { style: { width: '100%', height: '100px', background: 'linear-gradient(135deg, #635BFF 0%, #7c3aed 30%, #f97316 70%, #f59e0b 100%)', display: 'flex', alignItems: 'center', padding: '0 64px' } },
+      h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' } },
+        h('span', { style: { color: '#ffffff', fontSize: '28px', fontWeight: 700 } }, 'Stack Share'),
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: '10px' } },
+          h('svg', { width: 20, height: 20, viewBox: '0 0 16 16', fill: 'white' },
+            h('path', { d: 'M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z' })
+          ),
+          h('span', { style: { color: 'rgba(255,255,255,0.9)', fontSize: '16px', fontWeight: 500 } }, 'Stripe Projects')
+        )
+      )
     ),
-    {
-      width: 1200,
-      height: 630,
-      ...(fontData ? {
-        fonts: [
-          {
-            name: 'Inter',
-            data: fontData,
-            style: 'normal' as const,
-            weight: 400 as const,
-          },
-        ],
-      } : {}),
-    },
+    h('div', { style: { display: 'flex', flexDirection: 'column', padding: '32px 64px', flex: 1 } },
+      ...displayProviders.map((g, i) =>
+        h('div', { style: { display: 'flex', alignItems: 'center', height: `${rowHeight}px`, borderBottom: i < displayProviders.length - 1 ? '1px solid #f1f5f9' : 'none' } },
+          h('div', { style: { display: 'flex', alignItems: 'center', width: '180px', height: '28px', flexShrink: 0 } },
+            logoUris[g.provider]
+              ? h('img', { src: logoUris[g.provider], height: 28 })
+              : h('span', { style: { color: '#0f172a', fontSize: '18px', fontWeight: 700 } }, PROVIDER_NAMES[g.provider] || g.provider)
+          ),
+          h('div', { style: { display: 'flex', flexDirection: 'column', flex: 1, paddingLeft: '32px' } },
+            h('span', { style: { color: '#0f172a', fontSize: '22px', fontWeight: 700 } }, PROVIDER_NAMES[g.provider] || g.provider),
+            h('span', { style: { color: '#64748b', fontSize: '15px', marginTop: '4px' } }, PROVIDER_DESCRIPTIONS[g.provider] || '')
+          ),
+          h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 } },
+            ...g.services.map(svc =>
+              h('div', { style: { display: 'flex', alignItems: 'center', padding: '6px 14px', background: '#f0edff', borderRadius: '16px' } },
+                h('span', { style: { color: '#5b52cc', fontSize: '15px' } }, svc)
+              )
+            )
+          )
+        )
+      ),
+      ...(overflow > 0 ? [
+        h('div', { style: { display: 'flex', alignItems: 'center', height: '48px', paddingLeft: '212px' } },
+          h('span', { style: { color: '#94a3b8', fontSize: '16px' } }, `+${overflow} more provider${overflow !== 1 ? 's' : ''}`)
+        )
+      ] : [])
+    )
   );
+
+  const imageResponse = new ImageResponse(element, {
+    width: 1200,
+    height: 630,
+    ...(fontData ? {
+      fonts: [{ name: 'Inter', data: fontData, style: 'normal' as const, weight: 400 as const }],
+    } : {}),
+  });
 
   const buffer = Buffer.from(await imageResponse.arrayBuffer());
   res.setHeader('Content-Type', 'image/png');
