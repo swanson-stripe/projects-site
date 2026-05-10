@@ -1,9 +1,5 @@
 import { ImageResponse } from '@vercel/og';
 
-export const config = {
-  runtime: 'edge',
-};
-
 const SITE_URL_FALLBACK = 'https://projects.dev';
 
 const PROVIDER_NAMES: Record<string, string> = {
