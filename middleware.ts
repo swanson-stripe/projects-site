@@ -202,10 +202,10 @@ export default async function middleware(req: Request): Promise<Response | void>
 
     if (isBot(req)) {
       const title = count > 0
-        ? `Stack: ${names.join(', ')} | Stripe Projects`
+        ? names.join(', ')
         : 'Stack Share | Stripe Projects';
       const description = count > 0
-        ? `A shared stack with ${count} service${count !== 1 ? 's' : ''}: ${names.join(', ')}. Clone it with Stripe Projects CLI.`
+        ? `Clone this ${count}-service stack with one command.`
         : 'View and clone a shared Stripe Projects stack.';
       const imageUrl = count > 0
         ? `${SITE_URL}/api/og?stack=${encodeURIComponent(encoded)}`
