@@ -144,16 +144,18 @@ export default async function handler(req: Request) {
             padding: '0 64px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <svg width="28" height="28" viewBox="0 0 16 16" fill="none">
-              <rect width="16" height="16" rx="4" fill="rgba(255,255,255,0.2)"/>
-              <circle cx="5" cy="8" r="1.5" fill="white"/>
-              <circle cx="8" cy="8" r="1.5" fill="white"/>
-              <circle cx="11" cy="8" r="1.5" fill="white"/>
-            </svg>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
             <span style={{ color: '#ffffff', fontSize: '28px', fontWeight: 700 }}>
               Stack Share
             </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="white">
+                <path d="M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z"/>
+              </svg>
+              <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: '16px', fontWeight: 500 }}>
+                Stripe Projects
+              </span>
+            </div>
           </div>
         </div>
 
@@ -257,22 +259,6 @@ export default async function handler(req: Request) {
           )}
         </div>
 
-        {/* Footer */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '0 64px 24px',
-          }}
-        >
-          <span style={{ color: '#94a3b8', fontSize: '14px' }}>
-            projects.dev
-          </span>
-          <span style={{ color: '#94a3b8', fontSize: '14px' }}>
-            {services.length} service{services.length !== 1 ? 's' : ''} · npx stripe-projects clone
-          </span>
-        </div>
       </div>
     ),
     {

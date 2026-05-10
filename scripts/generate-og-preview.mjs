@@ -133,28 +133,40 @@ const element = {
           children: {
             type: 'div',
             props: {
-              style: { display: 'flex', alignItems: 'center', gap: '14px' },
+              style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' },
               children: [
-                {
-                  type: 'svg',
-                  props: {
-                    width: 28,
-                    height: 28,
-                    viewBox: '0 0 16 16',
-                    fill: 'none',
-                    children: [
-                      { type: 'rect', props: { width: 16, height: 16, rx: 4, fill: 'rgba(255,255,255,0.2)' } },
-                      { type: 'circle', props: { cx: 5, cy: 8, r: 1.5, fill: 'white' } },
-                      { type: 'circle', props: { cx: 8, cy: 8, r: 1.5, fill: 'white' } },
-                      { type: 'circle', props: { cx: 11, cy: 8, r: 1.5, fill: 'white' } },
-                    ],
-                  },
-                },
                 {
                   type: 'span',
                   props: {
                     style: { color: '#ffffff', fontSize: '28px', fontWeight: 700 },
                     children: 'Stack Share',
+                  },
+                },
+                {
+                  type: 'div',
+                  props: {
+                    style: { display: 'flex', alignItems: 'center', gap: '10px' },
+                    children: [
+                      {
+                        type: 'svg',
+                        props: {
+                          width: 20,
+                          height: 20,
+                          viewBox: '0 0 16 16',
+                          fill: 'white',
+                          children: [
+                            { type: 'path', props: { d: 'M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z' } },
+                          ],
+                        },
+                      },
+                      {
+                        type: 'span',
+                        props: {
+                          style: { color: 'rgba(255,255,255,0.9)', fontSize: '16px', fontWeight: 500 },
+                          children: 'Stripe Projects',
+                        },
+                      },
+                    ],
                   },
                 },
               ],
@@ -294,34 +306,6 @@ const element = {
                 },
               },
             }] : []),
-          ],
-        },
-      },
-      // Footer
-      {
-        type: 'div',
-        props: {
-          style: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '0 64px 24px',
-          },
-          children: [
-            {
-              type: 'span',
-              props: {
-                style: { color: '#94a3b8', fontSize: '14px' },
-                children: 'projects.dev',
-              },
-            },
-            {
-              type: 'span',
-              props: {
-                style: { color: '#94a3b8', fontSize: '14px' },
-                children: `${services.length} service${services.length !== 1 ? 's' : ''} · npx stripe-projects clone`,
-              },
-            },
           ],
         },
       },
