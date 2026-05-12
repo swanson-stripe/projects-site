@@ -456,8 +456,10 @@ wave: false
             const match = document.querySelector(`[data-provider-row][data-name="${CSS.escape(name.toLowerCase())}"]`);
             if (match) {
                 match.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                match.style.backgroundColor = 'var(--color-foreground)';
-                setTimeout(() => { match.style.backgroundColor = ''; }, 2000);
+                gsap.fromTo(match,
+                    { backgroundColor: 'rgba(83, 58, 253, 0.12)' },
+                    { backgroundColor: 'rgba(83, 58, 253, 0)', duration: 2, ease: 'power2.out', delay: 0.3 }
+                );
             }
         }
 
