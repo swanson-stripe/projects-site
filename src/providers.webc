@@ -451,5 +451,18 @@ wave: false
                 filterRows();
             });
         });
+
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get('q');
+        if (q && searchInput) {
+            searchInput.value = q;
+            filterRows();
+            const match = document.querySelector(`[data-provider-row][data-name="${CSS.escape(q.toLowerCase())}"]`);
+            if (match) {
+                match.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                match.style.backgroundColor = 'var(--color-foreground)';
+                setTimeout(() => { match.style.backgroundColor = ''; }, 2000);
+            }
+        }
     })();
 </script>
