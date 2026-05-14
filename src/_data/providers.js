@@ -287,4 +287,13 @@ export default [
     url: "https://upstash.com",
     logoTag: "logo-upstash",
   },
+  {
+    name: "Squarespace",
+    slug: "squarespace/domain",
+    category: "domains",
+    description: "Search domain names and find the right one for your website",
+    longDescription: "Search domain names and find the right one for your website.",
+    url: "https://squarespace.com",
+    logoTag: "logo-squarespace",
+  },
 ];
