@@ -42,7 +42,7 @@ Check if the Stripe CLI is available and at the minimum version:
 which stripe && stripe --version
 ```
 
-If not installed, install based on the user's platform:
+If it's not installed, install based on the user's platform:
 
 **macOS (Homebrew):**
 
@@ -103,7 +103,7 @@ Confirm the requested provider/service exists:
 stripe projects search <query> --json
 ```
 
-If `result_count` is 0, inform the user the service was not found and stop.
+If `result_count` is 0, tell the user the service wasn't found and stop.
 
 If the user's request is vague (e.g., "I need a database"), browse the catalog to suggest options:
 
@@ -119,13 +119,13 @@ Check if a project is already initialized:
 stripe projects status --json
 ```
 
-If not initialized:
+If it's not initialized:
 
 ```bash
 stripe projects init --json --auto-confirm
 ```
 
-If the user is not authenticated, the CLI will redirect them to a browser. Display:
+If the user isn't authenticated, the CLI will redirect them to a browser. Display:
 
 > Stripe Projects is redirecting you to the browser to authenticate.
 > - If you have an existing Stripe account, log in with your credentials.
@@ -133,7 +133,7 @@ If the user is not authenticated, the CLI will redirect them to a browser. Displ
 >
 > Complete the sign-in in your browser, then come back here and let me know when you're done.
 
-Wait for the user to confirm before proceeding. Never attempt to automate the OAuth browser flow. Never store or relay tokens manually — the CLI manages its own credential store.
+Wait for the user to confirm before proceeding. Don't attempt to automate the OAuth browser flow. Don't store or relay tokens manually — the CLI manages its own credential store.
 
 **Important:** `stripe projects init` installs the `stripe-projects-cli` skill locally at `.claude/skills/stripe-projects-cli`. This skill contains the full post-init command reference.
 
@@ -160,7 +160,7 @@ After a successful service addition, provide output in this format:
 | Tier | `<tier>` |
 | Env vars | `<variable names only — never values>` |
 
-Then suggest 3–5 complementary services from different categories in the catalog (e.g., if user added a database, suggest auth, hosting, or observability). Only reference services that actually appear in `stripe projects catalog --json` output — never fabricate commands or provider names.
+Then suggest 3–5 complementary services from different categories in the catalog (e.g., if user added a database, suggest auth, hosting, or observability). Only reference services that actually appear in `stripe projects catalog --json` output — don't fabricate commands or provider names.
 
 ## Non-Interactive Mode
 
@@ -168,7 +168,7 @@ Always use `--json --auto-confirm` flags to suppress interactive prompts. If a p
 
 ## CLI as Source of Truth
 
-The CLI manages all state under `.projects/` and generates `.env` files. Do not hand-edit these files. If you need to inspect project state, use the appropriate CLI command:
+The CLI manages all state under `.projects/` and generates `.env` files. Don't hand-edit these files. If you need to inspect project state, use the appropriate CLI command:
 
 | Task | Command |
 |------|---------|
@@ -177,15 +177,15 @@ The CLI manages all state under `.projects/` and generates `.env` files. Do not 
 | Check project health | `stripe projects status --json` |
 | Browse available services | `stripe projects catalog --json` |
 
-Only inspect `.projects/` or `.env` directly if the user explicitly asks you to — and note that the CLI is authoritative, so manual edits may be overwritten.
+Only inspect `.projects/` or `.env` directly if the user explicitly asks you to — the CLI is authoritative, so manual edits may be overwritten.
 
 ## Error Handling
 
 | Error code | Cause | Recovery |
 |------------|-------|----------|
-| `JSON_REQUIRES_AUTH` | User not authenticated | Inform user; they must run `stripe projects init` interactively |
-| `NO_PROJECT_CONFIG` | No project initialized in this directory | Run `stripe projects init --json --auto-confirm` |
+| `JSON_REQUIRES_AUTH` | User isn't authenticated | Tell user they must run `stripe projects init` interactively |
+| `NO_PROJECT_CONFIG` | Project isn't initialized in this directory | Run `stripe projects init --json --auto-confirm` |
 | `PROVIDER_NOT_LINKED` | Provider requires OAuth linking | Run `stripe projects link <provider>` — this may open a browser |
 | `UNKNOWN_ERROR` | Unexpected failure | Show the full error message to the user and suggest running with `--debug` for diagnostics |
-| Service not in catalog | Query returned 0 results | Inform user; suggest `stripe projects catalog --json` to browse alternatives |
-| CLI not found | Stripe CLI not installed | Install per platform instructions above |
+| Service not in catalog | Query returned 0 results | Tell user; suggest `stripe projects catalog --json` to browse alternatives |
+| CLI not found | Stripe CLI isn't installed | Install per platform instructions above |
