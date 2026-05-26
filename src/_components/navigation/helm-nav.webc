@@ -177,7 +177,7 @@
                                         </div>
                                         <!--- Ad slot --->
                                         <a href="https://stripe.com/sessions" class="relative w-full bg-neutral-0 rounded-4 overflow-hidden group shadow-inset-border">
-                                            <img src="/assets/images/util/sessions-nav.jpg" alt="" width="576" height="240" class="absolute w-full h-auto group-hover:scale-110 transition-all duration-300 ease-out" eleventy:pictureattr:class="relative flex items-center justify-center w-full h-80 overflow-hidden">
+                                            <img src="/assets/images/util/sessions-nav.jpg" alt="Stripe Sessions annual conference" width="576" height="240" class="absolute w-full h-auto group-hover:scale-110 transition-all duration-300 ease-out" eleventy:pictureattr:class="relative flex items-center justify-center w-full h-80 overflow-hidden">
                                             <div class="px-16 py-12">
                                                 <p class="text-headline font-medium mb-4">
                                                     Join us at Sessions
