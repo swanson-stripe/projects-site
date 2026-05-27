@@ -25,6 +25,7 @@ export default function(eleventyConfig)  {
     });
     // Rebuild when quickstart markdown changes (index.webc uses that collection)
     eleventyConfig.addWatchTarget("src/quickstart/**/*.md");
+    eleventyConfig.addWatchTarget("src/blog/**/*.md");
     eleventyConfig.addPlugin(pluginWebc, { components: "src/_components/**/*.webc"});
     eleventyConfig.addPassthroughCopy({"src/assets/js": "assets/js"});
     eleventyConfig.addPassthroughCopy({"src/assets/images": "assets/images"});
@@ -60,6 +61,20 @@ export default function(eleventyConfig)  {
                 return { data, content: md.render(content) };
             })
             .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+    });
+
+    // Blog collection: pre-render markdown, sort by date descending
+    eleventyConfig.addCollection("blog", (collection) => {
+        const templates = collection.getFilteredByGlob("./src/blog/*.md");
+        return templates
+            .map((t) => {
+                const { data, content } = matter(fs.readFileSync(t.inputPath, "utf-8"));
+                const slug = t.inputPath.split("/").pop().replace(".md", "");
+                const date = new Date(data.date);
+                const postDate = date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+                return { data: { ...data, slug, postDate }, content: md.render(content) };
+            })
+            .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
     });
 
     // Syntax Highlighting

@@ -544,6 +544,37 @@ changefreq: "weekly"
             </helm-container>
         </helm-section>
 
+        <!--- Blog --->
+        <helm-section class="relative pt-64 pb-32 md:pt-96 md:pb-64 z-10">
+            <helm-container class="relative flex flex-col">
+                <div class="flex items-center justify-between mb-32 sm:mb-48">
+                    <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline">From the blog</h2>
+                    <a href="/blog/" class="flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                        <span>View all</span>
+                        <icon-arrowanimate @size="sm" class=""></icon-arrowanimate>
+                    </a>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-16">
+                    <template webc:type="11ty" 11ty:type="liquid">
+                        {% assign posts = collections.blog | slice: 0, 3 %}
+                        {% for post in posts %}
+                        <a href="/blog/{{ post.data.slug }}/" class="group relative flex flex-col justify-between gap-16 p-24 rounded-8 border border-edge hover:border-primary/40 hover:bg-foreground transition-all duration-200">
+                            <div class="flex flex-col gap-12">
+                                <span class="text-12 text-detail uppercase tracking-widest">{{ post.data.postDate }}</span>
+                                <h3 class="text-18/130 tracking-[-0.01em] text-headline group-hover:text-primary transition-colors duration-200">{{ post.data.title }}</h3>
+                                <p class="text-14/150 text-content line-clamp-2">{{ post.data.description }}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-12 border-t border-edge">
+                                <span class="text-12 text-detail">{{ post.data.author }}</span>
+                                <span class="text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200 translate-x-0 group-hover:translate-x-2 transition-transform">→</span>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </template>
+                </div>
+            </helm-container>
+        </helm-section>
+
         <!--- CTAs --->
         <helm-section class="relative mt-32 lg:mt-0 lg:pt-64 bg-foreground border-t border-edge lg:border-none lg:bg-transparent lg:px-16">
             <div class="w-full max-w-[calc(79.125rem+6rem)] mx-auto bg-foreground lg:rounded-6 lg:border lg:border-edge overflow-hidden">

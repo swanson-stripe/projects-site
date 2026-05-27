@@ -1,0 +1,56 @@
+---
+layout: "main.webc"
+markdown: true
+wave: false
+seoTitle: ""
+seoDesc: ""
+ogTitle: ""
+ogDesc: ""
+ogImage: "/assets/images/og/og.jpg"
+ogImageAlt: ""
+---
+<div class="relative w-full">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50">
+        <helm-container class="relative pt-24 pb-0 grid grid-cols-3 items-center">
+            <a href="/blog/" class="flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14 rotate-180"><path fill-rule="evenodd" d="M5.47 3.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L8.94 8 5.47 4.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+                <span>All posts</span>
+            </a>
+            <div class="relative flex items-center justify-center h-40 gap-4">
+                <a href="/" class="relative flex items-center gap-8 h-full px-10 whitespace-nowrap">
+                    <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
+                    <span class="text-16 font-normal text-headline">Stripe Projects</span>
+                </a>
+            </div>
+            <div></div>
+        </helm-container>
+    </header>
+
+    <!--- Post --->
+    <main id="main">
+        <helm-section class="relative z-20">
+            <helm-container class="relative flex flex-col items-start pt-64 pb-96 max-w-768 mx-auto">
+                <div class="mb-32">
+                    <p class="text-14 text-detail mb-8" @text="new Date(this.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })"></p>
+                    <h1 class="text-32/110 sm:text-40/110 tracking-[-0.02em] text-headline mb-12" @text="this.title"></h1>
+                    <p class="text-16 text-detail" @text="'By ' + this.author"></p>
+                </div>
+                <article class="markdown w-full" @html="this.content"></article>
+            </helm-container>
+        </helm-section>
+    </main>
+
+    <!--- Footer --->
+    <footer class="w-full flex items-center justify-center flex-col px-16">
+        <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+            <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+                <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+            </div>
+        </helm-container>
+    </footer>
+
+</div>
