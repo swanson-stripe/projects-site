@@ -30,8 +30,6 @@ allowed-tools:
 
 Provision third-party services (databases, auth, hosting, analytics, caching, AI, observability) and retrieve API keys/tokens using the Stripe Projects CLI plugin.
 
-> **Token budget:** Keep this skill lean. Only load supplementary context (auth-flow details, etc.) when the specific topic arises.
-
 ## Workflow
 
 ### Step 1: Ensure Stripe CLI + Projects Plugin
@@ -124,7 +122,7 @@ If not initialized:
 ```bash
 stripe projects init --yes
 ```
-
+(don't use '--json' for this command)
 
 **Important:** `stripe projects init` installs the `stripe-projects-cli` skill locally at `.claude/skills/stripe-projects-cli`. This skill contains the full post-init command reference.
 
@@ -165,14 +163,3 @@ The CLI manages all state under `.projects/` and generates `.env` files. Do not 
 | Browse available services | `stripe projects catalog --json` |
 
 Only inspect `.projects/` or `.env` directly if the user explicitly asks you to — and note that the CLI is authoritative, so manual edits may be overwritten.
-
-## Error Handling
-
-| Error code | Cause | Recovery |
-|------------|-------|----------|
-| `JSON_REQUIRES_AUTH` | User not authenticated | Inform user; they must run `stripe projects init` interactively |
-| `NO_PROJECT_CONFIG` | No project initialized in this directory | Run `stripe projects init --json --auto-confirm` |
-| `PROVIDER_NOT_LINKED` | Provider requires OAuth linking | Run `stripe projects link <provider>` — this may open a browser |
-| `UNKNOWN_ERROR` | Unexpected failure | Show the full error message to the user and suggest running with `--debug` for diagnostics |
-| Service not in catalog | Query returned 0 results | Inform user; suggest `stripe projects catalog --json` to browse alternatives |
-| CLI not found | Stripe CLI not installed | Install per platform instructions above |
