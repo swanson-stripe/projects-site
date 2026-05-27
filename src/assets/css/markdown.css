@@ -125,6 +125,60 @@ hr {
 .markdown hr { margin: 2em 0 1.5em 0; }
 
 .markdown pre:has(code[class*="language-"]) + p { margin-top: 1.25em; }
+.markdown pre:has(code[class*="language-"]) + h2 { margin-top: 2em; }
+.markdown pre:has(code[class*="language-"]) + h3 { margin-top: 2em; }
+.markdown pre:has(code[class*="language-"]) + h4 { margin-top: 1.125em; }
+.markdown pre:has(code[class*="language-"]) + ul { margin-top: 1.25em; }
+.markdown pre:has(code[class*="language-"]) + ol { margin-top: 1.25em; }
+
+.markdown table + p,
+.markdown table + h2 { margin-top: 2em; }
+.markdown table + h3 { margin-top: 2em; }
+.markdown p + table,
+.markdown ul + table,
+.markdown ol + table { margin-top: 1.25em; }
+
+/* Tables */
+
+.markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875em;
+    line-height: 1.5;
+    margin: 0.5em 0;
+}
+
+.markdown thead th {
+    color: var(--color-headline);
+    font-weight: 400;
+    text-align: left;
+    padding: 0.75em 1em;
+    border-bottom: 1px solid var(--color-edge);
+}
+
+.markdown tbody td {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid var(--hex-neutral-50);
+    vertical-align: top;
+}
+
+.markdown tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Blockquotes */
+
+.markdown blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding: 0.25em 0 0.25em 1.25em;
+    margin: 1.25em 0;
+    color: var(--color-content);
+    font-style: italic;
+}
+
+.markdown blockquote p {
+    margin: 0;
+}
 
 strong {
     font-weight: 400;

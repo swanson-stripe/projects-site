@@ -1,0 +1,13 @@
+{
+    "layout": "post.webc",
+    "permalink": "/blog/{{ page.fileSlug }}/",
+    "changefreq": "monthly",
+    "ogImage": "/assets/images/og/og.jpg",
+    "ogImageAlt": "",
+    "eleventyComputed": {
+        "seoTitle": "{{ title }} | Stripe Projects Blog",
+        "seoDesc": "{{ description }}",
+        "ogTitle": "{{ title }}",
+        "ogDesc": "{{ description }}"
+    }
+}
