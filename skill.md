@@ -122,18 +122,9 @@ stripe projects status --json
 If not initialized:
 
 ```bash
-stripe projects init --json --auto-confirm
+stripe projects init --yes
 ```
 
-If the user is not authenticated, the CLI will redirect them to a browser. Display:
-
-> Stripe Projects is redirecting you to the browser to authenticate.
-> - If you have an existing Stripe account, log in with your credentials.
-> - If you're new, you can create a free Stripe Projects account in seconds.
->
-> Complete the sign-in in your browser, then come back here and let me know when you're done.
-
-Wait for the user to confirm before proceeding. Never attempt to automate the OAuth browser flow. Never store or relay tokens manually — the CLI manages its own credential store.
 
 **Important:** `stripe projects init` installs the `stripe-projects-cli` skill locally at `.claude/skills/stripe-projects-cli`. This skill contains the full post-init command reference.
 
@@ -145,7 +136,7 @@ Verify the skill was installed:
 test -f .claude/skills/stripe-projects-cli/SKILL.md && echo "OK" || echo "MISSING"
 ```
 
-If `MISSING`: re-run `stripe projects init --json --auto-confirm` — the skill is bundled with the Projects plugin and installed during init.
+If `MISSING`: re-run `stripe projects init --yes` — the skill is bundled with the Projects plugin and installed during init.
 
 If `OK`: use the locally-installed `stripe-projects-cli` skill (invoke via the Skill tool with name `stripe-projects-cli`) to continue the workflow — adding services, managing credentials, and configuring the project.
 
@@ -161,10 +152,6 @@ After a successful service addition, provide output in this format:
 | Env vars | `<variable names only — never values>` |
 
 Then suggest 3–5 complementary services from different categories in the catalog (e.g., if user added a database, suggest auth, hosting, or observability). Only reference services that actually appear in `stripe projects catalog --json` output — never fabricate commands or provider names.
-
-## Non-Interactive Mode
-
-Always use `--json --auto-confirm` flags to suppress interactive prompts. If a paid service requires confirmation, add `--confirm-paid-service`.
 
 ## CLI as Source of Truth
 
