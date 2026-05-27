@@ -53,7 +53,7 @@ changefreq: "weekly"
                     <!--- CTAs --->
                     <div data-hero="cta" class="relative flex flex-col min-[448px]:flex-row items-center gap-8">
                         <!--- Install skill CTA (primary) --->
-                        <button data-copy-cli="npx skills add https://docs.stripe.com" class="relative flex items-center justify-center gap-6 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+                        <button data-copy-cli="npx skills add docs.stripe.com@stripe-projects -g -y" class="relative flex items-center justify-center gap-6 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                             <div data-copy-cli-default class="relative flex items-center gap-8">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16">
                                     <path d="M7.25 1a.75.75 0 0 1 1.5 0v7.19l2.22-2.22a.75.75 0 1 1 1.06 1.06l-3.5 3.5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 0 1 1.06-1.06l2.22 2.22V1z"/>
