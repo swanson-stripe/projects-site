@@ -8,6 +8,10 @@ tags: ["build", "experience"]
 
 I set out to build a simple GitHub traffic dashboard in around an hour using [Stripe Projects](https://docs.stripe.com/projects). What I didn't expect was how quickly the experience stopped feeling like "AI coding" and started feeling like a real operational stack materializing around an idea with remarkable speed.
 
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
+  <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" src="https://www.youtube.com/embed/Zt8bjy-FutE" title="Building with Stripe Projects" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 The original problem was straightforward. GitHub's traffic analytics are useful enough to immediately expose their own limitations. You can see views, clones, referrers, and the occasional spike after a launch, but after 14 days the history disappears. If you want to compare launches over time or understand whether a repo is actually growing, the default dashboard runs out of road quickly.
 
 I'd hit that frustration enough times that I finally decided to build my own archive layer.
