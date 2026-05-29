@@ -27,6 +27,7 @@ export default function(eleventyConfig)  {
     eleventyConfig.addWatchTarget("src/quickstart/**/*.md");
     eleventyConfig.addWatchTarget("src/blog/**/*.md");
     eleventyConfig.addPlugin(pluginWebc, { components: "src/_components/**/*.webc"});
+    eleventyConfig.addPassthroughCopy({"src/.well-known": ".well-known"});
     eleventyConfig.addPassthroughCopy({"src/assets/js": "assets/js"});
     eleventyConfig.addPassthroughCopy({"src/assets/images": "assets/images"});
     eleventyConfig.addPassthroughCopy({"src/assets/fonts": "assets/fonts"});
