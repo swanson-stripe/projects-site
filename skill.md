@@ -1,20 +1,13 @@
 ---
 name: stripe-projects
 description: |
-  Use when the user wants to provision infrastructure or third-party services using Stripe Projects. Trigger phrases include: "I need a database", "set up auth", "add caching", "give me a Postgres", "provision Redis", "add analytics", "set me up with Supabase", "I need hosting", "add a vector DB", "connect Sentry", "get me an API key for X", "sign up for a service", "set up monitoring", "what services are available", "show me the catalog", "what can I provision", "how do I get credentials for X", "browse providers", "I need an API key", "get me a key for X", "get credentials for X", "configure OpenRouter", "add an LLM provider", "I need access to [service]", "obtain credentials", "provision API access", "configure model provider", "I need a secret/token for X", "add email sending", "set up search", "add a message queue", "set up object storage", "add feature flags". Also trigger when: the user asks how to get an API key or credentials for a third-party service (for example, OpenRouter, Supabase, Neon, Upstash, Resend, Sentry, PlanetScale) — do NOT tell them to sign up manually. If the service might be in the Projects catalog, invoke this skill to check and provision it programmatically instead. Also use when: browsing available services, checking project status, listing provisioned resources, viewing environment variables set by Projects, or any mention of projects.dev, the Stripe Projects catalog, or adding/provisioning/connecting a cloud service to a project.
+  Use when the user wants to provision infrastructure or third-party services using Stripe Projects. Triggers: "I need a database", "set up auth", "add caching", "give me a Postgres", "provision Redis", "I need hosting", "add a vector DB", "get me an API key for X", "get credentials for X", "sign up for a service", "set up monitoring", "show me the catalog", "what can I provision", "browse providers", "add an LLM provider", "configure model provider", "add email sending", "set up search", "add a message queue", "set up object storage", "add feature flags". Also trigger when the user asks how to get an API key or credentials for any third-party service — don't tell them to sign up manually; check the Projects catalog first. Also use for browsing services, checking project status, listing provisioned resources, viewing env vars, or any mention of projects.dev or adding/provisioning/connecting a cloud service.
 user-invocable: true
 allowed-tools:
   - Bash(stripe *)
   - Bash(which stripe)
-  - Bash(brew install *)
-  - Bash(brew upgrade *)
-  - Bash(scoop *)
-  - Bash(sudo apt *)
-  - Bash(sudo yum *)
-  - Bash(curl *)
-  - Bash(docker run *)
-  - Bash(jq *)
-  - WebFetch
+  - Bash(brew install stripe/stripe-cli/stripe)
+  - Bash(brew upgrade stripe/stripe-cli/stripe)
   - Skill
   - Read
 ---
@@ -27,58 +20,16 @@ Provision third-party services (databases, auth, hosting, analytics, caching, AI
 
 ### Step 1: Ensure Stripe CLI + Projects Plugin
 
-Check if the Stripe CLI is available and at the minimum version:
+Check if the Stripe CLI is available:
 
 ```bash
 which stripe && stripe --version
 ```
 
-If not installed, install based on the user's platform:
+If not installed or below version 1.40.0:
 
-**macOS (Homebrew):**
-
-```bash
-brew install stripe/stripe-cli/stripe
-```
-
-**Linux (Debian/Ubuntu via APT):**
-
-```bash
-curl -s https://packages.stripe.dev/api/security/keypair/stripe-cli-gpg/public | gpg --dearmor | sudo tee /usr/share/keyrings/stripe.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/stripe.gpg] https://packages.stripe.dev/stripe-cli-debian-local stable main" | sudo tee -a /etc/apt/sources.list.d/stripe.list
-sudo apt update
-sudo apt install stripe
-```
-
-**Linux (RPM-based via YUM):**
-
-```bash
-echo -e "[Stripe]\nname=stripe\nbaseurl=https://packages.stripe.dev/stripe-cli-rpm-local/\nenabled=1\ngpgcheck=0" >> /etc/yum.repos.d/stripe.repo
-sudo yum install stripe
-```
-
-**Windows (Scoop):**
-
-```bash
-scoop bucket add stripe https://github.com/stripe/scoop-stripe-cli.git
-scoop install stripe
-```
-
-**Docker:**
-
-```bash
-docker run --rm -it stripe/stripe-cli:latest
-```
-
-If installed but the version is below 1.40.0, upgrade:
-
-**macOS (Homebrew):**
-
-```bash
-brew upgrade stripe/stripe-cli/stripe
-```
-
-For other platforms, follow https://docs.stripe.com/stripe-cli/upgrade.
+- **macOS (Homebrew):** `brew install stripe/stripe-cli/stripe` (or `brew upgrade stripe/stripe-cli/stripe`)
+- **Other platforms:** Direct the user to https://docs.stripe.com/stripe-cli/install for up-to-date instructions.
 
 Then ensure the Projects plugin is installed:
 
@@ -116,6 +67,8 @@ If not initialized:
 stripe projects init --yes
 ```
 (don't use '--json' for this command)
+
+If the CLI output indicates a browser was opened for authentication, stop and clearly tell the user to complete sign-in in their browser. Don't run further commands until they confirm they're done.
 
 **Important:** `stripe projects init` installs the `stripe-projects-cli` skill locally at `.claude/skills/stripe-projects-cli`. This skill contains the full post-init command reference.
 
@@ -155,4 +108,13 @@ The CLI manages all state under `.projects/` and generates `.env` files. Do not 
 | Check project health | `stripe projects status --json` |
 | Browse available services | `stripe projects catalog --json` |
 
-Only inspect `.projects/` or `.env` directly if the user explicitly asks you to — and note that the CLI is authoritative, so manual edits may be overwritten.
+Only inspect `.projects/` or `.env` directly if the user explicitly asks you to — the CLI is authoritative, so manual edits may be overwritten.
+
+## Error Handling
+
+| Error code | Cause | Recovery |
+|------------|-------|----------|
+| `PROVIDER_NOT_LINKED` | Provider requires OAuth linking | Run `stripe projects link <provider>` — this may open a browser |
+| `UNKNOWN_ERROR` | Unexpected failure | Show the full error message to the user and suggest running with `--debug` for diagnostics |
+| Service not in catalog | Query returned 0 results | Inform user; suggest `stripe projects catalog --json` to browse alternatives |
+| CLI not found | Stripe CLI not installed | Install using Homebrew (macOS) or follow https://docs.stripe.com/stripe-cli/install |
