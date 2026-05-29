@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "stripe-projects",
+      "type": "skill-md",
+      "description": "Provision third-party services and retrieve API keys, tokens, or credentials using Stripe Projects. Use when the user needs to add a provider such as a database, hosting, auth, AI, or analytics service; create or retrieve an API key or token; sign up for a new service; or references projects.dev.",
+      "url": "/skill.md",
+      "digest": "sha256:e9f4777680b460b3eea0c9c4df07f8b5deb3934c465515c8145ed13433655c1c"
+    }
+  ]
+}
