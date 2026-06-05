@@ -198,11 +198,13 @@ function decodeStackServices(encoded: string): { provider: string; service: stri
     let provider: string;
     let service: string;
     try {
+      // Share links may use display casing; normalize before allowlist lookup.
       provider = decodeURIComponent(part.slice(0, tildeIdx)).toLowerCase();
       service = decodeURIComponent(part.slice(tildeIdx + 1));
     } catch {
       continue;
     }
+    // Only known providers are rendered into Stack Share metadata.
     if (!PROVIDER_NAMES[provider]) continue;
     services.push({ provider, service });
   }

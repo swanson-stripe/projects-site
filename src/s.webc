@@ -311,11 +311,13 @@ binaryCanvas: false
             let provider;
             let service;
             try {
+                // Share links may use display casing; normalize before allowlist lookup.
                 provider = decodeURIComponent(part.slice(0, tildeIdx)).toLowerCase();
                 service = decodeURIComponent(part.slice(tildeIdx + 1));
             } catch(e) {
                 continue;
             }
+            // Only known providers are rendered into the Stack Share page.
             if (!PROVIDERS[provider]) continue;
             services.push({ provider, service });
         }
