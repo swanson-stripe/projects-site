@@ -198,7 +198,7 @@ function decodeStackServices(encoded: string): { provider: string; service: stri
     let provider: string;
     let service: string;
     try {
-      provider = decodeURIComponent(part.slice(0, tildeIdx));
+      provider = decodeURIComponent(part.slice(0, tildeIdx)).toLowerCase();
       service = decodeURIComponent(part.slice(tildeIdx + 1));
     } catch {
       continue;
