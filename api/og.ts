@@ -35,8 +35,17 @@ function decodeStackServices(encoded: string): { provider: string; service: stri
   for (const part of payload.split(',')) {
     const tildeIdx = part.indexOf('~');
     if (tildeIdx <= 0) continue;
-    const provider = decodeURIComponent(part.slice(0, tildeIdx));
-    const service = decodeURIComponent(part.slice(tildeIdx + 1));
+    let provider: string;
+    let service: string;
+    try {
+      // Share links may use display casing; normalize before allowlist lookup.
+      provider = decodeURIComponent(part.slice(0, tildeIdx)).toLowerCase();
+      service = decodeURIComponent(part.slice(tildeIdx + 1));
+    } catch {
+      continue;
+    }
+    // Only known providers are rendered into the generated OG image.
+    if (!PROVIDER_NAMES[provider]) continue;
     services.push({ provider, service });
   }
   return services;
