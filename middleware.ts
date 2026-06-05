@@ -23,6 +23,15 @@ function getCookie(req: Request, name: string): string | undefined {
   return match ? match.slice(name.length + 1) : undefined;
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 function passwordFormHtml(redirectTo: string, error = false): Response {
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -103,7 +112,7 @@ function passwordFormHtml(redirectTo: string, error = false): Response {
       stripe projects
     </div>
     <form method="POST" action="/auth">
-      <input type="hidden" name="redirect" value="${redirectTo}" />
+      <input type="hidden" name="redirect" value="${escapeHtml(redirectTo)}" />
       <input type="password" name="password" placeholder="Password" autofocus autocomplete="current-password" />
       ${error ? '<p class="error">Incorrect password — try again.</p>' : ''}
       <button type="submit">Continue</button>
@@ -157,6 +166,24 @@ function ogHtml(tags: {
   });
 }
 
+function safeOgHtml(tags: {
+  title: string;
+  description: string;
+  imageUrl: string;
+  pageUrl: string;
+  siteName?: string;
+  twitterImage?: string;
+}): Response {
+  return ogHtml({
+    title: escapeHtml(tags.title),
+    description: escapeHtml(tags.description),
+    imageUrl: escapeHtml(tags.imageUrl),
+    pageUrl: escapeHtml(tags.pageUrl),
+    siteName: tags.siteName ? escapeHtml(tags.siteName) : undefined,
+    twitterImage: tags.twitterImage ? escapeHtml(tags.twitterImage) : undefined,
+  });
+}
+
 function decodeStackServices(encoded: string): { provider: string; service: string }[] {
   const colonIdx = encoded.indexOf(':');
   if (colonIdx <= 0) return [];
@@ -168,8 +195,15 @@ function decodeStackServices(encoded: string): { provider: string; service: stri
   for (const part of payload.split(',')) {
     const tildeIdx = part.indexOf('~');
     if (tildeIdx <= 0) continue;
-    const provider = decodeURIComponent(part.slice(0, tildeIdx));
-    const service = decodeURIComponent(part.slice(tildeIdx + 1));
+    let provider: string;
+    let service: string;
+    try {
+      provider = decodeURIComponent(part.slice(0, tildeIdx));
+      service = decodeURIComponent(part.slice(tildeIdx + 1));
+    } catch {
+      continue;
+    }
+    if (!PROVIDER_NAMES[provider]) continue;
     services.push({ provider, service });
   }
   return services;
@@ -197,7 +231,7 @@ export default async function middleware(req: Request): Promise<Response | void>
   if (path.startsWith('/s/') && path.length > 3) {
     const encoded = path.slice(3);
     const services = decodeStackServices(encoded);
-    const names = [...new Set(services.map(s => PROVIDER_NAMES[s.provider] || s.provider))];
+    const names = [...new Set(services.map(s => PROVIDER_NAMES[s.provider]))];
     const count = services.length;
 
     if (isBot(req)) {
@@ -210,7 +244,7 @@ export default async function middleware(req: Request): Promise<Response | void>
       const imageUrl = count > 0
         ? `${SITE_URL}/api/og?stack=${encodeURIComponent(encoded)}`
         : `${SITE_URL}/assets/images/og/og.jpg`;
-      return ogHtml({
+      return safeOgHtml({
         title,
         description,
         imageUrl,
@@ -219,9 +253,11 @@ export default async function middleware(req: Request): Promise<Response | void>
     }
 
     // Non-bot: redirect to hash-based URL
+    const redirectUrl = new URL('/s', SITE_URL);
+    redirectUrl.hash = encoded;
     return new Response(null, {
       status: 302,
-      headers: { Location: `${SITE_URL}/s#${encoded}` },
+      headers: { Location: redirectUrl.toString() },
     });
   }
 
@@ -230,7 +266,7 @@ export default async function middleware(req: Request): Promise<Response | void>
 
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
-    return ogHtml({
+    return safeOgHtml({
       title: 'Stripe Projects | Provision and Manage Services from the CLI',
       description: 'Enable you or your agents to provision hosting, databases, auth, AI, and more from the CLI. Generate credentials and manage usage and billing in one place.',
       imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,

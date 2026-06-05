@@ -308,8 +308,15 @@ binaryCanvas: false
         for (const part of payload.split(',')) {
             const tildeIdx = part.indexOf('~');
             if (tildeIdx <= 0) continue;
-            const provider = decodeURIComponent(part.slice(0, tildeIdx));
-            const service = decodeURIComponent(part.slice(tildeIdx + 1));
+            let provider;
+            let service;
+            try {
+                provider = decodeURIComponent(part.slice(0, tildeIdx));
+                service = decodeURIComponent(part.slice(tildeIdx + 1));
+            } catch(e) {
+                continue;
+            }
+            if (!PROVIDERS[provider]) continue;
             services.push({ provider, service });
         }
         return services.length > 0 ? services : null;
@@ -338,29 +345,51 @@ binaryCanvas: false
     }
 
     function renderProviderRow(provider, serviceList) {
-        const info = PROVIDERS[provider] || { name: provider, desc: '' };
+        const info = PROVIDERS[provider];
         const logoSvg = LOGOS_SVG[provider] || '';
 
         const row = document.createElement('div');
         row.setAttribute('data-provider-row', '');
         row.style.cssText = 'display:flex;align-items:center;gap:0.75rem;padding:0.625rem 0.25rem;opacity:0;transform:translateY(8px);';
 
-        const logoHtml = logoSvg
-            ? `<div class="stack-logo" style="width:4.5rem;height:1rem;flex-shrink:0;display:flex;align-items:center;margin:0 2rem;">${logoSvg}</div>`
-            : `<div style="width:4.5rem;height:1rem;flex-shrink:0;display:flex;align-items:center;margin:0 2rem;"><span style="font-size:0.6875rem;font-weight:500;color:#635BFF;">${info.name}</span></div>`;
+        const logo = document.createElement('div');
+        logo.style.cssText = 'width:4.5rem;height:1rem;flex-shrink:0;display:flex;align-items:center;margin:0 2rem;';
+        if (logoSvg) {
+            logo.className = 'stack-logo';
+            logo.innerHTML = logoSvg;
+        } else {
+            const logoText = document.createElement('span');
+            logoText.style.cssText = 'font-size:0.6875rem;font-weight:500;color:#635BFF;';
+            logoText.textContent = info.name;
+            logo.appendChild(logoText);
+        }
 
-        const badges = serviceList.map(s =>
-            `<span class="stack-service-badge" style="font-size:0.6875rem;padding:0.125rem 0.4rem;border-radius:0.75rem;background:rgba(99,91,255,0.08);color:#635BFF;font-family:monospace;white-space:nowrap;transition:background 0.15s;flex-shrink:0;">${s}</span>`
-        ).join('');
+        const details = document.createElement('div');
+        details.style.cssText = 'display:flex;flex-direction:column;gap:0.0625rem;flex:1;min-width:0;';
 
-        row.innerHTML = `
-            ${logoHtml}
-            <div style="display:flex;flex-direction:column;gap:0.0625rem;flex:1;min-width:0;">
-                <span class="stack-text-primary" style="font-size:0.875rem;font-weight:500;">${info.name}</span>
-                <span class="stack-text-secondary" style="font-size:0.6875rem;">${info.desc}</span>
-            </div>
-            <div style="display:flex;gap:0.25rem;flex-wrap:wrap;flex-shrink:0;">${badges}</div>
-        `;
+        const name = document.createElement('span');
+        name.className = 'stack-text-primary';
+        name.style.cssText = 'font-size:0.875rem;font-weight:500;';
+        name.textContent = info.name;
+
+        const desc = document.createElement('span');
+        desc.className = 'stack-text-secondary';
+        desc.style.cssText = 'font-size:0.6875rem;';
+        desc.textContent = info.desc;
+
+        details.append(name, desc);
+
+        const badges = document.createElement('div');
+        badges.style.cssText = 'display:flex;gap:0.25rem;flex-wrap:wrap;flex-shrink:0;';
+        serviceList.forEach((service) => {
+            const badge = document.createElement('span');
+            badge.className = 'stack-service-badge';
+            badge.style.cssText = 'font-size:0.6875rem;padding:0.125rem 0.4rem;border-radius:0.75rem;background:rgba(99,91,255,0.08);color:#635BFF;font-family:monospace;white-space:nowrap;transition:background 0.15s;flex-shrink:0;';
+            badge.textContent = service;
+            badges.appendChild(badge);
+        });
+
+        row.append(logo, details, badges);
         return row;
     }
 
@@ -389,7 +418,7 @@ binaryCanvas: false
 
         // Render providers
         const container = document.querySelector('[data-stack-providers]');
-        container.innerHTML = '';
+        container.replaceChildren();
 
         const rows = [];
         grouped.forEach((serviceList, provider) => {
