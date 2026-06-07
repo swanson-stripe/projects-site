@@ -52,17 +52,19 @@ changefreq: "weekly"
                     </div>
                     <!--- CTAs --->
                     <div data-hero="cta" class="relative flex flex-col min-[448px]:flex-row items-center gap-8">
-                        <!--- Install skill CTA (primary) --->
-                        <button data-copy-cli="npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g" class="relative flex items-center justify-center gap-6 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+                        <!--- Get started CTA (primary) --->
+                        <button data-copy-cli="brew install stripe/stripe-cli/stripe && stripe plugin install projects && npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g" class="relative flex items-center justify-center gap-6 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                             <div data-copy-cli-default class="relative flex items-center gap-8">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16">
-                                    <path d="M7.25 1a.75.75 0 0 1 1.5 0v7.19l2.22-2.22a.75.75 0 1 1 1.06 1.06l-3.5 3.5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 0 1 1.06-1.06l2.22 2.22V1z"/>
-                                    <path d="M2.75 11a.75.75 0 0 1 .75.75v1.5c0 .14.11.25.25.25h8.5c.14 0 .25-.11.25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 12.25 15h-8.5A1.75 1.75 0 0 1 2 12.75v-1.5a.75.75 0 0 1 .75-.75z"/>
+                                    <path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25zM3.47 5.47a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06l-2.25 2.25a.75.75 0 1 1-1.06-1.06L5.19 8.25 3.47 6.53a.75.75 0 0 1 0-1.06zm4.78 4.28a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75z"/>
                                 </svg>
-                                <span class="pb-2">Install skill</span>
+                                <span class="pb-2">Get started</span>
                             </div>
-                            <div data-copy-cli-clicked class="absolute translate-y-24 scale-75 opacity-0 invisible">
-                                <div class="-translate-y-1">Copied</div>
+                            <div data-copy-cli-clicked class="absolute inset-0 flex items-center justify-center gap-6 translate-y-24 scale-75 opacity-0 invisible bg-highlight border border-[#006F3A] rounded-4 text-[#006F3A]">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14">
+                                    <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/>
+                                </svg>
+                                <span class="text-14 font-medium">Paste in terminal</span>
                             </div>
                         </button>
                         <!--- Variant: request-docs --->
@@ -82,13 +84,16 @@ changefreq: "weekly"
                         </link-btn>
                     </div>
                     <!--- Example prompt (rotating) --->
-                    <button data-prompt-rotate class="relative flex items-center gap-8 mt-16 px-16 h-40 bg-foreground rounded-8 border border-edge cursor-pointer outline-none group hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 overflow-hidden">
+                    <button data-prompt-rotate class="relative flex items-center gap-8 mt-16 px-16 h-40 rounded-8 cursor-pointer outline-none group hover:bg-foreground focus-visible:shadow-focus transition-all duration-200 overflow-hidden">
                         <div data-prompt-rotate-default class="relative flex items-center gap-8">
-                            <span class="font-mono text-14 text-content whitespace-nowrap"><span class="text-detail">Try prompt:</span> use Stripe Projects to add <span data-prompt-rotate-provider class="text-primary">neon postgres</span></span>
+                            <span class="font-mono text-14 text-detail whitespace-nowrap">Using a coding agent? Try: "<span class="text-content">use Stripe Projects to add <span data-prompt-rotate-provider class="text-primary">neon postgres</span></span>"</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14 text-detail shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"><path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/></svg>
                         </div>
-                        <div data-prompt-rotate-clicked class="absolute inset-0 flex items-center justify-center translate-y-24 scale-75 opacity-0 invisible">
-                            <span class="text-14">Copied</span>
+                        <div data-prompt-rotate-clicked class="absolute inset-0 flex items-center justify-center gap-6 translate-y-24 scale-75 opacity-0 invisible text-[#006F3A]">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14">
+                                <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z"/>
+                            </svg>
+                            <span class="text-14 font-medium">Paste into your coding agent</span>
                         </div>
                     </button>
                 </div>
@@ -756,7 +761,6 @@ changefreq: "weekly"
         const clickedContent = el.querySelector('[data-copy-cli-clicked]');
         const command = el.dataset.copyCli;
         navigator.clipboard.writeText(command);
-        console.log(command);
         const tl = gsap.timeline({});
         tl
         .to(defaultContent, { y: -24, autoAlpha: 0, scale:0.75, duration: 0.25, ease: 'power3.inOut' })
