@@ -36,8 +36,7 @@ changefreq: "weekly"
 
         <!--- Hero --->
         <helm-section class="relative z-20">
-            <helm-container class="relative flex flex-col items-center pt-12 sm:pt-12">
-                <span class="inline-flex items-center px-8 py-4 rounded-full text-10 tracking-widest uppercase text-neutral-0 whitespace-nowrap bg-cover bg-center mb-40" style="background-image: url('/assets/images/badge-bg.png');">Developer Preview</span>
+            <helm-container class="relative flex flex-col items-center pt-20 sm:pt-20">
             </helm-container>
             <helm-container class="relative flex flex-col pt-0">
                 <!--- Content --->
