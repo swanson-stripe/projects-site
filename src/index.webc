@@ -779,18 +779,19 @@ changefreq: "weekly"
         if (!typeEl) return;
 
         const providerPool = {
-            hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'cloudflare/worker', 'netlify/project', 'render/static-site'],
-            database:  ['neon/postgres', 'supabase/project', 'turso/database', 'planetscale/postgresql', 'chroma/database'],
+            hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'cloudflare/worker', 'netlify/project', 'render/static-site', 'e2b/sandboxes', 'laravel_cloud/application', 'blaxel/sandbox', 'wix/headless', 'wordpress.com/site', 'base44_projects/app'],
+            database:  ['neon/postgres', 'supabase/project', 'turso/database', 'planetscale/postgresql', 'chroma/database', 'clickhouse/clickhouse', 'prisma/database'],
             auth:      ['clerk/auth', 'auth0/client', 'workos/auth'],
             analytics: ['posthog/analytics', 'amplitude/analytics', 'mixpanel/analytics'],
             sandbox:   ['runloop/sandbox', 'daytona/sandbox'],
-            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/project', 'elevenlabs/tts'],
-            search:    ['firecrawl/api', 'algolia/application'],
-            communications: ['agentmail/api', 'twilio/email'],
-            payments:  ['privy/app'],
+            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/project', 'elevenlabs/tts', 'heygen/api', 'supermemory/memory'],
+            search:    ['firecrawl/api', 'algolia/application', 'exa/api', 'parallel/api'],
+            communications: ['agentmail/api', 'twilio/email', 'agentphone/number', 'postalform/mail'],
+            payments:  ['privy/app', 'metronome/sandbox'],
             cache:     ['upstash/redis'],
             cicd:      ['gitlab/project'],
             observability: ['sentry/project'],
+            browser:   ['kernel/project'],
         };
         function pickProviders() {
             // Pick 3 distinct categories at random, then one provider from each
