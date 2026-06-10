@@ -107,6 +107,7 @@ wave: false
                             <button data-category="observability" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Observability</button>
                             <button data-category="payments" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Payments</button>
                             <button data-category="cache" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Cache</button>
+                            <button data-category="ecommerce" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Ecommerce</button>
                             <button data-category="domains" class="provider-pill px-12 h-32 rounded-full text-12 font-normal cursor-pointer outline-none transition-all duration-150 whitespace-nowrap">Domains</button>
                         </div>
                     </div>
@@ -398,9 +399,9 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Frontend cloud platform. Deploy to the edge with automatic CI/CD, edge functions, and global CDN.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add vercel/project" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add vercel/project</span></button></td>
                             </tr>
-                            <tr data-provider-row data-url="https://wix.com" data-name="wix" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                            <tr data-provider-row data-url="https://wix.com" data-name="wix" data-category="ecommerce" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://wix.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Wix</a></td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Ecommerce</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Headless web platform for building and managing sites with flexible APIs and enterprise-grade hosting.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add wix/headless" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add wix/headless</span></button></td>
                             </tr>

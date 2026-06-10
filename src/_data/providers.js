@@ -416,7 +416,7 @@ export default [
   {
     name: "Wix",
     slug: "wix/headless",
-    category: "hosting",
+    category: "ecommerce",
     description: "Headless web platform",
     longDescription: "Headless web platform for building and managing sites with flexible APIs and enterprise-grade hosting.",
     url: "https://wix.com",
