@@ -407,7 +407,7 @@ wave: false
                             <tr data-provider-row data-url="https://wordpress.com" data-name="wordpress.com" data-category="hosting" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://wordpress.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">WordPress.com</a></td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Hosting</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Managed WordPress hosting with built-in domains, CDN, built-in AI, automatic updates, and enterprise-grade infrastructure.</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Managed WordPress hosting with built-in domains, CDN, automatic updates, and enterprise-grade infrastructure.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add wordpress.com/site" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add wordpress.com/site</span></button></td>
                             </tr>
                             <tr data-provider-row data-url="https://workos.com" data-name="workos" data-category="auth" class="hover:bg-foreground transition-colors duration-100">
