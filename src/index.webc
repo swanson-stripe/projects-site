@@ -825,18 +825,19 @@ changefreq: "weekly"
         if (!typeEl) return;
 
         const providerPool = {
-            database:  ['neon/postgres', 'supabase/project', 'turso/database', 'planetscale/postgresql'],
-            hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'netlify/project', 'cloudflare/worker', 'render/static-site'],
+            hosting:   ['vercel/project', 'railway/hosting', 'flyio/app', 'cloudflare/worker', 'netlify/project', 'render/static-site', 'e2b/sandboxes', 'laravel_cloud/application', 'blaxel/sandbox', 'wix/headless', 'wordpress.com/site', 'base44_projects/app'],
+            database:  ['neon/postgres', 'supabase/project', 'turso/database', 'planetscale/postgresql', 'chroma/database', 'clickhouse/clickhouse', 'prisma/database'],
             auth:      ['clerk/auth', 'auth0/client', 'workos/auth'],
             cache:     ['upstash/redis'],
-            ai:        ['openrouter/api', 'huggingface/platform', 'elevenlabs/tts'],
-            observability: ['sentry/project', 'posthog/analytics'],
-            analytics: ['amplitude/analytics', 'mixpanel/analytics'],
-            communications: ['twilio/email', 'agentmail/api'],
+            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/project', 'elevenlabs/tts', 'heygen/api', 'supermemory/memory'],
+            observability: ['sentry/project'],
+            analytics: ['posthog/analytics', 'amplitude/analytics', 'mixpanel/analytics'],
+            communications: ['agentmail/api', 'twilio/email', 'agentphone/number', 'postalform/mail'],
             sandbox:   ['runloop/sandbox', 'daytona/sandbox'],
-            search:    ['firecrawl/api', 'algolia/application'],
+            search:    ['firecrawl/api', 'algolia/application', 'exa/api', 'parallel/api'],
             cicd:      ['gitlab/project'],
-            payments:  ['privy/app'],
+            payments:  ['privy/app', 'metronome/sandbox'],
+            browser:   ['kernel/project'],
         };
         // Priority categories shown first — database, hosting, auth are the "spine" of an app
         const priorityCategories = ['database', 'hosting', 'auth', 'cache', 'ai'];
