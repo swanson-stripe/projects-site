@@ -701,6 +701,11 @@ changefreq: "weekly"
     .marquee-row:hover .marquee-track {
         animation-play-state: paused !important;
     }
+    .marquee-logo-link {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
     .marquee-logo {
         width: auto;
         max-width: 8rem;
@@ -708,7 +713,7 @@ changefreq: "weekly"
         transition: transform 0.2s ease;
         cursor: pointer;
     }
-    .marquee-logo:hover {
+    .marquee-logo-link:hover .marquee-logo {
         transform: scale(1.12);
     }
     @keyframes marquee-scroll {
@@ -730,11 +735,30 @@ changefreq: "weekly"
 
 <script>
 
-    // Marquee: duplicate tracks, measure exact scroll distance, randomize start
+    // Marquee: wrap logos in links, duplicate tracks, measure exact scroll distance, randomize start
     (function marqueeSetup() {
+        const slugToName = {
+            'base44_projects': 'base 44',
+            'flyio': 'fly.io',
+            'huggingface': 'hugging face',
+            'laravel_cloud': 'laravel cloud',
+        };
         document.querySelectorAll('.marquee-track').forEach(track => {
             const items = Array.from(track.children);
             items.forEach(item => {
+                const slug = item.getAttribute('data-provider-slug');
+                if (slug) {
+                    const prefix = slug.split('/')[0];
+                    const name = slugToName[prefix] || prefix;
+                    const link = document.createElement('a');
+                    link.href = '/providers/#' + encodeURIComponent(name);
+                    link.className = 'marquee-logo-link';
+                    item.parentNode.insertBefore(link, item);
+                    link.appendChild(item);
+                }
+            });
+            const wrapped = Array.from(track.children);
+            wrapped.forEach(item => {
                 const clone = item.cloneNode(true);
                 clone.setAttribute('aria-hidden', 'true');
                 track.appendChild(clone);
@@ -1081,6 +1105,7 @@ changefreq: "weekly"
     // Provider logo click — copy install command + show toast
     (function providerCopy() {
         document.querySelectorAll('[data-provider-slug]').forEach(el => {
+            if (el.closest('.marquee-track')) return;
             el.addEventListener('click', () => {
                 const slug = el.getAttribute('data-provider-slug');
                 const name = slug.split('/')[0].replace(/^\w/, c => c.toUpperCase());
