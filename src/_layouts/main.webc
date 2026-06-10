@@ -57,8 +57,14 @@
     <script webc:if="base.env !== 'local'" webc:keep async src="https://plausible.io/js/pa-tq9B_F5RcJtNJMu8LenIq.js"></script>
     <script webc:if="base.env !== 'local'" webc:keep>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}; plausible.init();</script>
 
-    <!--- Vercel Analytics --->
+    <!--- Vercel Speed Insights --->
     <script webc:if="base.env !== 'local'" webc:keep defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+    <!--- Vercel Web Analytics --->
+    <script webc:if="base.env !== 'local'" webc:keep>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script webc:if="base.env !== 'local'" webc:keep defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body class="text-headline bg-highlight font-sans font-light antialiased">
