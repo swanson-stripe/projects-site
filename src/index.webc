@@ -250,6 +250,9 @@ changefreq: "weekly"
                         <logo-agentmail data-provider-slug="agentmail/api" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-agentmail>
                     </div>
                     <div class="flex items-center justify-center h-40">
+                        <logo-agentphone data-provider-slug="agentphone/number" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-agentphone>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
                         <logo-algolia data-provider-slug="algolia/application" class="h-18 sm:h-25 w-auto max-w-full cursor-pointer"></logo-algolia>
                     </div>
                     <div class="flex items-center justify-center h-40">
@@ -257,6 +260,12 @@ changefreq: "weekly"
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-auth0 data-provider-slug="auth0/client" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-auth0>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-base44 data-provider-slug="base44_projects/app" class="h-22 sm:h-33 w-auto max-w-full cursor-pointer"></logo-base44>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-blaxel data-provider-slug="blaxel/sandbox" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-blaxel>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-browserbase data-provider-slug="browserbase/project" class="h-21 sm:h-31 w-auto max-w-full cursor-pointer"></logo-browserbase>
@@ -268,13 +277,22 @@ changefreq: "weekly"
                         <logo-clerk data-provider-slug="clerk/auth" class="h-36 sm:h-48 w-auto max-w-full cursor-pointer"></logo-clerk>
                     </div>
                     <div class="flex items-center justify-center h-40">
+                        <logo-clickhouse data-provider-slug="clickhouse/clickhouse" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-clickhouse>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
                         <logo-cloudflare data-provider-slug="cloudflare/worker" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-cloudflare>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-daytona data-provider-slug="daytona/sandbox" class="h-20 sm:h-29 w-auto max-w-full cursor-pointer"></logo-daytona>
                     </div>
                     <div class="flex items-center justify-center h-40">
+                        <logo-e2b data-provider-slug="e2b/sandboxes" class="h-22 sm:h-32 w-auto max-w-full cursor-pointer"></logo-e2b>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
                         <logo-elevenlabs data-provider-slug="elevenlabs/tts" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-elevenlabs>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-exa data-provider-slug="exa/api" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-exa>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
@@ -283,13 +301,25 @@ changefreq: "weekly"
                         <logo-flyio data-provider-slug="flyio/app" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-flyio>
                     </div>
                     <div class="flex items-center justify-center h-40">
-                        <logo-gitlab data-provider-slug="gitlab/project" class="h-29 sm:h-43 w-auto max-w-full cursor-pointer"></logo-gitlab>
+                        <logo-gitlab data-provider-slug="gitlab/project" class="h-32 sm:h-48 w-auto max-w-full cursor-pointer"></logo-gitlab>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-heygen data-provider-slug="heygen/api" class="h-36 sm:h-48 w-auto max-w-full cursor-pointer"></logo-heygen>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-huggingface data-provider-slug="huggingface/platform" class="h-22 sm:h-36 w-auto max-w-full cursor-pointer"></logo-huggingface>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-inngest data-provider-slug="inngest/app" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-inngest>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-kernel data-provider-slug="kernel/project" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-kernel>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-laravelcloud data-provider-slug="laravel_cloud/application" class="h-16 sm:h-22 w-auto max-w-full cursor-pointer"></logo-laravelcloud>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-metronome data-provider-slug="metronome/sandbox" class="h-10 sm:h-18 w-auto max-w-full cursor-pointer"></logo-metronome>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-mixpanel data-provider-slug="mixpanel/analytics" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-mixpanel>
@@ -304,10 +334,19 @@ changefreq: "weekly"
                         <logo-openrouter data-provider-slug="openrouter/api" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-openrouter>
                     </div>
                     <div class="flex items-center justify-center h-40">
+                        <logo-parallel data-provider-slug="parallel/api" class="h-12 sm:h-20 w-auto max-w-full cursor-pointer"></logo-parallel>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
                         <logo-planetscale data-provider-slug="planetscale/postgresql" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-planetscale>
                     </div>
                     <div class="flex items-center justify-center h-40">
+                        <logo-postalform data-provider-slug="postalform/mail" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-postalform>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
                         <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-prisma data-provider-slug="prisma/database" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-prisma>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-privy data-provider-slug="privy/app" class="h-9 sm:h-22 w-auto max-w-full cursor-pointer"></logo-privy>
@@ -328,6 +367,9 @@ changefreq: "weekly"
                         <logo-supabase data-provider-slug="supabase/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
                     </div>
                     <div class="flex items-center justify-center h-40">
+                        <logo-supermemory data-provider-slug="supermemory/memory" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-supermemory>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
                         <logo-turso data-provider-slug="turso/database" class="h-24 sm:h-36 w-auto max-w-full cursor-pointer"></logo-turso>
                     </div>
                     <div class="flex items-center justify-center h-40">
@@ -338,6 +380,12 @@ changefreq: "weekly"
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-vercel data-provider-slug="vercel/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-wix data-provider-slug="wix/headless" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-wix>
+                    </div>
+                    <div class="flex items-center justify-center h-40">
+                        <logo-wordpress data-provider-slug="wordpress.com/site" class="h-12 sm:h-20 w-auto max-w-full cursor-pointer"></logo-wordpress>
                     </div>
                     <div class="flex items-center justify-center h-40">
                         <logo-workos data-provider-slug="workos/auth" class="h-14 sm:h-24 w-auto max-w-full cursor-pointer"></logo-workos>
