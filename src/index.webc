@@ -246,8 +246,8 @@ changefreq: "weekly"
                 </div>
                 <!--- Logo marquee: 3 rows, alternating directions, different speeds --->
                 <div class="w-full overflow-hidden" data-logo-marquee>
-                    <!--- Row 1: scrolls left, 40s --->
-                    <div class="marquee-row mb-20" style="--marquee-duration: 40s; --marquee-direction: normal;">
+                    <!--- Row 1: scrolls left, 48s --->
+                    <div class="marquee-row mb-20" style="--marquee-duration: 48s; --marquee-direction: normal;">
                         <div class="marquee-track">
                             <logo-agentmail data-provider-slug="agentmail/api" class="marquee-logo h-16 sm:h-24"></logo-agentmail>
                             <logo-agentphone data-provider-slug="agentphone/number" class="marquee-logo h-16 sm:h-24"></logo-agentphone>
@@ -267,8 +267,8 @@ changefreq: "weekly"
                             <logo-exa data-provider-slug="exa/api" class="marquee-logo h-16 sm:h-24"></logo-exa>
                         </div>
                     </div>
-                    <!--- Row 2: scrolls right, 35s --->
-                    <div class="marquee-row mb-20" style="--marquee-duration: 35s; --marquee-direction: reverse;">
+                    <!--- Row 2: scrolls right, 55s --->
+                    <div class="marquee-row mb-20" style="--marquee-duration: 55s; --marquee-direction: reverse;">
                         <div class="marquee-track">
                             <logo-firecrawl data-provider-slug="firecrawl/api" class="marquee-logo h-20 sm:h-28"></logo-firecrawl>
                             <logo-flyio data-provider-slug="flyio/app" class="marquee-logo h-18 sm:h-28"></logo-flyio>
@@ -288,8 +288,8 @@ changefreq: "weekly"
                             <logo-postalform data-provider-slug="postalform/mail" class="marquee-logo h-20 sm:h-28"></logo-postalform>
                         </div>
                     </div>
-                    <!--- Row 3: scrolls left, 45s --->
-                    <div class="marquee-row" style="--marquee-duration: 45s; --marquee-direction: normal;">
+                    <!--- Row 3: scrolls left, 60s --->
+                    <div class="marquee-row" style="--marquee-duration: 60s; --marquee-direction: normal;">
                         <div class="marquee-track">
                             <logo-posthog data-provider-slug="posthog/analytics" class="marquee-logo h-36 sm:h-48"></logo-posthog>
                             <logo-prisma data-provider-slug="prisma/database" class="marquee-logo h-20 sm:h-28"></logo-prisma>
@@ -303,7 +303,7 @@ changefreq: "weekly"
                             <logo-turso data-provider-slug="turso/database" class="marquee-logo h-24 sm:h-36"></logo-turso>
                             <logo-twilio data-provider-slug="twilio/email" class="marquee-logo h-28 sm:h-40"></logo-twilio>
                             <logo-upstash data-provider-slug="upstash/redis" class="marquee-logo h-18 sm:h-28"></logo-upstash>
-                            <logo-vercel data-provider-slug="vercel/project" class="marquee-logo h-21 sm:h-30"></logo-vercel>
+                            <logo-vercel data-provider-slug="vercel/project" class="marquee-logo h-16 sm:h-22"></logo-vercel>
                             <logo-wix data-provider-slug="wix/headless" class="marquee-logo h-18 sm:h-26"></logo-wix>
                             <logo-wordpress data-provider-slug="wordpress.com/site" class="marquee-logo h-12 sm:h-20"></logo-wordpress>
                             <logo-workos data-provider-slug="workos/auth" class="marquee-logo h-14 sm:h-24"></logo-workos>
@@ -671,7 +671,7 @@ changefreq: "weekly"
         will-change: transform;
     }
     .marquee-row:hover .marquee-track {
-        animation-play-state: paused;
+        animation-play-state: paused !important;
     }
     .marquee-logo {
         width: auto;
