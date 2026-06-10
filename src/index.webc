@@ -705,12 +705,11 @@ changefreq: "weekly"
         width: auto;
         max-width: 8rem;
         flex-shrink: 0;
-        opacity: 0.7;
-        transition: opacity 0.2s ease;
+        transition: transform 0.2s ease;
         cursor: pointer;
     }
     .marquee-logo:hover {
-        opacity: 1;
+        transform: scale(1.12);
     }
     @keyframes marquee-scroll {
         from { transform: translateX(var(--scroll-start, 0px)); }
