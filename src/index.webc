@@ -244,108 +244,75 @@ changefreq: "weekly"
                     <span class="uppercase text-detail text-12 tracking-widest whitespace-nowrap">Supported providers</span>
                     <span class="inline-flex items-center px-8 py-4 rounded-full bg-foreground text-10 tracking-widest uppercase text-detail whitespace-nowrap">+ More soon</span>
                 </div>
-                <!--- Logo grid: 2 cols default, 4 cols sm+; last row spanned and flex-centered (reliable vs col-start if root .webc not in Tailwind @source) --->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-y-24 gap-x-16 w-full max-w-896">
-                    <div class="flex items-center justify-center h-40">
-                        <logo-agentmail data-provider-slug="agentmail/api" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-agentmail>
+                <!--- Logo marquee: 3 rows, alternating directions, different speeds --->
+                <div class="w-full overflow-hidden" data-logo-marquee>
+                    <!--- Row 1: scrolls left, 40s --->
+                    <div class="marquee-row mb-20" style="--marquee-duration: 40s; --marquee-direction: normal;">
+                        <div class="marquee-track">
+                            <logo-agentmail data-provider-slug="agentmail/api" class="marquee-logo h-16 sm:h-24"></logo-agentmail>
+                            <logo-agentphone data-provider-slug="agentphone/number" class="marquee-logo h-16 sm:h-24"></logo-agentphone>
+                            <logo-algolia data-provider-slug="algolia/application" class="marquee-logo h-18 sm:h-25"></logo-algolia>
+                            <logo-amplitude data-provider-slug="amplitude/analytics" class="marquee-logo h-18 sm:h-24"></logo-amplitude>
+                            <logo-auth0 data-provider-slug="auth0/client" class="marquee-logo h-20 sm:h-28"></logo-auth0>
+                            <logo-base44 data-provider-slug="base44_projects/app" class="marquee-logo h-22 sm:h-33"></logo-base44>
+                            <logo-blaxel data-provider-slug="blaxel/sandbox" class="marquee-logo h-16 sm:h-24"></logo-blaxel>
+                            <logo-browserbase data-provider-slug="browserbase/project" class="marquee-logo h-21 sm:h-31"></logo-browserbase>
+                            <logo-chroma data-provider-slug="chroma/database" class="marquee-logo h-20 sm:h-28"></logo-chroma>
+                            <logo-clerk data-provider-slug="clerk/auth" class="marquee-logo h-28 sm:h-38"></logo-clerk>
+                            <logo-clickhouse data-provider-slug="clickhouse/clickhouse" class="marquee-logo h-28 sm:h-40"></logo-clickhouse>
+                            <logo-cloudflare data-provider-slug="cloudflare/worker" class="marquee-logo h-14 sm:h-20"></logo-cloudflare>
+                            <logo-daytona data-provider-slug="daytona/sandbox" class="marquee-logo h-20 sm:h-29"></logo-daytona>
+                            <logo-e2b data-provider-slug="e2b/sandboxes" class="marquee-logo h-18 sm:h-26"></logo-e2b>
+                            <logo-elevenlabs data-provider-slug="elevenlabs/tts" class="marquee-logo h-12 sm:h-18"></logo-elevenlabs>
+                            <logo-exa data-provider-slug="exa/api" class="marquee-logo h-16 sm:h-24"></logo-exa>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-algolia data-provider-slug="algolia/application" class="h-18 sm:h-25 w-auto max-w-full cursor-pointer"></logo-algolia>
+                    <!--- Row 2: scrolls right, 35s --->
+                    <div class="marquee-row mb-20" style="--marquee-duration: 35s; --marquee-direction: reverse;">
+                        <div class="marquee-track">
+                            <logo-firecrawl data-provider-slug="firecrawl/api" class="marquee-logo h-20 sm:h-28"></logo-firecrawl>
+                            <logo-flyio data-provider-slug="flyio/app" class="marquee-logo h-18 sm:h-28"></logo-flyio>
+                            <logo-gitlab data-provider-slug="gitlab/project" class="marquee-logo h-32 sm:h-48"></logo-gitlab>
+                            <logo-heygen data-provider-slug="heygen/api" class="marquee-logo h-36 sm:h-48"></logo-heygen>
+                            <logo-huggingface data-provider-slug="huggingface/platform" class="marquee-logo h-22 sm:h-36"></logo-huggingface>
+                            <logo-inngest data-provider-slug="inngest/app" class="marquee-logo h-12 sm:h-18"></logo-inngest>
+                            <logo-kernel data-provider-slug="kernel/project" class="marquee-logo h-12 sm:h-18"></logo-kernel>
+                            <logo-laravelcloud data-provider-slug="laravel_cloud/application" class="marquee-logo h-16 sm:h-22"></logo-laravelcloud>
+                            <logo-metronome data-provider-slug="metronome/sandbox" class="marquee-logo h-10 sm:h-18"></logo-metronome>
+                            <logo-mixpanel data-provider-slug="mixpanel/analytics" class="marquee-logo h-16 sm:h-24"></logo-mixpanel>
+                            <logo-neon data-provider-slug="neon/postgres" class="marquee-logo h-18 sm:h-28"></logo-neon>
+                            <logo-netlify data-provider-slug="netlify/project" class="marquee-logo h-28 sm:h-40"></logo-netlify>
+                            <logo-openrouter data-provider-slug="openrouter/api" class="marquee-logo h-14 sm:h-20"></logo-openrouter>
+                            <logo-parallel data-provider-slug="parallel/api" class="marquee-logo h-11 sm:h-19"></logo-parallel>
+                            <logo-planetscale data-provider-slug="planetscale/postgresql" class="marquee-logo h-40 sm:h-52"></logo-planetscale>
+                            <logo-postalform data-provider-slug="postalform/mail" class="marquee-logo h-20 sm:h-28"></logo-postalform>
+                        </div>
                     </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-amplitude data-provider-slug="amplitude/analytics" class="h-18 sm:h-24 w-auto max-w-full cursor-pointer"></logo-amplitude>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-auth0 data-provider-slug="auth0/client" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-auth0>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-browserbase data-provider-slug="browserbase/project" class="h-21 sm:h-31 w-auto max-w-full cursor-pointer"></logo-browserbase>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-chroma data-provider-slug="chroma/database" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-chroma>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-clerk data-provider-slug="clerk/auth" class="h-36 sm:h-48 w-auto max-w-full cursor-pointer"></logo-clerk>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-cloudflare data-provider-slug="cloudflare/worker" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-cloudflare>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-daytona data-provider-slug="daytona/sandbox" class="h-20 sm:h-29 w-auto max-w-full cursor-pointer"></logo-daytona>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-elevenlabs data-provider-slug="elevenlabs/tts" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-elevenlabs>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-firecrawl data-provider-slug="firecrawl/api" class="h-20 sm:h-28 w-auto max-w-full cursor-pointer"></logo-firecrawl>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-flyio data-provider-slug="flyio/app" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-flyio>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-gitlab data-provider-slug="gitlab/project" class="h-29 sm:h-43 w-auto max-w-full cursor-pointer"></logo-gitlab>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-huggingface data-provider-slug="huggingface/platform" class="h-22 sm:h-36 w-auto max-w-full cursor-pointer"></logo-huggingface>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-inngest data-provider-slug="inngest/app" class="h-12 sm:h-18 w-auto max-w-full cursor-pointer"></logo-inngest>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-mixpanel data-provider-slug="mixpanel/analytics" class="h-16 sm:h-24 w-auto max-w-full cursor-pointer"></logo-mixpanel>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-neon data-provider-slug="neon/postgres" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-neon>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-netlify data-provider-slug="netlify/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-netlify>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-openrouter data-provider-slug="openrouter/api" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-openrouter>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-planetscale data-provider-slug="planetscale/postgresql" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-planetscale>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-posthog data-provider-slug="posthog/analytics" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-posthog>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-privy data-provider-slug="privy/app" class="h-9 sm:h-22 w-auto max-w-full cursor-pointer"></logo-privy>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-railway data-provider-slug="railway/hosting" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-railway>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-render data-provider-slug="render/static-site" class="h-14 sm:h-20 w-auto max-w-full cursor-pointer"></logo-render>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-runloop data-provider-slug="runloop/sandbox" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-runloop>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-sentry data-provider-slug="sentry/project" class="h-19 sm:h-29 w-auto max-w-full cursor-pointer"></logo-sentry>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-supabase data-provider-slug="supabase/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-supabase>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-turso data-provider-slug="turso/database" class="h-24 sm:h-36 w-auto max-w-full cursor-pointer"></logo-turso>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-twilio data-provider-slug="twilio/email" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-twilio>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-upstash data-provider-slug="upstash/redis" class="h-18 sm:h-28 w-auto max-w-full cursor-pointer"></logo-upstash>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-vercel data-provider-slug="vercel/project" class="h-28 sm:h-40 w-auto max-w-full cursor-pointer"></logo-vercel>
-                    </div>
-                    <div class="flex items-center justify-center h-40">
-                        <logo-workos data-provider-slug="workos/auth" class="h-14 sm:h-24 w-auto max-w-full cursor-pointer"></logo-workos>
+                    <!--- Row 3: scrolls left, 45s --->
+                    <div class="marquee-row" style="--marquee-duration: 45s; --marquee-direction: normal;">
+                        <div class="marquee-track">
+                            <logo-posthog data-provider-slug="posthog/analytics" class="marquee-logo h-36 sm:h-48"></logo-posthog>
+                            <logo-prisma data-provider-slug="prisma/database" class="marquee-logo h-20 sm:h-28"></logo-prisma>
+                            <logo-privy data-provider-slug="privy/app" class="marquee-logo h-8 sm:h-18"></logo-privy>
+                            <logo-railway data-provider-slug="railway/hosting" class="marquee-logo h-38 sm:h-50"></logo-railway>
+                            <logo-render data-provider-slug="render/static-site" class="marquee-logo h-14 sm:h-20"></logo-render>
+                            <logo-runloop data-provider-slug="runloop/sandbox" class="marquee-logo h-28 sm:h-40"></logo-runloop>
+                            <logo-sentry data-provider-slug="sentry/project" class="marquee-logo h-16 sm:h-24"></logo-sentry>
+                            <logo-supabase data-provider-slug="supabase/project" class="marquee-logo h-28 sm:h-40"></logo-supabase>
+                            <logo-supermemory data-provider-slug="supermemory/memory" class="marquee-logo h-12 sm:h-18"></logo-supermemory>
+                            <logo-turso data-provider-slug="turso/database" class="marquee-logo h-24 sm:h-36"></logo-turso>
+                            <logo-twilio data-provider-slug="twilio/email" class="marquee-logo h-28 sm:h-40"></logo-twilio>
+                            <logo-upstash data-provider-slug="upstash/redis" class="marquee-logo h-18 sm:h-28"></logo-upstash>
+                            <logo-vercel data-provider-slug="vercel/project" class="marquee-logo h-21 sm:h-30"></logo-vercel>
+                            <logo-wix data-provider-slug="wix/headless" class="marquee-logo h-18 sm:h-26"></logo-wix>
+                            <logo-wordpress data-provider-slug="wordpress.com/site" class="marquee-logo h-12 sm:h-20"></logo-wordpress>
+                            <logo-workos data-provider-slug="workos/auth" class="marquee-logo h-14 sm:h-24"></logo-workos>
+                        </div>
                     </div>
                 </div>
-                <!--- View providers link: mobile only (header has it on sm+) --->
-                <a href="/providers/" class="flex sm:hidden items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
-                    <span>View providers</span>
+                <!--- View providers link --->
+                <a href="/providers/" class="flex items-center gap-6 mt-16 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                    <span>View all providers</span>
                     <icon-arrowanimate @size="sm" class=""></icon-arrowanimate>
                 </a>
             </helm-container>
@@ -688,7 +655,86 @@ changefreq: "weekly"
 </div>
 
 
+<style>
+    .marquee-row {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+    .marquee-track {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        width: max-content;
+        will-change: transform;
+    }
+    .marquee-row:hover .marquee-track {
+        animation-play-state: paused;
+    }
+    .marquee-logo {
+        width: auto;
+        max-width: 8rem;
+        flex-shrink: 0;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+        cursor: pointer;
+    }
+    .marquee-logo:hover {
+        opacity: 1;
+    }
+    @keyframes marquee-scroll {
+        from { transform: translateX(var(--scroll-start, 0px)); }
+        to { transform: translateX(var(--scroll-end, -50%)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+            animation: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .marquee-row {
+            mask-image: none;
+            -webkit-mask-image: none;
+        }
+    }
+</style>
+
 <script>
+
+    // Marquee: duplicate tracks, measure exact scroll distance, randomize start
+    (function marqueeSetup() {
+        document.querySelectorAll('.marquee-track').forEach(track => {
+            const items = Array.from(track.children);
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+        });
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.marquee-track').forEach(track => {
+                const originalCount = track.children.length / 2;
+                const firstItem = track.children[0].getBoundingClientRect();
+                const firstClone = track.children[originalCount].getBoundingClientRect();
+                const halfWidth = firstClone.left - firstItem.left;
+                const row = track.closest('.marquee-row');
+                const direction = row.style.getPropertyValue('--marquee-direction').trim();
+                if (direction === 'reverse') {
+                    track.style.setProperty('--scroll-start', `${-halfWidth}px`);
+                    track.style.setProperty('--scroll-end', '0px');
+                } else {
+                    track.style.setProperty('--scroll-start', '0px');
+                    track.style.setProperty('--scroll-end', `${-halfWidth}px`);
+                }
+                const duration = row.style.getPropertyValue('--marquee-duration').trim() || '40s';
+                const randomDelay = -(Math.random() * parseFloat(duration));
+                track.style.animation = `marquee-scroll ${duration} linear infinite`;
+                track.style.animationDelay = `${randomDelay}s`;
+            });
+        });
+    })();
 
     // Hero Install CLI button — copies plain text install command
     (function heroInstallCopy() {
