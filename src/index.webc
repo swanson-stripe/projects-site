@@ -740,12 +740,19 @@ changefreq: "weekly"
     (function marqueeSetup() {
         document.querySelectorAll('.marquee-track').forEach(track => {
             const items = Array.from(track.children);
+            const slugToName = {
+                'base44_projects': 'base 44',
+                'flyio': 'fly.io',
+                'huggingface': 'hugging face',
+                'laravel_cloud': 'laravel cloud',
+            };
             items.forEach(item => {
                 const slug = item.getAttribute('data-provider-slug');
                 if (slug) {
-                    const name = slug.split('/')[0];
+                    const prefix = slug.split('/')[0];
+                    const name = slugToName[prefix] || prefix;
                     const link = document.createElement('a');
-                    link.href = '/providers/#' + name;
+                    link.href = '/providers/#' + encodeURIComponent(name);
                     link.className = 'marquee-logo-link';
                     item.parentNode.insertBefore(link, item);
                     link.appendChild(item);
@@ -1096,9 +1103,10 @@ changefreq: "weekly"
     }
     followCursorOnHover();
 
-    // Provider logo click — copy install command + show toast
+    // Provider logo click — copy install command + show toast (skip marquee logos, they navigate)
     (function providerCopy() {
         document.querySelectorAll('[data-provider-slug]').forEach(el => {
+            if (el.closest('.marquee-track')) return;
             el.addEventListener('click', () => {
                 const slug = el.getAttribute('data-provider-slug');
                 const name = slug.split('/')[0].replace(/^\w/, c => c.toUpperCase());
