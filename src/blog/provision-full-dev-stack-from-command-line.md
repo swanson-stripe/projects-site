@@ -246,16 +246,6 @@ The full catalog is at [projects.dev/providers](https://projects.dev/providers).
 
 If you're working with a coding agent—Cursor, Claude Code, GitHub Copilot Workspace, Codex—Stripe Projects is designed to be invoked non-interactively. That means your agent can run `stripe projects add` as part of its build loop, provision the services it needs, and get structured credentials back without opening a browser or waiting on a human to copy-paste an API key.
 
-To enable agent access, run:
-
-```bash
-stripe projects agent init
-```
-
-This generates an agent skill file that scopes what your coding agent is allowed to provision. You stay in control of what's permitted; the agent handles the execution.
-
-See the [agent setup guide](https://projects.dev/docs/agents) for a full walkthrough.
-
 ---
 
 ## Wrapping up
