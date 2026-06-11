@@ -162,12 +162,12 @@ export default [
     logoTag: "logo-inngest",
   },
   {
-    name: "Kernel",
+    name: "KERNEL",
     slug: "kernel/project",
     category: "browser",
     description: "AI-native browser infrastructure",
     longDescription: "AI-native browser infrastructure for building agents that browse, interact with, and extract data from the web.",
-    url: "https://kernel.com",
+    url: "https://www.kernel.sh/",
     logoTag: "logo-kernel",
   },
   {
