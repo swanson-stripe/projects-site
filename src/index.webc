@@ -1,10 +1,10 @@
 ---
 layout: "main.webc"
 title: "Home"
-seoTitle: "Stripe Projects | Provision and Manage Services from the CLI"
-ogTitle: "Stripe Projects | Provision and Manage Services from the CLI"
-seoDesc: "Enable you or your agents to provision hosting, databases, auth, AI, and more from the CLI. Generate credentials and manage usage and billing in one place."
-ogDesc: "Enable you or your agents to provision hosting, databases, auth, AI, and more from the CLI. Generate credentials and manage usage and billing in one place."
+seoTitle: "Stripe Projects | Add any service to your app in one command"
+ogTitle: "Stripe Projects | Add any service to your app in one command"
+seoDesc: "Add hosting, databases, auth, AI, and more — no dashboards, no config files, no infrastructure code. Just one command per service."
+ogDesc: "Add hosting, databases, auth, AI, and more — no dashboards, no config files, no infrastructure code. Just one command per service."
 ogImage: "/assets/images/og/og.jpg"
 ogImageAlt: "Stripe Projects — Provision your stack from the CLI"
 twitterImage: "/assets/images/og/twitter-large.jpg"
@@ -36,18 +36,17 @@ changefreq: "weekly"
 
         <!--- Hero --->
         <helm-section class="relative z-20">
-            <helm-container class="relative flex flex-col items-center pt-12 sm:pt-12">
-                <span class="inline-flex items-center px-8 py-4 rounded-full text-10 tracking-widest uppercase text-neutral-0 whitespace-nowrap bg-cover bg-center mb-40" style="background-image: url('/assets/images/badge-bg.png');">Developer Preview</span>
+            <helm-container class="relative flex flex-col items-center pt-20 sm:pt-20">
             </helm-container>
             <helm-container class="relative flex flex-col pt-0">
                 <!--- Content --->
                 <div class="relative flex flex-col items-center text-center md:px-16 mb-64 sm:mb-80">
                     <div class="mb-28 max-w-896 flex flex-col items-center justify-center">
                         <h1 data-hero="headline" class="relative text-[10vw]/100 min-[640px]:text-[9vw]/100 min-[768px]:text-64/100 tracking-tighter mb-18 text-balance min-[1024px]:text-pretty">
-                            Provision and manage services from the CLI
+                            You <code class="font-mono text-[0.85em] bg-primary/10 px-8 py-2 rounded-4 text-primary">npm install</code> packages. Now <code class="font-mono text-[0.85em] bg-primary/10 px-8 py-2 rounded-4 text-primary">stripe projects add</code> services.
                         </h1>
                         <p data-hero="description" class="text-16/150 sm:text-18 sm:text-18/150 text-content text-balance md:text-pretty">
-                            Stripe Projects lets you or your agents provision multiple services, generate and store credentials, and manage usage and billing from the CLI. Set up hosting, databases, auth, AI, analytics, and more in a few commands.
+                            Stripe Projects lets you and your AI agents add services, generate credentials, and manage billing from the CLI. Hosting, databases, auth, AI, and more — no dashboards, no config files, no infrastructure code. One command.
                         </p>
                     </div>
                     <!--- CTAs --->
