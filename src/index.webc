@@ -538,6 +538,255 @@ changefreq: "weekly"
             </helm-container>
         </helm-section>
 
+        <!--- Testimonials + Media --->
+        <helm-section class="relative pt-64 pb-32 md:pt-96 md:pb-64 z-10 overflow-hidden">
+            <helm-container class="relative flex flex-col items-center mb-32 sm:mb-48">
+                <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline">What the community is saying</h2>
+            </helm-container>
+            <div class="w-full overflow-hidden" data-testimonial-marquee>
+                <!--- Row 1: scrolls left --->
+                <div class="testimonial-marquee-row mb-16" style="--marquee-duration: 120s; --marquee-direction: normal;">
+                    <div class="testimonial-marquee-track">
+                        <!--- Video: Sentry --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=bNAYd5g_QMo" target="_blank" style="--brand: #8B5CF6;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/bNAYd5g_QMo/maxresdefault.jpg" alt="Sentry + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">Sentry + Stripe Projects: From Zero to Error Monitoring in Two Commands</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Sentry
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: Vercel --->
+                        <div class="testimonial-card" style="--brand: #171717;">
+                            <logo-vercel class="h-18 w-auto opacity-70"></logo-vercel>
+                            <p class="testimonial-quote">"Your customer is increasingly the agent, not just the human behind it. Agents need deterministic steps and real credentials — they can't navigate dashboards or guess at configuration. Stripe Projects gives agents a clean provisioning path, and Vercel's integration means they can go from CLI to a deployed app without any manual steps in between."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Guillermo Rauch</span>
+                                <span class="text-13 text-detail">CEO, Vercel</span>
+                            </div>
+                        </div>
+                        <!--- Video: Algolia --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=1fJVxv-OY-0" target="_blank" style="--brand: #003DFF;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/1fJVxv-OY-0/maxresdefault.jpg" alt="Algolia + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">How to Create &amp; Manage Algolia Applications with the Stripe CLI</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Algolia
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: Neon --->
+                        <div class="testimonial-card" style="--brand: #00E699;">
+                            <logo-neon class="h-22 w-auto opacity-70"></logo-neon>
+                            <p class="testimonial-quote">"The same company that simplified online payments into a single line of code is the one I trust to simplify agentic account provisioning into a single CLI command."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Nikita Shamgunov</span>
+                                <span class="text-13 text-detail">Cofounder, Neon</span>
+                            </div>
+                        </div>
+                        <!--- Video: HeyGen --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=8I-SNTk-ZLQ" target="_blank" style="--brand: #5046E5;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/8I-SNTk-ZLQ/maxresdefault.jpg" alt="HeyGen x Stripe" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">HeyGen x Stripe: Your AI Agent Can Now Buy &amp; Use HeyGen Automatically</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    HeyGen
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: PostHog --->
+                        <div class="testimonial-card" style="--brand: #F54E00;">
+                            <logo-posthog class="h-28 w-auto opacity-70"></logo-posthog>
+                            <p class="testimonial-quote">"PostHog is all about keeping developers in flow and helping them build better products — that's why Stripe Projects feels like a natural fit. With Projects, you run one command and get real credentials back, ready for whatever you're building — including AI agents."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">James Hawkins</span>
+                                <span class="text-13 text-detail">Co-CEO, PostHog</span>
+                            </div>
+                        </div>
+                        <!--- Blog: Cloudflare --->
+                        <a class="testimonial-blog-card" href="https://blog.cloudflare.com/agents-stripe-projects/" target="_blank" style="--brand: #F6821F;">
+                            <div class="testimonial-blog-hero">
+                                <img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/1z87ypuPVuagcw4apgVWEz/32925c589f5c49ea212c2b12359c3efc/BLOG-3288-OG.png" alt="Cloudflare blog" loading="lazy">
+                                <span class="testimonial-blog-badge">Blog Post</span>
+                            </div>
+                            <div class="testimonial-blog-body">
+                                <span class="testimonial-blog-title">Agents Are Now Cloudflare Customers — Create Accounts, Buy Domains, and More</span>
+                                <span class="testimonial-blog-source">
+                                    <logo-cloudflare class="h-12 w-auto opacity-70"></logo-cloudflare>
+                                    blog.cloudflare.com
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: Firecrawl --->
+                        <div class="testimonial-card" style="--brand: #FF6B35;">
+                            <logo-firecrawl class="h-22 w-auto opacity-70"></logo-firecrawl>
+                            <p class="testimonial-quote">"Every AI agent needs web data. With Stripe Projects, giving your agent the ability to search, scrape, and interact with the entire web is seconds away. Super excited to be a launch partner."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Eric Ciarla</span>
+                                <span class="text-13 text-detail">Cofounder, Firecrawl</span>
+                            </div>
+                        </div>
+                        <!--- Video: Auth0 --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=nG3Gxrtn6Uo" target="_blank" style="--brand: #EB5424;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/nG3Gxrtn6Uo/maxresdefault.jpg" alt="Auth0 + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">How to Integrate Auth0 via Stripe Projects (Full Next.js Walkthrough)</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Auth0
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: PlanetScale --->
+                        <div class="testimonial-card" style="--brand: #F43F5E;">
+                            <logo-planetscale class="h-36 w-auto opacity-70"></logo-planetscale>
+                            <p class="testimonial-quote">"If you're building a real app, you need a real database that's reliable, fast, and ready for production traffic from day one. Partnering with Stripe Projects means developers can go straight from the terminal to a fully provisioned, production-grade database in seconds."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Nick Van Wiggeren</span>
+                                <span class="text-13 text-detail">CTO, PlanetScale</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--- Row 2: scrolls right --->
+                <div class="testimonial-marquee-row" style="--marquee-duration: 130s; --marquee-direction: reverse;">
+                    <div class="testimonial-marquee-track">
+                        <!--- Video: Laravel --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=TXX5uj9vfKc" target="_blank" style="--brand: #FF2D20;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/TXX5uj9vfKc/maxresdefault.jpg" alt="Laravel + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">Introducing Stripe Projects &times; Laravel Cloud</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Laravel
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: HuggingFace --->
+                        <div class="testimonial-card" style="--brand: #FFD21E;">
+                            <logo-huggingface class="h-28 w-auto opacity-70"></logo-huggingface>
+                            <p class="testimonial-quote">"This is exactly the kind of integration we dreamed about when we started HuggingFace: making state-of-the-art AI ridiculously accessible to every developer, everywhere. This is just the beginning, and honestly? We couldn't be more pumped."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Julien Chaumond</span>
+                                <span class="text-13 text-detail">CTO, Hugging Face</span>
+                            </div>
+                        </div>
+                        <!--- Video: Netlify --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=Km4_m2zAW8k" target="_blank" style="--brand: #00C7B7;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/Km4_m2zAW8k/maxresdefault.jpg" alt="Netlify + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">Deploy a Full-Stack App with Stripe Projects CLI</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Netlify
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: Supabase --->
+                        <div class="testimonial-card" style="--brand: #3ECF8E;">
+                            <logo-supabase class="h-28 w-auto opacity-70"></logo-supabase>
+                            <p class="testimonial-quote">"With Stripe Projects, developers and agents can provision a Supabase Postgres database from the terminal with a single command. Agents can stand up a full backend as part of an automated workflow and carry the project all the way to production."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Inian</span>
+                                <span class="text-13 text-detail">Head of Product, Supabase</span>
+                            </div>
+                        </div>
+                        <!--- Video: Supabase --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=-mIQWM7rMVM" target="_blank" style="--brand: #3ECF8E;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/-mIQWM7rMVM/maxresdefault.jpg" alt="Supabase + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">Supabase + Stripe Projects: Build in a Weekend, Scale to Millions</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Stripe Developers
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: Fly.io --->
+                        <div class="testimonial-card" style="--brand: #7B3BE2;">
+                            <logo-flyio class="h-22 w-auto opacity-70"></logo-flyio>
+                            <p class="testimonial-quote">"Fly is already where people run their agents: sandboxed, isolated, fast. Projects means the agent can now provision the whole stack without needing a human in the loop to get credentials."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Matt Cunningham</span>
+                                <span class="text-13 text-detail">VP Finance, Fly.io</span>
+                            </div>
+                        </div>
+                        <!--- Blog: Wix Headless --->
+                        <a class="testimonial-blog-card" href="https://www.wix-headless.dev/blog/wix-headless-x-stripe-projects-the-business-stack-that-provisions-itself" target="_blank" style="--brand: #116DFF;">
+                            <div class="testimonial-blog-hero">
+                                <img src="https://img.youtube.com/vi/KKtdSqrJirc/maxresdefault.jpg" alt="Wix Headless blog" loading="lazy">
+                                <span class="testimonial-blog-badge">Blog Post</span>
+                            </div>
+                            <div class="testimonial-blog-body">
+                                <span class="testimonial-blog-title">Wix Headless &times; Stripe Projects: The Business Stack That Provisions Itself</span>
+                                <span class="testimonial-blog-source">
+                                    <logo-wix class="h-14 w-auto opacity-70"></logo-wix>
+                                    wix-headless.dev
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: WorkOS --->
+                        <div class="testimonial-card" style="--brand: #6363F1;">
+                            <logo-workos class="h-18 w-auto opacity-70"></logo-workos>
+                            <p class="testimonial-quote">"Developers lose momentum every time they leave their terminal to set up a service. Stripe Projects not only fixes that, but it also provides the basis for how agents can onboard to services."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Michael Grinich</span>
+                                <span class="text-13 text-detail">Founder &amp; CEO, WorkOS</span>
+                            </div>
+                        </div>
+                        <!--- Video: Cloudflare --->
+                        <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=kY4dENQxr4E" target="_blank" style="--brand: #F6821F;">
+                            <div class="testimonial-video-thumb">
+                                <img src="https://img.youtube.com/vi/kY4dENQxr4E/maxresdefault.jpg" alt="Cloudflare + Stripe Projects" loading="lazy">
+                                <div class="testimonial-video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="testimonial-video-meta">
+                                <span class="testimonial-video-title">Agents Are Now Cloudflare Customers — Create Accounts, Buy Domains, and More</span>
+                                <span class="testimonial-video-channel">
+                                    <svg class="testimonial-yt-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.5c-1 .3-1.8 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.5 9.5.5 9.5.5s7.6 0 9.5-.5c1-.3 1.8-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.5 3.5z"/></svg>
+                                    Cloudflare Developers
+                                </span>
+                            </div>
+                        </a>
+                        <!--- Quote: Amplitude --->
+                        <div class="testimonial-card" style="--brand: #1D6AFF;">
+                            <logo-amplitude class="h-20 w-auto opacity-70"></logo-amplitude>
+                            <p class="testimonial-quote">"AI-powered builders can now ship ten things in the time it used to take to ship one. Stripe Projects handles the last manual bottleneck: provisioning the tech stack you need from the terminal."</p>
+                            <div class="testimonial-author">
+                                <span class="text-14 text-headline">Spenser Skates</span>
+                                <span class="text-13 text-detail">CEO and Co-founder, Amplitude</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </helm-section>
+
         <!--- Blog --->
         <helm-section class="relative pt-64 pb-32 md:pt-96 md:pb-64 z-10">
             <helm-container class="relative flex flex-col">
@@ -730,6 +979,271 @@ changefreq: "weekly"
             -webkit-mask-image: none;
         }
     }
+
+    /* Testimonial marquee */
+    .testimonial-marquee-row {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    }
+    .testimonial-marquee-track {
+        display: flex;
+        align-items: stretch;
+        gap: 1rem;
+        width: max-content;
+        will-change: transform;
+    }
+    .testimonial-marquee-row:hover .testimonial-marquee-track {
+        animation-play-state: paused !important;
+    }
+    .testimonial-card {
+        --brand: #635BFF;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 22rem;
+        padding: 1.5rem;
+        padding-left: calc(1.5rem + 3px);
+        border-radius: 0.5rem;
+        border: 1px solid var(--color-edge);
+        border-left: 3px solid color-mix(in srgb, var(--brand) 50%, transparent);
+        background: var(--color-foreground);
+        flex-shrink: 0;
+        overflow: hidden;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonial-card::before {
+        content: "\201C";
+        position: absolute;
+        top: -0.1em;
+        right: 0.75rem;
+        font-size: 5rem;
+        line-height: 1;
+        font-family: Georgia, serif;
+        color: var(--brand);
+        opacity: 0.07;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    .testimonial-card:hover {
+        border-left-color: var(--brand);
+        box-shadow: 0 0 20px -4px color-mix(in srgb, var(--brand) 25%, transparent);
+    }
+    .testimonial-card:hover::before {
+        opacity: 0.14;
+    }
+    .testimonial-quote {
+        position: relative;
+        flex: 1;
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        color: var(--color-content);
+    }
+    .testimonial-author {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--color-edge);
+    }
+    /* Video card */
+    .testimonial-video-card {
+        --brand: #FF0000;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 20rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--color-edge);
+        background: var(--color-foreground);
+        flex-shrink: 0;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonial-video-card:hover {
+        border-color: var(--brand);
+        box-shadow: 0 0 20px -4px color-mix(in srgb, var(--brand) 25%, transparent);
+    }
+    .testimonial-video-thumb {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+    }
+    .testimonial-video-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .testimonial-video-card:hover .testimonial-video-thumb img {
+        transform: scale(1.03);
+    }
+    .testimonial-video-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 3rem;
+        height: 3rem;
+        background: rgba(0,0,0,0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, transform 0.2s;
+    }
+    .testimonial-video-card:hover .testimonial-video-play {
+        background: rgba(0,0,0,0.9);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    .testimonial-video-play svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        fill: white;
+        margin-left: 2px;
+    }
+    .testimonial-video-meta {
+        padding: 0.75rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        flex: 1;
+    }
+    .testimonial-video-title {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-headline);
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .testimonial-video-channel {
+        font-size: 0.6875rem;
+        color: var(--color-detail);
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+    }
+    .testimonial-yt-icon {
+        width: 0.875rem;
+        height: 0.875rem;
+        flex-shrink: 0;
+    }
+    /* Blog card */
+    .testimonial-blog-card {
+        --brand: #635BFF;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 20rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--color-edge);
+        background: var(--color-foreground);
+        flex-shrink: 0;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonial-blog-card:hover {
+        border-color: var(--brand);
+        box-shadow: 0 0 20px -4px color-mix(in srgb, var(--brand) 25%, transparent);
+    }
+    .testimonial-blog-hero {
+        position: relative;
+        width: 100%;
+        height: 7.5rem;
+        overflow: hidden;
+    }
+    .testimonial-blog-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .testimonial-blog-card:hover .testimonial-blog-hero img {
+        transform: scale(1.03);
+    }
+    .testimonial-blog-badge {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.175rem 0.5rem;
+        border-radius: 0.25rem;
+    }
+    .testimonial-blog-body {
+        padding: 0.75rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        flex: 1;
+    }
+    .testimonial-blog-title {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-headline);
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .testimonial-blog-source {
+        font-size: 0.6875rem;
+        color: var(--color-detail);
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        margin-top: auto;
+    }
+    @keyframes testimonial-scroll {
+        from { transform: translateX(var(--scroll-start, 0px)); }
+        to { transform: translateX(var(--scroll-end, -50%)); }
+    }
+    @media (min-width: 640px) {
+        .testimonial-card {
+            width: 26rem;
+        }
+        .testimonial-quote {
+            font-size: 0.875rem;
+        }
+        .testimonial-video-card {
+            width: 24rem;
+        }
+        .testimonial-video-title {
+            font-size: 0.8125rem;
+        }
+        .testimonial-blog-card {
+            width: 22rem;
+        }
+        .testimonial-blog-title {
+            font-size: 0.8125rem;
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .testimonial-marquee-track {
+            animation: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .testimonial-marquee-row {
+            mask-image: none;
+            -webkit-mask-image: none;
+        }
+    }
 </style>
 
 <script>
@@ -781,6 +1295,39 @@ changefreq: "weekly"
                 const duration = row.style.getPropertyValue('--marquee-duration').trim() || '40s';
                 const randomDelay = -(Math.random() * parseFloat(duration));
                 track.style.animation = `marquee-scroll ${duration} linear infinite`;
+                track.style.animationDelay = `${randomDelay}s`;
+            });
+        });
+    })();
+
+    // Testimonial marquee: duplicate tracks, measure scroll distance, animate
+    (function testimonialMarqueeSetup() {
+        document.querySelectorAll('.testimonial-marquee-track').forEach(track => {
+            const items = Array.from(track.children);
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+        });
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.testimonial-marquee-track').forEach(track => {
+                const originalCount = track.children.length / 2;
+                const firstItem = track.children[0].getBoundingClientRect();
+                const firstClone = track.children[originalCount].getBoundingClientRect();
+                const halfWidth = firstClone.left - firstItem.left;
+                const row = track.closest('.testimonial-marquee-row');
+                const direction = row.style.getPropertyValue('--marquee-direction').trim();
+                if (direction === 'reverse') {
+                    track.style.setProperty('--scroll-start', `${-halfWidth}px`);
+                    track.style.setProperty('--scroll-end', '0px');
+                } else {
+                    track.style.setProperty('--scroll-start', '0px');
+                    track.style.setProperty('--scroll-end', `${-halfWidth}px`);
+                }
+                const duration = row.style.getPropertyValue('--marquee-duration').trim() || '80s';
+                const randomDelay = -(Math.random() * parseFloat(duration));
+                track.style.animation = `testimonial-scroll ${duration} linear infinite`;
                 track.style.animationDelay = `${randomDelay}s`;
             });
         });
