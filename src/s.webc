@@ -8,8 +8,7 @@ ogDesc: "View and clone a shared Stripe Projects stack."
 ogImage: "/assets/images/og/og.jpg"
 ogImageAlt: "Stripe Projects — Stack Share"
 changefreq: "weekly"
-wave: false
-binaryCanvas: false
+wave: true
 ---
 
 <!--- Header --->
