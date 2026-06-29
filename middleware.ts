@@ -1,20 +1,36 @@
 declare const process: { env: Record<string, string | undefined> };
 
 export const config = {
-  matcher: ['/', '/:code*', '/s/:path*'],
+  matcher: ['/', '/s', '/s/:path*'],
 };
 
 const SITE_URL_FALLBACK = 'https://projects.dev';
+const HOME_LINK_HEADER = '</.well-known/api-catalog>; rel="api-catalog", </docs/api/>; rel="service-doc", </index.html.md>; rel="alternate"; type="text/markdown"';
 
 function getSiteUrl(req: Request): string {
   const url = new URL(req.url);
   return url.origin || SITE_URL_FALLBACK;
 }
 
-const BOT_UA = /slack|twitterbot|facebookexternalhit|linkedinbot|whatsapp|discordbot|telegrambot|iMessage|applebot|Googlebot|bingbot|yahoo/i;
+const PREVIEW_BOT_UA = /slack|twitterbot|facebookexternalhit|linkedinbot|whatsapp|discordbot|telegrambot|iMessage/i;
 
-function isBot(req: Request): boolean {
-  return BOT_UA.test(req.headers.get('user-agent') ?? '');
+function isPreviewBot(req: Request): boolean {
+  return PREVIEW_BOT_UA.test(req.headers.get('user-agent') ?? '');
+}
+
+function wantsMarkdown(req: Request): boolean {
+  return (req.headers.get('accept') ?? '').toLowerCase().includes('text/markdown');
+}
+
+function withHomeDiscoveryHeaders(response: Response): Response {
+  const headers = new Headers(response.headers);
+  headers.set('Link', HOME_LINK_HEADER);
+  headers.set('Vary', 'Accept, User-Agent');
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 function getCookie(req: Request, name: string): string | undefined {
@@ -236,7 +252,7 @@ export default async function middleware(req: Request): Promise<Response | void>
     const names = [...new Set(services.map(s => PROVIDER_NAMES[s.provider]))];
     const count = services.length;
 
-    if (isBot(req)) {
+    if (isPreviewBot(req)) {
       const title = count > 0
         ? names.join(', ')
         : 'Stack Share | Stripe Projects';
@@ -263,18 +279,29 @@ export default async function middleware(req: Request): Promise<Response | void>
     });
   }
 
-  /* ── Bot / OG handling ────────────────────────────────────────── */
-  if (!isBot(req)) return;
-
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
-    return safeOgHtml({
-      title: 'Stripe Projects | Provision and Manage Services from the CLI',
-      description: 'Enable you or your agents to provision hosting, databases, auth, AI, and more from the CLI. Generate credentials and manage usage and billing in one place.',
-      imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
-      pageUrl: SITE_URL,
-      twitterImage: `${SITE_URL}/assets/images/og/twitter-large.jpg`,
-    });
+    if (wantsMarkdown(req)) {
+      const markdownUrl = new URL('/index.html.md', SITE_URL);
+      const markdownResponse = await fetch(markdownUrl.toString());
+      const headers = new Headers(markdownResponse.headers);
+      headers.set('Content-Type', 'text/markdown; charset=utf-8');
+      return withHomeDiscoveryHeaders(new Response(markdownResponse.body, {
+        status: markdownResponse.status,
+        statusText: markdownResponse.statusText,
+        headers,
+      }));
+    }
+
+    if (isPreviewBot(req)) {
+      return withHomeDiscoveryHeaders(safeOgHtml({
+        title: 'Stripe Projects | Provision and Manage Services from the CLI',
+        description: 'Enable you or your agents to provision hosting, databases, auth, AI, and more from the CLI. Generate credentials and manage usage and billing in one place.',
+        imageUrl: `${SITE_URL}/assets/images/og/og.jpg`,
+        pageUrl: SITE_URL,
+        twitterImage: `${SITE_URL}/assets/images/og/twitter-large.jpg`,
+      }));
+    }
   }
 
   return;
