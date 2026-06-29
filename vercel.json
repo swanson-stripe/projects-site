@@ -14,6 +14,7 @@
     { "source": "/api/auth/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/api/auth/:path*" },
     { "source": "/_next/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/_next/:path*" },
     { "source": "/__clerk/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/__clerk/:path*" },
-    { "source": "/textures/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/textures/:path*" }
+    { "source": "/textures/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/textures/:path*" },
+    { "source": "/favicon.svg", "destination": "https://stripe-projects-leaderboard.vercel.app/favicon.svg" }
   ]
 }
