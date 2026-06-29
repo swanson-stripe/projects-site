@@ -1,0 +1,81 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Stripe Projects Public Site API",
+    "version": "1.0.0",
+    "description": "Public discovery and preview endpoints exposed by projects.dev."
+  },
+  "servers": [
+    {
+      "url": "https://projects.dev"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Get public site health",
+        "responses": {
+          "200": {
+            "description": "The site is healthy.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "ok"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "time": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "service",
+                    "time"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/og": {
+      "get": {
+        "operationId": "getOgImage",
+        "summary": "Generate a stack share OG image",
+        "parameters": [
+          {
+            "name": "stack",
+            "in": "query",
+            "required": false,
+            "description": "Encoded stack share payload from a /s/<payload> URL.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A generated PNG image.",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

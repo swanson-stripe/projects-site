@@ -140,4 +140,10 @@ Stripe is a global financial infrastructure platform. Millions of companies — 
 
 - `/llms.txt` — Curated LLM-friendly overview of this site (llmstxt.org spec)
 - `/robots.txt` — Crawler access rules
+- `/sitemap.xml` — Canonical URLs for the public site
+- `/.well-known/api-catalog` — Linkset for automated API discovery
+- `/docs/api/` — Human-readable API discovery documentation
+- `/auth.md` — Auth status for the public site
 - `/index.html.md` — This file: full markdown content of the site
+
+Requests to `/` with `Accept: text/markdown` return this markdown representation.

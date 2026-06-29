@@ -1,0 +1,98 @@
+---
+layout: "main.webc"
+title: "API Discovery"
+seoTitle: "API Discovery | Stripe Projects"
+ogTitle: "API Discovery | Stripe Projects"
+seoDesc: "Public API discovery resources for projects.dev, including the API catalog, OpenAPI description, and health endpoint."
+ogDesc: "Public API discovery resources for projects.dev, including the API catalog, OpenAPI description, and health endpoint."
+ogImage: "/assets/images/og/default.jpg"
+ogImageAlt: ""
+changefreq: "monthly"
+wave: false
+---
+
+<div class="relative w-full">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50">
+        <helm-container class="relative pt-24 pb-0 grid grid-cols-3 items-center">
+            <a href="/" class="flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14 rotate-180"><path fill-rule="evenodd" d="M5.47 3.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L8.94 8 5.47 4.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+                <span>Home</span>
+            </a>
+            <div class="relative flex items-center justify-center h-40 gap-4">
+                <a href="/" class="relative flex items-center gap-8 h-full px-10 whitespace-nowrap">
+                    <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
+                    <span class="text-16 font-normal text-headline">Stripe Projects</span>
+                </a>
+            </div>
+            <div></div>
+        </helm-container>
+    </header>
+
+    <main id="main">
+        <helm-section class="relative z-20">
+            <helm-container class="relative flex flex-col items-start pt-64 pb-96 max-w-768 mx-auto">
+                <h1 class="text-32/110 sm:text-40/110 tracking-[-0.02em] text-headline mb-16">Public API discovery</h1>
+                <p class="text-16/150 text-content mb-40">The public site exposes a small read-only API surface for discovery and health checks. These endpoints are public and do not require OAuth, OIDC, or agent registration.</p>
+
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Discovery resources</h2>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li><code>/.well-known/api-catalog</code> returns the linkset used for automated API discovery.</li>
+                        <li><code>/api/openapi.json</code> publishes an OpenAPI 3.1 description of the public endpoints.</li>
+                        <li><code>/api/health</code> returns a 200 JSON health response for status checks.</li>
+                        <li><code>/auth.md</code> documents that the public site does not currently require authentication.</li>
+                    </ul>
+                </div>
+
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Endpoints</h2>
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr>
+                                <th class="pb-10 text-14 font-normal text-detail">Path</th>
+                                <th class="pb-10 text-14 font-normal text-detail">Method</th>
+                                <th class="pb-10 text-14 font-normal text-detail">Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-16/150 text-content">
+                            <tr class="border-t border-edge">
+                                <td class="py-12 pr-16"><code>/api/health</code></td>
+                                <td class="py-12 pr-16"><code>GET</code></td>
+                                <td class="py-12">Health and availability check for automated clients.</td>
+                            </tr>
+                            <tr class="border-t border-edge">
+                                <td class="py-12 pr-16"><code>/api/og?stack=...</code></td>
+                                <td class="py-12 pr-16"><code>GET</code></td>
+                                <td class="py-12">Generates the PNG social preview used for stack share links.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24">
+                    <h2 class="text-20/130 text-headline mb-12">Links</h2>
+                    <div class="flex flex-col gap-10 text-16/150 text-content">
+                        <a href="/.well-known/api-catalog" class="text-primary hover:text-primary-hover transition-colors duration-200">View API catalog</a>
+                        <a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200">View OpenAPI description</a>
+                        <a href="/api/health" class="text-primary hover:text-primary-hover transition-colors duration-200">View health endpoint</a>
+                        <a href="/auth.md" class="text-primary hover:text-primary-hover transition-colors duration-200">View auth metadata</a>
+                    </div>
+                </div>
+            </helm-container>
+        </helm-section>
+    </main>
+
+    <!--- Footer --->
+    <footer class="w-full flex items-center justify-center flex-col px-16">
+        <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+            <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+                <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+            </div>
+        </helm-container>
+    </footer>
+
+</div>
