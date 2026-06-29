@@ -1,32 +1,30 @@
-# robots.txt — projects by stripe
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt — Stripe Projects
+# Public site pages may be crawled. Dynamic stack share URLs are not canonical.
 
-# Disallow all crawlers until public launch
 User-agent: *
-Disallow: /
+Allow: /
+Allow: /.well-known/
+Allow: /llms.txt
+Allow: /skill.md
+Allow: /auth.md
+Allow: /index.html.md
+Allow: /sitemap.xml
+Disallow: /s/
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 
 User-agent: GPTBot
 Disallow: /
 
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Claude-Web
-Disallow: /
-
-User-agent: anthropic-ai
-Disallow: /
-
-User-agent: PerplexityBot
+User-agent: Google-Extended
 Disallow: /
 
 User-agent: Applebot-Extended
 Disallow: /
 
-User-agent: Google-Extended
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
 Disallow: /
 
 User-agent: cohere-ai
@@ -34,3 +32,21 @@ Disallow: /
 
 User-agent: meta-externalagent
 Disallow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /s/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /s/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /s/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /s/
+
+Sitemap: https://projects.dev/sitemap.xml
