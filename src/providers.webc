@@ -49,7 +49,7 @@ wave: false
                 </div>
                 <!--- Links --->
                 <div class="flex-1 flex flex-col gap-8">
-                        <a href="/llm.txt" target="_blank" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                        <a href="/llms.txt" target="_blank" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
                             <div>
                                 <div class="text-14 font-normal text-headline">llms.txt</div>
                                 <div class="text-12 text-detail">Service discovery for agents</div>
