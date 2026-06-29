@@ -33,7 +33,7 @@ export default function(eleventyConfig)  {
     eleventyConfig.addPassthroughCopy({"src/assets/fonts": "assets/fonts"});
     // passthrough markdown.css
     eleventyConfig.addPassthroughCopy({"src/assets/css/markdown.css":"assets/css/markdown.css"});
-    eleventyConfig.addPassthroughCopy({"src/llm.txt":"llm.txt"});
+    eleventyConfig.addPassthroughCopy({"src/llms.txt":"llms.txt"});
     eleventyConfig.addPassthroughCopy({"skill.md":"skill.md"});
     eleventyConfig.addPassthroughCopy({"skills.md":"skills.md"});
 
