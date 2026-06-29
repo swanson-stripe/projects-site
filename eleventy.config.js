@@ -28,6 +28,7 @@ export default function(eleventyConfig)  {
     eleventyConfig.addWatchTarget("src/blog/**/*.md");
     eleventyConfig.addPlugin(pluginWebc, { components: "src/_components/**/*.webc"});
     eleventyConfig.addPassthroughCopy({"src/.well-known": ".well-known"});
+    eleventyConfig.addPassthroughCopy({"public": "."});
     eleventyConfig.addPassthroughCopy({"src/assets/js": "assets/js"});
     eleventyConfig.addPassthroughCopy({"src/assets/images": "assets/images"});
     eleventyConfig.addPassthroughCopy({"src/assets/fonts": "assets/fonts"});
@@ -35,7 +36,6 @@ export default function(eleventyConfig)  {
     eleventyConfig.addPassthroughCopy({"src/assets/css/markdown.css":"assets/css/markdown.css"});
     eleventyConfig.addPassthroughCopy({"src/llms.txt":"llms.txt"});
     eleventyConfig.addPassthroughCopy({"skill.md":"skill.md"});
-    eleventyConfig.addPassthroughCopy({"skills.md":"skills.md"});
 
     // Minify HTML only in production build (skip in --serve for faster reloads)
     if (!isServe) {
