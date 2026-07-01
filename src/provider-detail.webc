@@ -1,0 +1,152 @@
+<providers-page-shell>
+    <helm-section slot="hero" class="relative z-10">
+        <helm-container class="pt-24 sm:pt-48 pb-32">
+            <div class="flex items-center gap-8 mb-12 text-12 uppercase tracking-wider text-detail">
+                <a href="/providers/" class="hover:text-primary transition-colors duration-150">Providers</a>
+                <span>/</span>
+                <span @text="provider.name"></span>
+            </div>
+            <h1 class="text-36/110 sm:text-48/110 tracking-tighter text-headline mb-8" @text="provider.name"></h1>
+            <p class="text-16 sm:text-18/150 text-content" @text="providerSummary"></p>
+        </helm-container>
+    </helm-section>
+
+    <helm-section slot="cards" class="relative z-10">
+        <helm-container class="flex flex-col sm:flex-row gap-16 pb-32">
+            <div class="flex-1 rounded-6 border border-edge p-24">
+                <h2 class="text-16 font-normal text-headline mb-8">Install command</h2>
+                <button :data-copy-provider="providerInstallCommand" class="w-full text-left rounded-4 bg-foreground p-12 font-mono text-12 text-detail shadow-inset-border overflow-x-auto hover:text-headline cursor-pointer outline-none transition-colors duration-150">
+                    <span class="text-detail select-none">$ </span><span @text="providerInstallCommand"></span>
+                </button>
+            </div>
+
+            <div class="flex-1 flex flex-col gap-8">
+                <a :href="provider.url" target="_blank" rel="noopener" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                    <div>
+                        <div class="text-14 font-normal text-headline">Provider website</div>
+                        <div class="text-12 text-detail" @text="providerWebsiteLabel"></div>
+                    </div>
+                    <icon-arrowanimate @size="sm" class="text-detail group-hover:text-headline transition-colors duration-150"></icon-arrowanimate>
+                </a>
+                <a href="https://docs.stripe.com/projects" target="_blank" rel="noopener" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                    <div>
+                        <div class="text-14 font-normal text-headline">Projects docs</div>
+                        <div class="text-12 text-detail">Full documentation</div>
+                    </div>
+                    <icon-arrowanimate @size="sm" class="text-detail group-hover:text-headline transition-colors duration-150"></icon-arrowanimate>
+                </a>
+                <a href="https://docs.stripe.com/stripe-cli" target="_blank" rel="noopener" class="flex items-center justify-between gap-8 px-12 py-8 rounded-4 border border-edge hover:bg-highlight transition-colors duration-150 group">
+                    <div>
+                        <div class="text-14 font-normal text-headline">Stripe CLI</div>
+                        <div class="text-12 text-detail">Install and setup guide</div>
+                    </div>
+                    <icon-arrowanimate @size="sm" class="text-detail group-hover:text-headline transition-colors duration-150"></icon-arrowanimate>
+                </a>
+            </div>
+
+            <div class="flex-1 rounded-6 border border-edge p-24">
+                <h2 class="text-16 font-normal text-headline mb-8">Catalog details</h2>
+                <div class="space-y-10 text-14 text-content leading-150 mb-16">
+                    <p><span class="text-detail">Category:</span> <span class="text-headline" @text="providerCategoryLabel"></span></p>
+                    <p><span class="text-detail">Provider ID:</span> <span class="font-mono text-13 text-headline" @text="providerId"></span></p>
+                    <p><span class="text-detail">Service ID:</span> <span class="font-mono text-13 text-headline" @text="providerServiceId"></span></p>
+                </div>
+                <a href="/providers/" class="relative flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-250 cursor-pointer group outline-none">
+                    <span class="pb-1">View all providers</span>
+                    <icon-arrowanimate @size="sm"></icon-arrowanimate>
+                </a>
+            </div>
+        </helm-container>
+    </helm-section>
+
+    <helm-section slot="content" class="relative z-10 pb-64">
+        <helm-container>
+            <div class="mb-24">
+                <h2 class="text-16 font-normal text-headline mb-8">Catalog entry</h2>
+                <p class="text-14 text-content leading-140">This provider is shown here in the same table format used on the full catalog page.</p>
+            </div>
+
+            <table class="w-full border-collapse rounded-6 border border-edge overflow-hidden text-left">
+                <thead>
+                    <tr class="bg-foreground border-b border-edge text-12 text-detail uppercase tracking-wider">
+                        <th class="font-normal px-16 py-10" style="width:18%">Provider</th>
+                        <th class="font-normal px-16 py-10" style="width:12%">Category</th>
+                        <th class="font-normal px-16 py-10">Description</th>
+                        <th class="font-normal px-16 py-10 whitespace-nowrap">Install command</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-provider-row class="hover:bg-foreground transition-colors duration-100">
+                        <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top">
+                            <a :href="provider.url" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150" @text="provider.name"></a>
+                        </td>
+                        <td class="px-16 py-12 text-14 text-content capitalize align-top" @text="providerCategoryLabel"></td>
+                        <td class="px-16 py-12 text-14 text-content leading-140 align-top" @text="provider.description"></td>
+                        <td class="px-16 py-12 align-top whitespace-nowrap">
+                            <button :data-copy-provider="providerInstallCommand" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150">
+                                <span @text="providerInstallCommand"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </helm-container>
+    </helm-section>
+
+    <div slot="overlay" data-copy-toast class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-8 px-16 h-40 bg-headline text-highlight rounded-8 text-14 font-normal shadow-lg pointer-events-none" style="opacity:0;visibility:hidden;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-14 h-14 text-[#4ade80] shrink-0"><path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd"/></svg>
+        <span data-copy-toast-label>Command copied</span>
+    </div>
+
+    <style slot="page-style">
+        @media (max-width: 39.99rem) {
+            table, thead, tbody, tr, th, td {
+                display: block;
+            }
+            thead {
+                display: none;
+            }
+            tr[data-provider-row] {
+                padding: 0.75rem 1rem;
+            }
+            tr[data-provider-row] td {
+                padding: 0;
+            }
+            tr[data-provider-row] td:first-child {
+                padding-bottom: 0.125rem;
+            }
+            tr[data-provider-row] td:nth-child(2) {
+                padding-bottom: 0.375rem;
+            }
+            tr[data-provider-row] td:nth-child(3) {
+                padding-bottom: 0.375rem;
+            }
+        }
+    </style>
+
+    <script slot="page-script">
+        function showCopyToast(message) {
+            const toast = document.querySelector('[data-copy-toast]');
+            const label = document.querySelector('[data-copy-toast-label]');
+            if (!toast) return;
+            if (label) label.textContent = message;
+            gsap.killTweensOf(toast);
+            gsap.fromTo(toast,
+                { autoAlpha: 0, y: 8 },
+                { autoAlpha: 1, y: 0, duration: 0.2, ease: 'power2.out' }
+            );
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => {
+                gsap.to(toast, { autoAlpha: 0, y: 8, duration: 0.25, ease: 'power2.in' });
+            }, 2500);
+        }
+
+        document.querySelectorAll('[data-copy-provider]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const command = btn.getAttribute('data-copy-provider');
+                navigator.clipboard.writeText(command);
+                showCopyToast('Command copied');
+            });
+        });
+    </script>
+</providers-page-shell>
