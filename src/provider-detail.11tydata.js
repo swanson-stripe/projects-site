@@ -1,0 +1,41 @@
+import {
+  formatCategory,
+  formatIdentifier,
+  getDisplayUrl,
+  getInstallCommand,
+  getProviderPagePath,
+  getProviderPageUrl,
+  getProviderSeoDescription,
+  getProviderSummary,
+  getProviderId,
+  getServiceId,
+} from "./lib/provider-pages.js";
+
+export default {
+  layout: "main.webc",
+  pagination: {
+    data: "providers",
+    size: 1,
+    alias: "provider",
+  },
+  permalink: ({ provider }) => `${getProviderPagePath(provider)}index.html`,
+  changefreq: "weekly",
+  wave: false,
+  eleventyComputed: {
+    title: ({ provider }) => provider.name,
+    seoTitle: ({ provider }) => `${provider.name} provider | Stripe Projects`,
+    ogTitle: ({ provider }) => `${provider.name} provider | Stripe Projects`,
+    seoDesc: ({ provider }) => getProviderSeoDescription(provider),
+    ogDesc: ({ provider }) => getProviderSeoDescription(provider),
+    ogImage: "/assets/images/og/default.jpg",
+    ogImageAlt: ({ provider }) => `${provider.name} on Stripe Projects`,
+    canonicalUrl: ({ base, provider }) => getProviderPageUrl(provider, base?.siteOrigin),
+    providerCategoryLabel: ({ provider }) => formatCategory(provider.category),
+    providerServiceId: ({ provider }) => getServiceId(provider),
+    providerServiceLabel: ({ provider }) => formatIdentifier(getServiceId(provider)),
+    providerId: ({ provider }) => getProviderId(provider),
+    providerInstallCommand: ({ provider }) => getInstallCommand(provider),
+    providerSummary: ({ provider }) => getProviderSummary(provider),
+    providerWebsiteLabel: ({ provider }) => getDisplayUrl(provider.url),
+  },
+};

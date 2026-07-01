@@ -1,3 +1,5 @@
+import { getProviderPagePath } from "./lib/provider-pages.js";
+
 function escapeXml(value = "") {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -43,14 +45,24 @@ export default class SitemapTemplate {
 
   render(data) {
     const siteOrigin = (data.base?.siteOrigin ?? "https://projects.dev").replace(/\/$/, "");
-    const pages = Array.from(
+    const collectionPages = Array.from(
       new Map(
         (data.collections.all ?? [])
           .filter(shouldIncludePage)
           .map((item) => [item.url, item]),
       ).values(),
-    )
-      .sort((a, b) => a.url.localeCompare(b.url));
+    );
+    const providerPages = (data.providers ?? []).map((provider) => ({
+      url: getProviderPagePath(provider),
+      data: {
+        changefreq: "weekly",
+      },
+    }));
+    const pages = Array.from(
+      new Map(
+        [...collectionPages, ...providerPages].map((item) => [item.url, item]),
+      ).values(),
+    ).sort((a, b) => a.url.localeCompare(b.url));
 
     const body = pages
       .map((item) => {
