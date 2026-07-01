@@ -17,7 +17,7 @@
   "license": "ISC",
   "description": "",
   "engines": {
-    "node": ">=20 <21"
+    "node": ">=24 <25"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

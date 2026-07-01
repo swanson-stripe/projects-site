@@ -58,13 +58,13 @@ fabric/
 
 ## Node Version
 
-This project requires **Node.js 20**. The repo includes a `.node-version` file pinned to `20.20.1` for nodenv.
+This project requires **Node.js 24**. The repo includes a `.node-version` file pinned to `24.14.1` for nodenv.
 
-Before running any npm commands, ensure you are on Node 20:
+Before running any npm commands, ensure you are on Node 24:
 
 ```bash
-nodenv local 20.20.1   # already committed in .node-version — sets it for this directory
-node --version         # should print v20.x.x
+nodenv local 24.14.1   # already committed in .node-version — sets it for this directory
+node --version         # should print v24.x.x
 ```
 
 Stripe machines use `nodenv`. If your shell is configured correctly, nodenv will pick up `.node-version` automatically when you `cd` into the project. If `npm` errors on startup, confirm you are not on a different Node version managed by nvm or another tool.
