@@ -1,10 +1,3 @@
-const INCLUDED_URLS = new Set([
-  "/",
-  "/blog/",
-  "/providers/",
-  "/docs/api/",
-]);
-
 function escapeXml(value = "") {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -21,11 +14,17 @@ function formatDate(value) {
   return date.toISOString().slice(0, 10);
 }
 
-function isIncludedPage(item) {
+function shouldIncludePage(item) {
   if (!item?.url || !item?.outputPath?.endsWith(".html")) return false;
   if (item.data?.eleventyExcludeFromCollections) return false;
-  if (item.url.startsWith("/blog/")) return true;
-  return INCLUDED_URLS.has(item.url);
+  if (item.data?.sitemap === false) return false;
+
+  const robots = item.data?.robots;
+  if (typeof robots === "string" && robots.toLowerCase().includes("noindex")) {
+    return false;
+  }
+
+  return true;
 }
 
 function getChangefreq(item) {
@@ -43,9 +42,14 @@ export default class SitemapTemplate {
   }
 
   render(data) {
-    const siteOrigin = data.base?.siteOrigin ?? "https://projects.dev";
-    const pages = (data.collections.all ?? [])
-      .filter(isIncludedPage)
+    const siteOrigin = (data.base?.siteOrigin ?? "https://projects.dev").replace(/\/$/, "");
+    const pages = Array.from(
+      new Map(
+        (data.collections.all ?? [])
+          .filter(shouldIncludePage)
+          .map((item) => [item.url, item]),
+      ).values(),
+    )
       .sort((a, b) => a.url.localeCompare(b.url));
 
     const body = pages
