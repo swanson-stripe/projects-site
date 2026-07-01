@@ -56,5 +56,19 @@
         }
       ]
     }
+  ].
+  "rewrites": [
+    { "source": "/leaderboard", "destination": "https://stripe-projects-leaderboard.vercel.app/leaderboard" },
+    { "source": "/hackathon", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon" },
+    { "source": "/hackathon-participants", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon-participants" },
+    { "source": "/api/leaderboard", "destination": "https://stripe-projects-leaderboard.vercel.app/api/leaderboard" },
+    { "source": "/api/projects", "destination": "https://stripe-projects-leaderboard.vercel.app/api/projects" },
+    { "source": "/api/vote", "destination": "https://stripe-projects-leaderboard.vercel.app/api/vote" },
+    { "source": "/api/validate-repo", "destination": "https://stripe-projects-leaderboard.vercel.app/api/validate-repo" },
+    { "source": "/api/auth/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/api/auth/:path*" },
+    { "source": "/_next/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/_next/:path*" },
+    { "source": "/__clerk/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/__clerk/:path*" },
+    { "source": "/textures/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/textures/:path*" },
+    { "source": "/favicon.svg", "destination": "https://stripe-projects-leaderboard.vercel.app/favicon.svg" }
   ]
 }
