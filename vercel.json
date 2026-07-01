@@ -56,7 +56,7 @@
         }
       ]
     }
-  ].
+  ],
   "rewrites": [
     { "source": "/leaderboard", "destination": "https://stripe-projects-leaderboard.vercel.app/leaderboard" },
     { "source": "/hackathon", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon" },
