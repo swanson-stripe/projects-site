@@ -155,7 +155,7 @@ wave: true
                             <div class="relative flex items-center justify-between">
                                 <!--- Services --->
                                 <div class="relative overflow-hidden w-full hidden sm:block">
-                                    <ul class="flex items-center justify-start pl-2 sm:pl-0">
+                                    <ul class="flex items-center justify-start pl-2">
                                         <li webc:for="service of template.services" class="relative -ml-2 shrink-0">
                                             <img webc:if="faviconExists(service.providerSlug)"
                                                 eleventy:ignore
