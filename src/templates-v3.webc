@@ -1,0 +1,203 @@
+---
+layout: "main.webc"
+title: "Templates V3"
+seoTitle: "Stripe Projects: Templates"
+ogTitle: "Stripe Projects: Templates"
+seoDesc: "Browse Stripe Projects templates and inspect every variant, provider, and build command."
+ogDesc: "Browse Stripe Projects templates and inspect every variant, provider, and build command."
+ogImage: "/assets/images/og/default.jpg"
+ogImageAlt: ""
+changefreq: "weekly"
+wave: true
+---
+
+<div class="relative w-full">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50 group/header">
+        <helm-container class="relative pt-24 pb-0 grid grid-cols-3 items-center">
+            <!--- Back button --->
+            <div class="relative flex justify-start items-center">
+                <a href="/" class="hidden sm:flex items-center justify-end gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                    <icon-arrowanimate @size="sm" class="-scale-x-100"></icon-arrowanimate>
+                    <span>Home</span>
+                </a>
+            </div>
+            <!--- Logo --->
+            <div data-header="logo" class="relative flex items-center justify-center h-40 gap-4">
+                <div class="relative flex items-center gap-8 h-full px-10 whitespace-nowrap">
+                    <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
+                    <span class="text-16 font-normal text-headline">Stripe Projects</span>
+                </div>
+            </div>
+            <!--- Registry repo link --->
+            <div class="relative flex justify-end items-center">
+                <a href="https://github.com/stripe/projects-template-registry/" class="hidden sm:flex items-center justify-end gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                    <span>Registry repo</span>
+                    <icon-arrowanimate @size="sm" class=""></icon-arrowanimate>
+                </a>
+            </div>
+        </helm-container>
+    </header>
+
+    <main id="main">
+
+
+        <!--- Headline --->
+        <helm-section class="relative">
+            <!--- Wave --->
+            <div class="absolute -top-64 left-0 w-full h-[calc(100%+18.5rem)]">
+                <div
+                    data-js-target="nouveau-bloom-wave"
+                    class="relative w-full h-full"
+                    data-position-x="350"
+                    data-position-y="-250"
+                    data-blur="0"
+                    data-camera-zoom="0.85"
+                    data-wave-rotation="-75"
+                    data-color-offset="0"
+                    data-dither-gradient="2"
+                    data-dither-scale="3"
+                    data-dither-full="true">
+                </div>
+            </div>
+            <!--- Content --->
+            <helm-container class="relative pt-96">
+                <div class="max-w-8/12">
+                    <h1 class="text-36/110 sm:text-48/110 tracking-tighter text-headline mb-12">
+                        Templates
+                    </h1>
+                    <p class="text-16 sm:text-18/150 text-content mb-20">
+                        Browse every starter currently published in the public Stripe Projects template registry. Each template page shows its variants, included services, and the exact <code class="whitespace-nowrap text-headline text-[0.9375em] bg-foreground border border-edge rounded-2 py-2 px-6">stripe projects build</code> command to run.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-24">
+                        <link-btn size="48" color="primary" href="https://github.com/stripe/projects-template-registry">
+                            <span slot="label">View public registry</span>
+                            <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
+                        </link-btn>
+                        <span class="inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">13 families</span>
+                        <span class="inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">23 variants</span>
+                    </div>
+                </div>
+            </helm-container>
+        </helm-section>
+
+        <!--- Cards --->
+        <helm-section class="relative pt-64">
+            <div class="absolute top-232 left-0 w-full h-[calc(100%-12.5rem)] bg-foreground border-y border-edge"></div>
+            <helm-container class="relative">
+                <ul class="relative grid grid-cols-2 gap-16 pb-96">
+                    <!--- Loop through templates and create a card for each --->
+                    <li webc:for="template of templates.families" class="relative p-32 flex flex-col bg-highlight border border-edge rounded-6">
+
+                        <!--- Top of card --->
+                        <div class="relative flex-1 mb-24">
+                            <!--- Owner, tags, and services --->
+                            <div class="relative flex items-center justify-between mb-16">
+                                <!--- Left side --->
+                                <div class="flex items-center gap-8">
+                                    <!--- If owner logo exists, show it --->
+                                    <img webc:if="logoExists(template.owner)"
+                                        eleventy:ignore
+                                        :src="`/assets/images/provider-logos/logo-${template.owner.split('-')[0].trim()}.svg`" 
+                                        :alt="template.owner.split('-')[0].trim().replace(/^\w/, c => c.toUpperCase())"
+                                        class="w-auto h-28 mr-6"/>
+                                    <!--- If owner logo doesn't exist, show the owner name --->
+                                    <div webc:else class="h-28 flex items-center text-16 font-normal mr-6">
+                                        <p @text="template.owner.split('-')[0].trim().replace(/^\w/, c => c.toUpperCase())"></p>
+                                    </div>
+                                    <!--- Category --->
+                                    <div webc:if="template.categoryLabel" class="h-24 pb-1 px-6 flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
+                                        <p @text="template.categoryLabel"></p>
+                                    </div>
+                                    <!--- Framework --->
+                                    <div webc:if="template.frameworkLabel" class="h-24 pb-1 px-6 flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
+                                        <p @text="template.frameworkLabel"></p>
+                                    </div>
+                                    <!--- Variants -->
+                                    <div webc:if="template.variantCount > 0" class="h-24 pb-1 px-6 flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
+                                        <p webc:if="template.variantCount === 1" @text="template.variantCount + ' variant'"></p>
+                                        <p webc:else @text="template.variantCount + ' variants'"></p>
+                                    </div>
+                                </div>
+                                <!--- Services --->
+                                <div class="relative">
+                                    <ul class="flex items-center">
+                                        <li webc:for="service of template.services" class="relative -ml-2">
+                                            <img webc:if="faviconExists(service.providerSlug)"
+                                                eleventy:ignore
+                                                :src="`/assets/images/provider-favicons/${service.providerSlug}.svg`"
+                                                :alt="service.providerName"
+                                                class="w-26 h-26 rounded-full"/>
+                                            <div class="absolute top-0 left-0 w-full h-full rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1),0_0_0_2px_var(--color-highlight)]"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--- Title --->
+                            <h2 @text="template.name" class="text-20/110 tracking-tight mb-6"></h2>
+                            <!--- Description --->
+                            <p @text="template.description" class="text-18/140 text-content text-pretty line-clamp-1"></p>
+                        </div>
+
+                        <!--- Bottom of card --->
+                        <div class="relative shrink-0">
+                            <!--- Buttons --->
+                            <div class="grid grid-cols-2 gap-8">
+                                <link-btn size="40" color="outline" href="https://github.com/stripe/projects-template-registry">
+                                    <span slot="label">View template</span>
+                                    <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
+                                </link-btn>
+                                <link-btn size="40" color="outline" href="https://github.com/stripe/projects-template-registry">
+                                        <span slot="label">View template</span>
+                                        <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
+                                </link-btn>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </helm-container>
+        </helm-section>
+
+    </main>
+
+</div>
+
+<!--- Footer --->
+<footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
+    <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+        <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+            <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+            <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+        </div>
+    </helm-container>
+</footer>
+
+
+<script>
+
+    function copyCommand() {
+        const copyButtons = document.querySelectorAll('[data-command]');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const command = button.dataset.command;
+                if (!command) return;
+                navigator.clipboard.writeText(command);
+                const svgs = button.querySelectorAll('svg');
+                const copyIcon = svgs[0];
+                const checkIcon = svgs[1];
+                const tl = gsap.timeline();
+                tl
+                .to(copyIcon, {y: -20, autoAlpha: 0, scale: 0.75, duration: 0.2, ease: 'power3.out'})
+                .to(checkIcon, {y: 0, autoAlpha: 1, scale: 1, duration: 0.2, ease: 'power3.out'}, 0)
+                .to(checkIcon, {y: 20, autoAlpha: 0, scale: 0.75, duration: 0.2, ease: 'power3.out'}, 0.75)
+                .to(copyIcon, {y: 0, autoAlpha: 1, scale: 1, duration: 0.2, ease: 'power3.out'}, 0.75);
+            });
+        });
+    }
+
+    copyCommand();
+
+</script>

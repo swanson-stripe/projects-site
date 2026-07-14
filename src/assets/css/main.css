@@ -319,6 +319,8 @@
     --mask-radial-code: radial-gradient(100% 100% at 0% 0%,     rgba(0,0,0, 1) 75%, rgba(0,0,0, 0.25) 100%);
 
     --shadow-focus: 0px 0px 0px 2px rgb(from var(--hex-brand-600) r g b / 0.25);
+    --shadow-focus-hl: 0px 0px 0px 1px var(--hex-neutral-0), 0px 0px 0px 3px rgb(from var(--hex-brand-600) r g b / 1);
+    --shadow-focus-fg: 0px 0px 0px 1px var(--hex-neutral-25), 0px 0px 0px 2px var(--hex-brand-600);
     --shadow-border: 0px 0px 0px 1px rgb(from var(--hex-neutral-990) r g b / 0.1);
     --shadow-border-light: 0px 0px 0px 1px rgb(from var(--hex-neutral-990) r g b / 0.06);
     --shadow-inset-border: inset 0px 0px 0px 1px rgb(from var(--hex-neutral-990) r g b / 0.12);
@@ -342,6 +344,17 @@
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* Show scrollbars on focus-visible (overlay so content doesn't shift) */
+.no-scrollbar:focus-visible::-webkit-scrollbar {
+    display: initial;
+}
+
+.no-scrollbar:focus-visible {
+    -ms-overflow-style: auto;
+    scrollbar-width: thin;
+    overflow: overlay;
 }
 
 /* 8px dot grid background */

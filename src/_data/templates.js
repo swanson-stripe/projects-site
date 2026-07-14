@@ -1,4 +1,6 @@
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import yaml from "js-yaml";
 import providers from "./providers.js";
 
@@ -11,6 +13,35 @@ const GITHUB_HEADERS = {
   Accept: "application/vnd.github+json",
   "User-Agent": "projects-site",
 };
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CACHE_DIR = path.resolve(__dirname, "../../.cache");
+const CACHE_FILE = path.join(CACHE_DIR, "templates-registry.json");
+const CACHE_TTL_MS = 1000 * 60 * 60; // 1 hour
+
+function readCache() {
+  try {
+    if (!fs.existsSync(CACHE_FILE)) return null;
+    const raw = fs.readFileSync(CACHE_FILE, "utf-8");
+    const cached = JSON.parse(raw);
+    if (Date.now() - cached.timestamp < CACHE_TTL_MS) return cached.data;
+  } catch {
+    // corrupt cache — ignore
+  }
+  return null;
+}
+
+function writeCache(data) {
+  try {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+    fs.writeFileSync(
+      CACHE_FILE,
+      JSON.stringify({ timestamp: Date.now(), data }),
+    );
+  } catch {
+    // non-critical — skip silently
+  }
+}
 
 const PROVIDER_NAME_OVERRIDES = {
   e2b: "E2B",
@@ -130,6 +161,9 @@ async function fetchText(url) {
 }
 
 export default async function () {
+  const cached = readCache();
+  if (cached) return cached;
+
   const tree = await fetchJson(`${REGISTRY_API_BASE}/git/trees/${REGISTRY_REF}?recursive=1`);
   const guidedRaw = await fetchText(`${REGISTRY_RAW_BASE}/guided.yaml`);
   const guided = yaml.load(guidedRaw) || {};
@@ -294,10 +328,13 @@ export default async function () {
     )
     .sort(sortVariants);
 
-  return {
+  const result = {
     registryUrl: `https://github.com/${REGISTRY_OWNER}/${REGISTRY_REPO}`,
     families,
     variants: enrichedVariants,
     categoryOptions: Array.from(guidedCategories.values()),
   };
+
+  writeCache(result);
+  return result;
 }
