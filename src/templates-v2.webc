@@ -51,7 +51,8 @@ wave: true
                     data-js-target="nouveau-bloom-wave"
                     class="relative w-full h-full"
                     data-position-x="350"
-                    data-position-y="-250"
+                    data-position-y="-225"
+                    data-position-y-640="-250"
                     data-blur="0"
                     data-camera-zoom="0.85"
                     data-wave-rotation="-75"
@@ -62,21 +63,21 @@ wave: true
                 </div>
             </div>
             <!--- Content --->
-            <helm-container class="relative pt-96">
-                <div class="max-w-8/12">
+            <helm-container class="relative pt-72 sm:pt-96">
+                <div class="min-[768px]:w-9/12 max-w-832">
                     <h1 class="text-36/110 sm:text-48/110 tracking-tighter text-headline mb-12">
                         Templates
                     </h1>
                     <p class="text-16 sm:text-18/150 text-content mb-20">
-                        Browse every starter currently published in the public Stripe Projects template registry. Each template page shows its variants, included services, and the exact <code class="whitespace-nowrap text-headline text-[0.9375em] bg-foreground border border-edge rounded-2 py-2 px-6">stripe projects build</code> command to run.
+                        Browse every starter currently published in the public Stripe Projects template registry. Each template page shows its variants, included services, and the exact <code class="sm:whitespace-nowrap text-headline text-[0.9375em] bg-foreground border border-edge rounded-2 py-2 px-6">stripe projects build</code> command to run.
                     </p>
                     <div class="flex flex-wrap items-center gap-24">
                         <link-btn size="48" color="primary" href="https://github.com/stripe/projects-template-registry">
                             <span slot="label">View public registry</span>
                             <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                         </link-btn>
-                        <span class="inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">13 families</span>
-                        <span class="inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">23 variants</span>
+                        <span class="hidden sm:inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">13 families</span>
+                        <span class="hidden sm:inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">23 variants</span>
                     </div>
                 </div>
             </helm-container>
@@ -84,11 +85,11 @@ wave: true
 
         <!--- Cards --->
         <helm-section class="relative pt-64">
-            <div class="absolute top-232 left-0 w-full h-[calc(100%-12.5rem)] bg-foreground border-y border-edge"></div>
+            <div class="absolute top-232 left-0 w-full h-[calc(100%-14.5rem)] bg-foreground border-y border-edge"></div>
             <helm-container class="relative">
-                <ul class="relative grid grid-cols-2 gap-16 pb-96">
+                <ul class="relative grid grid-cols-1 min-[864px]:grid-cols-2 gap-16 pb-72 sm:pb-96">
                     <!--- Loop through templates and create a card for each --->
-                    <li webc:for="template of templates.families" class="relative p-32 flex flex-col bg-highlight border border-edge rounded-6">
+                    <li webc:for="template of templates.families" class="relative p-24 sm:p-32 flex flex-col bg-highlight border border-edge rounded-6">
 
                         <!--- Top of card --->
                         <div class="relative flex-1 mb-24">
@@ -111,26 +112,26 @@ wave: true
                                         <p @text="template.categoryLabel"></p>
                                     </div>
                                     <!--- Framework --->
-                                    <div webc:if="template.frameworkLabel" class="h-24 pb-1 px-6 flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
+                                    <div webc:if="template.frameworkLabel" class="h-24 pb-1 px-6 hidden min-[1024px]:flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
                                         <p @text="template.frameworkLabel"></p>
                                     </div>
                                 </div>
-                                <!--- Variants -->
-                                <div webc:if="template.variantCount > 0" class="h-24 pb-1 px-6 flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
+                                <!--- Right side -->
+                                <div webc:if="template.variantCount > 0" class="h-24 pb-1 px-6 hidden min-[1160px]:flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
                                     <p webc:if="template.variantCount === 1" @text="template.variantCount + ' variant'"></p>
                                     <p webc:else @text="template.variantCount + ' variants'"></p>
                                 </div>
                             </div>
                             <!--- Title --->
-                            <h2 @text="template.name" class="text-24/110 tracking-tight mb-6"></h2>
+                            <h2 @text="template.name" class="text-24/110 tracking-tight mb-6 text-pretty"></h2>
                             <!--- Description --->
-                            <p @text="template.description" class="text-18/140 text-content line-clamp-1"></p>
+                            <p @text="template.description" class="text-18/140 text-content text-pretty min-[864px]:line-clamp-1"></p>
                         </div>
 
                         <!--- Bottom of card --->
                         <div class="relative shrink-0">
                             <!--- Command --->
-                            <div class="flex bg-foreground text-headline rounded-4 border border-edge overflow-hidden mb-24">
+                            <div class="flex bg-foreground text-headline rounded-4 border border-edge overflow-hidden mb-8 sm:mb-24">
                                 <!--- Text --->
                                 <div tabindex="-1" class="w-full pl-16 pr-32 h-48 flex items-center font-mono text-[0.9375rem] whitespace-nowrap overflow-x-scroll no-scrollbar outline-none">
                                     <p @text="template.buildCommand" class="selection:bg-brand-100 selection:text-primary-hover"></p>
@@ -153,22 +154,24 @@ wave: true
                             <!--- Services and CTA --->
                             <div class="relative flex items-center justify-between">
                                 <!--- Services --->
-                                <div class="relative">
-                                    <ul class="flex items-center">
-                                        <li webc:for="service of template.services" class="relative -ml-2">
+                                <div class="relative overflow-hidden w-full hidden sm:block">
+                                    <ul class="flex items-center justify-start pl-2 sm:pl-0">
+                                        <li webc:for="service of template.services" class="relative -ml-2 shrink-0">
                                             <img webc:if="faviconExists(service.providerSlug)"
                                                 eleventy:ignore
                                                 :src="`/assets/images/provider-favicons/${service.providerSlug}.svg`"
                                                 :alt="service.providerName"
                                                 class="w-26 h-26 rounded-full"/>
-                                            <div class="absolute top-0 left-0 w-full h-full rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1),0_0_0_2px_var(--color-foreground)]"></div>
+                                            <div class="absolute top-0 left-0 w-full h-full rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1),0_0_0_2px_var(--color-highlight)]"></div>
                                         </li>
                                     </ul>
                                 </div>
-                                <link-btn size="48" color="outline" href="https://github.com/stripe/projects-template-registry">
-                                    <span slot="label">View template</span>
-                                    <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
-                                </link-btn>
+                                <div class="shrink-0 w-full sm:w-auto">
+                                    <link-btn size="48" color="outline" :href="'/templates/' + template.ownerSlug + '/' + template.templateSlug + '/'">
+                                        <span slot="label">View template</span>
+                                        <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
+                                    </link-btn>
+                                </div>
                             </div>
                         </div>
 
@@ -182,8 +185,8 @@ wave: true
 </div>
 
 <!--- Footer --->
-<footer class="w-full flex items-center justify-center flex-col px-16 lg:pt-96">
-    <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+<footer class="relative w-full flex items-center justify-center flex-col px-16">
+    <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24">
         <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
         <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
             <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
