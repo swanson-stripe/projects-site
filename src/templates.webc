@@ -76,8 +76,6 @@ wave: true
                             <span slot="label">View public registry</span>
                             <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
                         </link-btn>
-                        <span class="hidden sm:inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">13 families</span>
-                        <span class="hidden sm:inline-flex items-center h-28 rounded-full bg-highlight text-14 text-detail whitespace-nowrap">23 variants</span>
                     </div>
                 </div>
             </helm-container>
@@ -116,22 +114,17 @@ wave: true
                                         <p @text="template.frameworkLabel"></p>
                                     </div>
                                 </div>
-                                <!--- Right side -->
-                                <div webc:if="template.variantCount > 0" class="h-24 pb-1 px-6 hidden min-[1160px]:flex items-center justify-center text-12/100 text-detail border border-headline/15 rounded-4">
-                                    <p webc:if="template.variantCount === 1" @text="template.variantCount + ' variant'"></p>
-                                    <p webc:else @text="template.variantCount + ' variants'"></p>
-                                </div>
                             </div>
                             <!--- Title --->
-                            <h2 @text="template.name" class="text-24/110 tracking-tight mb-6 text-pretty"></h2>
+                            <h2 @text="template.name" class="text-22/110 sm:text-24/110 tracking-tight mb-6 text-pretty"></h2>
                             <!--- Description --->
-                            <p @text="template.description" class="text-18/140 text-content text-pretty min-[864px]:line-clamp-1"></p>
+                            <p @text="template.description" class="text-18/140 text-content text-pretty"></p>
                         </div>
 
                         <!--- Bottom of card --->
                         <div class="relative shrink-0">
                             <!--- Command --->
-                            <div class="flex bg-foreground text-headline rounded-4 border border-edge overflow-hidden mb-8 sm:mb-24">
+                            <div class="flex bg-foreground text-headline rounded-6 border border-edge overflow-hidden mb-8 sm:mb-24">
                                 <!--- Text --->
                                 <div tabindex="-1" class="w-full pl-16 pr-32 h-48 flex items-center font-mono text-[0.9375rem] whitespace-nowrap overflow-x-scroll no-scrollbar outline-none">
                                     <p @text="template.buildCommand" class="selection:bg-brand-100 selection:text-primary-hover"></p>
@@ -141,7 +134,7 @@ wave: true
                                     <!--- Fade left --->
                                     <div class="absolute top-0 right-full h-full w-32 bg-gradient-to-l from-foreground to-transparent"></div>
                                     <!--- Button --->
-                                    <button :data-command="template.buildCommand" class="relative w-full h-full flex items-center justify-center overflow-hidden bg-brand-100 rounded-2 text-primary cursor-pointer overflow-hidden hover:bg-brand-200 hover:text-primary-hover outline-none focus-visible:shadow-focus-hl transition-all ease-out duration-200">
+                                    <button :data-command="template.buildCommand" class="relative w-full h-full flex items-center justify-center overflow-hidden bg-primary rounded-4 text-highlight cursor-pointer overflow-hidden hover:bg-primary-hover outline-none focus-visible:shadow-focus-hl transition-all ease-out duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="relative w-16 h-16">
                                             <path d="M13 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-1.5v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5.25c0-.97.78-1.75 1.75-1.75a.75.75 0 0 1 0 1.5.25.25 0 0 0-.25.25V14c0 .28.22.5.5.5h6.5a.5.5 0 0 0 .5-.5v-1H6.5a2 2 0 0 1-2-2V2c0-1.1.9-2 2-2zM6.5 1.5A.5.5 0 0 0 6 2v9c0 .28.22.5.5.5H13a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5z"/>
                                         </svg>
