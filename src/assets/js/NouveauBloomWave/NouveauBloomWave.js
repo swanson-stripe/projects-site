@@ -247,6 +247,30 @@ class PostProcessing {
   }
 }
 
+const parseResponsiveAttr = (container, baseName) => {
+  const breakpoints = [];
+  const baseValue = container.getAttribute(baseName);
+  if (baseValue !== null) {
+    breakpoints.push({ minWidth: 0, value: parseFloat(baseValue) });
+  }
+  for (const attr of container.attributes) {
+    const match = attr.name.match(new RegExp(`^${baseName}-(\\d+)$`));
+    if (match) {
+      breakpoints.push({ minWidth: parseInt(match[1], 10), value: parseFloat(attr.value) });
+    }
+  }
+  breakpoints.sort((a, b) => a.minWidth - b.minWidth);
+  return breakpoints;
+};
+
+const resolveResponsiveValue = (breakpoints, width) => {
+  let resolved = null;
+  for (const bp of breakpoints) {
+    if (width >= bp.minWidth) resolved = bp.value;
+  }
+  return resolved;
+};
+
 class NouveauBloomWave {
   constructor() {
     this.containers = document.querySelectorAll(
@@ -363,13 +387,15 @@ class NouveauBloomWave {
       waveScene.camera.lookAt(camState.lookat);
     };
 
-    // Get position from data attributes if provided
-    const customPositionX = container.dataset.positionX;
-    const customPositionY = container.dataset.positionY;
+    // Parse responsive position breakpoints
     const defaultPositionX = 662.7;
     const defaultPositionY = -301.7;
-    const positionX = customPositionX ? parseFloat(customPositionX) : defaultPositionX;
-    const positionY = customPositionY ? parseFloat(customPositionY) : defaultPositionY;
+    const posXBreakpoints = parseResponsiveAttr(container, 'data-position-x');
+    const posYBreakpoints = parseResponsiveAttr(container, 'data-position-y');
+    const positionX = resolveResponsiveValue(posXBreakpoints, window.innerWidth) ?? defaultPositionX;
+    const positionY = resolveResponsiveValue(posYBreakpoints, window.innerWidth) ?? defaultPositionY;
+    let lastResolvedPosX = positionX;
+    let lastResolvedPosY = positionY;
 
     // Parse the petal JSON and update positions
     const petalData = JSON.parse('{"timeOffset":2275,"colorContrast":1,"colorSaturation":1,"colorHueShift":-0.00159265358979299,"displaceFrequencyX":0.005831,"displaceFrequencyZ":0.016001,"displaceAmount":-7.821,"positionX":662.7,"positionY":-301.7,"positionZ":-11.0999999999999,"rotationX":-0.449592653589793,"rotationY":-0.117592653589793,"rotationZ":1.87440734641021,"scaleX":9,"scaleY":8,"scaleZ":5,"twistFrequencyX":-0.649999999999999,"twistFrequencyY":0.41,"twistFrequencyZ":-0.58,"twistPowerX":3.63,"twistPowerY":0.7,"twistPowerZ":3.95,"glowAmount":1.98,"glowPower":0.806,"glowRamp":0.834,"lights":[]}');
@@ -447,6 +473,18 @@ class NouveauBloomWave {
       waveScene.camera.top = containerSize.height / 2;
       waveScene.camera.bottom = -containerSize.height / 2;
       waveScene.camera.updateProjectionMatrix();
+
+      // Re-evaluate responsive position breakpoints
+      const newPosX = resolveResponsiveValue(posXBreakpoints, window.innerWidth) ?? defaultPositionX;
+      const newPosY = resolveResponsiveValue(posYBreakpoints, window.innerWidth) ?? defaultPositionY;
+      if (newPosX !== lastResolvedPosX) {
+        lastResolvedPosX = newPosX;
+        animatePositionX(newPosX);
+      }
+      if (newPosY !== lastResolvedPosY) {
+        lastResolvedPosY = newPosY;
+        animatePositionY(newPosY);
+      }
     };
 
     const keydown = (e) => {
@@ -598,9 +636,23 @@ class NouveauBloomWave {
       renderLoop.start();
     });
 
+    const checkResponsivePosition = () => {
+      const newPosX = resolveResponsiveValue(posXBreakpoints, window.innerWidth) ?? defaultPositionX;
+      const newPosY = resolveResponsiveValue(posYBreakpoints, window.innerWidth) ?? defaultPositionY;
+      if (newPosX !== lastResolvedPosX) {
+        lastResolvedPosX = newPosX;
+        animatePositionX(newPosX);
+      }
+      if (newPosY !== lastResolvedPosY) {
+        lastResolvedPosY = newPosY;
+        animatePositionY(newPosY);
+      }
+    };
+
     window.addEventListener("resize", () => {
       scroll();
       resize();
+      checkResponsivePosition();
     });
 
     // Shared easing function
@@ -928,9 +980,11 @@ class NouveauBloomWave {
             if (container.hasAttribute('data-position-x')) {
               const posXValue = parseFloat(container.getAttribute('data-position-x'));
               if (!isNaN(posXValue)) {
+                lastResolvedPosX = posXValue;
                 animatePositionX(posXValue);
               }
             } else {
+              lastResolvedPosX = originalPositionX;
               animatePositionX(originalPositionX);
             }
           }
@@ -939,10 +993,11 @@ class NouveauBloomWave {
             if (container.hasAttribute('data-position-y')) {
               const posYValue = parseFloat(container.getAttribute('data-position-y'));
               if (!isNaN(posYValue)) {
+                lastResolvedPosY = posYValue;
                 animatePositionY(posYValue);
               }
             } else {
-              // Attribute removed, animate back to default
+              lastResolvedPosY = originalPositionY;
               animatePositionY(originalPositionY);
             }
           }

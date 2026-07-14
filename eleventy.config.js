@@ -88,6 +88,17 @@ export default function(eleventyConfig)  {
 		slugify: eleventyConfig.getFilter("slugify"),
 	});
 
+    // Check if a provider logo exists on disk
+    eleventyConfig.addJavaScriptFunction("logoExists", (owner) => {
+        const name = owner.split('-')[0].trim();
+        return fs.existsSync(`src/assets/images/provider-logos/logo-${name}.svg`);
+    });
+
+    // Check if a provider favicon exists on disk
+    eleventyConfig.addJavaScriptFunction("faviconExists", (slug) => {
+        return fs.existsSync(`src/assets/images/provider-favicons/${slug}.svg`);
+    });
+
     // Image optimization
     eleventyConfig.addPlugin(eleventyImageTransformPlugin);
 
