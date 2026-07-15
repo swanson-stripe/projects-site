@@ -316,7 +316,7 @@ export default [
   },
   {
     name: "Datadog",
-    slug: "datadog/observability",
+    slug: "datadog/monitoring",
     category: "observability",
     description: "Cloud monitoring and security",
     longDescription: "Cloud-scale monitoring and security platform. Unified observability for infrastructure, applications, logs, and more.",
