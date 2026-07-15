@@ -316,7 +316,7 @@ export default [
   },
   {
     name: "Datadog",
-    slug: "datadog/monitoring",
+    slug: "datadog/observability",
     category: "observability",
     description: "Cloud monitoring and security",
     longDescription: "Cloud-scale monitoring and security platform. Unified observability for infrastructure, applications, logs, and more.",
@@ -486,8 +486,8 @@ export default [
     logoTag: "logo-upstash",
   },
   {
-    name: "Steelbrowser",
-    slug: "steelbrowser/api",
+    name: "Steel",
+    slug: "steel/api",
     category: "browser",
     description: "Browser automation API for AI agents",
     longDescription: "Browser automation API for AI agents. Managed headless browsers with session management, anti-detection, and proxy support.",
