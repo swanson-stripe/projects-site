@@ -323,7 +323,7 @@ changefreq: "weekly"
                         <div class="marquee-track">
                             <logo-createos data-provider-slug="createos/project" class="marquee-logo h-18 sm:h-26"></logo-createos>
                             <logo-customerio data-provider-slug="customer.io/workspace" class="marquee-logo h-16 sm:h-24"></logo-customerio>
-                            <logo-datadog data-provider-slug="datadog/monitoring" class="marquee-logo h-18 sm:h-26"></logo-datadog>
+                            <logo-datadog data-provider-slug="datadog/observability" class="marquee-logo h-18 sm:h-26"></logo-datadog>
                             <logo-depot data-provider-slug="depot/api" class="marquee-logo h-14 sm:h-20"></logo-depot>
                             <logo-posthog data-provider-slug="posthog/analytics" class="marquee-logo h-36 sm:h-48"></logo-posthog>
                             <logo-prisma data-provider-slug="prisma/database" class="marquee-logo h-20 sm:h-28"></logo-prisma>
