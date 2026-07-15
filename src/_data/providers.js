@@ -190,7 +190,7 @@ export default [
   },
   {
     name: "Klaviyo",
-    slug: "klaviyo/app",
+    slug: "klaviyo/email",
     category: "email",
     description: "Marketing automation for email and SMS",
     longDescription: "Marketing automation platform for email and SMS. Build targeted campaigns with customer data, segmentation, and analytics.",
@@ -532,7 +532,7 @@ export default [
   },
   {
     name: "Schematic",
-    slug: "schematic/app",
+    slug: "schematic/schematic-environment",
     category: "feature_flags",
     description: "Feature management and entitlements",
     longDescription: "Feature management and entitlements platform. Control feature access, run experiments, and manage plan-based entitlements.",

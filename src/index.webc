@@ -306,7 +306,7 @@ changefreq: "weekly"
                             <logo-huggingface data-provider-slug="huggingface/platform" class="marquee-logo h-22 sm:h-36"></logo-huggingface>
                             <logo-inngest data-provider-slug="inngest/app" class="marquee-logo h-12 sm:h-18"></logo-inngest>
                             <logo-kernel data-provider-slug="kernel/project" class="marquee-logo h-12 sm:h-18"></logo-kernel>
-                            <logo-klaviyo data-provider-slug="klaviyo/app" class="marquee-logo h-16 sm:h-24"></logo-klaviyo>
+                            <logo-klaviyo data-provider-slug="klaviyo/email" class="marquee-logo h-16 sm:h-24"></logo-klaviyo>
                             <logo-laravelcloud data-provider-slug="laravel_cloud/application" class="marquee-logo h-16 sm:h-22"></logo-laravelcloud>
                             <logo-metronome data-provider-slug="metronome/sandbox" class="marquee-logo h-10 sm:h-18"></logo-metronome>
                             <logo-mixpanel data-provider-slug="mixpanel/analytics" class="marquee-logo h-16 sm:h-24"></logo-mixpanel>
@@ -333,7 +333,7 @@ changefreq: "weekly"
                             <logo-render data-provider-slug="render/static-site" class="marquee-logo h-14 sm:h-20"></logo-render>
                             <logo-revenuecat data-provider-slug="revenuecat/app" class="marquee-logo h-14 sm:h-20"></logo-revenuecat>
                             <logo-runloop data-provider-slug="runloop/sandbox" class="marquee-logo h-28 sm:h-40"></logo-runloop>
-                            <logo-schematic data-provider-slug="schematic/app" class="marquee-logo h-14 sm:h-20"></logo-schematic>
+                            <logo-schematic data-provider-slug="schematic/schematic-environment" class="marquee-logo h-14 sm:h-20"></logo-schematic>
                             <logo-sentry data-provider-slug="sentry/project" class="marquee-logo h-16 sm:h-24"></logo-sentry>
                             <logo-spaceship data-provider-slug="spaceship/domain" class="marquee-logo h-14 sm:h-20"></logo-spaceship>
                             <logo-steelbrowser data-provider-slug="steel/browser" class="marquee-logo h-14 sm:h-20"></logo-steelbrowser>
