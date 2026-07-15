@@ -336,7 +336,7 @@ changefreq: "weekly"
                             <logo-schematic data-provider-slug="schematic/app" class="marquee-logo h-14 sm:h-20"></logo-schematic>
                             <logo-sentry data-provider-slug="sentry/project" class="marquee-logo h-16 sm:h-24"></logo-sentry>
                             <logo-spaceship data-provider-slug="spaceship/domain" class="marquee-logo h-14 sm:h-20"></logo-spaceship>
-                            <logo-steelbrowser data-provider-slug="steelbrowser/api" class="marquee-logo h-14 sm:h-20"></logo-steelbrowser>
+                            <logo-steelbrowser data-provider-slug="steel/browser" class="marquee-logo h-14 sm:h-20"></logo-steelbrowser>
                             <logo-supabase data-provider-slug="supabase/project" class="marquee-logo h-28 sm:h-40"></logo-supabase>
                             <logo-supermemory data-provider-slug="supermemory/memory" class="marquee-logo h-12 sm:h-18"></logo-supermemory>
                             <logo-tabstack data-provider-slug="tabstack/api" class="marquee-logo h-14 sm:h-20"></logo-tabstack>
