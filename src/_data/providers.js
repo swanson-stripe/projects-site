@@ -308,7 +308,7 @@ export default [
   {
     name: "Customer.io",
     slug: "customer.io/workspace",
-    category: "messaging",
+    category: "communications",
     description: "Automated messaging platform",
     longDescription: "Automated messaging platform for targeted emails, push notifications, SMS, and in-app messages based on user behavior.",
     url: "https://customer.io",

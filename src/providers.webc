@@ -213,7 +213,7 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add createos/project" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add createos/project</span></button></td>
                             </tr>
-                            <tr data-provider-row data-url="https://customer.io" data-name="customer.io" data-category="messaging" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                            <tr data-provider-row data-url="https://customer.io" data-name="customer.io" data-category="communications" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://customer.io" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Customer.io</a></td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Messaging</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Automated messaging platform for targeted emails, push notifications, SMS, and in-app messages based on user behavior.</td>
