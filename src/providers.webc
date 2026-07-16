@@ -417,17 +417,17 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Feature management and entitlements platform. Control feature access, run experiments, and manage plan-based entitlements.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add schematic/schematic-environment" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add schematic/schematic-environment</span></button></td>
                             </tr>
+                            <tr data-provider-row data-url="https://spaceship.com" data-name="spaceship" data-category="domains" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://spaceship.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Spaceship</a></td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Domains</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Find the perfect domain for your project with Spaceship powered domain registration</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add spaceship/domain" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add spaceship/domain</span></button></td>
+                            </tr>
                             <tr data-provider-row data-url="https://squarespace.com" data-name="squarespace" data-category="domains" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://squarespace.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Squarespace</a></td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Domains</td>
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Search domain names and find the right one for your website.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add squarespace/domain" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add squarespace/domain</span></button></td>
-                            </tr>
-                            <tr data-provider-row data-url="https://spaceship.com" data-name="spaceship" data-category="domains" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
-                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://spaceship.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Spaceship</a></td>
-                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Domains</td>
-                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">Domain registrar by Namecheap. Register, transfer, and manage domain names with simple DNS configuration.</td>
-                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add spaceship/domain" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add spaceship/domain</span></button></td>
                             </tr>
                             <tr data-provider-row data-url="https://steel.dev" data-name="steel" data-category="browser" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://steel.dev" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Steel</a></td>

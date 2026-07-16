@@ -544,7 +544,7 @@ export default [
     slug: "spaceship/domain",
     category: "domains",
     description: "Domain registrar by Namecheap",
-    longDescription: "Domain registrar by Namecheap. Register, transfer, and manage domain names with simple DNS configuration.",
+    longDescription: "Find the perfect domain for your project with Spaceship powered domain registration.",
     url: "https://spaceship.com",
     logoTag: "logo-spaceship",
   },
