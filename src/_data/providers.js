@@ -191,7 +191,7 @@ export default [
   {
     name: "Klaviyo",
     slug: "klaviyo/email",
-    category: "email",
+    category: "communications",
     description: "Marketing automation for email and SMS",
     longDescription: "Marketing automation platform for email and SMS. Build targeted campaigns with customer data, segmentation, and analytics.",
     url: "https://klaviyo.com",
