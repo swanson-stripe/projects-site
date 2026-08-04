@@ -335,6 +335,7 @@ changefreq: "weekly"
                             <logo-runloop data-provider-slug="runloop/sandbox" class="marquee-logo h-28 sm:h-40"></logo-runloop>
                             <logo-schematic data-provider-slug="schematic/schematic-environment" class="marquee-logo h-14 sm:h-20"></logo-schematic>
                             <logo-sentry data-provider-slug="sentry/project" class="marquee-logo h-16 sm:h-24"></logo-sentry>
+                            <logo-shopify data-provider-slug="shopify/store" class="marquee-logo h-20 sm:h-30"></logo-shopify>
                             <logo-spaceship data-provider-slug="spaceship/domain" class="marquee-logo h-14 sm:h-20"></logo-spaceship>
                             <logo-steelbrowser data-provider-slug="steel/browser" class="marquee-logo h-14 sm:h-20"></logo-steelbrowser>
                             <logo-supabase data-provider-slug="supabase/project" class="marquee-logo h-28 sm:h-40"></logo-supabase>

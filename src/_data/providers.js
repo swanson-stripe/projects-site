@@ -557,4 +557,13 @@ export default [
     url: "https://squarespace.com",
     logoTag: "logo-squarespace",
   },
+  {
+    name: "Shopify",
+    slug: "shopify/store",
+    category: "ecommerce",
+    description: "Fully hosted commerce platform",
+    longDescription: "Shopify is the leading commerce platform powering millions of businesses worldwide. The Shopify app lets developers provision a fully hosted Shopify online store directly from Stripe Projects – no separate signup or context switching. Choose a plan, launch your storefront, and manage billing through Stripe, so you can go from idea to selling in just a few clicks.",
+    url: "https://shopify.com",
+    logoTag: "logo-shopify",
+  },
 ];
