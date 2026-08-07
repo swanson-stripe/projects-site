@@ -799,6 +799,17 @@ changefreq: "weekly"
                     </div>
                 </div>
             </div>
+            <!--- Community projects callout (slim pill) --->
+            <helm-container class="relative flex justify-center pt-32 sm:pt-40">
+                <a href="/leaderboard" class="group inline-flex items-center gap-10 h-40 pl-6 pr-16 rounded-full border border-edge bg-foreground hover:border-primary/40 transition-colors duration-200">
+                    <span class="inline-flex items-center gap-6 h-28 px-10 rounded-full bg-primary/10 text-11 uppercase tracking-widest text-primary whitespace-nowrap">
+                        <span class="w-6 h-6 rounded-full bg-primary"></span>
+                        Community
+                    </span>
+                    <span class="text-14 text-content whitespace-nowrap">See what developers are building</span>
+                    <icon-arrowanimate @size="sm" class="text-primary"></icon-arrowanimate>
+                </a>
+            </helm-container>
         </helm-section>
 
         <!--- Blog --->
