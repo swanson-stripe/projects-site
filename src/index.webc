@@ -554,8 +554,12 @@ changefreq: "weekly"
 
         <!--- Testimonials + Media --->
         <helm-section class="relative pt-64 pb-32 md:pt-96 md:pb-64 z-10 overflow-hidden">
-            <helm-container class="relative flex flex-col items-center mb-32 sm:mb-48">
+            <helm-container class="relative flex flex-col items-center gap-12 mb-32 sm:mb-48">
                 <h2 class="text-28/110 sm:text-36/110 tracking-[-0.0375em] text-headline">What the community is saying</h2>
+                <a href="/leaderboard" class="flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                    <span>See what they're building</span>
+                    <icon-arrowanimate @size="sm"></icon-arrowanimate>
+                </a>
             </helm-container>
             <div class="w-full overflow-hidden" data-testimonial-marquee>
                 <!--- Row 1: scrolls left --->
