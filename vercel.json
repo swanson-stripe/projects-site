@@ -58,6 +58,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/leaderboard/_vercel/insights/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/_vercel/insights/:path*" },
     { "source": "/leaderboard", "destination": "https://stripe-projects-leaderboard.vercel.app/leaderboard" },
     { "source": "/hackathon", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon" },
     { "source": "/hackathon-participants", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon-participants" },
