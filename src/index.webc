@@ -805,6 +805,101 @@ changefreq: "weekly"
             </div>
         </helm-section>
 
+        <!--- Carousel --->
+        <helm-section class="relative bg-foreground px-0! md:px-16!">
+            <helm-container class="relative pt-56 sm:pt-96 pb-24 sm:pb-64">
+                <!--- Section intro --->
+                <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-16 sm:gap-32 sm:mb-16 px-16! md:px-0!">
+                    <!--- Headline and description --->
+                    <div class="max-w-704 text-balance flex flex-col items-start mb-16 sm:mb-0">
+                        <h2 class="text-22/110 sm:text-32/110 tracking-[-0.035em] mb-8 sm:mb-16">
+                            Grab a template and go.
+                        </h2>
+                        <p class="text-content text-16/140 sm:text-20/140 mb-20">
+                            Choose from a Stripe Projects template that suits your needs. Each one is a working app that is ready to run on day one and make entirely your own.
+                        </p>
+                        <link-btn href="/templates/" size="48" color="primary">
+                            <span slot="label">View all templates</span>
+                            <icon-arrowanimate slot="icon-right" @size="md" class=""></icon-arrowanimate>
+                        </link-btn>
+                    </div>
+                    <!--- Carousel navigation --->
+                    <div class="relative flex gap-8 shrink-0">
+                        <button data-carousel-prev class="relative flex items-center justify-center w-28 h-28 rounded-2 border border-neutral-100 text-neutral-300 focus-visible:border-brand-300 focus-visible:shadow-focus pr-1 rotate-180 transition-all duration-250 outline-none">
+                            <icon-arrownext size="8" weight="strong"></icon-arrownext>
+                        </button>
+                        <button data-carousel-next class="relative flex items-center justify-center w-28 h-28 rounded-2 border bg-brand-75 border-brand-75 text-primary pl-1 hover:bg-primary-hover hover:border-primary-hover hover:text-neutral-0 focus-visible:border-brand-300 focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+                            <icon-arrownext size="8" weight="strong"></icon-arrownext>
+                        </button>
+                    </div>
+                </div>
+                <!--- Carousel --->
+                <div data-carousel-viewport class="relative flex overflow-x-scroll no-scrollbar">
+                    <ul data-carousel-track class="relative flex gap-8 sm:gap-16 shrink-0 max-w-none pr-32 py-32 px-16 md:px-0">
+                        <!--- Cards --->
+                        <li webc:for="template of templates.families" class="relative w-336 sm:w-348 shrink-0 flex flex-col">
+                            <div class="relative flex flex-col h-full border border-edge bg-highlight rounded-6">
+                                <!--- Content --->
+                                <div class="relative flex-1 flex flex-col justify-between p-24">
+                                    <!--- Title and description --->
+                                    <div class="mb-12">
+                                        <!--- Providers --->
+                                        <ul class="flex items-center justify-start pl-2 mb-12">
+                                            <li webc:for="service of template.services" class="relative -ml-2 shrink-0">
+                                                <img webc:if="faviconExists(service.providerSlug)"
+                                                    eleventy:ignore
+                                                    :src="`/assets/images/provider-favicons/${service.providerSlug}.svg`"
+                                                    :alt="service.providerName"
+                                                    class="w-26 h-26 rounded-full"/>
+                                                <div class="absolute top-0 left-0 w-full h-full rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1),0_0_0_2px_var(--color-highlight)]"></div>
+                                            </li>
+                                        </ul>
+                                        <!--- Card title -->
+                                        <h3 @text="template.name" class="text-16/110 font-normal mb-6 text-pretty"></h3>
+                                        <!--- Card description --->
+                                        <p @text="template.description" class="text-16/140 text-content text-pretty"></p>
+                                    </div>
+                                    <div class="relative flex flex-col gap-12">
+                                        <div class="h-40 grid grid-cols-2 gap-6 *:relative *:flex *:items-center *:justify-center *:text-14 *:font-normal *:text-primary *:border *:border-brand-100 *:rounded-4 *:px-16 *:h-40 *:cursor-pointer *:overflow-hidden *:hover:border-brand-300 *:hover:text-primary-hover *:focus-visible:border-brand-300 *:focus-visible:text-primary-hover *:focus-visible:shadow-focus *:outline-none *:transition-all *:duration-200 *:ease-out">
+                                            <a :href="'/templates/' + template.ownerSlug + '/' + template.templateSlug + '/'">
+                                                <!--- Initial text --->
+                                                <div class="flex items-center gap-6">
+                                                    <span class="pb-1">
+                                                        View template
+                                                    </span>
+                                                </div>
+                                            </a>
+                                            <button :data-template-copy="template.buildCommand">
+                                                <!--- Initial text --->
+                                                <div class="flex items-center gap-6">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16 mb-1 -ml-2">
+                                                        <path fill-rule="evenodd" d="M13 2.5H3c-.83 0-1.5.67-1.5 1.5v8c0 .83.67 1.5 1.5 1.5h10c.83 0 1.5-.67 1.5-1.5V4c0-.83-.67-1.5-1.5-1.5M3 1a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V4a3 3 0 0 0-3-3z" clip-rule="evenodd"/>
+                                                        <path fill-rule="evenodd" d="M3.43 4.51a.75.75 0 0 1 1.06-.08l3.5 3a.75.75 0 0 1 0 1.14l-3.5 3a.75.75 0 1 1-.98-1.14L6.35 8 3.5 5.57a.75.75 0 0 1-.08-1.06M8 10.75c0-.41.34-.75.75-.75h3.5a.75.75 0 0 1 0 1.5h-3.5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/>
+                                                    </svg>
+                                                    <span class="pb-1">
+                                                        Command
+                                                    </span>
+                                                </div>
+                                                <!--- Copied text --->
+                                                <div class="absolute flex items-center gap-4 translate-y-26 opacity-0 invisible">
+                                                    <icon-check size="12" weight="strong" class="mb-1"></icon-check>
+                                                    <span class="pb-1">
+                                                        Copied
+                                                    </span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div data-carousel-fade-start class="absolute hidden md:block top-0 left-0 w-1/6 h-full bg-linear-to-r from-foreground to-foreground/0 pointer-events-none z-[1005] opacity-0"></div>
+                    <div data-carousel-fade-end class="absolute hidden md:block top-0 right-0 w-1/6 h-full bg-linear-to-r from-foreground/0 to-foreground pointer-events-none z-[1005]"></div>
+                </div>
+            </helm-container>
+        </helm-section>
+
         <!--- Blog --->
         <helm-section class="relative pt-64 pb-32 md:pt-96 md:pb-64 z-10">
             <helm-container class="relative flex flex-col">
@@ -1797,5 +1892,252 @@ changefreq: "weekly"
             .to(clickedEl, { y: 24, autoAlpha: 0, scale: 0.75, duration: 0.25, ease: 'power3.inOut' }, 2);
         });
     })();
+
+    function templateCarousel() {
+        var viewport = document.querySelector("[data-carousel-viewport]");
+        var track = document.querySelector("[data-carousel-track]");
+        var prevBtn = document.querySelector("[data-carousel-prev]");
+        var nextBtn = document.querySelector("[data-carousel-next]");
+        var fadeStart = document.querySelector("[data-carousel-fade-start]");
+        var fadeEnd = document.querySelector("[data-carousel-fade-end]");
+        if (!viewport || !track) return;
+
+        var OVERSHOOT = 80;
+
+        function getCardStep() {
+            var cards = track.querySelectorAll(':scope > li');
+            if (cards.length >= 2) {
+                return cards[1].offsetLeft - cards[0].offsetLeft;
+            }
+            if (cards.length === 1) {
+                var gap = parseFloat(getComputedStyle(track).gap) || 0;
+                return cards[0].offsetWidth + gap;
+            }
+            return 364;
+        }
+        var DISABLED_CLS = ["border-neutral-100", "text-neutral-300"];
+        var ENABLED_CLS = [
+            "bg-brand-75", "border-brand-75", "text-primary",
+            "hover:bg-primary-hover", "hover:border-primary-hover",
+            "hover:text-neutral-0", "cursor-pointer"
+        ];
+
+        function getMaxScroll() {
+            return track.scrollWidth - viewport.offsetWidth;
+        }
+
+        function setButtonState(btn, enabled) {
+            if (!btn) return;
+            if (enabled) {
+                btn.classList.remove(...DISABLED_CLS);
+                btn.classList.add(...ENABLED_CLS);
+                btn.disabled = false;
+            } else {
+                btn.classList.remove(...ENABLED_CLS);
+                btn.classList.add(...DISABLED_CLS);
+                btn.disabled = true;
+            }
+        }
+
+        function updateButtons() {
+            var x = gsap.getProperty(track, "x");
+            setButtonState(prevBtn, x < 0);
+            setButtonState(nextBtn, x > -getMaxScroll());
+        }
+
+        function initEdgeFades() {
+            if (!("IntersectionObserver" in window)) return;
+            var cards = track.querySelectorAll(":scope > li");
+            if (!cards.length) return;
+            var lastCard = cards[cards.length - 1];
+
+            function fade(el, hidden) {
+                if (!el) return;
+                gsap.to(el, {
+                    autoAlpha: hidden ? 0 : 1,
+                    duration: 0.3,
+                    ease: "power2.out",
+                    overwrite: true
+                });
+            }
+
+            new IntersectionObserver(function (entries) {
+                var lastFullyVisible = entries[0].intersectionRatio >= 0.99;
+                fade(fadeEnd, lastFullyVisible);
+                fade(fadeStart, !lastFullyVisible);
+            }, { root: viewport, threshold: [0, 0.99, 1] }).observe(lastCard);
+        }
+
+        function snapValue(endValue) {
+            var maxScroll = getMaxScroll();
+            var step = getCardStep();
+            var snapped = Math.round(endValue / step) * step;
+            return Math.max(-maxScroll, Math.min(0, snapped));
+        }
+
+        var isDragging = false;
+
+        var draggable = Draggable.create(track, {
+            type: "x",
+            bounds: { minX: -getMaxScroll() - OVERSHOOT, maxX: OVERSHOOT },
+            edgeResistance: 0.75,
+            inertia: true,
+            snap: { x: snapValue },
+            cursor: "grab",
+            activeCursor: "grabbing",
+            dragClickables: false,
+            clickableTest: function (el) {
+                if (el.getAttribute("contenteditable") !== null || el.closest("[contenteditable]")) return true;
+                var tag = el.tagName;
+                return tag === "A" || tag === "INPUT" || tag === "SELECT" || tag === "BUTTON" || tag === "TEXTAREA" || el.getAttribute("data-clickable") === "true";
+            },
+            onDragStart: function () { isDragging = true; },
+            onDrag: updateButtons,
+            onThrowUpdate: updateButtons,
+            onThrowComplete: function () {
+                isDragging = false;
+                updateButtons();
+            },
+            onClick: function () { isDragging = false; }
+        })[0];
+
+        track.addEventListener("click", function (e) {
+            if (isDragging) e.preventDefault();
+        });
+
+        function navigateTo(newX) {
+            var clamped = Math.max(-getMaxScroll(), Math.min(0, newX));
+            gsap.to(track, {
+                x: clamped,
+                duration: 0.5,
+                ease: "power2.out",
+                onUpdate: function () {
+                    draggable.update();
+                    updateButtons();
+                },
+                onComplete: updateButtons
+            });
+        }
+
+        prevBtn.addEventListener("click", function () {
+            var current = snapValue(gsap.getProperty(track, "x"));
+            navigateTo(current + getCardStep());
+        });
+
+        nextBtn.addEventListener("click", function () {
+            var current = snapValue(gsap.getProperty(track, "x"));
+            navigateTo(current - getCardStep());
+        });
+
+        var wheelTimeout;
+        viewport.addEventListener("wheel", function (e) {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) return;
+            var delta = e.deltaX;
+            if (delta === 0) return;
+            e.preventDefault();
+            var currentX = gsap.getProperty(track, "x");
+            var newX = Math.max(-getMaxScroll(), Math.min(0, currentX - delta));
+            gsap.set(track, { x: newX });
+            draggable.update();
+            updateButtons();
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(function () {
+                navigateTo(snapValue(gsap.getProperty(track, "x")));
+            }, 150);
+        }, { passive: false });
+
+        var resizeTimeout;
+        var ro = new ResizeObserver(function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function () {
+                var maxScroll = getMaxScroll();
+                draggable.applyBounds({
+                    minX: -maxScroll - OVERSHOOT,
+                    maxX: OVERSHOOT
+                });
+                var currentX = gsap.getProperty(track, "x");
+                var snapped = snapValue(currentX);
+                if (currentX !== snapped) {
+                    gsap.to(track, {
+                        x: snapped,
+                        duration: 0.3,
+                        ease: "power2.out",
+                        onUpdate: function () {
+                            draggable.update();
+                            updateButtons();
+                        },
+                        onComplete: updateButtons
+                    });
+                } else {
+                    draggable.update();
+                    updateButtons();
+                }
+            }, 150);
+        });
+        ro.observe(viewport);
+
+        updateButtons();
+        initEdgeFades();
+    };
+    templateCarousel();
+
+    function templateCopy() {
+        const btns = document.querySelectorAll('button[data-template-copy]');
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const initialEl = btn.children[0];
+                const copiedEl = btn.children[1];
+                navigator.clipboard.writeText(btn.dataset.templateCopy);
+
+                const tl = gsap.timeline({
+                    onStart: () => { btn.classList.add('pointer-events-none'); },
+                    onComplete: () => { btn.classList.remove('pointer-events-none'); }
+                });
+                tl
+                .to(initialEl, { autoAlpha: 0, y: -26, duration: 0.25, ease: 'power3.out' })
+                .to(copiedEl, { autoAlpha: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0)
+                .to(copiedEl, { autoAlpha: 0, y: 26, duration: 0.25, ease: 'power3.out' }, 1.25)
+                .to(initialEl, { autoAlpha: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 1.25);
+            });
+        });
+    }
+    templateCopy();
+
+    function templatesCopyToClipboard() {
+        const copyBtns = document.querySelectorAll('button[data-copy]');
+        copyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const normalState = document.querySelector(`[data-copy-normal="${btn.dataset.copy}"]`);
+                const clickedState = document.querySelector(`[data-copy-clicked="${btn.dataset.copy}"]`);
+                const text = document.querySelector(`[data-copy-text="${btn.dataset.copy}"]`).textContent;
+                navigator.clipboard.writeText(text);
+                // Standard copy button animation
+                const tl = gsap.timeline({
+                    onStart: () => { btn.classList.add('pointer-events-none'); },
+                    onComplete: () => { if(btn.dataset.copy !== 'hero-cli' || btn.dataset.copy !== 'hero-llm') { btn.classList.remove('pointer-events-none'); } }
+                });
+                tl
+                .to(normalState, { autoAlpha: 0, y: -28, duration: 0.25, ease: 'power3.out' })
+                .to(clickedState, { autoAlpha: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0)
+                .to(clickedState, { autoAlpha: 0, y: 28, duration: 0.25, ease: 'power3.out' }, 1.25)
+                .to(normalState, { autoAlpha: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 1.25);
+                // Hero glow effect
+                if(btn.dataset.copy === 'hero-cli' || btn.dataset.copy === 'hero-llm') {
+                    const glow = document.querySelectorAll(`[data-copy-glow="${btn.dataset.copy}"]`);
+                    const tl = gsap.timeline({
+                        onComplete: () => { btn.classList.remove('pointer-events-none'); }
+                    });
+                    tl
+                    .to(glow[0], { width: 1200, height: 1200, duration: 1, ease: 'power3.out' }, 0)
+                    .to(glow[0], { autoAlpha: 0.8, duration: 0.5, ease: 'power3.out' }, 0)
+                    .to(glow[0], { autoAlpha: 0, duration: 0.5, ease: 'power3.in' }, 0.5)
+                    .to(glow[1], { width: 1200, height: 1200, duration: 1.25, ease: 'power3.out' }, 0)
+                    .to(glow[0], {clearProps: "all"})
+                    .to(glow[1], {clearProps: "all"});
+                }
+            });
+        });
+    }
+    templatesCopyToClipboard();
 
 </script>
