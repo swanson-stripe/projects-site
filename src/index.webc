@@ -894,8 +894,8 @@ changefreq: "weekly"
                             </div>
                         </li>
                     </ul>
-                    <div data-carousel-fade-start class="absolute top-0 left-0 w-1/6 h-full bg-linear-to-r from-foreground to-foreground/0 pointer-events-none z-[1005] opacity-0"></div>
-                    <div data-carousel-fade-end class="absolute top-0 right-0 w-1/6 h-full bg-linear-to-r from-foreground/0 to-foreground pointer-events-none z-[1005]"></div>
+                    <div data-carousel-fade-start class="absolute hidden md:block top-0 left-0 w-1/6 h-full bg-linear-to-r from-foreground to-foreground/0 pointer-events-none z-[1005] opacity-0"></div>
+                    <div data-carousel-fade-end class="absolute hidden md:block top-0 right-0 w-1/6 h-full bg-linear-to-r from-foreground/0 to-foreground pointer-events-none z-[1005]"></div>
                 </div>
             </helm-container>
         </helm-section>
