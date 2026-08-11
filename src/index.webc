@@ -306,7 +306,10 @@ changefreq: "weekly"
                             <logo-huggingface data-provider-slug="huggingface/platform" class="marquee-logo h-22 sm:h-36"></logo-huggingface>
                             <logo-inngest data-provider-slug="inngest/app" class="marquee-logo h-12 sm:h-18"></logo-inngest>
                             <logo-kernel data-provider-slug="kernel/project" class="marquee-logo h-12 sm:h-18"></logo-kernel>
+<!-- Klaviyo temporarily removed — to be added back later
                             <logo-klaviyo data-provider-slug="klaviyo/email" class="marquee-logo h-16 sm:h-24"></logo-klaviyo>
+-->
+
                             <logo-laravelcloud data-provider-slug="laravel_cloud/application" class="marquee-logo h-16 sm:h-22"></logo-laravelcloud>
                             <logo-metronome data-provider-slug="metronome/sandbox" class="marquee-logo h-10 sm:h-18"></logo-metronome>
                             <logo-mixpanel data-provider-slug="mixpanel/analytics" class="marquee-logo h-16 sm:h-24"></logo-mixpanel>
