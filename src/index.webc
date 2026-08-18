@@ -103,8 +103,8 @@ changefreq: "weekly"
                     <!--- Mobile bar --->
                     <div webc:if="base.ctaMode === 'install'" class="sm:hidden relative w-screen left-1/2 -translate-x-1/2 flex items-center h-48 px-16 bg-foreground">
                         <button data-copy-bar class="relative flex items-center justify-between w-full min-w-0 h-32 px-12 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none group gap-8">
-                            <div class="relative min-w-0 font-mono text-14 truncate">
-                                <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                            <div data-install-cmd class="relative min-w-0 font-mono text-14 truncate">
+                                <span class="text-detail select-none">$ </span>npm install -g <span class="text-primary">@stripe/cli@latest</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                             </div>
                             <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
                                 <div data-copy-bar-icon class="flex items-center justify-center">
@@ -121,8 +121,8 @@ changefreq: "weekly"
                         <div class="absolute top-0 left-0 w-full flex gap-8 h-48 px-8 overflow-hidden">
                             <button data-copy-bar class="relative flex items-center w-full min-w-0 h-32 mt-8 px-8 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none text-left group">
                                 <div class="relative flex items-center justify-between w-full min-w-0 h-32 gap-8">
-                                    <div class="relative min-w-0 font-mono text-14 truncate">
-                                        <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                    <div data-install-cmd class="relative min-w-0 font-mono text-14 truncate">
+                                        <span class="text-detail select-none">$ </span>npm install -g <span class="text-primary">@stripe/cli@latest</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                                     </div>
                                     <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
                                         <div data-copy-bar-icon class="flex items-center justify-center">
@@ -135,7 +135,7 @@ changefreq: "weekly"
                                 </div>
                             </button>
                             <div class="relative flex items-center gap-8 h-full shrink-0">
-                                <a href="https://docs.stripe.com/stripe-cli/install?install-method=homebrew#install" target="_blank" rel="noopener" class="relative flex items-center justify-center gap-4 px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap group">
+                                <a href="https://github.com/stripe/stripe-cli#installation" target="_blank" rel="noopener" class="relative flex items-center justify-center gap-4 px-16 h-32 rounded-4 text-14 font-normal text-content bg-highlight/50 shadow-inset-border hover:bg-highlight focus-visible:shadow-focus transition-all duration-200 ease-out cursor-pointer outline-none whitespace-nowrap group">
                                     <span class="-translate-y-px">More CLI install options</span>
                                     <icon-arrowanimate @size="md" class=""></icon-arrowanimate>
                                 </a>
@@ -1506,12 +1506,29 @@ changefreq: "weekly"
         }, 2500);
     }
 
+    // Install command — brew on macOS, npm everywhere else (detected via User-Agent)
+    function getInstallCommand() {
+        const isMac = /Mac/i.test(navigator.userAgent) && !/iPhone|iPad|iPod/i.test(navigator.userAgent);
+        return isMac
+            ? {
+                plain: 'brew install stripe/stripe-cli/stripe && stripe plugin install projects',
+                html: '<span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>'
+            }
+            : {
+                plain: 'npm install -g @stripe/cli@latest && stripe plugin install projects',
+                html: '<span class="text-detail select-none">$ </span>npm install -g <span class="text-primary">@stripe/cli@latest</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>'
+            };
+    }
+
     // Copy bar (install command bar — mobile + desktop)
     (function copyBarSetup() {
-        const command = 'brew install stripe/stripe-cli/stripe && stripe plugin install projects';
+        const command = getInstallCommand();
+        document.querySelectorAll('[data-install-cmd]').forEach(el => {
+            el.innerHTML = command.html;
+        });
         document.querySelectorAll('[data-copy-bar]').forEach(btn => {
             btn.addEventListener('click', () => {
-                navigator.clipboard.writeText(command);
+                navigator.clipboard.writeText(command.plain);
                 showCopyToast('Command copied');
                 const icon = btn.querySelector('[data-copy-bar-icon]');
                 const check = btn.querySelector('[data-copy-bar-check]');
