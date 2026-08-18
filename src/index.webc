@@ -53,7 +53,7 @@ changefreq: "weekly"
                     <div data-hero="cta" class="relative flex flex-col items-center gap-12">
                         <div class="relative flex flex-col min-[448px]:flex-row items-center gap-8">
                             <!--- Get started CTA (primary) — expands to reveal command --->
-                            <button data-copy-expand="brew install stripe/stripe-cli/stripe && stripe plugin install projects && npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g" class="relative flex items-center justify-center gap-6 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+                            <button data-copy-expand="npm install -g @stripe/cli@latest && stripe plugin install projects && npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g" class="relative flex items-center justify-center gap-6 px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                                 <div data-copy-expand-default class="relative flex items-center gap-8">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-16 h-16">
                                         <path d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25zM3.47 5.47a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06l-2.25 2.25a.75.75 0 1 1-1.06-1.06L5.19 8.25 3.47 6.53a.75.75 0 0 1 0-1.06zm4.78 4.28a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75z"/>
@@ -87,7 +87,7 @@ changefreq: "weekly"
                                 <span class="text-14 font-sans font-medium text-[#006F3A]">Copied — paste in your terminal</span>
                             </div>
                             <div class="text-content">
-                                <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> &&<br>
+                                <span class="text-detail select-none">$ </span>npm install -g <span class="text-primary">@stripe/cli@latest</span> &&<br>
                                 &nbsp;&nbsp;<span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span> &&<br>
                                 &nbsp;&nbsp;npx skills add <span class="text-primary">https://github.com/stripe/ai</span> \<br>
                                 &nbsp;&nbsp;&nbsp;&nbsp;--skill stripe-projects -y -g
@@ -104,7 +104,7 @@ changefreq: "weekly"
                     <div webc:if="base.ctaMode === 'install'" class="sm:hidden relative w-screen left-1/2 -translate-x-1/2 flex items-center h-48 px-16 bg-foreground">
                         <button data-copy-bar class="relative flex items-center justify-between w-full min-w-0 h-32 px-12 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none group gap-8">
                             <div class="relative min-w-0 font-mono text-14 truncate">
-                                <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                <span class="text-detail select-none">$ </span>npm install -g <span class="text-primary">@stripe/cli@latest</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                             </div>
                             <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
                                 <div data-copy-bar-icon class="flex items-center justify-center">
@@ -122,7 +122,7 @@ changefreq: "weekly"
                             <button data-copy-bar class="relative flex items-center w-full min-w-0 h-32 mt-8 px-8 bg-highlight rounded-6 shadow-inset-border cursor-pointer outline-none text-left group">
                                 <div class="relative flex items-center justify-between w-full min-w-0 h-32 gap-8">
                                     <div class="relative min-w-0 font-mono text-14 truncate">
-                                        <span class="text-detail select-none">$ </span>brew install <span class="text-primary">stripe/stripe-cli/stripe</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
+                                        <span class="text-detail select-none">$ </span>npm install -g <span class="text-primary">@stripe/cli@latest</span> && <span class="text-primary">stripe</span> plugin install <span class="text-primary">projects</span>
                                     </div>
                                     <div class="relative flex items-center justify-center w-16 h-16 shrink-0 text-detail">
                                         <div data-copy-bar-icon class="flex items-center justify-center">
@@ -952,7 +952,7 @@ changefreq: "weekly"
                     <!--- CTAs --->
                     <div class="relative flex flex-col min-[448px]:flex-row items-start gap-8">
                         <!--- Variant: install --->
-                        <button webc:if="base.ctaMode === 'install'" data-copy-cli="brew install stripe/stripe-cli/stripe && stripe plugin install projects" class="relative flex items-center justify-center px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
+                        <button webc:if="base.ctaMode === 'install'" data-copy-cli="npm install -g @stripe/cli@latest && stripe plugin install projects" class="relative flex items-center justify-center px-24 h-48 bg-primary text-neutral-0 font-normal rounded-4 group overflow-hidden hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:shadow-focus transition-all duration-250 cursor-pointer outline-none">
                             <div data-copy-cli-default class="relative flex items-center gap-8">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 12 12" class="w-16 h-16 mb-1">
                                     <path fill-rule="evenodd" d="M9.75 1.88h-7.5A1.13 1.13 0 0 0 1.13 3v6a1.13 1.13 0 0 0 1.12 1.13h7.5A1.1 1.1 0 0 0 10.88 9V3a1.1 1.1 0 0 0-1.13-1.12M2.25.75A2.25 2.25 0 0 0 0 3v6a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 12 9V3A2.25 2.25 0 0 0 9.75.75z" clip-rule="evenodd"/>
@@ -1453,7 +1453,7 @@ changefreq: "weekly"
     (function heroInstallCopy() {
         const btn = document.querySelector('[data-copy-install-cmd]');
         if (!btn) return;
-        const command = 'brew install stripe/stripe-cli/stripe && stripe plugin install projects';
+        const command = 'npm install -g @stripe/cli@latest && stripe plugin install projects';
         btn.addEventListener('click', () => {
             navigator.clipboard.writeText(command);
             const defaultEl = btn.querySelector('[data-copy-install-cmd-default]');
@@ -1508,7 +1508,7 @@ changefreq: "weekly"
 
     // Copy bar (install command bar — mobile + desktop)
     (function copyBarSetup() {
-        const command = 'brew install stripe/stripe-cli/stripe && stripe plugin install projects';
+        const command = 'npm install -g @stripe/cli@latest && stripe plugin install projects';
         document.querySelectorAll('[data-copy-bar]').forEach(btn => {
             btn.addEventListener('click', () => {
                 navigator.clipboard.writeText(command);
