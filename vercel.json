@@ -64,6 +64,7 @@
     { "source": "/hackathon-participants", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon-participants" },
     { "source": "/hackathon-admin", "destination": "https://stripe-projects-leaderboard.vercel.app/hackathon-admin" },
     { "source": "/shipaton2026-participants", "destination": "https://stripe-projects-leaderboard.vercel.app/shipaton2026-participants" },
+    { "source": "/community-participants", "destination": "https://stripe-projects-leaderboard.vercel.app/community-participants" },
     { "source": "/api/leaderboard", "destination": "https://stripe-projects-leaderboard.vercel.app/api/leaderboard" },
     { "source": "/api/projects", "destination": "https://stripe-projects-leaderboard.vercel.app/api/projects" },
     { "source": "/api/vote", "destination": "https://stripe-projects-leaderboard.vercel.app/api/vote" },
