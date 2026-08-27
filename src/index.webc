@@ -302,6 +302,7 @@ changefreq: "weekly"
                             <logo-firecrawl data-provider-slug="firecrawl/api" class="marquee-logo h-20 sm:h-28"></logo-firecrawl>
                             <logo-flyio data-provider-slug="flyio/app" class="marquee-logo h-18 sm:h-28"></logo-flyio>
                             <logo-gitlab data-provider-slug="gitlab/project" class="marquee-logo h-32 sm:h-48"></logo-gitlab>
+                            <logo-herenow data-provider-slug="herenow/hosting" class="marquee-logo h-22 sm:h-31"></logo-herenow>
                             <logo-heygen data-provider-slug="heygen/api" class="marquee-logo h-36 sm:h-48"></logo-heygen>
                             <logo-huggingface data-provider-slug="huggingface/platform" class="marquee-logo h-22 sm:h-36"></logo-huggingface>
                             <logo-inngest data-provider-slug="inngest/app" class="marquee-logo h-12 sm:h-18"></logo-inngest>
@@ -1369,6 +1370,7 @@ changefreq: "weekly"
         const slugToName = {
             'base44_projects': 'base 44',
             'flyio': 'fly.io',
+            'herenow': 'here.now',
             'huggingface': 'hugging face',
             'laravel_cloud': 'laravel cloud',
         };
