@@ -139,13 +139,8 @@ function renderHeader({ backHref, backLabel, variant }) {
       ${left}
 
       <div class="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center">
-        <a href="${MARKETPLACE_HOME}" class="relative flex items-center justify-center h-40 gap-4">
-          <div class="relative flex items-center gap-8 h-full whitespace-nowrap">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-[1em] w-auto text-headline shrink-0">
-              <path d="M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z"></path>
-            </svg>
-            <span class="text-16 font-normal text-headline">Stripe Provisioning</span>
-          </div>
+        <a href="${MARKETPLACE_HOME}" class="relative flex items-center justify-center h-40">
+          <span class="text-16 font-normal text-headline whitespace-nowrap">Provisioning API</span>
         </a>
         <span class="absolute left-full ml-8">${renderDemoBadge()}</span>
       </div>
@@ -165,10 +160,7 @@ function renderHeader({ backHref, backLabel, variant }) {
 function renderFooter(year) {
     return `<footer class="w-full flex items-center justify-center flex-col px-16">
     <div class="w-full max-w-1266 relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
-      <p class="text-14/150 text-detail">© ${year} Stripe · Marketplace demo</p>
-      <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
-        <a href="https://docs.stripe.com/projects" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Documentation</a>
-      </div>
+      <p class="text-14/150 text-detail">Provisioning API · Marketplace demo · ${year}</p>
     </div>
   </footer>`;
 }
@@ -185,7 +177,7 @@ function renderDemoBadge() {
         <span>Demo</span>
       </button>
       <span id="demo-note" role="tooltip" class="pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-8 w-300 p-12 rounded-6 bg-highlight border border-edge shadow-lg text-12/150 text-detail text-left normal-case tracking-normal opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 z-50">
-        Mock marketplace UI for the Stripe Projects provisioning flows. Accounts, plans, resources, and credentials are simulated in your browser — nothing is provisioned and no provider is contacted.
+        Mock marketplace UI for the provisioning API flows. Accounts, plans, resources, and credentials are simulated in your browser — nothing is provisioned and no provider is contacted.
       </span>
     </span>`;
 }
@@ -827,7 +819,7 @@ export function renderMarketplaceDevsite(data) {
     <div class="w-full max-w-1266 pt-12 pb-16">
       ${devPlusRule(9)}
       <div class="pt-24 pb-28">
-        <p class="mkt-dev-label text-detail flex items-center gap-4 mb-20"><span class="text-disclaimer">/</span>Stripe Projects · Provisioning</p>
+        <p class="mkt-dev-label text-detail flex items-center gap-4 mb-20"><span class="text-disclaimer">/</span>Provisioning API</p>
         <h1 class="mkt-dev-hero text-headline">Provisioning<br>Plaza<span class="mkt-dev-hero-dot">.dev</span></h1>
         <p class="mkt-dev-lede text-content max-w-720 mt-24">${catalog.deployableCount} services and ${planCount} plans across ${catalog.providerCount} providers. Link an account, accept the terms, pick a plan, take your credentials.</p>
       </div>

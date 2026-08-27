@@ -1,6 +1,6 @@
 /**
  * Credential list with per-value reveal and copy — the UI equivalent of
- * `stripe projects env` (values redacted) plus `--pull` (write them out).
+ * `provisioning env` (values redacted) plus `--pull` (write them out).
  */
 
 import { copyText, escapeHtml, maskValue, revealSecret } from "./ui.js";

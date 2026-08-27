@@ -193,6 +193,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -223,6 +224,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -366,40 +368,40 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "plan": "free",
-                                "accept_terms": "By proceeding, you accept the Algolia Free Plan Terms: https://www.algolia.com/policies/free-plan-details and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits."
+                                "plan": "free"
                             },
-                            "label": "free · By proceeding, you accept the Algolia Free Plan Terms: https://www.algolia.com/policies/free-plan-details and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits.",
+                            "label": "free",
                             "price": "Free forever Search & Discovery API",
                             "status": "free",
                             "description": "Free forever Search & Discovery API",
                             "isDefault": false,
+                            "terms": "By proceeding, you accept the Algolia Free Plan Terms: https://www.algolia.com/policies/free-plan-details and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits.",
                             "tosUrl": null
                         },
                         {
                             "id": "tier-1",
                             "configuration": {
-                                "plan": "grow",
-                                "accept_terms": "By proceeding, you accept the Algolia Grow Plan Terms: https://www.algolia.com/policies/grow-plan-specific-terms and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits."
+                                "plan": "grow"
                             },
-                            "label": "grow · By proceeding, you accept the Algolia Grow Plan Terms: https://www.algolia.com/policies/grow-plan-specific-terms and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits.",
+                            "label": "grow",
                             "price": "$0.50 / 1,000 Requests - Free 10,000 Requests / mo - No attribution required - No usage limits",
                             "status": "paid",
                             "description": "Best-in-class Search & Discovery API with free tier.",
                             "isDefault": false,
+                            "terms": "By proceeding, you accept the Algolia Grow Plan Terms: https://www.algolia.com/policies/grow-plan-specific-terms and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits.",
                             "tosUrl": null
                         },
                         {
                             "id": "tier-2",
                             "configuration": {
-                                "plan": "grow-plus",
-                                "accept_terms": "By proceeding, you accept the Algolia Grow Plus Plan Terms: https://www.algolia.com/policies/grow-plus-plan-specific-terms and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits."
+                                "plan": "grow-plus"
                             },
-                            "label": "grow-plus · By proceeding, you accept the Algolia Grow Plus Plan Terms: https://www.algolia.com/policies/grow-plus-plan-specific-terms and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits.",
+                            "label": "grow-plus",
                             "price": "$1.75 / 1,000 Requests - Free 10,000 Requests / mo - No attribution required - No usage limits",
                             "status": "paid",
                             "description": "AI-powered Search & Discovery API with free tier.",
                             "isDefault": false,
+                            "terms": "By proceeding, you accept the Algolia Grow Plus Plan Terms: https://www.algolia.com/policies/grow-plus-plan-specific-terms and the product specific Service Limits available at https://www.algolia.com/doc/guides/scaling/algolia-service-limits.",
                             "tosUrl": null
                         }
                     ],
@@ -483,6 +485,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -514,6 +517,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -545,6 +549,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -675,6 +680,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -705,6 +711,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -735,6 +742,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -765,6 +773,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -940,6 +949,7 @@ export default {
                             "status": "paid",
                             "description": "Tier 1: higher resource limits and all previous tier features",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": "https://blaxel.ai/terms"
                         }
                     ],
@@ -976,6 +986,7 @@ export default {
                             "status": "paid",
                             "description": "Tier 4: higher resource limits and all previous tier features",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": "https://blaxel.ai/terms"
                         }
                     ],
@@ -1012,6 +1023,7 @@ export default {
                             "status": "paid",
                             "description": "Tier 5: higher resource limits and all previous tier features",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": "https://blaxel.ai/terms"
                         }
                     ],
@@ -1048,6 +1060,7 @@ export default {
                             "status": "paid",
                             "description": "Tier 2: higher resource limits and all previous tier features",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": "https://blaxel.ai/terms"
                         }
                     ],
@@ -1084,6 +1097,7 @@ export default {
                             "status": "paid",
                             "description": "Tier 6: higher resource limits and all previous tier features",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": "https://blaxel.ai/terms"
                         }
                     ],
@@ -1120,6 +1134,7 @@ export default {
                             "status": "paid",
                             "description": "Tier 3: higher resource limits and all previous tier features",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": "https://blaxel.ai/terms"
                         }
                     ],
@@ -1245,6 +1260,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1273,6 +1289,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1370,6 +1387,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1398,6 +1416,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1426,6 +1445,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1591,6 +1611,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1683,6 +1704,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1712,6 +1734,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1741,6 +1764,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -1888,6 +1912,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2304,6 +2329,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2397,6 +2423,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2426,6 +2453,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2455,6 +2483,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2581,6 +2610,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2687,6 +2717,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2780,6 +2811,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2811,6 +2843,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2842,6 +2875,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2873,6 +2907,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -2983,6 +3018,7 @@ export default {
                             "status": "paid",
                             "description": "Startup plan",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3012,6 +3048,7 @@ export default {
                             "status": "paid",
                             "description": "Developer plan",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3105,6 +3142,7 @@ export default {
                             "status": "paid",
                             "description": "No monthly fee. Pay-as-you-go sandbox usage with Hobby limits.",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3132,6 +3170,7 @@ export default {
                             "status": "paid",
                             "description": "Pro subscription and usage are billed by E2B.",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3290,6 +3329,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3396,6 +3436,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3408,6 +3449,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3440,6 +3482,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3452,6 +3495,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3484,6 +3528,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3496,6 +3541,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3632,6 +3678,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3644,6 +3691,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3656,6 +3704,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3668,6 +3717,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -3680,6 +3730,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -3892,6 +3943,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4035,6 +4087,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4142,6 +4195,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4170,6 +4224,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4270,6 +4325,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4297,6 +4353,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4526,6 +4583,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4634,6 +4692,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4792,6 +4851,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -4885,6 +4945,7 @@ export default {
                             "status": "paid",
                             "description": "Search API - base request",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4898,6 +4959,7 @@ export default {
                             "status": "paid",
                             "description": "Search API - each result beyond the default 10",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4910,6 +4972,7 @@ export default {
                             "status": "paid",
                             "description": "Extract API",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4923,6 +4986,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - lite processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4936,6 +5000,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - base processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4949,6 +5014,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - core processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4962,6 +5028,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - core2x processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4975,6 +5042,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - pro processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -4988,6 +5056,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - ultra processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5001,6 +5070,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - ultra2x processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5014,6 +5084,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - ultra4x processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5027,6 +5098,7 @@ export default {
                             "status": "paid",
                             "description": "Task API - ultra8x processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5040,6 +5112,7 @@ export default {
                             "status": "paid",
                             "description": "FindAll API - preview generator",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5053,6 +5126,7 @@ export default {
                             "status": "paid",
                             "description": "FindAll API - base generator",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5066,6 +5140,7 @@ export default {
                             "status": "paid",
                             "description": "FindAll API - core generator",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5079,6 +5154,7 @@ export default {
                             "status": "paid",
                             "description": "FindAll API - pro generator",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5092,6 +5168,7 @@ export default {
                             "status": "paid",
                             "description": "Monitor API - lite processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5105,6 +5182,7 @@ export default {
                             "status": "paid",
                             "description": "Monitor API - base processor",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -5168,6 +5246,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5181,6 +5260,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5194,6 +5274,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5207,6 +5288,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5220,6 +5302,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5233,6 +5316,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5246,6 +5330,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5259,6 +5344,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5272,6 +5358,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5285,6 +5372,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5298,6 +5386,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5311,6 +5400,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5324,6 +5414,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5337,6 +5428,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5350,6 +5442,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5363,6 +5456,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5376,6 +5470,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5389,6 +5484,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5402,6 +5498,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5415,6 +5512,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5428,6 +5526,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5441,6 +5540,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5454,6 +5554,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5467,6 +5568,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5480,6 +5582,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5493,6 +5596,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5506,6 +5610,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5519,6 +5624,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5532,6 +5638,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5545,6 +5652,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5558,6 +5666,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5571,6 +5680,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5584,6 +5694,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5597,6 +5708,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5610,6 +5722,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5623,6 +5736,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5636,6 +5750,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5649,6 +5764,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5662,6 +5778,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5675,6 +5792,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5688,6 +5806,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5701,6 +5820,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5714,6 +5834,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5727,6 +5848,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5740,6 +5862,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5753,6 +5876,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5766,6 +5890,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5779,6 +5904,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5792,6 +5918,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5805,6 +5932,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5818,6 +5946,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5831,6 +5960,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5844,6 +5974,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5857,6 +5988,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5870,6 +6002,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5883,6 +6016,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5896,6 +6030,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5909,6 +6044,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5922,6 +6058,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5935,6 +6072,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5948,6 +6086,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5961,6 +6100,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5974,6 +6114,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -5987,6 +6128,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6000,6 +6142,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6013,6 +6156,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6026,6 +6170,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6039,6 +6184,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6052,6 +6198,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6065,6 +6212,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6078,6 +6226,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6091,6 +6240,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6104,6 +6254,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6117,6 +6268,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6130,6 +6282,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6143,6 +6296,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6156,6 +6310,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6169,6 +6324,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6182,6 +6338,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6195,6 +6352,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6208,6 +6366,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6221,6 +6380,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6234,6 +6394,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6247,6 +6408,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6260,6 +6422,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6273,6 +6436,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6286,6 +6450,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6299,6 +6464,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6312,6 +6478,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6325,6 +6492,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6338,6 +6506,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6351,6 +6520,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6364,6 +6534,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6377,6 +6548,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6390,6 +6562,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6403,6 +6576,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6416,6 +6590,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6429,6 +6604,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6442,6 +6618,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6455,6 +6632,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6468,6 +6646,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6481,6 +6660,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6494,6 +6674,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6507,6 +6688,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6520,6 +6702,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6533,6 +6716,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6546,6 +6730,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6559,6 +6744,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6572,6 +6758,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6585,6 +6772,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6598,6 +6786,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6611,6 +6800,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6624,6 +6814,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6637,6 +6828,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -6676,6 +6868,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6689,6 +6882,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6702,6 +6896,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6715,6 +6910,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6728,6 +6924,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6741,6 +6938,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6754,6 +6952,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6767,6 +6966,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6780,6 +6980,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6793,6 +6994,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6806,6 +7008,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6819,6 +7022,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6832,6 +7036,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6845,6 +7050,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6858,6 +7064,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6871,6 +7078,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6884,6 +7092,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6897,6 +7106,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6910,6 +7120,7 @@ export default {
                             "status": "paid",
                             "description": "PS-5 (1/16 vCPU, 512 MB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6923,6 +7134,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6936,6 +7148,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6949,6 +7162,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6962,6 +7176,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6975,6 +7190,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -6988,6 +7204,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7001,6 +7218,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7014,6 +7232,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7027,6 +7246,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7040,6 +7260,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7053,6 +7274,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7066,6 +7288,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7079,6 +7302,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7092,6 +7316,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7105,6 +7330,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7118,6 +7344,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7131,6 +7358,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7144,6 +7372,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7157,6 +7386,7 @@ export default {
                             "status": "paid",
                             "description": "PS-10 (1/8 vCPU, 1 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7170,6 +7400,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7183,6 +7414,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7196,6 +7428,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7209,6 +7442,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7222,6 +7456,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7235,6 +7470,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7248,6 +7484,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7261,6 +7498,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7274,6 +7512,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7287,6 +7526,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7300,6 +7540,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7313,6 +7554,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7326,6 +7568,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7339,6 +7582,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7352,6 +7596,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7365,6 +7610,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7378,6 +7624,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7391,6 +7638,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7404,6 +7652,7 @@ export default {
                             "status": "paid",
                             "description": "PS-20 (1/4 vCPU, 2 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7417,6 +7666,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7430,6 +7680,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7443,6 +7694,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7456,6 +7708,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7469,6 +7722,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7482,6 +7736,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7495,6 +7750,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7508,6 +7764,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7521,6 +7778,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7534,6 +7792,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7547,6 +7806,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7560,6 +7820,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7573,6 +7834,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7586,6 +7848,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7599,6 +7862,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7612,6 +7876,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7625,6 +7890,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7638,6 +7904,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7651,6 +7918,7 @@ export default {
                             "status": "paid",
                             "description": "PS-40 (1/2 vCPU, 4 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7664,6 +7932,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7677,6 +7946,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7690,6 +7960,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7703,6 +7974,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7716,6 +7988,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7729,6 +8002,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7742,6 +8016,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7755,6 +8030,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7768,6 +8044,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7781,6 +8058,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7794,6 +8072,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7807,6 +8086,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7820,6 +8100,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7833,6 +8114,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7846,6 +8128,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7859,6 +8142,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7872,6 +8156,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7885,6 +8170,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7898,6 +8184,7 @@ export default {
                             "status": "paid",
                             "description": "PS-80 (1 vCPU, 8 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7911,6 +8198,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7924,6 +8212,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7937,6 +8226,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7950,6 +8240,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7963,6 +8254,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7976,6 +8268,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -7989,6 +8282,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8002,6 +8296,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8015,6 +8310,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8028,6 +8324,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8041,6 +8338,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8054,6 +8352,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8067,6 +8366,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8080,6 +8380,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8093,6 +8394,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8106,6 +8408,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8119,6 +8422,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8132,6 +8436,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8145,6 +8450,7 @@ export default {
                             "status": "paid",
                             "description": "PS-160 (2 vCPUs, 16 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8158,6 +8464,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS us-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8171,6 +8478,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS us-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8184,6 +8492,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS eu-west-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8197,6 +8506,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-south-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8210,6 +8520,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-southeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8223,6 +8534,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-northeast-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8236,6 +8548,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS eu-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8249,6 +8562,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ap-southeast-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8262,6 +8576,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS sa-east-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8275,6 +8590,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP us-central1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8288,6 +8604,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS eu-west-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8301,6 +8618,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP us-east4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8314,6 +8632,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP northamerica-northeast1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8327,6 +8646,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP asia-northeast3",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8340,6 +8660,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS us-east-2",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8353,6 +8674,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – AWS ca-central-1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8366,6 +8688,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP europe-west1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8379,6 +8702,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP us-east1",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8392,6 +8716,7 @@ export default {
                             "status": "paid",
                             "description": "PS-320 (4 vCPUs, 32 GB RAM) – GCP europe-west4",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8456,6 +8781,7 @@ export default {
                             "status": "free",
                             "description": "Test mode includes fake credits and simulated mail events.",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -8466,8 +8792,9 @@ export default {
                             "label": "payg",
                             "price": "Usage-based postal mail: US letters from $1.80 + $0.20/page B/W or $0.40/page color; postcards from $1.50.",
                             "status": "paid",
-                            "description": "Billed per submitted mailpiece through Stripe Projects. USPS Certified Mail adds $8.00, Canada Post Registered Mail adds $32.00, and Electronic Return Receipt adds $3.00 for eligible U.S. Certified Mail; international and expedited mail are quoted by route and options.",
+                            "description": "Billed per submitted mailpiece through the provisioning API. USPS Certified Mail adds $8.00, Canada Post Registered Mail adds $32.00, and Electronic Return Receipt adds $3.00 for eligible U.S. Certified Mail; international and expedited mail are quoted by route and options.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8552,6 +8879,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8665,6 +8993,7 @@ export default {
                             "status": "paid",
                             "description": "Business: includes 50M queries and 100 GiB-month storage per billing cycle; usage beyond the included amounts is billed as metered overages.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8694,6 +9023,7 @@ export default {
                             "status": "paid",
                             "description": "Pro: includes 10M queries and 50 GiB-month storage per billing cycle; usage beyond the included amounts is billed as metered overages.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8723,6 +9053,7 @@ export default {
                             "status": "paid",
                             "description": "Starter: includes 1M queries and 10 GiB-month storage per billing cycle; usage beyond the included amounts is billed as metered overages.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8738,7 +9069,7 @@ export default {
                 {
                     "serviceId": "database",
                     "ref": "prisma/database",
-                    "description": "Prisma Postgres — managed Postgres for Stripe Projects.",
+                    "description": "Prisma Postgres — managed Postgres for your project.",
                     "categories": [
                         "database"
                     ],
@@ -8849,6 +9180,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8877,6 +9209,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -8905,6 +9238,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9032,6 +9366,7 @@ export default {
                             "status": "paid",
                             "description": "Enough seats, guests and projects for your AI Application.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9062,6 +9397,7 @@ export default {
                             "status": "paid",
                             "description": "Includes 5 seats and 5 projects. Extra seats $25/month each, up to 12 seats.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9176,6 +9512,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9203,6 +9540,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9478,6 +9816,7 @@ export default {
                             "status": "free",
                             "description": "256MB RAM, 0.1 CPU, 1 GB storage",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -9490,6 +9829,7 @@ export default {
                             "status": "paid",
                             "description": "256MB RAM, 0.1 CPU, $0.30/GB monthly storage",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -9502,6 +9842,7 @@ export default {
                             "status": "paid",
                             "description": "1GB RAM, 0.5 CPU, $0.30/GB monthly storage",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -9514,6 +9855,7 @@ export default {
                             "status": "paid",
                             "description": "4GB RAM, 2 CPU, $0.30/GB monthly storage",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9575,6 +9917,7 @@ export default {
                             "status": "free",
                             "description": "512MB RAM, 0.1 CPU",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -9587,6 +9930,7 @@ export default {
                             "status": "paid",
                             "description": "512MB RAM, 0.5 CPU",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -9599,6 +9943,7 @@ export default {
                             "status": "paid",
                             "description": "2GB RAM, 1 CPU",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9712,6 +10057,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9740,6 +10086,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9846,6 +10193,7 @@ export default {
                             "status": "paid",
                             "description": "Growth",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9953,6 +10301,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -9981,6 +10330,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10082,12 +10432,12 @@ export default {
                 "status": "free",
                 "label": "Free tier"
             },
-            "description": "Shopify is the leading commerce platform powering millions of businesses worldwide. The Shopify app lets developers provision a fully hosted Shopify online store directly from Stripe Projects – no separate signup or context switching. Choose a plan, launch your storefront, and manage billing through Stripe, so you can go from idea to selling in just a few clicks.",
+            "description": "Shopify is the leading commerce platform powering millions of businesses worldwide. The Shopify app lets developers provision a fully hosted Shopify online store directly from the provisioning API – no separate signup or context switching. Choose a plan, launch your storefront, and manage billing in one place, so you can go from idea to selling in just a few clicks.",
             "categories": [
                 "ecommerce"
             ],
             "pageUrl": "/marketplace/shopify/",
-            "searchText": "shopify shopify shopify is the leading commerce platform powering millions of businesses worldwide. the shopify app lets developers provision a fully hosted shopify online store directly from stripe projects – no separate signup or context switching. choose a plan, launch your storefront, and manage billing through stripe, so you can go from idea to selling in just a few clicks. ecommerce shopify/store",
+            "searchText": "shopify shopify shopify is the leading commerce platform powering millions of businesses worldwide. the shopify app lets developers provision a fully hosted shopify online store directly from the provisioning api – no separate signup or context switching. choose a plan, launch your storefront, and manage billing in one place, so you can go from idea to selling in just a few clicks. ecommerce shopify/store",
             "plans": [],
             "deployables": [
                 {
@@ -10111,6 +10461,7 @@ export default {
                             "status": "free",
                             "description": "Start building for free for 4 months. Subscribe when you are ready to sell.",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10123,6 +10474,7 @@ export default {
                             "status": "paid",
                             "description": "For solo entrepreneurs. Owner account only. 2.9% + 30¢ online. 2% third-party fee.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10135,6 +10487,7 @@ export default {
                             "status": "paid",
                             "description": "For small teams. Owner account and 5 staff. 2.7% + 30¢ online. 1% third-party fee.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10147,6 +10500,7 @@ export default {
                             "status": "paid",
                             "description": "For growing global businesses. Owner account and 15 staff. 2.5% + 30¢ online. 0.6% third-party fee.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10289,7 +10643,7 @@ export default {
                 {
                     "serviceId": "plan-launch",
                     "ref": "steel/plan-launch",
-                    "description": "Steel Launch — usage-based cloud browsers. $30 free signup credit, then pay-as-you-go. Anti-bot/captcha unlocks once a payment method (your Stripe SPT) is on file.",
+                    "description": "Steel Launch — usage-based cloud browsers. $30 free signup credit, then pay-as-you-go. Anti-bot/captcha unlocks once a payment method is on file.",
                     "categories": [
                         "browser"
                     ],
@@ -10321,6 +10675,7 @@ export default {
                             "status": "paid",
                             "description": "Platform fee billed monthly; usage billed in arrears.",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10434,6 +10789,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10464,6 +10820,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10574,6 +10931,7 @@ export default {
                             "status": "free",
                             "description": "Free tier",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10586,6 +10944,7 @@ export default {
                             "status": "paid",
                             "description": "Pro tier",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10598,6 +10957,7 @@ export default {
                             "status": "paid",
                             "description": "Max tier",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10610,6 +10970,7 @@ export default {
                             "status": "paid",
                             "description": "Scale tier",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10678,6 +11039,7 @@ export default {
                             "status": "free",
                             "description": "10,000 credits included.",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10690,6 +11052,7 @@ export default {
                             "status": "paid",
                             "description": "100,000 credits included, then $0.30 per 1,000.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10702,6 +11065,7 @@ export default {
                             "status": "paid",
                             "description": "500,000 credits included, then $0.30 per 1,000.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -10714,6 +11078,7 @@ export default {
                             "status": "paid",
                             "description": "3,000,000 credits included, then $0.25 per 1,000.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10794,6 +11159,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10825,6 +11191,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10853,6 +11220,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10880,6 +11248,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10909,6 +11278,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -10939,6 +11309,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11060,6 +11431,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11086,6 +11458,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11181,6 +11554,7 @@ export default {
                             "status": "free",
                             "description": "Free tier: 500 messages/day",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11193,6 +11567,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11229,6 +11604,7 @@ export default {
                             "status": "free",
                             "description": "Free tier: 500,000 commands/month, 256MB storage",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11241,6 +11617,7 @@ export default {
                             "status": "paid",
                             "description": "Data transfer included up to monthly limits",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11277,6 +11654,7 @@ export default {
                             "status": "free",
                             "description": "Free tier: 10,000 documents",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11289,6 +11667,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11326,6 +11705,7 @@ export default {
                             "status": "free",
                             "description": "Free tier: 10,000 vectors, 1,000 queries/day",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11338,6 +11718,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11415,6 +11796,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11490,7 +11872,7 @@ export default {
                 {
                     "serviceId": "headless",
                     "ref": "wix/headless",
-                    "description": "Use Wix Business to let your customers purchase products and services through your Stripe-powered site.",
+                    "description": "Use Wix Business to let your customers purchase products and services through your site.",
                     "categories": [
                         "ecommerce"
                     ],
@@ -11508,6 +11890,7 @@ export default {
                             "status": "free",
                             "description": "",
                             "isDefault": true,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11520,6 +11903,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11607,6 +11991,7 @@ export default {
                             "status": "free",
                             "description": "Launch your site on the web at no cost, with 1 GB of storage, built-in visitor stats, and community support to get you started.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11619,6 +12004,7 @@ export default {
                             "status": "paid",
                             "description": "Install any plugin or theme and make it yours with a custom domain, premium themes, and an ad-free experience. Adds 6 GB of storage.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11631,6 +12017,7 @@ export default {
                             "status": "paid",
                             "description": "Powerful design and customization tools, 4K video uploads, and deeper analytics, including Google Analytics integration. Adds 13 GB of storage.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11643,6 +12030,7 @@ export default {
                             "status": "paid",
                             "description": "Unlock the full power of managed WordPress and 24/7 priority support: use staging, real-time backups, SFTP/SSH, WP-CLI, and Git. Adds 50 GB of storage.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11655,6 +12043,7 @@ export default {
                             "status": "paid",
                             "description": "Everything in Business plus a complete online store. Sell unlimited products with WooCommerce, premium store themes, and zero transaction fees on payments.",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],
@@ -11717,6 +12106,7 @@ export default {
                             "status": "free",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         },
                         {
@@ -11729,6 +12119,7 @@ export default {
                             "status": "paid",
                             "description": "",
                             "isDefault": false,
+                            "terms": null,
                             "tosUrl": null
                         }
                     ],

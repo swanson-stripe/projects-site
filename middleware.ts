@@ -8,12 +8,16 @@ const SITE_URL_FALLBACK = 'https://projects.dev';
 const HOME_LINK_HEADER = '</.well-known/api-catalog>; rel="api-catalog", </docs/api/>; rel="service-doc", </index.html.md>; rel="alternate"; type="text/markdown"';
 
 /*
- * provisioning.dev serves the marketplace, not the main site. The redirect in
- * vercel.json covers this too, but a redirect puts /marketplace/bold/ in the
+ * These hosts serve the marketplace, not the main site. The redirects in
+ * vercel.json cover them too, but a redirect puts /marketplace/bold/ in the
  * address bar; rewriting here keeps the bare domain. Exact hosts rather than a
  * suffix test, so a lookalike host can never match.
  */
-const MARKETPLACE_HOSTS = new Set(['provisioning.dev', 'www.provisioning.dev']);
+const MARKETPLACE_HOSTS = new Set([
+  'provisioning.dev',
+  'www.provisioning.dev',
+  'provisioning.stripe.dev',
+]);
 const MARKETPLACE_FRONT_DOOR = '/marketplace/bold/';
 
 function getSiteUrl(req: Request): string {

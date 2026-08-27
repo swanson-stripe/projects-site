@@ -1,5 +1,5 @@
 /**
- * "My stack" drawer — the UI equivalent of `stripe projects status`, with the
+ * "My stack" drawer — the UI equivalent of `provisioning status`, with the
  * management commands attached to each row: `env`, `rotate`, `upgrade`, and
  * `remove`.
  */
@@ -267,7 +267,7 @@ function bindBody(body) {
     });
 }
 
-/** `stripe projects remove <resource>` asks before deprovisioning. */
+/** `provisioning remove <resource>` asks before deprovisioning. */
 function confirmRemove(resourceId) {
     const resource = store.findResource(resourceId);
     if (!resource) return;
@@ -300,7 +300,7 @@ function confirmRemove(resourceId) {
     });
 }
 
-/** `stripe projects upgrade` / `downgrade` on the provider's plan. */
+/** `provisioning upgrade` / `downgrade` on the provider's plan. */
 function openPlanChange(planId) {
     const plan = store.getState().plans.find((item) => item.id === planId);
     if (!plan) return;
@@ -309,13 +309,17 @@ function openPlanChange(planId) {
     // so the drawer can offer them without the full catalog on the page.
     const resource = store.listResources(plan.providerSlug).find((item) => item.planOptions?.length);
     const options = (resource?.planOptions ?? []).filter((option) => (plan.updateableTo ?? []).includes(option.planServiceId));
-    const candidates = options.length
-        ? options
-        : (plan.updateableTo ?? []).map((planServiceId) => ({ planServiceId, status: "paid", price: "See provider pricing" }));
+    // switchOptions carries each plan's own list price; planOptions only carries
+    // what the deployable costs under it, which is a different number.
+    const candidates = plan.switchOptions?.length
+        ? plan.switchOptions
+        : options.length
+          ? options
+          : (plan.updateableTo ?? []).map((planServiceId) => ({ planServiceId, status: "paid", price: "See provider pricing" }));
 
     const rows = candidates
         .map(
-            (option) => html`<label class="flex items-start gap-10 p-12 rounded-6 border ${option.planServiceId === plan.planServiceId ? "border-primary bg-brand-25" : "border-edge bg-highlight"} cursor-pointer">
+            (option) => html`<label class="mkt-choice${option.planServiceId === plan.planServiceId ? " mkt-choice-active" : ""} flex items-start gap-10 p-12 rounded-6 border transition-colors duration-150 cursor-pointer" data-next-plan-row>
                 <input type="radio" name="next-plan" value="${escapeHtml(option.planServiceId)}" ${option.planServiceId === plan.planServiceId ? "checked" : ""} class="mt-3 accent-primary shrink-0">
                 <span class="min-w-0 flex-1">
                     <span class="flex items-center gap-8">
@@ -338,6 +342,14 @@ function openPlanChange(planId) {
             modalFooter("", secondaryButton("Cancel", "data-modal-close") + primaryButton("Apply", "data-apply-plan data-autofocus")),
     );
     if (!card) return;
+
+    // Without this the radio moved but the highlight stayed on the current plan.
+    card.querySelectorAll("[data-next-plan-row]").forEach((label) => {
+        label.addEventListener("click", () => {
+            card.querySelectorAll("[data-next-plan-row]").forEach((other) => other.classList.remove("mkt-choice-active"));
+            label.classList.add("mkt-choice-active");
+        });
+    });
 
     card.querySelector("[data-apply-plan]")?.addEventListener("click", async (event) => {
         const selected = card.querySelector('input[name="next-plan"]:checked')?.value;

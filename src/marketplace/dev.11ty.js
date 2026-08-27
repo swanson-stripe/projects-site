@@ -1,6 +1,6 @@
 import { renderMarketplaceDevsite, MARKETPLACE_ORIGIN } from "../lib/marketplace-pages.js";
 
-/** stripe.dev treatment of the Plaza: paper ground, mono labels, table listing. */
+/** Editorial .dev treatment of the Plaza: paper ground, mono labels, table listing. */
 export default class MarketplaceDevPage {
     data() {
         return {
@@ -12,14 +12,12 @@ export default class MarketplaceDevPage {
             sitemap: false,
             layout: "main.webc",
             title: "Provisioning Plaza .dev",
-            seoTitle: "Stripe Provisioning: Provisioning Plaza (.dev)",
-            ogTitle: "Stripe Provisioning: Provisioning Plaza (.dev)",
+            seoTitle: "Provisioning API: Provisioning Plaza (.dev)",
+            ogTitle: "Provisioning API: Provisioning Plaza (.dev)",
             seoDesc:
-                "stripe.dev treatment of the Stripe Projects marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
+                "Editorial .dev treatment of the provisioning marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             ogDesc:
-                "stripe.dev treatment of the Stripe Projects marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
-            ogImage: "/assets/images/og/default.jpg",
-            ogImageAlt: "",
+                "Editorial .dev treatment of the provisioning marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             changefreq: "weekly",
             wave: false,
         };

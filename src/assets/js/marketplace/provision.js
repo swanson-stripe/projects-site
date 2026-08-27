@@ -1,11 +1,11 @@
 /**
  * The provisioning flow, step for step against the CLI:
  *
- *   service selection   →  `stripe projects add <provider>` service picker
+ *   service selection   →  `provisioning add <provider>` service picker
  *   plan / pricing      →  companion plan or pricing-configuration prompt
  *   review + terms      →  confirmation card, then "Accept and provision?"
  *   provisioning        →  the progress tree
- *   credentials         →  `stripe projects env` with values revealed
+ *   credentials         →  `provisioning env` with values revealed
  */
 
 import * as api from "./api.js";
@@ -54,12 +54,12 @@ const RECOVERY = {
 /* Step 1 — service selection                                                 */
 /* -------------------------------------------------------------------------- */
 
-/** The picker `stripe projects add <provider>` shows when no service is named. */
+/** The picker `provisioning add <provider>` shows when no service is named. */
 export function openServicePicker(provider) {
     const rows = provider.deployables
         .map((service) => {
             const provisioned = store.hasResource(provider.slug, service.serviceId);
-            return html`<button type="button" data-pick="${escapeHtml(service.serviceId)}" class="w-full flex items-start justify-between gap-12 px-12 py-10 rounded-6 border border-edge bg-highlight hover:bg-foreground hover:border-neutral-100 transition-all duration-150 text-left cursor-pointer outline-none focus-visible:shadow-focus">
+            return html`<button type="button" data-pick="${escapeHtml(service.serviceId)}" class="mkt-choice w-full flex items-start justify-between gap-12 px-12 py-10 rounded-6 border transition-all duration-150 text-left cursor-pointer outline-none focus-visible:shadow-focus">
                 <span class="min-w-0">
                     <span class="flex items-center gap-8 flex-wrap">
                         <span class="font-mono text-12 text-headline">${escapeHtml(service.ref)}</span>
@@ -142,14 +142,14 @@ function openPlanStep(provider, service) {
 
     const rows = options
         .map(
-            (option) => html`<label class="flex items-start gap-10 p-12 rounded-6 border ${option.planServiceId === preselected.planServiceId ? "border-primary bg-brand-25" : "border-edge bg-highlight"} hover:border-neutral-100 transition-colors duration-150 cursor-pointer" data-plan-row="${escapeHtml(option.planServiceId)}">
+            (option) => html`<label class="mkt-choice${option.planServiceId === preselected.planServiceId ? " mkt-choice-active" : ""} flex items-start gap-10 p-12 rounded-6 border transition-colors duration-150 cursor-pointer" data-plan-row="${escapeHtml(option.planServiceId)}">
                 <input type="radio" name="plan" value="${escapeHtml(option.planServiceId)}" ${option.planServiceId === preselected.planServiceId ? "checked" : ""} class="mt-3 accent-primary shrink-0">
                 <span class="min-w-0 flex-1">
                     <span class="flex items-center gap-8 flex-wrap">
                         <span class="font-mono text-12 text-headline">${escapeHtml(option.ref)}</span>
                         ${option.isActive ? `<span class="inline-flex items-center h-18 px-6 rounded-full bg-success-100 text-success-400 text-10">Already provisioned</span>` : ""}
                     </span>
-                    ${option.description ? `<span class="block text-11/140 text-detail mt-3">${escapeHtml(option.description)}</span>` : ""}
+                    ${option.description && option.description !== option.price ? `<span class="block text-11/140 text-detail mt-3">${escapeHtml(option.description)}</span>` : ""}
                     <span class="flex items-center gap-6 text-11 text-detail mt-5">${pricing(option.status, option.price)}</span>
                 </span>
             </label>`,
@@ -173,10 +173,8 @@ function openPlanStep(provider, service) {
 
     card.querySelectorAll("[data-plan-row]").forEach((label) => {
         label.addEventListener("click", () => {
-            card.querySelectorAll("[data-plan-row]").forEach((other) => {
-                other.className = other.className.replace("border-primary bg-brand-25", "border-edge bg-highlight");
-            });
-            label.className = label.className.replace("border-edge bg-highlight", "border-primary bg-brand-25");
+            card.querySelectorAll("[data-plan-row]").forEach((other) => other.classList.remove("mkt-choice-active"));
+            label.classList.add("mkt-choice-active");
         });
     });
 
@@ -197,14 +195,16 @@ function openTierStep(provider, service) {
 
     const rows = service.tiers
         .map(
-            (tier) => html`<label class="flex items-start gap-10 p-12 rounded-6 border ${tier.id === preselected.id ? "border-primary bg-brand-25" : "border-edge bg-highlight"} hover:border-neutral-100 transition-colors duration-150 cursor-pointer" data-tier-row="${escapeHtml(tier.id)}">
+            (tier) => html`<label class="mkt-choice${tier.id === preselected.id ? " mkt-choice-active" : ""} flex items-start gap-10 p-12 rounded-6 border transition-colors duration-150 cursor-pointer" data-tier-row="${escapeHtml(tier.id)}">
                 <input type="radio" name="tier" value="${escapeHtml(tier.id)}" ${tier.id === preselected.id ? "checked" : ""} class="mt-3 accent-primary shrink-0">
                 <span class="min-w-0 flex-1">
                     <span class="flex items-center gap-8 flex-wrap">
                         <span class="text-12 text-headline capitalize">${escapeHtml(tier.label)}</span>
                         ${tier.isDefault ? `<span class="text-10 text-detail">default</span>` : ""}
                     </span>
-                    ${tier.description ? `<span class="block text-11/140 text-detail mt-3">${escapeHtml(tier.description)}</span>` : ""}
+                    <!-- Skipped when it duplicates the price: a tier with no freeform
+                         price falls back to its description for both lines. -->
+                    ${tier.description && tier.description !== tier.price ? `<span class="block text-11/140 text-detail mt-3">${escapeHtml(tier.description)}</span>` : ""}
                     <span class="flex items-center gap-6 text-11 text-detail mt-5">${pricing(tier.status, tier.price)}</span>
                 </span>
             </label>`,
@@ -225,10 +225,8 @@ function openTierStep(provider, service) {
 
     card.querySelectorAll("[data-tier-row]").forEach((label) => {
         label.addEventListener("click", () => {
-            card.querySelectorAll("[data-tier-row]").forEach((other) => {
-                other.className = other.className.replace("border-primary bg-brand-25", "border-edge bg-highlight");
-            });
-            label.className = label.className.replace("border-edge bg-highlight", "border-primary bg-brand-25");
+            card.querySelectorAll("[data-tier-row]").forEach((other) => other.classList.remove("mkt-choice-active"));
+            label.classList.add("mkt-choice-active");
         });
     });
 
@@ -282,22 +280,43 @@ function openReviewStep(provider, service, { plan, tier }) {
         });
     }
 
-    const tosBlock = linked
+    /*
+     * Plan-specific terms the provider files on the tier. These used to be
+     * concatenated into the tier's label, which turned the picker heading into a
+     * paragraph. They belong with the account terms, in one box — two separate
+     * "By proceeding…" paragraphs on one card just read as a mistake.
+     */
+    const tierTerms = tier?.terms
+        ? html`<p class="text-12/150 text-content${linked ? "" : " mt-8 pt-8 border-t border-edge"}">${escapeHtml(tier.terms)}</p>`
+        : "";
+
+    const accountTerms = linked
+        ? ""
+        : html`<p class="text-12/150 text-content">
+            By proceeding, you accept the
+            <a href="${escapeHtml(provider.tosUrl)}" target="_blank" rel="noopener" class="font-normal text-primary hover:text-primary-hover underline">${escapeHtml(provider.name)} Terms of Service</a>,
+            <a href="${escapeHtml(provider.privacyUrl)}" target="_blank" rel="noopener" class="font-normal text-primary hover:text-primary-hover underline">Privacy Policy</a>,
+            and agree to share your name, email, country, and phone number with ${escapeHtml(provider.name)} to provision and manage your resources.
+        </p>`;
+
+    // A linked provider needs no acceptance, so the box only appears at all when
+    // the tier carries terms of its own.
+    const tosBlock = linked && !tier?.terms
         ? ""
         : html`<div class="px-20 pb-16">
             <div class="p-12 rounded-6 border border-edge bg-foreground">
-                <p class="text-12/150 text-content">
-                    By proceeding, you accept the
-                    <a href="${escapeHtml(provider.tosUrl)}" target="_blank" rel="noopener" class="font-normal text-primary hover:text-primary-hover underline">${escapeHtml(provider.name)} Terms of Service</a>,
-                    <a href="${escapeHtml(provider.privacyUrl)}" target="_blank" rel="noopener" class="font-normal text-primary hover:text-primary-hover underline">Privacy Policy</a>,
-                    and agree to share your name, email, country, and phone number with ${escapeHtml(provider.name)} to provision and manage your resources.
-                </p>
-                <p class="text-12 text-detail mt-8">Accepting as <span class="text-headline">${escapeHtml(state.identity.email)}</span></p>
+                ${accountTerms}
+                ${tierTerms}
+                ${linked ? "" : html`<p class="text-12 text-detail mt-8">Accepting as <span class="text-headline">${escapeHtml(state.identity.email)}</span></p>`}
             </div>
-            <label class="flex items-center gap-8 mt-10 cursor-pointer">
+            ${
+                linked
+                    ? ""
+                    : html`<label class="flex items-center gap-8 mt-10 cursor-pointer">
                 <input data-accept-tos type="checkbox" class="accent-primary">
                 <span class="text-12 text-content">I accept these terms</span>
-            </label>
+            </label>`
+            }
         </div>`;
 
     const card = openModal(

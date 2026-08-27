@@ -11,14 +11,12 @@ export default class MarketplaceIndexPage {
             sitemap: false,
             layout: "main.webc",
             title: "Marketplace",
-            seoTitle: "Stripe Projects: Marketplace demo",
-            ogTitle: "Stripe Projects: Marketplace demo",
+            seoTitle: "Provisioning API: Marketplace demo",
+            ogTitle: "Provisioning API: Marketplace demo",
             seoDesc:
-                "Mock marketplace for the Stripe Projects provisioning flows. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
+                "Mock marketplace for the provisioning API flows. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             ogDesc:
-                "Mock marketplace for the Stripe Projects provisioning flows. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
-            ogImage: "/assets/images/og/default.jpg",
-            ogImageAlt: "",
+                "Mock marketplace for the provisioning API flows. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             changefreq: "weekly",
             wave: false,
         };
