@@ -1,7 +1,7 @@
 /**
  * Mock provisioning backend.
  *
- * Every call here stands in for a `stripe projects …` invocation: it takes the
+ * Every call here stands in for a `provisioning …` invocation: it takes the
  * same preconditions, fails with the same error codes, reports the same
  * progress steps, and returns records shaped like the CLI's own. Nothing leaves
  * the browser.
@@ -105,7 +105,7 @@ function mintCredentials(provider, service, resourceName) {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Stands in for `stripe projects link <provider>` — the account request the CLI
+ * Stands in for `provisioning link <provider>` — the account request the CLI
  * makes after terms are accepted. Terms acceptance is a hard precondition: the
  * CLI throws TOS_NOT_ACCEPTED rather than provisioning.
  */
@@ -145,7 +145,7 @@ export function unlinkProvider(slug) {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Stands in for `stripe projects add <provider>/<plan>` for a plan-kind service.
+ * Stands in for `provisioning add <provider>/<plan>` for a plan-kind service.
  * A plan carries pricing and limits; the deployable attaches to it.
  */
 export async function provisionPlan(provider, plan) {
@@ -166,12 +166,28 @@ export async function provisionPlan(provider, plan) {
         provisionedAt: new Date().toISOString(),
         // Plans this one can be switched to, driving upgrade/downgrade.
         updateableTo: plan.updateableTo,
+        /*
+         * List price of each of those plans, captured here because the drawer has
+         * no catalog on the page. Without it the change-plan picker fell back to
+         * the deployable's price under each plan — usually "Free" — and showed
+         * that beside the drawer's own "$200.00 per month" for the same plan.
+         */
+        switchOptions: (plan.updateableTo ?? []).map((serviceId) => {
+            const target = provider.plans.find((item) => item.serviceId === serviceId);
+            return {
+                planServiceId: serviceId,
+                ref: target?.ref ?? `${provider.slug}/${serviceId}`,
+                description: target?.description ?? "",
+                price: target?.price ?? "See provider pricing",
+                status: target?.status ?? "paid",
+            };
+        }),
     };
     store.savePlan(record);
     return { record, reused: false };
 }
 
-/** Stands in for `stripe projects upgrade` / `downgrade` on a plan. */
+/** Stands in for `provisioning upgrade` / `downgrade` on a plan. */
 export async function changePlan(providerSlug, nextPlan) {
     const current = store.getProviderPlan(providerSlug);
     if (!current) throw new ProvisioningError("No plan provisioned for this provider.", "PLAN_REQUIRED");
@@ -203,7 +219,7 @@ export async function changePlan(providerSlug, nextPlan) {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Stands in for `stripe projects add <provider>/<service>`.
+ * Stands in for `provisioning add <provider>/<service>`.
  *
  * `onStep` is called as each provisioning step completes, matching the CLI's
  * progress tree: requesting → waiting → syncing credentials → updating config.
@@ -280,7 +296,7 @@ export async function provisionResource(provider, service, options = {}) {
     return record;
 }
 
-/** Stands in for `stripe projects rotate <resource>`. */
+/** Stands in for `provisioning rotate <resource>`. */
 export async function rotateCredentials(resourceId) {
     const resource = store.findResource(resourceId);
     if (!resource) throw new ProvisioningError("Resource not found.", "UNKNOWN_ERROR");
@@ -300,7 +316,7 @@ export async function rotateCredentials(resourceId) {
     return updated;
 }
 
-/** Stands in for `stripe projects remove <resource>`. */
+/** Stands in for `provisioning remove <resource>`. */
 export async function deprovisionResource(resourceId) {
     await latency(600, 1000);
     store.removeResource(resourceId);
@@ -310,9 +326,9 @@ export async function deprovisionResource(resourceId) {
 /* Environment                                                                */
 /* -------------------------------------------------------------------------- */
 
-/** The `.env` `stripe projects env --pull` would write for the whole project. */
+/** The `.env` `provisioning env --pull` would write for the whole project. */
 export function buildEnvFile() {
-    const lines = [`# ${store.getState().project.name} — Stripe Projects`, ""];
+    const lines = [`# ${store.getState().project.name} — provisioned services`, ""];
     for (const resource of store.listResources()) {
         lines.push(`# ${resource.ref} (${resource.name})`);
         for (const credential of resource.credentials) {

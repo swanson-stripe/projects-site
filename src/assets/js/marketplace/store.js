@@ -1,12 +1,14 @@
 /**
  * Demo state for the marketplace.
  *
- * Stands in for everything the CLI keeps under `.projects/` — the project, the
- * linked provider accounts, provisioned plans and resources, and the credential
- * vault. Persisted to localStorage so a demo survives a reload.
+ * Stands in for everything the CLI keeps in its state directory — the project,
+ * the linked provider accounts, provisioned plans and resources, and the
+ * credential vault. Persisted to localStorage so a demo survives a reload.
  */
 
-const STORAGE_KEY = "stripe-projects-marketplace-demo";
+// Renamed when the demo dropped its branding; an old key is simply ignored, so
+// a returning visitor starts from an empty stack rather than a mixed one.
+const STORAGE_KEY = "provisioning-marketplace-demo";
 const VERSION = 1;
 
 const listeners = new Set();
@@ -14,9 +16,9 @@ const listeners = new Set();
 function emptyState() {
     return {
         version: VERSION,
-        // A project is assumed to exist — `stripe projects init` is out of scope.
+        // A project is assumed to exist — `provisioning init` is out of scope.
         project: { id: "proj_demo_8Xq2", name: "my-app" },
-        // Payment method on file, as `stripe projects billing show` would report.
+        // Payment method on file, as `provisioning billing show` would report.
         billing: { brand: "Visa", last4: "4242", expMonth: 12, expYear: 2029 },
         identity: { email: "you@example.com" },
         providers: {},

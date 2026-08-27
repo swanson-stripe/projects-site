@@ -12,14 +12,12 @@ export default class MarketplaceBoldPage {
             sitemap: false,
             layout: "main.webc",
             title: "Provisioning Plaza",
-            seoTitle: "Stripe Provisioning: Provisioning Plaza",
-            ogTitle: "Stripe Provisioning: Provisioning Plaza",
+            seoTitle: "Provisioning API: Provisioning Plaza",
+            ogTitle: "Provisioning API: Provisioning Plaza",
             seoDesc:
-                "Brand-flooded treatment of the Stripe Projects marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
+                "Brand-flooded treatment of the provisioning marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             ogDesc:
-                "Brand-flooded treatment of the Stripe Projects marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
-            ogImage: "/assets/images/og/default.jpg",
-            ogImageAlt: "",
+                "Brand-flooded treatment of the provisioning marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             changefreq: "weekly",
             wave: false,
         };

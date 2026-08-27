@@ -11,22 +11,25 @@
     <meta name="description" :content="this.seoDesc">
 
     <!--- OpenGraph --->
-    <meta property="og:site_name" :content="base.name" />
+    <!--- siteName lets the unbranded marketplace pages name themselves. --->
+    <meta property="og:site_name" :content="this.siteName || base.name" />
     <meta property="og:type" content="website" />
     <meta property="og:title" :content="this.ogTitle" />
     <meta property="og:description" :content="this.ogDesc" />
     <meta property="og:url" :content="this.ogUrl || (base.siteOrigin + page.url)" />
-    <meta property="og:image" :content="base.siteOrigin + this.ogImage" />
-    <meta property="og:image:width" content="1024" />
-    <meta property="og:image:height" content="535" />
-    <meta property="og:image:alt" :content="this.ogImageAlt" />
+    <!--- No ogImage means no card: better than a branded card on a page that
+          carries none of that branding. --->
+    <meta webc:if="this.ogImage" property="og:image" :content="base.siteOrigin + this.ogImage" />
+    <meta webc:if="this.ogImage" property="og:image:width" content="1024" />
+    <meta webc:if="this.ogImage" property="og:image:height" content="535" />
+    <meta webc:if="this.ogImage" property="og:image:alt" :content="this.ogImageAlt" />
 
     <!--- Twitter --->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@stripe" />
+    <meta webc:if="this.twitterSite !== false" name="twitter:site" content="@stripe" />
     <meta name="twitter:title" :content="this.ogTitle" />
     <meta name="twitter:description" :content="this.ogDesc" />
-    <meta name="twitter:image" :content="base.siteOrigin + (this.twitterImage || this.ogImage)" />
+    <meta webc:if="this.twitterImage || this.ogImage" name="twitter:image" :content="base.siteOrigin + (this.twitterImage || this.ogImage)" />
 
 
     <!--- Load fonts --->

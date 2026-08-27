@@ -506,6 +506,30 @@
     box-shadow: var(--shadow-focus);
 }
 
+/*
+ * Marketplace: selectable row in the service, plan, and pricing pickers.
+ *
+ * The selected state used to be `border-primary bg-brand-25`. brand-25 is a
+ * near-white tint, so inside .mkt-dark — where headline text is near-white too —
+ * the chosen row went unreadable. Mixing the primary into whatever the current
+ * surface is keeps the same tinted look in both themes.
+ */
+.mkt-choice {
+    background-color: var(--color-highlight);
+    border-color: var(--color-edge);
+}
+
+.mkt-choice:hover {
+    background-color: var(--color-foreground);
+    border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-edge));
+}
+
+.mkt-choice-active,
+.mkt-choice-active:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 12%, var(--color-highlight));
+    border-color: var(--color-primary);
+}
+
 /* Marketplace: masked secret values reveal with a scramble, as the CLI does */
 .mkt-secret {
     font-variant-ligatures: none;

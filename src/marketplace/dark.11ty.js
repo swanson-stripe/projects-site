@@ -12,14 +12,12 @@ export default class MarketplaceDarkPage {
             sitemap: false,
             layout: "main.webc",
             title: "Marketplace — dark",
-            seoTitle: "Stripe Provisioning: Marketplace (dark)",
-            ogTitle: "Stripe Provisioning: Marketplace (dark)",
+            seoTitle: "Provisioning API: Marketplace (dark)",
+            ogTitle: "Provisioning API: Marketplace (dark)",
             seoDesc:
-                "Dark treatment of the Stripe Projects marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
+                "Dark treatment of the provisioning marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             ogDesc:
-                "Dark treatment of the Stripe Projects marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
-            ogImage: "/assets/images/og/default.jpg",
-            ogImageAlt: "",
+                "Dark treatment of the provisioning marketplace demo. Link provider accounts, accept terms, pick a plan, provision a resource, and reveal credentials from the UI.",
             changefreq: "weekly",
             // Leave the shader enabled — the hero mounts it.
             wave: true,

@@ -276,19 +276,55 @@ function legalLinks(slug, url) {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Branding                                                                   */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * The marketplace is published unbranded on provisioning.dev, but a handful of
+ * catalog descriptions name the platform they were written for. Rewriting them
+ * here keeps the pages clean across regenerations rather than leaving someone
+ * to re-edit generated files after every snapshot. Anything still mentioning
+ * the platform after this is reported at the end of the run.
+ */
+const BRANDING_REWRITES = [
+    [/managed Postgres for Stripe Projects/g, "managed Postgres for your project"],
+    [/directly from Stripe Projects/g, "directly from the provisioning API"],
+    [/through Stripe Projects/g, "through the provisioning API"],
+    [/manage billing through Stripe/g, "manage billing in one place"],
+    [/\s*\(your Stripe SPT\)/g, ""],
+    [/your Stripe-powered site/g, "your site"],
+];
+
+const brandingLeaks = new Set();
+
+function scrubBranding(text) {
+    if (!text) return text;
+    let scrubbed = String(text);
+    for (const [pattern, replacement] of BRANDING_REWRITES) {
+        scrubbed = scrubbed.replace(pattern, replacement);
+    }
+    if (/stripe/i.test(scrubbed)) brandingLeaks.add(scrubbed);
+    return scrubbed;
+}
+
+/* -------------------------------------------------------------------------- */
 /* Pricing                                                                    */
 /* -------------------------------------------------------------------------- */
 
 const TOS_CONFIG_KEY = "tos_url";
+// Terms prose a provider files under configuration. Like tos_url it selects
+// nothing, so it is kept out of the configuration and surfaced on its own.
+const TERMS_CONFIG_KEY = "accept_terms";
+const CONFIG_META_KEYS = new Set([TOS_CONFIG_KEY, TERMS_CONFIG_KEY]);
 
 // Mirrors the CLI's pricing resolution: a freeform string wins, then a
 // description, then the entry falls back to "Free".
 function pricingLabel(entry) {
     if (!entry) return "Free";
     const freeform = entry.freeform?.trim();
-    if (freeform) return freeform;
+    if (freeform) return scrubBranding(freeform);
     const description = entry.description?.trim();
-    if (description) return description;
+    if (description) return scrubBranding(description);
     return entry.type === "free" ? "Free" : "Usage-based";
 }
 
@@ -301,24 +337,38 @@ function tierEntries(service) {
     const entries = service.pricing?.paid_pricing ?? [];
     return entries.map((entry, index) => ({
         id: `tier-${index}`,
-        // The configuration that selects this tier, minus the ToS marker.
+        // The configuration that selects this tier, minus the legal markers.
         configuration: Object.fromEntries(
-            Object.entries(entry.configuration ?? {}).filter(([key]) => key !== TOS_CONFIG_KEY),
+            Object.entries(entry.configuration ?? {}).filter(([key]) => !CONFIG_META_KEYS.has(key)),
         ),
         label: tierLabel(entry, index),
         price: pricingLabel(entry),
         status: pricingStatus(entry),
-        description: entry.description?.trim() ?? "",
+        description: scrubBranding(entry.description?.trim() ?? ""),
         isDefault: entry.is_default === true,
+        // Plan-specific terms, shown on the confirmation card before provisioning.
+        terms: entry.configuration?.[TERMS_CONFIG_KEY]?.trim() ?? null,
         // Present when accepting this specific tier needs extra terms.
         tosUrl: entry.configuration?.[TOS_CONFIG_KEY] ?? null,
     }));
 }
 
+/*
+ * Configuration values are short selectors — "grow-plus", "gcp-europe-west4",
+ * "tier_3" — and those make the row heading. A value carrying a URL or a
+ * sentence is prose that was filed in the wrong place, and title-casing it into
+ * a heading is how "Https://Www.Algolia.Com/…" ended up as a tier name. Skip it.
+ */
+function isLabelValue(value) {
+    const text = String(value);
+    return text.length <= 40 && !text.includes("http") && !/[.!?](\s|$)/.test(text);
+}
+
 function tierLabel(entry, index) {
     const values = Object.entries(entry.configuration ?? {})
-        .filter(([key]) => key !== TOS_CONFIG_KEY)
-        .map(([, value]) => String(value));
+        .filter(([key]) => !CONFIG_META_KEYS.has(key))
+        .map(([, value]) => String(value))
+        .filter(isLabelValue);
     if (values.length) return values.join(" · ");
     return entry.type === "free" ? "Free" : `Option ${index + 1}`;
 }
@@ -372,7 +422,7 @@ function shapePlan(service) {
     return {
         serviceId: service.service_id,
         ref: `${toSlug(service.provider_name)}/${service.service_id}`,
-        description: service.description || "",
+        description: scrubBranding(service.description || ""),
         categories: service.categories ?? [],
         scope: service.scope,
         status: pricingStatus(service.pricing?.paid),
@@ -410,7 +460,7 @@ function shapeDeployable(service) {
     return {
         serviceId: service.service_id,
         ref: `${slug}/${service.service_id}`,
-        description: service.description || "",
+        description: scrubBranding(service.description || ""),
         categories: service.categories ?? [],
         scope: service.scope,
         selectionMode,
@@ -533,11 +583,11 @@ const providers = [...byProvider.entries()]
                 status: cheapest?.status ?? "free",
                 label: freeEntry ? "Free tier" : (cheapest?.price ?? "Usage-based"),
             },
-            description: site?.description || deployables[0]?.description || "",
+            description: scrubBranding(site?.description || deployables[0]?.description || ""),
             categories,
             pageUrl: `/marketplace/${slug}/`,
             // Keyword blob the listing filters against.
-            searchText: [name, slug, site?.description ?? "", categories.join(" "),
+            searchText: [name, slug, scrubBranding(site?.description ?? ""), categories.join(" "),
                 ...deployables.map((service) => service.ref),
             ]
                 .join(" ")
@@ -636,3 +686,10 @@ const missingIcons = providers.filter((provider) => !provider.iconUrl).map((p) =
 if (missingIcons.length) console.log(`no icon asset (initials fallback): ${missingIcons.join(", ")}`);
 const missingSites = providers.filter((provider) => !provider.url).map((p) => p.slug);
 if (missingSites.length) console.log(`no website in providers.webc: ${missingSites.join(", ")}`);
+if (brandingLeaks.size) {
+    console.log(
+        `\n${brandingLeaks.size} description(s) still name the platform — add a rule to `
+            + `BRANDING_REWRITES so the unbranded marketplace stays unbranded:`,
+    );
+    for (const leak of brandingLeaks) console.log(`  · ${leak}`);
+}

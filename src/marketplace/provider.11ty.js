@@ -11,8 +11,6 @@ export default class MarketplaceProviderPage {
             },
             permalink: (data) => data.marketplaceProvider.pageUrl,
             layout: "main.webc",
-            ogImage: "/assets/images/og/default.jpg",
-            ogImageAlt: "",
             changefreq: "weekly",
             wave: false,
             // Keep redirecting URLs out of the projects.dev sitemap.
@@ -22,12 +20,12 @@ export default class MarketplaceProviderPage {
                 canonicalUrl: (data) => `${MARKETPLACE_ORIGIN}${data.marketplaceProvider.pageUrl}`,
                 ogUrl: (data) => `${MARKETPLACE_ORIGIN}${data.marketplaceProvider.pageUrl}`,
                 title: (data) => data.marketplaceProvider.name,
-                seoTitle: (data) => `Provision ${data.marketplaceProvider.name} | Stripe Projects Marketplace`,
-                ogTitle: (data) => `Provision ${data.marketplaceProvider.name} | Stripe Projects Marketplace`,
+                seoTitle: (data) => `Provision ${data.marketplaceProvider.name} | Provisioning API`,
+                ogTitle: (data) => `Provision ${data.marketplaceProvider.name} | Provisioning API`,
                 seoDesc: (data) =>
-                    `${data.marketplaceProvider.description} Provision a plan and resource, then reveal credentials — a mock of the Stripe Projects flow.`,
+                    `${data.marketplaceProvider.description} Provision a plan and resource, then reveal credentials — a mock of the provisioning API flow.`,
                 ogDesc: (data) =>
-                    `${data.marketplaceProvider.description} Provision a plan and resource, then reveal credentials — a mock of the Stripe Projects flow.`,
+                    `${data.marketplaceProvider.description} Provision a plan and resource, then reveal credentials — a mock of the provisioning API flow.`,
             },
         };
     }
