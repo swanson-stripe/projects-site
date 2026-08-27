@@ -1,10 +1,15 @@
-import { renderMarketplaceDark } from "../lib/marketplace-pages.js";
+import { renderMarketplaceDark, MARKETPLACE_ORIGIN } from "../lib/marketplace-pages.js";
 
 /** Dark treatment of the listing, with the bloom-wave shader behind the hero. */
 export default class MarketplaceDarkPage {
     data() {
         return {
             permalink: "/marketplace/dark/",
+            // Published on provisioning.dev; projects.dev redirects here.
+            canonicalUrl: `${MARKETPLACE_ORIGIN}/marketplace/dark/`,
+            ogUrl: `${MARKETPLACE_ORIGIN}/marketplace/dark/`,
+            // Keep redirecting URLs out of the projects.dev sitemap.
+            sitemap: false,
             layout: "main.webc",
             title: "Marketplace — dark",
             seoTitle: "Stripe Provisioning: Marketplace (dark)",

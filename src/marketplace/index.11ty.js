@@ -1,9 +1,14 @@
-import { renderMarketplaceIndex } from "../lib/marketplace-pages.js";
+import { renderMarketplaceIndex, MARKETPLACE_ORIGIN } from "../lib/marketplace-pages.js";
 
 export default class MarketplaceIndexPage {
     data() {
         return {
             permalink: "/marketplace/",
+            // Published on provisioning.dev; projects.dev redirects here.
+            canonicalUrl: `${MARKETPLACE_ORIGIN}/marketplace/`,
+            ogUrl: `${MARKETPLACE_ORIGIN}/marketplace/`,
+            // Keep redirecting URLs out of the projects.dev sitemap.
+            sitemap: false,
             layout: "main.webc",
             title: "Marketplace",
             seoTitle: "Stripe Projects: Marketplace demo",

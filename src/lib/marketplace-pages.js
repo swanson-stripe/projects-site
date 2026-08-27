@@ -6,6 +6,14 @@
  * templates, so the listing and the generated provider pages share markup.
  */
 
+/*
+ * The marketplace is published on provisioning.dev, not on the main site, and
+ * projects.dev redirects /marketplace/* over to it. The layout derives canonical
+ * and og:url from base.siteOrigin (projects.dev), which would therefore point at
+ * a redirect — so every marketplace page overrides them with this origin.
+ */
+export const MARKETPLACE_ORIGIN = "https://provisioning.dev";
+
 export function escapeHtml(value = "") {
     return String(value)
         .replaceAll("&", "&amp;")
