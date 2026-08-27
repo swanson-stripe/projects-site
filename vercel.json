@@ -3,6 +3,26 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": null,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "provisioning.dev" }],
+      "destination": "/marketplace/bold/",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.provisioning.dev" }],
+      "destination": "/marketplace/bold/",
+      "permanent": false
+    },
+    {
+      "source": "/marketplace/:path*",
+      "has": [{ "type": "host", "value": "projects.dev" }],
+      "destination": "https://provisioning.dev/marketplace/:path*",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/",
