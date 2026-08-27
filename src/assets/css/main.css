@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @source "../../../src/**/*.webc";
 @source "../../../src/*.webc";
+/* Marketplace pages and their modal flows are rendered from JS */
+@source "../../../src/lib/marketplace-pages.js";
+@source "../../../src/assets/js/marketplace/**/*.js";
 
 :root {
     --hex-brand-25: #f5f5ff;
@@ -401,3 +404,616 @@
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+/*
+ * Marketplace dark variant.
+ *
+ * The design system is light-only, so rather than write a parallel set of
+ * utilities this re-points the semantic colour tokens on a wrapper. Every
+ * existing utility (bg-highlight, text-content, border-edge, …) resolves through
+ * var(--color-*), so the whole subtree flips with no markup changes.
+ */
+.mkt-dark {
+    --color-highlight: #05121f;
+    --color-foreground: #0b1f31;
+    --color-headline: var(--hex-neutralDark-25);
+    --color-subheadline: var(--hex-neutralDark-200);
+    --color-content: var(--hex-neutralDark-300);
+    --color-detail: var(--hex-neutralDark-400);
+    --color-disclaimer: var(--hex-neutralDark-500);
+    --color-edge: #17324a;
+    --color-primary: var(--hex-brand-400);
+    --color-primary-hover: var(--hex-brand-300);
+    background-color: var(--color-highlight);
+    color: var(--color-headline);
+}
+
+/* Glass tile carrying the provider's accent as border and bloom */
+.mkt-glass {
+    --brand: var(--color-headline);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--brand) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 28%, transparent);
+    transition:
+        border-color 200ms ease-out,
+        box-shadow 240ms ease-out,
+        transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.mkt-glass:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--brand) 65%, transparent);
+    box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--brand) 25%, transparent),
+        0 20px 50px -20px color-mix(in srgb, var(--brand) 70%, transparent),
+        inset 0 1px 0 0 color-mix(in srgb, var(--brand) 20%, transparent);
+}
+
+/* Mark sits on its own light plate so app-icon favicons stay legible */
+.mkt-glass-mark {
+    background: color-mix(in srgb, var(--brand) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 22%, transparent);
+}
+
+.mkt-glass-slug {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    background: color-mix(in srgb, var(--brand) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 20%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mkt-glass {
+        transition: none;
+    }
+    .mkt-glass:hover {
+        transform: none;
+    }
+}
+
+/* Marketplace: category filter pills (same treatment as .provider-pill) */
+.mkt-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 1.75rem;
+    padding: 0 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    transition: all 150ms;
+    background-color: var(--color-foreground);
+    color: var(--color-detail);
+    border: 1px solid var(--color-edge);
+}
+
+.mkt-pill:hover {
+    background-color: var(--color-highlight);
+    color: var(--color-headline);
+}
+
+.mkt-pill-active,
+.mkt-pill-active:hover {
+    background-color: var(--color-primary);
+    color: var(--color-highlight);
+    border-color: var(--color-primary);
+}
+
+.mkt-pill:focus-visible {
+    box-shadow: var(--shadow-focus);
+}
+
+/* Marketplace: masked secret values reveal with a scramble, as the CLI does */
+.mkt-secret {
+    font-variant-ligatures: none;
+    font-feature-settings: "tnum";
+}
+
+/*
+ * Marketplace listing tiles.
+ *
+ * Each tile carries its provider's own accent in --brand, extracted from the
+ * provider's mark at build time. Monochrome brands legitimately resolve to
+ * near-black, so every treatment below has to degrade gracefully to that.
+ */
+.mkt-tile {
+    --brand: var(--color-headline);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Brand hairline along the top edge, fading out to the right */
+.mkt-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(
+        90deg,
+        var(--brand) 0%,
+        color-mix(in srgb, var(--brand) 30%, transparent) 55%,
+        transparent 100%
+    );
+    opacity: 0.75;
+    transition: opacity 200ms;
+}
+
+.mkt-tile:hover::before {
+    opacity: 1;
+}
+
+.mkt-tile:hover {
+    border-color: color-mix(in srgb, var(--brand) 30%, var(--color-edge));
+}
+
+/* Icon chip, tinted with the provider's accent */
+.mkt-tile-mark {
+    background: color-mix(in srgb, var(--brand) 7%, var(--color-highlight));
+    border: 1px solid color-mix(in srgb, var(--brand) 16%, transparent);
+}
+
+/* Radial wash that tracks the cursor, positioned by JS */
+.mkt-glow {
+    --glow-strength: 16%;
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 20rem;
+    height: 20rem;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--brand) var(--glow-strength), transparent) 0%,
+        transparent 70%
+    );
+}
+
+/* Monochrome brands: near-black at colour strength looks like a dirty smudge */
+.mkt-tile-mono .mkt-glow {
+    --glow-strength: 5%;
+}
+
+/*
+ * Marketplace "bold" variant: tiles flooded with the provider's brand colour.
+ *
+ * --ink is chosen at build time from WCAG contrast against the brand, so light
+ * brands (Hugging Face yellow) get near-black text and dark ones get white.
+ * Marks are knocked out to a flat silhouette because a provider's own mark is
+ * frequently the same colour as its brand and would vanish otherwise.
+ */
+.mkt-block {
+    --brand: var(--color-headline);
+    --ink: var(--hex-neutral-0);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--brand);
+    color: var(--ink);
+    transition:
+        transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        box-shadow 220ms ease-out;
+}
+
+.mkt-block[data-ink="dark"] {
+    --ink: var(--hex-neutral-990);
+}
+
+/* Pale brands would otherwise dissolve into the white page */
+.mkt-block-pale {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 65%, black);
+}
+
+.mkt-block:hover {
+    z-index: 5;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--brand) 60%, transparent);
+}
+
+/* Light chip so every mark reads on any brand flood */
+.mkt-block-mark {
+    background: var(--hex-neutral-0);
+    box-shadow: 0 2px 10px -2px rgb(from var(--hex-neutral-990) r g b / 0.25);
+    transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.mkt-block:hover .mkt-block-mark {
+    transform: rotate(-6deg) scale(1.06);
+}
+
+/* Chips and rules tint from the ink so they read on any brand */
+.mkt-block-chip {
+    background: color-mix(in srgb, var(--ink) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
+.mkt-block-rule {
+    border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.mkt-block-dim {
+    color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.mkt-block-btn {
+    background: var(--ink);
+    color: var(--brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mkt-block,
+    .mkt-block-mark {
+        transition: none;
+    }
+    .mkt-block:hover {
+        transform: none;
+    }
+    .mkt-block:hover .mkt-block-mark {
+        transform: none;
+    }
+}
+
+/* Monospace service slug chip */
+.mkt-slug {
+    display: inline-flex;
+    align-items: center;
+    height: 1.25rem;
+    padding: 0 0.375rem;
+    border-radius: 0.25rem;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.6875rem;
+    white-space: nowrap;
+    color: var(--color-content);
+    background: color-mix(in srgb, var(--brand) 6%, var(--color-foreground));
+    border: 1px solid color-mix(in srgb, var(--brand) 12%, var(--color-edge));
+}
+
+/*
+ * Marketplace "dev" variant: the stripe.dev treatment.
+ *
+ * stripe.dev sits on a light paper ground with near-black ink and one acid-lime
+ * accent, sets display type in Sohne Light at extreme negative tracking, and
+ * labels everything in uppercase mono. Its feed is a table, not a card grid —
+ * slash-prefixed column headers over a hairline rule, one row per item, dotted
+ * tag chips, and a marker-pen highlight that fills on hover. So this variant
+ * swaps the grid for that table rather than restyling tiles.
+ *
+ * Colour tokens are re-pointed the same way .mkt-dark does it, so the shared
+ * header, footer, modal, and drawer come along without markup changes.
+ *
+ * None of these rules set `color`: they are combined with text-* utilities in
+ * the markup, and unlayered CSS would otherwise win over them.
+ */
+.mkt-devsite {
+    --dev-ink: #1e1e1e;
+    --dev-paper: #eaeaea;
+    --dev-frame: #dcdcdc;
+    --dev-lime: #c4e817;
+    --dev-mute: #8d8d8d;
+    --dev-hairline: #1e1e1e44;
+
+    --color-highlight: var(--dev-paper);
+    --color-foreground: var(--dev-frame);
+    --color-headline: var(--dev-ink);
+    --color-subheadline: var(--dev-ink);
+    --color-content: #2f2f2f;
+    --color-detail: #5e5e5e;
+    --color-disclaimer: var(--dev-mute);
+    --color-edge: var(--dev-hairline);
+    --color-primary: var(--dev-ink);
+    --color-primary-hover: #000000;
+    /* Brand purple has no place on this palette, focus rings included */
+    --shadow-focus: 0 0 0 2px rgb(from var(--dev-lime) r g b / 0.85);
+    background-color: var(--dev-paper);
+    color: var(--dev-ink);
+}
+
+/* Native controls pick up the ink rather than the site's brand purple */
+.mkt-devsite input[type="checkbox"] {
+    accent-color: var(--dev-ink);
+}
+
+/* Display type: Sohne Light, very tight, set solid */
+.mkt-dev-hero {
+    font-size: clamp(3.25rem, 11.5vw, 10.5rem);
+    font-weight: 300;
+    letter-spacing: -0.07em;
+    line-height: 0.84;
+}
+
+/* Mono chip riding the hero's shoulder, permanently highlighted */
+.mkt-dev-hero-dot {
+    display: inline-block;
+    margin-left: 0.1em;
+    padding: 0 0.18em;
+    background: var(--dev-lime);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.16em;
+    font-weight: 300;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    vertical-align: super;
+}
+
+.mkt-dev-lede {
+    font-size: clamp(1.25rem, 2.4vw, 2rem);
+    font-weight: 300;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+}
+
+/* Section heading with a mono count riding above the baseline */
+.mkt-dev-title {
+    font-size: 1.75rem;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+
+.mkt-dev-sup {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0;
+    vertical-align: super;
+}
+
+/* stripe.dev's "smallcaps": uppercase mono, used for every label on the page */
+.mkt-dev-label {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.012em;
+    text-transform: uppercase;
+}
+
+/* Table header: a row of /LABEL cells sitting on a hairline */
+.mkt-dev-thead {
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--dev-hairline);
+}
+
+/* Column tracks, shared by the header and every row so they stay aligned */
+.mkt-dev-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: center;
+}
+
+@media (min-width: 58.75rem) {
+    .mkt-dev-cols {
+        grid-template-columns:
+            minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr)
+            minmax(0, 1.1fr) 1.75rem;
+        gap: 0.75rem;
+    }
+}
+
+.mkt-dev-row {
+    position: relative;
+    isolation: isolate;
+    padding: 0.75rem 0.25rem;
+    border-bottom: 1px solid var(--dev-hairline);
+    transition: background-color 150ms ease-out;
+}
+
+.mkt-dev-row:hover,
+.mkt-dev-row:focus-within {
+    background-color: color-mix(in srgb, var(--dev-ink) 5%, transparent);
+}
+
+/*
+ * Provider identity is a flat swatch rather than a favicon: stripe.dev's feed
+ * rows lead with a solid square, and the Plaza's per-provider colour is exactly
+ * what belongs in it. Monochrome brands resolve to near-black, which reads fine
+ * on paper, so no fallback treatment is needed.
+ */
+.mkt-dev-square {
+    width: 0.625rem;
+    height: 0.625rem;
+    flex: none;
+    background: var(--brand, var(--dev-ink));
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--dev-ink) 20%, transparent);
+}
+
+/*
+ * Marker-pen highlight. The gradient stop sits a few pixels below the top of
+ * the line box so the fill reads as a swipe of highlighter rather than a
+ * background colour, and it is only inked in once the row is hovered.
+ */
+.mkt-dev-mark {
+    --dev-fill: transparent;
+    background-image: linear-gradient(transparent 0.1875rem, var(--dev-fill) 0.1875rem);
+    box-decoration-break: clone;
+    transition: background-image 150ms ease-out;
+}
+
+.mkt-dev-row:hover .mkt-dev-mark,
+.mkt-dev-row:focus-within .mkt-dev-mark {
+    --dev-fill: var(--dev-lime);
+}
+
+/* Dotted tag chip — filters, categories, and ticker values all use it */
+.mkt-dev-tag {
+    display: inline-block;
+    padding: 0.125rem 0.3125rem 0.15625rem;
+    border: 1px dotted color-mix(in srgb, var(--dev-ink) 45%, transparent);
+    border-radius: 0.1875rem;
+    line-height: 1;
+    white-space: nowrap;
+    background: transparent;
+    transition:
+        background-color 150ms ease-out,
+        border-color 150ms ease-out;
+}
+
+button.mkt-dev-tag {
+    cursor: pointer;
+}
+
+button.mkt-dev-tag:hover {
+    border-style: solid;
+    background-color: color-mix(in srgb, var(--dev-lime) 45%, transparent);
+}
+
+button.mkt-dev-tag:focus-visible {
+    outline: 1px solid var(--dev-ink);
+    outline-offset: 2px;
+}
+
+/* Selected category. Overrides the shared .mkt-pill-active fill, which the
+   listing JS toggles and which would otherwise paint the tag brand purple. */
+.mkt-devsite .mkt-pill-active,
+.mkt-devsite .mkt-pill-active:hover {
+    border-style: solid;
+    border-color: var(--dev-ink);
+    background-color: var(--dev-lime);
+    color: var(--dev-ink);
+}
+
+/* Active variant in the shared switch, lime instead of an ink slab */
+.mkt-devsite .mkt-variant-active {
+    background-color: var(--dev-lime);
+    color: var(--dev-ink);
+}
+
+/* Underlined mono field, in place of the rounded input the others use */
+.mkt-dev-field {
+    height: 2rem;
+    padding: 0 0 0.25rem;
+    border: 0;
+    border-bottom: 1px solid var(--dev-ink);
+    border-radius: 0;
+    background: transparent;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    letter-spacing: -0.012em;
+    outline: none;
+}
+
+.mkt-dev-field::placeholder {
+    color: var(--dev-mute);
+    text-transform: uppercase;
+}
+
+.mkt-dev-field:focus {
+    box-shadow: 0 1px 0 0 var(--dev-lime);
+}
+
+.mkt-dev-select {
+    padding: 0 0 0.125rem;
+    border: 0;
+    border-bottom: 1px solid var(--dev-hairline);
+    border-radius: 0;
+    background: transparent;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Pill button: hairline outline that inverts on hover */
+.mkt-dev-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3125rem 0.6875rem 0.375rem;
+    border: 1px solid var(--dev-ink);
+    border-radius: 99px;
+    background: transparent;
+    line-height: 1;
+    cursor: pointer;
+    outline: none;
+    transition:
+        background-color 150ms ease-out,
+        color 150ms ease-out;
+}
+
+.mkt-dev-btn:hover {
+    background-color: var(--dev-ink);
+    color: var(--dev-paper);
+}
+
+/* The in-row provision button starts inked so it reads against the row wash */
+.mkt-dev-btn-fill {
+    background-color: var(--dev-lime);
+}
+
+/* Window chrome: draglines flanking a [ Fig. n ] caption */
+.mkt-dev-chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    height: 1.25rem;
+}
+
+.mkt-dev-dragline {
+    flex: 1 1 100%;
+    height: 1px;
+    background: var(--dev-ink);
+    opacity: 0.3;
+}
+
+.mkt-dev-fig {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.5rem;
+    font-weight: 300;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.mkt-dev-frame {
+    background: var(--dev-frame);
+    border: 1px solid var(--dev-hairline);
+}
+
+/* Scattered plus marks, the site's section divider */
+.mkt-dev-plus {
+    color: color-mix(in srgb, var(--dev-ink) 35%, transparent);
+}
+
+/* Statistics marquee. Three copies of the item set, translated by exactly one
+   copy, so the loop has no seam. */
+.mkt-dev-ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--dev-hairline);
+    border-bottom: 1px solid var(--dev-hairline);
+}
+
+.mkt-dev-ticker-track {
+    width: max-content;
+    animation: mkt-dev-ticker 42s linear infinite;
+}
+
+.mkt-dev-ticker:hover .mkt-dev-ticker-track {
+    animation-play-state: paused;
+}
+
+@keyframes mkt-dev-ticker {
+    to {
+        transform: translateX(-33.3333%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mkt-dev-ticker-track {
+        animation: none;
+    }
+    .mkt-dev-row,
+    .mkt-dev-mark,
+    .mkt-dev-tag {
+        transition: none;
+    }
+}
+
+
