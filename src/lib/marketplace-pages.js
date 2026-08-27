@@ -14,6 +14,13 @@
  */
 export const MARKETPLACE_ORIGIN = "https://provisioning.dev";
 
+/**
+ * The listing provisioning.dev serves at its root, per the redirect in
+ * vercel.json. The wordmark points here rather than at "/" so that nothing in
+ * the marketplace chrome links out to the main site.
+ */
+export const MARKETPLACE_HOME = "/marketplace/bold/";
+
 export function escapeHtml(value = "") {
     return String(value)
         .replaceAll("&", "&amp;")
@@ -132,7 +139,7 @@ function renderHeader({ backHref, backLabel, variant }) {
       ${left}
 
       <div class="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center">
-        <a href="/" class="relative flex items-center justify-center h-40 gap-4">
+        <a href="${MARKETPLACE_HOME}" class="relative flex items-center justify-center h-40 gap-4">
           <div class="relative flex items-center gap-8 h-full whitespace-nowrap">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-[1em] w-auto text-headline shrink-0">
               <path d="M15.8074 0L0.195312 3.31818V16L15.8074 12.6818V0Z"></path>
@@ -160,7 +167,6 @@ function renderFooter(year) {
     <div class="w-full max-w-1266 relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
       <p class="text-14/150 text-detail">© ${year} Stripe · Marketplace demo</p>
       <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
-        <a href="/providers/" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Provider catalog</a>
         <a href="https://docs.stripe.com/projects" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Documentation</a>
       </div>
     </div>
@@ -387,7 +393,7 @@ export function renderMarketplaceIndex(data) {
     </div>
   </section>`;
 
-    return page({ head, body, year, backHref: "/", backLabel: "Home", variant: "classic" });
+    return page({ head, body, year, variant: "classic" });
 }
 
 /* -------------------------------------------------------------------------- */
@@ -528,7 +534,7 @@ export function renderMarketplaceBold(data) {
     </div>
   </section>`;
 
-    return page({ head, body, year, backHref: "/", backLabel: "Home", variant: "bold" });
+    return page({ head, body, year, variant: "bold" });
 }
 
 /* -------------------------------------------------------------------------- */
@@ -659,7 +665,7 @@ export function renderMarketplaceDark(data) {
     </div>
   </section>`;
 
-    return page({ head, body, year, backHref: "/", backLabel: "Home", variant: "dark", theme: "mkt-dark" });
+    return page({ head, body, year, variant: "dark", theme: "mkt-dark" });
 }
 
 /* -------------------------------------------------------------------------- */
@@ -905,7 +911,7 @@ export function renderMarketplaceDevsite(data) {
     </div>
   </section>`;
 
-    return page({ head, body, year, backHref: "/", backLabel: "Home", variant: "dev", theme: "mkt-devsite" });
+    return page({ head, body, year, variant: "dev", theme: "mkt-devsite" });
 }
 
 /* -------------------------------------------------------------------------- */
