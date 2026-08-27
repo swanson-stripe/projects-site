@@ -153,6 +153,15 @@ export default [
     logoTag: "logo-openrouter",
   },
   {
+    name: "here.now",
+    slug: "herenow/hosting",
+    category: "hosting",
+    description: "Instant web hosting for agents",
+    longDescription: "here.now publishes HTML, files, and full sites to live URLs at {slug}.here.now via a single API call. Custom domains, version history with rollback, password and invite-only access, and built-in analytics — no dashboard round-trip required.",
+    url: "https://here.now",
+    logoTag: "logo-herenow",
+  },
+  {
     name: "HeyGen",
     slug: "heygen/api",
     category: "ai",
