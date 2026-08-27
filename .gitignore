@@ -26,3 +26,13 @@ dist-ssr
 .vercel
 .env*.local
 og-preview-*.png
+
+# Local scratch at the repo root: recordings, screenshots, archives, one-off demo pages
+/*.html
+/*.mjs
+/*.mov
+/*.webm
+/*.png
+/*.zip
+/social-assets-bundle/
+/chat-animation-variants.md
