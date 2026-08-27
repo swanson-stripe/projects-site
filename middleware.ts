@@ -7,6 +7,15 @@ export const config = {
 const SITE_URL_FALLBACK = 'https://projects.dev';
 const HOME_LINK_HEADER = '</.well-known/api-catalog>; rel="api-catalog", </docs/api/>; rel="service-doc", </index.html.md>; rel="alternate"; type="text/markdown"';
 
+/*
+ * provisioning.dev serves the marketplace, not the main site. The redirect in
+ * vercel.json covers this too, but a redirect puts /marketplace/bold/ in the
+ * address bar; rewriting here keeps the bare domain. Exact hosts rather than a
+ * suffix test, so a lookalike host can never match.
+ */
+const MARKETPLACE_HOSTS = new Set(['provisioning.dev', 'www.provisioning.dev']);
+const MARKETPLACE_FRONT_DOOR = '/marketplace/bold/';
+
 function getSiteUrl(req: Request): string {
   const url = new URL(req.url);
   return url.origin || SITE_URL_FALLBACK;
@@ -281,6 +290,27 @@ export default async function middleware(req: Request): Promise<Response | void>
 
   /* ── home page ────────────────────────────────────────────────── */
   if (path === '/') {
+    /*
+     * On provisioning.dev the root is the marketplace. This runs ahead of the
+     * markdown and preview-bot branches below on purpose: those are about the
+     * main site's home page, and a crawler here should see the Plaza's own
+     * metadata rather than Stripe Projects'.
+     */
+    if (MARKETPLACE_HOSTS.has(url.hostname)) {
+      // Carry the query through — the listing reads ?q= and ?stack=open.
+      const target = new URL(MARKETPLACE_FRONT_DOOR + url.search, SITE_URL);
+      const upstream = await fetch(target.toString());
+      const headers = new Headers(upstream.headers);
+      // fetch has already decoded the body, so these would now misdescribe it.
+      headers.delete('content-encoding');
+      headers.delete('content-length');
+      return new Response(upstream.body, {
+        status: upstream.status,
+        statusText: upstream.statusText,
+        headers,
+      });
+    }
+
     if (wantsMarkdown(req)) {
       const markdownUrl = new URL('/index.html.md', SITE_URL);
       const markdownResponse = await fetch(markdownUrl.toString());
