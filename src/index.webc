@@ -316,7 +316,9 @@ changefreq: "weekly"
                             <logo-mixpanel data-provider-slug="mixpanel/analytics" class="marquee-logo h-16 sm:h-24"></logo-mixpanel>
                             <logo-neon data-provider-slug="neon/postgres" class="marquee-logo h-18 sm:h-28"></logo-neon>
                             <logo-netlify data-provider-slug="netlify/project" class="marquee-logo h-28 sm:h-40"></logo-netlify>
-                            <logo-openrouter data-provider-slug="openrouter/api" class="marquee-logo h-14 sm:h-20"></logo-openrouter>
+                            <!--- Wide lockup: 8rem of .marquee-logo max-width binds before the
+                                  height does, so sm:h-24 is where it stops growing. --->
+                            <logo-openrouter data-provider-slug="openrouter/api" class="marquee-logo h-18 sm:h-24"></logo-openrouter>
                             <logo-parallel data-provider-slug="parallel/api" class="marquee-logo h-11 sm:h-19"></logo-parallel>
                             <logo-planetscale data-provider-slug="planetscale/postgresql" class="marquee-logo h-40 sm:h-52"></logo-planetscale>
                             <logo-postalform data-provider-slug="postalform/mail" class="marquee-logo h-20 sm:h-28"></logo-postalform>
