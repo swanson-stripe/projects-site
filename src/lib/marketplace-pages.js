@@ -133,12 +133,21 @@ function renderHeader({ backHref, backLabel, variant }) {
      * grid cell, so neither the back link nor the right-hand controls can pull it
      * off centre. The demo badge is likewise absolute against the wordmark's
      * right edge — in flow it would shift the wordmark by half its width.
+     *
+     * Being out of flow also means nothing can push the wordmark aside when room
+     * runs short, so it has to stay hidden until the viewport is wide enough to
+     * clear the controls on either side. The listing pages carry the variant
+     * toggle on top of "My stack" (~340px of controls), which the centred
+     * wordmark plus badge only clears past ~965px. The provider pages carry only
+     * "My stack", so they clear it well before sm.
      */
+    const wordmarkReveal = variant ? "hidden min-[1000px]:flex" : "hidden sm:flex";
+
     return `<header class="relative w-full flex items-center justify-center px-16 z-40">
     <div class="w-full max-w-1266 relative pt-24 pb-12 flex items-center justify-between gap-16">
       ${left}
 
-      <div class="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center">
+      <div class="${wordmarkReveal} absolute left-1/2 -translate-x-1/2 items-center">
         <a href="${MARKETPLACE_HOME}" class="relative flex items-center justify-center h-40">
           <span class="text-16 font-normal text-headline whitespace-nowrap">Provisioning API</span>
         </a>
