@@ -478,6 +478,15 @@ export default [
     logoTag: "logo-render",
   },
   {
+    name: "Resend",
+    slug: "resend/email",
+    category: "communications",
+    description: "Email API for developers and agents",
+    longDescription: "Resend is the email API for developers and AI agents. Send transactional and marketing email at scale with a simple, reliable API, best-in-class deliverability, and native React email templates.",
+    url: "https://resend.com",
+    logoTag: "logo-resend",
+  },
+  {
     name: "Twilio",
     slug: "twilio/email",
     category: "communications",

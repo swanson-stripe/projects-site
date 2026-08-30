@@ -402,6 +402,12 @@ wave: false
                                 <td class="px-16 py-12 text-14 text-content leading-140 align-top">Cloud platform for deploying apps, agents, databases, and workers with automatic scaling, zero-downtime deploys, and built-in compliance.</td>
                                 <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add render/static-site" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add render/static-site</span></button></td>
                             </tr>
+                            <tr data-provider-row data-url="https://resend.com" data-name="resend" data-category="communications" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
+                                <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://resend.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">Resend</a></td>
+                                <td class="px-16 py-12 text-14 text-content capitalize align-top">Email</td>
+                                <td class="px-16 py-12 text-14 text-content leading-140 align-top">The email API for developers and AI agents. Send transactional and marketing email at scale with a simple API, best-in-class deliverability, and native React email templates.</td>
+                                <td class="px-16 py-12 align-top whitespace-nowrap"><button data-copy-provider="stripe projects add resend/email" class="flex items-center gap-6 font-mono text-12 text-detail hover:text-headline cursor-pointer outline-none transition-colors duration-150"><span>stripe projects add resend/email</span></button></td>
+                            </tr>
                             <tr data-provider-row data-url="https://revenuecat.com" data-name="revenuecat" data-category="payments" class="border-b border-edge hover:bg-foreground transition-colors duration-100">
                                 <td class="px-16 py-12 text-headline font-normal text-16 leading-130 align-top"><a href="https://revenuecat.com" target="_blank" rel="noopener" class="text-headline hover:text-primary transition-colors duration-150">RevenueCat</a></td>
                                 <td class="px-16 py-12 text-14 text-content capitalize align-top">Payments</td>
