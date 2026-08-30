@@ -25,6 +25,7 @@ dist-ssr
 *.sw?
 .vercel
 .env*.local
+.cache
 og-preview-*.png
 
 # Local scratch at the repo root: recordings, screenshots, archives, one-off demo pages
