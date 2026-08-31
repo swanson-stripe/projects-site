@@ -1,0 +1,75 @@
+---
+layout: "main.webc"
+permalink: "/404.html"
+title: "Page not found"
+seoTitle: "Page not found | Stripe Projects"
+ogTitle: "Page not found | Stripe Projects"
+seoDesc: "That page does not exist on projects.dev. Start from the provider catalog, the developer resources, or the sitemap."
+ogDesc: "That page does not exist on projects.dev. Start from the provider catalog, the developer resources, or the sitemap."
+ogImage: ""
+ogImageAlt: ""
+robots: "noindex, follow"
+sitemap: false
+wave: false
+---
+
+<div class="relative w-full flex flex-col min-h-dvh">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50">
+        <helm-container class="relative pt-24 pb-0 flex items-center">
+            <a href="/" class="relative flex items-center gap-8 h-40 px-10 whitespace-nowrap">
+                <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
+                <span class="text-16 font-normal text-headline">Stripe Projects</span>
+            </a>
+        </helm-container>
+    </header>
+
+    <main id="main" class="flex-1">
+        <helm-section class="relative z-20">
+            <helm-container class="relative flex flex-col items-start pt-64 pb-96 max-w-768 mx-auto">
+
+                <p class="text-14/150 text-detail mb-12">404</p>
+                <h1 class="text-32/110 sm:text-40/110 tracking-[-0.02em] text-headline mb-16">Page not found</h1>
+                <p class="text-16/150 text-content mb-40">There is no page at this address on <code>projects.dev</code>. The links below cover everything the site publishes, for people and for agents.</p>
+
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Start here</h2>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li><a href="/" class="text-primary hover:text-primary-hover transition-colors duration-200">Home</a> — what Stripe Projects is and how to install it.</li>
+                        <li><a href="/providers/" class="text-primary hover:text-primary-hover transition-colors duration-200">Provider catalog</a> — every provider and service slug you can add.</li>
+                        <li><a href="/templates/" class="text-primary hover:text-primary-hover transition-colors duration-200">Templates</a> — starting points with providers pre-wired.</li>
+                        <li><a href="/developers/" class="text-primary hover:text-primary-hover transition-colors duration-200">Developer resources</a> — CLI, agent skill, and API discovery in one index.</li>
+                        <li><a href="/blog/" class="text-primary hover:text-primary-hover transition-colors duration-200">Blog</a> — changes and announcements.</li>
+                    </ul>
+                </div>
+
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24">
+                    <h2 class="text-20/130 text-headline mb-12">For agents</h2>
+                    <p class="text-16/150 text-content mb-12">A markdown copy of this page is available at <a href="/404.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/404.md</code></a>.</p>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li><a href="/llms.txt" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/llms.txt</code></a> — curated overview of the site.</li>
+                        <li><a href="/sitemap.xml" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/sitemap.xml</code></a> — every canonical URL.</li>
+                        <li><a href="/skill.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/skill.md</code></a> — the agent skill for end-to-end provisioning.</li>
+                        <li><a href="/.well-known/api-catalog" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/.well-known/api-catalog</code></a> — linkset for API discovery.</li>
+                        <li><a href="/index.html.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/index.html.md</code></a> — full markdown rendering of the home page.</li>
+                    </ul>
+                </div>
+
+            </helm-container>
+        </helm-section>
+    </main>
+
+    <!--- Footer --->
+    <footer class="w-full flex items-center justify-center flex-col px-16">
+        <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+            <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+                <a href="/developers/" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Developers</a>
+                <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+            </div>
+        </helm-container>
+    </footer>
+
+</div>

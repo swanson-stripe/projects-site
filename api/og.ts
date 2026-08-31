@@ -104,6 +104,29 @@ function h(type: string, props: any, ...children: any[]): any {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  /*
+   * Render failures below deliberately fall back to a valid card rather than
+   * erroring — a broken image in an unfurl is worse than a generic one. A wrong
+   * method is different: there is no image to fall back to, so it gets RFC 9457
+   * problem details, matching /api/health.
+   */
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    res.setHeader('Allow', 'GET, HEAD');
+    res.setHeader('Content-Type', 'application/problem+json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(405).end(
+      JSON.stringify({
+        type: 'https://projects.dev/docs/api/#method-not-allowed',
+        title: 'Method Not Allowed',
+        status: 405,
+        code: 'method_not_allowed',
+        detail: `This endpoint only supports GET and HEAD. Received ${req.method ?? 'an unknown method'}.`,
+        instance: req.url ?? '/api/og',
+      }),
+    );
+    return;
+  }
+
   const protocol = req.headers['x-forwarded-proto'] || 'https';
   const host = req.headers['x-forwarded-host'] || req.headers.host || 'projects.dev';
   const siteUrl = `${protocol}://${host}`;

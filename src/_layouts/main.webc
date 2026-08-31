@@ -9,6 +9,8 @@
     <!--- Search + Tab --->
     <title @html="this.seoTitle"></title>
     <meta name="description" :content="this.seoDesc">
+    <!--- Only pages that opt in, so the 404 stays out of the index. --->
+    <meta webc:if="this.robots" name="robots" :content="this.robots">
 
     <!--- OpenGraph --->
     <!--- siteName lets the unbranded marketplace pages name themselves. --->
@@ -55,6 +57,35 @@
 
     <!--- Icons --->
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon/favicon.svg" />
+
+    <!--- JSON-LD identity. Opt in with `structuredData: "software-application"` in
+          front matter so the unbranded marketplace pages never claim to be
+          Stripe Projects. --->
+    <script webc:if="this.structuredData === 'software-application'" type="application/ld+json" webc:keep @raw='JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "@id": base.siteOrigin + "/#software",
+        name: base.name,
+        alternateName: "Stripe Projects CLI",
+        applicationCategory: "DeveloperApplication",
+        applicationSubCategory: "Command Line Tool",
+        operatingSystem: "macOS, Linux, Windows",
+        url: base.siteOrigin + "/",
+        description: this.seoDesc,
+        softwareHelp: "https://docs.stripe.com/projects",
+        downloadUrl: "https://docs.stripe.com/stripe-cli/install",
+        installUrl: "https://docs.stripe.com/stripe-cli/install",
+        softwareRequirements: "Stripe CLI",
+        publisher: {
+            "@type": "Organization",
+            name: "Stripe",
+            url: "https://stripe.com",
+            sameAs: [
+                "https://github.com/stripe",
+                "https://en.wikipedia.org/wiki/Stripe,_Inc."
+            ]
+        }
+    })'></script>
 
     <!--- Plausible --->
     <script webc:if="base.env !== 'local'" webc:keep async src="https://plausible.io/js/pa-tq9B_F5RcJtNJMu8LenIq.js"></script>

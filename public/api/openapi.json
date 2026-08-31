@@ -2,48 +2,83 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Stripe Projects Public Site API",
-    "version": "1.0.0",
-    "description": "Public discovery and preview endpoints exposed by projects.dev."
+    "version": "1.1.0",
+    "summary": "Public discovery and preview endpoints exposed by projects.dev.",
+    "description": "Read-only endpoints used for discovery, health checking, and social preview rendering on projects.dev.\n\nThis is **not** the Stripe Projects product API. Provisioning, credential retrieval, and billing all happen through the Stripe CLI plugin (`stripe plugin install projects`); see https://docs.stripe.com/projects. These endpoints exist so that agents and monitoring tools can discover and verify the public website.\n\n## Authentication\n\nNone. Every endpoint described here is public and unauthenticated, declared explicitly by the empty root-level `security` array. There are no OAuth scopes, API keys, or protected resources on this surface, so no authorization server metadata is published. See https://projects.dev/auth.md.\n\n## Errors\n\nError responses use RFC 9457 problem details with the `application/problem+json` media type. Branch on the stable `code` field rather than on `title` or `detail`, which are human-readable and may be reworded.\n\n## Versioning and deprecation\n\nThis document is versioned by `info.version` using semantic versioning. Paths are deliberately unversioned: the surface is read-only and changes additively. See the `x-deprecation-policy` extension below and https://projects.dev/developers/ for the full policy.",
+    "contact": {
+      "name": "Stripe Projects developer resources",
+      "url": "https://projects.dev/developers/"
+    }
+  },
+  "externalDocs": {
+    "description": "Stripe Projects documentation",
+    "url": "https://docs.stripe.com/projects"
   },
   "servers": [
     {
-      "url": "https://projects.dev"
+      "url": "https://projects.dev",
+      "description": "Production"
     }
   ],
+  "security": [],
+  "x-deprecation-policy": {
+    "versioning": "semver-on-info-version",
+    "pathVersioned": false,
+    "breakingChangeNotice": "P90D",
+    "signals": [
+      {
+        "header": "Deprecation",
+        "spec": "https://www.rfc-editor.org/rfc/rfc9745",
+        "description": "Set on any endpoint scheduled for a breaking change."
+      },
+      {
+        "header": "Sunset",
+        "spec": "https://www.rfc-editor.org/rfc/rfc8594",
+        "description": "HTTP-date after which the endpoint may stop responding."
+      },
+      {
+        "header": "Link",
+        "rel": "deprecation",
+        "description": "Points at documentation explaining the change and its migration path."
+      }
+    ],
+    "announcementUrl": "https://projects.dev/blog/",
+    "policyUrl": "https://projects.dev/developers/"
+  },
   "paths": {
     "/api/health": {
       "get": {
         "operationId": "getHealth",
         "summary": "Get public site health",
+        "description": "Returns a 200 JSON body when the public site is serving. Intended for uptime checks and for agents confirming the host is reachable before following discovery links.",
+        "tags": ["Status"],
+        "security": [],
         "responses": {
           "200": {
             "description": "The site is healthy.",
+            "headers": {
+              "Cache-Control": {
+                "description": "Always `no-store`; health responses are never cached.",
+                "schema": { "type": "string" }
+              }
+            },
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "const": "ok"
-                    },
-                    "service": {
-                      "type": "string"
-                    },
-                    "time": {
-                      "type": "string",
-                      "format": "date-time"
+                "schema": { "$ref": "#/components/schemas/Health" },
+                "examples": {
+                  "healthy": {
+                    "summary": "Healthy site",
+                    "value": {
+                      "status": "ok",
+                      "service": "projects.dev",
+                      "time": "2026-08-31T12:00:00.000Z"
                     }
-                  },
-                  "required": [
-                    "status",
-                    "service",
-                    "time"
-                  ]
+                  }
                 }
               }
             }
-          }
+          },
+          "405": { "$ref": "#/components/responses/MethodNotAllowed" }
         }
       }
     },
@@ -51,31 +86,144 @@
       "get": {
         "operationId": "getOgImage",
         "summary": "Generate a stack share OG image",
+        "description": "Renders the PNG social preview used for stack share links. An unrecognised or malformed `stack` value is not an error: the endpoint falls back to a generic card, because a broken image in a link unfurl is worse than a generic one. Callers that need to validate a stack payload should not rely on this endpoint's status code.",
+        "tags": ["Preview"],
+        "security": [],
         "parameters": [
           {
             "name": "stack",
             "in": "query",
             "required": false,
-            "description": "Encoded stack share payload from a /s/<payload> URL.",
-            "schema": {
-              "type": "string"
-            }
+            "description": "Encoded stack share payload from a `/s/<payload>` URL, in the form `v1:<provider>~<service>,...`. Unknown providers are dropped.",
+            "schema": { "type": "string" },
+            "example": "v1:neon~database,vercel~hosting"
           }
         ],
         "responses": {
           "200": {
-            "description": "A generated PNG image.",
+            "description": "A generated PNG image. Returned even when `stack` is absent or unparseable.",
             "content": {
               "image/png": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
+                "schema": { "type": "string", "format": "binary" }
+              }
+            }
+          },
+          "405": { "$ref": "#/components/responses/MethodNotAllowed" }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "MethodNotAllowed": {
+        "description": "The HTTP method is not supported by this endpoint.",
+        "headers": {
+          "Allow": {
+            "description": "Comma-separated list of methods this endpoint accepts.",
+            "schema": { "type": "string" },
+            "example": "GET, HEAD"
+          }
+        },
+        "content": {
+          "application/problem+json": {
+            "schema": { "$ref": "#/components/schemas/Problem" },
+            "examples": {
+              "methodNotAllowed": {
+                "summary": "POST to a read-only endpoint",
+                "value": {
+                  "type": "https://projects.dev/docs/api/#method-not-allowed",
+                  "title": "Method Not Allowed",
+                  "status": 405,
+                  "code": "method_not_allowed",
+                  "detail": "This endpoint only supports GET and HEAD. Received POST.",
+                  "instance": "/api/health"
                 }
               }
             }
           }
         }
       }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "description": "Health report for the public site.",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "description": "Always `ok`. An unhealthy site does not return this body."
+          },
+          "service": {
+            "type": "string",
+            "description": "Identifier of the responding service.",
+            "example": "projects.dev"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC 3339 timestamp at which the response was generated."
+          }
+        },
+        "required": ["status", "service", "time"],
+        "additionalProperties": false
+      },
+      "Problem": {
+        "type": "object",
+        "description": "RFC 9457 problem details, served as `application/problem+json`. Branch on `code`, which is stable, rather than on `title` or `detail`, which are human-readable and may be reworded without a version bump.",
+        "externalDocs": {
+          "description": "RFC 9457 — Problem Details for HTTP APIs",
+          "url": "https://www.rfc-editor.org/rfc/rfc9457"
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri",
+            "description": "URI identifying the problem type. Dereferences to documentation for this error.",
+            "example": "https://projects.dev/docs/api/#method-not-allowed"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short, human-readable summary of the problem type.",
+            "example": "Method Not Allowed"
+          },
+          "status": {
+            "type": "integer",
+            "minimum": 400,
+            "maximum": 599,
+            "description": "HTTP status code, duplicated in the body so the problem survives logging.",
+            "example": 405
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$",
+            "enum": ["method_not_allowed", "not_found", "internal_error"],
+            "description": "Stable, machine-readable error identifier. This is the field to branch on.",
+            "example": "method_not_allowed"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation specific to this occurrence, including a resolution hint where one exists.",
+            "example": "This endpoint only supports GET and HEAD. Received POST."
+          },
+          "instance": {
+            "type": "string",
+            "description": "URI reference identifying the specific occurrence, i.e. the request path.",
+            "example": "/api/health"
+          }
+        },
+        "required": ["type", "title", "status", "code", "detail"]
+      }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "Status",
+      "description": "Availability and health checks."
+    },
+    {
+      "name": "Preview",
+      "description": "Social preview image rendering."
+    }
+  ]
 }
