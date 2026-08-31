@@ -58,14 +58,19 @@ wave: false
                         </thead>
                         <tbody class="text-16/150 text-content">
                             <tr class="border-t border-edge">
-                                <td class="py-12 pr-16"><code>/api/health</code></td>
+                                <td class="py-12 pr-16"><code>/api/v1/health</code></td>
                                 <td class="py-12 pr-16"><code>GET</code></td>
                                 <td class="py-12">Health and availability check for automated clients.</td>
                             </tr>
                             <tr class="border-t border-edge">
-                                <td class="py-12 pr-16"><code>/api/og?stack=...</code></td>
+                                <td class="py-12 pr-16"><code>/api/v1/og?stack=...</code></td>
                                 <td class="py-12 pr-16"><code>GET</code></td>
                                 <td class="py-12">Generates the PNG social preview used for stack share links.</td>
+                            </tr>
+                            <tr class="border-t border-edge">
+                                <td class="py-12 pr-16"><code>/api/health</code>, <code>/api/og</code></td>
+                                <td class="py-12 pr-16"><code>GET</code></td>
+                                <td class="py-12">Unversioned aliases for the two above. Pin to <code>/api/v1/</code> for a stable contract.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -89,7 +94,16 @@ wave: false
 }</code></pre>
 
                     <h3 class="text-16 font-normal text-headline mb-8">Not Found</h3>
-                    <p class="text-16/150 text-content mb-12"><code>404</code> · <code>not_found</code> — no such endpoint. Unknown paths on this site return a real <code>404</code>, never a <code>200</code> with an app shell, so a path that 404s does not exist. For non-<code>/api/</code> paths the site returns an HTML page; a markdown copy with recovery links is at <a href="/404.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/404.md</code></a>.</p>
+                    <p class="text-16/150 text-content mb-12"><code>404</code> · <code>not_found</code> — no such endpoint. Unknown paths on this site return a real <code>404</code>, never a <code>200</code> with an app shell, so a path that 404s does not exist. Any unrecognised path under <code>/api/</code> answers with a problem document rather than an HTML or plaintext error page.</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>{
+  "type": "https://projects.dev/docs/api/#not-found",
+  "title": "Not Found",
+  "status": 404,
+  "code": "not_found",
+  "detail": "No such endpoint. This site exposes only GET /api/health and GET /api/og; see /api/openapi.json for the full description.",
+  "instance": "/api/does-not-exist"
+}</code></pre>
+                    <p class="text-16/150 text-content mb-12">Outside <code>/api/</code>, a request carrying <code>Accept: text/markdown</code> gets a <code>404</code> with a markdown recovery body; browsers get the HTML <a href="/404.md" class="text-primary hover:text-primary-hover transition-colors duration-200">404 page</a>, whose markdown copy is at <a href="/404.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/404.md</code></a>.</p>
 
                     <h3 class="text-16 font-normal text-headline mb-8">Internal Error</h3>
                     <p class="text-16/150 text-content"><code>500</code> · <code>internal_error</code> — an unexpected server-side failure. Safe to retry with backoff. Note that <code>/api/og</code> does not use this code: rendering failures there fall back to a generic preview card with a <code>200</code>, because a broken image in a link unfurl is worse than a generic one.</p>
@@ -99,8 +113,10 @@ wave: false
                     <h2 class="text-20/130 text-headline mb-12">Authentication and versioning</h2>
                     <ul class="flex flex-col gap-10 text-16/150 text-content">
                         <li>No authentication. The OpenAPI document declares an empty root-level <code>security</code> array and no <code>securitySchemes</code>. No OAuth or OIDC endpoints are published — see <a href="/auth.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/auth.md</code></a>.</li>
-                        <li>Versioned by <code>info.version</code> in the OpenAPI document using semantic versioning. Paths are unversioned because the surface is read-only and additive.</li>
+                        <li><code>/api/v1/</code> is the versioned surface to pin to. The unversioned paths are aliases that always resolve to the current major, so they may change when <code>v2</code> ships. A <code>v2</code> prefix would be added alongside <code>v1</code>, not in place of it.</li>
+                        <li>The document itself is versioned by <code>info.version</code> using semantic versioning.</li>
                         <li>Breaking changes are signalled at least 90 days ahead with RFC 9745 <code>Deprecation</code> and RFC 8594 <code>Sunset</code> headers. Full policy on the <a href="/developers/" class="text-primary hover:text-primary-hover transition-colors duration-200">developer resources</a> page.</li>
+                        <li>No rate limiting is applied, so no <code>RateLimit</code> headers are returned. An absent header here means no limit, not an undocumented one. If limits are introduced they will use the RFC 9331 <code>RateLimit</code> headers with <code>Retry-After</code> on <code>429</code>, announced under the same policy.</li>
                     </ul>
                 </div>
 

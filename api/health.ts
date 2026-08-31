@@ -1,8 +1,11 @@
 import type { IncomingMessage, ServerResponse } from "http";
 
+/*
+ * `end` is inherited from ServerResponse rather than redeclared — narrowing it to
+ * `(body?: string)` conflicts with the base signature and is a type error.
+ */
 interface VercelResponse extends ServerResponse {
   status(code: number): VercelResponse;
-  end(body?: string): VercelResponse;
   setHeader(name: string, value: string): this;
 }
 

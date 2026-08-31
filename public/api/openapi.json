@@ -2,9 +2,9 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Stripe Projects Public Site API",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "summary": "Public discovery and preview endpoints exposed by projects.dev.",
-    "description": "Read-only endpoints used for discovery, health checking, and social preview rendering on projects.dev.\n\nThis is **not** the Stripe Projects product API. Provisioning, credential retrieval, and billing all happen through the Stripe CLI plugin (`stripe plugin install projects`); see https://docs.stripe.com/projects. These endpoints exist so that agents and monitoring tools can discover and verify the public website.\n\n## Authentication\n\nNone. Every endpoint described here is public and unauthenticated, declared explicitly by the empty root-level `security` array. There are no OAuth scopes, API keys, or protected resources on this surface, so no authorization server metadata is published. See https://projects.dev/auth.md.\n\n## Errors\n\nError responses use RFC 9457 problem details with the `application/problem+json` media type. Branch on the stable `code` field rather than on `title` or `detail`, which are human-readable and may be reworded.\n\n## Versioning and deprecation\n\nThis document is versioned by `info.version` using semantic versioning. Paths are deliberately unversioned: the surface is read-only and changes additively. See the `x-deprecation-policy` extension below and https://projects.dev/developers/ for the full policy.",
+    "description": "Read-only endpoints used for discovery, health checking, and social preview rendering on projects.dev.\n\nThis is **not** the Stripe Projects product API. Provisioning, credential retrieval, and billing all happen through the Stripe CLI plugin (`stripe plugin install projects`); see https://docs.stripe.com/projects. These endpoints exist so that agents and monitoring tools can discover and verify the public website.\n\n## Authentication\n\nNone. Every endpoint described here is public and unauthenticated, declared explicitly by the empty root-level `security` array. There are no OAuth scopes, API keys, or protected resources on this surface, so no authorization server metadata is published. See https://projects.dev/auth.md.\n\n## Errors\n\nError responses use RFC 9457 problem details with the `application/problem+json` media type. Branch on the stable `code` field rather than on `title` or `detail`, which are human-readable and may be reworded. Any unrecognised path under `/api/` returns a `404` problem document rather than an HTML or plaintext error page.\n\n## Rate limiting\n\nNone. No per-client rate limiting is applied to these endpoints, so no `RateLimit` headers are returned and agents do not need to self-throttle. This is stated explicitly rather than left to inference: an absent header means no limit, not an undocumented one. If limits are introduced, they will be advertised with the RFC 9331 `RateLimit` headers and `Retry-After` on `429`, announced under the deprecation policy below.\n\n## Versioning and deprecation\n\nTwo things are versioned independently:\n\n1. **This document**, by `info.version`, using semantic versioning.\n2. **The URL path.** `/api/v1/...` is the stable, versioned surface; pin to it. The unversioned `/api/...` paths are aliases kept for compatibility and always resolve to the current major version, so they may change behaviour when `v2` ships. Agents that need stability should use `/api/v1/`.\n\nA `v2` prefix would be introduced alongside `v1` rather than replacing it. See the `x-deprecation-policy` extension below and https://projects.dev/developers/ for the full policy.",
     "contact": {
       "name": "Stripe Projects developer resources",
       "url": "https://projects.dev/developers/"
@@ -21,9 +21,22 @@
     }
   ],
   "security": [],
+  "x-rate-limit-policy": {
+    "enforced": false,
+    "description": "No per-client rate limiting is applied. No RateLimit headers are returned because there is no limit to advertise.",
+    "plannedHeaders": [
+      "RateLimit",
+      "RateLimit-Policy",
+      "Retry-After"
+    ],
+    "plannedSpec": "https://www.rfc-editor.org/rfc/rfc9331"
+  },
   "x-deprecation-policy": {
     "versioning": "semver-on-info-version",
-    "pathVersioned": false,
+    "pathVersioned": true,
+    "currentMajor": "v1",
+    "versionedPathPrefix": "/api/v1",
+    "unversionedPathsAreAliases": true,
     "breakingChangeNotice": "P90D",
     "signals": [
       {
@@ -46,12 +59,14 @@
     "policyUrl": "https://projects.dev/developers/"
   },
   "paths": {
-    "/api/health": {
+    "/api/v1/health": {
       "get": {
         "operationId": "getHealth",
         "summary": "Get public site health",
         "description": "Returns a 200 JSON body when the public site is serving. Intended for uptime checks and for agents confirming the host is reachable before following discovery links.",
-        "tags": ["Status"],
+        "tags": [
+          "Status"
+        ],
         "security": [],
         "responses": {
           "200": {
@@ -59,12 +74,16 @@
             "headers": {
               "Cache-Control": {
                 "description": "Always `no-store`; health responses are never cached.",
-                "schema": { "type": "string" }
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Health" },
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
                 "examples": {
                   "healthy": {
                     "summary": "Healthy site",
@@ -78,16 +97,71 @@
               }
             }
           },
-          "405": { "$ref": "#/components/responses/MethodNotAllowed" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
         }
       }
     },
-    "/api/og": {
+    "/api/health": {
+      "get": {
+        "operationId": "getHealthUnversioned",
+        "summary": "Get public site health (unversioned alias)",
+        "description": "Alias for `GET /api/v1/health`, kept for compatibility. It always resolves to the current major version, so it may change behaviour when a new major ships. Pin to `/api/v1/health` if you need a stable contract.",
+        "tags": [
+          "Status"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "The site is healthy.",
+            "headers": {
+              "Cache-Control": {
+                "description": "Always `no-store`; health responses are never cached.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                },
+                "examples": {
+                  "healthy": {
+                    "summary": "Healthy site",
+                    "value": {
+                      "status": "ok",
+                      "service": "projects.dev",
+                      "time": "2026-08-31T12:00:00.000Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
+        },
+        "x-alias-of": "/api/v1/health"
+      }
+    },
+    "/api/v1/og": {
       "get": {
         "operationId": "getOgImage",
         "summary": "Generate a stack share OG image",
         "description": "Renders the PNG social preview used for stack share links. An unrecognised or malformed `stack` value is not an error: the endpoint falls back to a generic card, because a broken image in a link unfurl is worse than a generic one. Callers that need to validate a stack payload should not rely on this endpoint's status code.",
-        "tags": ["Preview"],
+        "tags": [
+          "Preview"
+        ],
         "security": [],
         "parameters": [
           {
@@ -95,7 +169,9 @@
             "in": "query",
             "required": false,
             "description": "Encoded stack share payload from a `/s/<payload>` URL, in the form `v1:<provider>~<service>,...`. Unknown providers are dropped.",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "example": "v1:neon~database,vercel~hosting"
           }
         ],
@@ -104,12 +180,63 @@
             "description": "A generated PNG image. Returned even when `stack` is absent or unparseable.",
             "content": {
               "image/png": {
-                "schema": { "type": "string", "format": "binary" }
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
               }
             }
           },
-          "405": { "$ref": "#/components/responses/MethodNotAllowed" }
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
         }
+      }
+    },
+    "/api/og": {
+      "get": {
+        "operationId": "getOgImageUnversioned",
+        "summary": "Generate a stack share OG image (unversioned alias)",
+        "description": "Alias for `GET /api/v1/og`, kept for compatibility. It always resolves to the current major version, so it may change behaviour when a new major ships. Pin to `/api/v1/og` if you need a stable contract.",
+        "tags": [
+          "Preview"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "name": "stack",
+            "in": "query",
+            "required": false,
+            "description": "Encoded stack share payload from a `/s/<payload>` URL, in the form `v1:<provider>~<service>,...`. Unknown providers are dropped.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "v1:neon~database,vercel~hosting"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A generated PNG image. Returned even when `stack` is absent or unparseable.",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          }
+        },
+        "x-alias-of": "/api/v1/og"
       }
     }
   },
@@ -120,13 +247,17 @@
         "headers": {
           "Allow": {
             "description": "Comma-separated list of methods this endpoint accepts.",
-            "schema": { "type": "string" },
+            "schema": {
+              "type": "string"
+            },
             "example": "GET, HEAD"
           }
         },
         "content": {
           "application/problem+json": {
-            "schema": { "$ref": "#/components/schemas/Problem" },
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
             "examples": {
               "methodNotAllowed": {
                 "summary": "POST to a read-only endpoint",
@@ -137,6 +268,29 @@
                   "code": "method_not_allowed",
                   "detail": "This endpoint only supports GET and HEAD. Received POST.",
                   "instance": "/api/health"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No endpoint exists at this path.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            },
+            "examples": {
+              "notFound": {
+                "summary": "Unknown path under /api/",
+                "value": {
+                  "type": "https://projects.dev/docs/api/#not-found",
+                  "title": "Not Found",
+                  "status": 404,
+                  "code": "not_found",
+                  "detail": "No such endpoint. This site exposes only GET /api/health and GET /api/og; see /api/openapi.json for the full description.",
+                  "instance": "/api/does-not-exist"
                 }
               }
             }
@@ -165,7 +319,11 @@
             "description": "RFC 3339 timestamp at which the response was generated."
           }
         },
-        "required": ["status", "service", "time"],
+        "required": [
+          "status",
+          "service",
+          "time"
+        ],
         "additionalProperties": false
       },
       "Problem": {
@@ -197,7 +355,11 @@
           "code": {
             "type": "string",
             "pattern": "^[a-z][a-z0-9_]*$",
-            "enum": ["method_not_allowed", "not_found", "internal_error"],
+            "enum": [
+              "method_not_allowed",
+              "not_found",
+              "internal_error"
+            ],
             "description": "Stable, machine-readable error identifier. This is the field to branch on.",
             "example": "method_not_allowed"
           },
@@ -212,7 +374,13 @@
             "example": "/api/health"
           }
         },
-        "required": ["type", "title", "status", "code", "detail"]
+        "required": [
+          "type",
+          "title",
+          "status",
+          "code",
+          "detail"
+        ]
       }
     }
   },
