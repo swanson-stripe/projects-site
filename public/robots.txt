@@ -4,10 +4,14 @@
 User-agent: *
 Allow: /
 Allow: /.well-known/
+Allow: /developers/
+Allow: /docs/api/
 Allow: /llms.txt
 Allow: /skill.md
 Allow: /auth.md
 Allow: /index.html.md
+Allow: /404.md
+Allow: /api/openapi.json
 Allow: /sitemap.xml
 Disallow: /s/
 Content-Signal: ai-train=no, search=yes, ai-input=yes

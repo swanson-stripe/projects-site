@@ -71,6 +71,39 @@ wave: false
                     </table>
                 </div>
 
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Errors</h2>
+                    <p class="text-16/150 text-content mb-16">Errors are returned as <a href="https://www.rfc-editor.org/rfc/rfc9457" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9457</a> problem details with the <code>application/problem+json</code> media type. Branch on <code>code</code>, which is stable; <code>title</code> and <code>detail</code> are human-readable and may be reworded. Each error's <code>type</code> URI links to its section below.</p>
+
+                    <!--- Anchors here back the `type` URIs in problem responses.
+                          IdAttributePlugin slugifies h3 text into the id. --->
+                    <h3 class="text-16 font-normal text-headline mb-8">Method Not Allowed</h3>
+                    <p class="text-16/150 text-content mb-12"><code>405</code> · <code>method_not_allowed</code> — the endpoint was called with an unsupported HTTP method. Every endpoint on this surface is read-only and accepts only <code>GET</code> and <code>HEAD</code>. The response carries an <code>Allow</code> header listing the accepted methods. Retry with <code>GET</code>.</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-16"><code>{
+  "type": "https://projects.dev/docs/api/#method-not-allowed",
+  "title": "Method Not Allowed",
+  "status": 405,
+  "code": "method_not_allowed",
+  "detail": "This endpoint only supports GET and HEAD. Received POST.",
+  "instance": "/api/health"
+}</code></pre>
+
+                    <h3 class="text-16 font-normal text-headline mb-8">Not Found</h3>
+                    <p class="text-16/150 text-content mb-12"><code>404</code> · <code>not_found</code> — no such endpoint. Unknown paths on this site return a real <code>404</code>, never a <code>200</code> with an app shell, so a path that 404s does not exist. For non-<code>/api/</code> paths the site returns an HTML page; a markdown copy with recovery links is at <a href="/404.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/404.md</code></a>.</p>
+
+                    <h3 class="text-16 font-normal text-headline mb-8">Internal Error</h3>
+                    <p class="text-16/150 text-content"><code>500</code> · <code>internal_error</code> — an unexpected server-side failure. Safe to retry with backoff. Note that <code>/api/og</code> does not use this code: rendering failures there fall back to a generic preview card with a <code>200</code>, because a broken image in a link unfurl is worse than a generic one.</p>
+                </div>
+
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Authentication and versioning</h2>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li>No authentication. The OpenAPI document declares an empty root-level <code>security</code> array and no <code>securitySchemes</code>. No OAuth or OIDC endpoints are published — see <a href="/auth.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/auth.md</code></a>.</li>
+                        <li>Versioned by <code>info.version</code> in the OpenAPI document using semantic versioning. Paths are unversioned because the surface is read-only and additive.</li>
+                        <li>Breaking changes are signalled at least 90 days ahead with RFC 9745 <code>Deprecation</code> and RFC 8594 <code>Sunset</code> headers. Full policy on the <a href="/developers/" class="text-primary hover:text-primary-hover transition-colors duration-200">developer resources</a> page.</li>
+                    </ul>
+                </div>
+
                 <div class="w-full rounded-8 border border-edge bg-foreground p-24">
                     <h2 class="text-20/130 text-headline mb-12">Links</h2>
                     <div class="flex flex-col gap-10 text-16/150 text-content">
@@ -78,6 +111,7 @@ wave: false
                         <a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200">View OpenAPI description</a>
                         <a href="/api/health" class="text-primary hover:text-primary-hover transition-colors duration-200">View health endpoint</a>
                         <a href="/auth.md" class="text-primary hover:text-primary-hover transition-colors duration-200">View auth metadata</a>
+                        <a href="/developers/" class="text-primary hover:text-primary-hover transition-colors duration-200">All developer resources</a>
                     </div>
                 </div>
             </helm-container>
@@ -89,6 +123,7 @@ wave: false
         <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
             <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
             <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+                <a href="/developers/" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Developers</a>
                 <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
                 <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
             </div>

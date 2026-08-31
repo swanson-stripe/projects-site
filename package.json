@@ -11,7 +11,11 @@
     "build:css": "tailwindcss -i src/assets/css/main.css -o dist/assets/css/main.css --minify",
     "watch:all": "npm run watch:html & npm run watch:css",
     "start": "npm run clean && npm run dev:css && npm run watch:all",
-    "build": "npm run clean && npm run build:html && npm run build:css"
+    "build": "npm run clean && npm run build:html && npm run build:css",
+    "sync:providers": "node scripts/sync-provider-docs.mjs",
+    "test:unit": "node --test test/api-handlers.test.mjs",
+    "test:dist": "node --test test/agent-readiness.test.mjs",
+    "test": "npm run build && node --test \"test/*.test.mjs\""
   },
   "author": "",
   "license": "ISC",

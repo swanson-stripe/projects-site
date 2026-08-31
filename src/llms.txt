@@ -15,6 +15,7 @@ install https://projects.dev/skill.md
 This skill drives the full workflow: verify provider → install CLI → install plugin → search catalog → init project → add service → hand off.
 
 - Website: https://projects.dev
+- Developer resources: https://projects.dev/developers/
 - Provider catalog: https://projects.dev/providers/
 - Documentation: https://docs.stripe.com/projects
 - Install options: https://docs.stripe.com/stripe-cli/install
@@ -43,47 +44,77 @@ Key capabilities:
 
 ## Supported Providers
 
-Stripe Projects currently supports the following providers and services:
+Stripe Projects currently supports 63 providers. Provision any of them with
+`stripe projects add <provider>/<service>`.
 
 | Provider | Service slug | Category |
 |---|---|---|
 | AgentMail | agentmail/api | Communications |
+| AgentPhone | agentphone/number | Communications |
 | Algolia | algolia/application | Search |
-| Amplitude | amplitude/analytics | Analytics, Feature Flags |
+| Amplitude | amplitude/analytics | Analytics |
 | Auth0/Okta | auth0/client | Auth |
-| Browserbase | browserbase/project | Browser, AI |
-| Chroma | chroma/database | Database, AI |
+| Base 44 | base44_projects/app | Hosting |
+| Blaxel | blaxel/sandbox | Hosting |
+| Browserbase | browserbase/project | AI |
+| Chatbase | chatbase/agent | AI |
+| Chroma | chroma/database | Database |
 | Clerk | clerk/auth | Auth |
-| Cloudflare | cloudflare/worker | Hosting, Database, Storage, Domains, Cache, Queues |
-| Daytona | daytona/sandbox | Sandbox, Hosting |
+| ClickHouse | clickhouse/clickhouse | Database |
+| Cloudflare | cloudflare/worker | Hosting |
+| Composio | composio/project | AI |
+| CreateOS | createos/project | Compute |
+| Customer.io | customer.io/workspace | Communications |
+| Datadog | datadog/observability | Observability |
+| Daytona | daytona/sandbox | Sandbox |
+| Depot | depot/api | CI |
+| E2B | e2b/sandboxes | Hosting |
 | ElevenLabs | elevenlabs/tts | AI |
+| Exa | exa/api | Search |
 | Firecrawl | firecrawl/api | Search |
-| Fly.io | flyio/app | Hosting, Database |
-| GitLab | gitlab/project | CI/CD, Observability, Storage |
-| Hugging Face | huggingface/platform | AI, Hosting, Storage |
-| Inngest | inngest/app | Queues |
+| Fly.io | flyio/app | Hosting |
+| GitLab | gitlab/project | CI/CD |
+| here.now | herenow/hosting | Hosting |
+| HeyGen | heygen/api | AI |
+| Hugging Face | huggingface/platform | AI |
+| Inngest | inngest/app | AI |
+| KERNEL | kernel/project | Browser |
+| Laravel Cloud | laravel_cloud/application | Hosting |
+| Metronome | metronome/sandbox | Payments |
 | Mixpanel | mixpanel/analytics | Analytics |
-| Neon | neon/postgres | Database, Auth |
+| Neon | neon/postgres | Database |
 | Netlify | netlify/project | Hosting |
-| OpenRouter | openrouter/api | AI |
+| Openrouter | openrouter/api | AI |
+| Parallel | parallel/api | Search |
 | PlanetScale | planetscale/postgresql | Database |
-| PostHog | posthog/analytics | Analytics, Feature Flags |
-| Privy | privy/app | Payments, Auth |
-| Railway | railway/hosting | Hosting, Database, Storage, Cache |
-| Render | render/static-site | Hosting, Database |
-| Runloop | runloop/sandbox | Sandbox, AI |
+| PostalForm | postalform/mail | Communications |
+| PostHog | posthog/analytics | Analytics |
+| Prisma | prisma/database | Database |
+| Privy | privy/app | Payments |
+| Pydantic | pydantic/logfire | Observability |
+| Railway | railway/hosting | Hosting |
+| Render | render/static-site | Hosting |
+| RevenueCat | revenuecat/app | Payments |
+| Runloop | runloop/sandbox | Sandbox |
+| Schematic | schematic/schematic-environment | Feature flags |
 | Sentry | sentry/project | Observability |
+| Shopify | shopify/store | Ecommerce |
+| Spaceship | spaceship/domain | Domains |
 | Squarespace | squarespace/domain | Domains |
-| Supabase | supabase/project | Database, Auth, Storage |
+| Steel | steel/browser | Browser |
+| Supabase | supabase/project | Database |
+| Supermemory | supermemory/memory | AI |
+| Tabstack | tabstack/api | Search |
 | Turso | turso/database | Database |
 | Twilio | twilio/email | Communications |
-| Upstash | upstash/redis | Cache, Search, Database |
+| Upstash | upstash/redis | Cache |
 | Vercel | vercel/project | Hosting |
+| Wix | wix/headless | Ecommerce |
+| WordPress.com | wordpress.com/site | Hosting |
 | WorkOS | workos/auth | Auth |
 
-Run `stripe projects catalog` at any time to view the most current list of providers and services.
-
-More providers are being added. To suggest a provider, email provider-request@stripe.com.
+Browse the same catalog on the web at https://projects.dev/providers/, or from the CLI
+with `stripe projects catalog`.
 
 ## CLI Commands
 
@@ -222,6 +253,48 @@ To deploy a project provisioned with Stripe Projects, ensure these files are ava
 - Credentials from `stripe projects env --pull` (or the `.env` file)
 
 Deploying may require provisioning a compute provider (e.g., Vercel or Railway) first.
+
+## Developer Resources
+
+The Stripe Projects developer resources index is at https://projects.dev/developers/. It
+covers CLI install, the agent skill, the provider catalog, the site API, the error
+format, and the versioning and deprecation policy.
+
+## Machine-Readable Resources
+
+Stripe Projects publishes these files at predictable URLs on https://projects.dev:
+
+| URL | Format | Purpose |
+|---|---|---|
+| `/llms.txt` | text/plain | This file — curated overview for LLMs |
+| `/skill.md` | text/markdown | Stripe Projects agent skill |
+| `/.well-known/agent-skills/index.json` | application/json | Agent skill discovery document |
+| `/index.html.md` | text/markdown | Markdown rendering of the home page |
+| `/404.md` | text/markdown | Recovery pointers for unknown paths |
+| `/auth.md` | text/markdown | Authentication status (no auth required) |
+| `/.well-known/api-catalog` | application/linkset+json | RFC 9727 API discovery linkset |
+| `/api/openapi.json` | application/openapi+json | OpenAPI 3.1 description of the site API |
+| `/api/health` | application/json | Health check |
+| `/sitemap.xml` | application/xml | Canonical URLs |
+| `/robots.txt` | text/plain | Crawler access rules |
+
+Requesting `/` with `Accept: text/markdown` returns `/index.html.md`.
+
+## Authentication
+
+The projects.dev website requires no authentication and publishes no OAuth or OpenID
+Connect endpoints — see https://projects.dev/auth.md. Authenticated work happens in the
+Stripe CLI against Stripe's API: https://docs.stripe.com/stripe-cli/login
+
+## Site API Versioning
+
+The site API is versioned by `info.version` in `/api/openapi.json` using semantic
+versioning; paths are unversioned because the surface is read-only and additive.
+Breaking changes are announced at least 90 days ahead with RFC 9745 `Deprecation` and
+RFC 8594 `Sunset` headers. Full policy: https://projects.dev/developers/
+
+Errors from `/api/` endpoints use RFC 9457 problem details
+(`application/problem+json`); branch on the stable `code` field.
 
 ## Contact
 

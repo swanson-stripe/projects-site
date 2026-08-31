@@ -1,23 +1,44 @@
 {
   "linkset": [
     {
-      "anchor": "https://projects.dev/api/og",
+      "anchor": "https://projects.dev/api/",
       "service-desc": [
         {
           "href": "https://projects.dev/api/openapi.json",
-          "type": "application/openapi+json"
+          "type": "application/openapi+json",
+          "title": "Stripe Projects Public Site API — OpenAPI 3.1 description"
         }
       ],
       "service-doc": [
         {
           "href": "https://projects.dev/docs/api/",
-          "type": "text/html"
+          "type": "text/html",
+          "title": "Public API discovery documentation"
+        },
+        {
+          "href": "https://projects.dev/developers/",
+          "type": "text/html",
+          "title": "Stripe Projects developer resources"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://projects.dev/auth.md",
+          "type": "text/markdown",
+          "title": "Authentication status — this API is public and unauthenticated"
         }
       ],
       "status": [
         {
           "href": "https://projects.dev/api/health",
-          "type": "application/json"
+          "type": "application/json",
+          "title": "Health check"
+        }
+      ],
+      "author": [
+        {
+          "href": "https://stripe.com",
+          "title": "Stripe"
         }
       ]
     }

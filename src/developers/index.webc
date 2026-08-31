@@ -1,0 +1,133 @@
+---
+layout: "main.webc"
+title: "Developers"
+seoTitle: "Stripe Projects for developers | CLI, agent skill, and API discovery"
+ogTitle: "Stripe Projects for developers | CLI, agent skill, and API discovery"
+seoDesc: "Developer resources for Stripe Projects: install the CLI plugin, install the agent skill, browse the provider catalog, and read the API discovery, authentication, and versioning documentation for projects.dev."
+ogDesc: "Developer resources for Stripe Projects: install the CLI plugin, install the agent skill, browse the provider catalog, and read the API discovery, authentication, and versioning documentation for projects.dev."
+ogImage: "/assets/images/og/default.jpg"
+ogImageAlt: ""
+changefreq: "monthly"
+wave: false
+---
+
+<div class="relative w-full">
+
+    <!--- Header --->
+    <header class="relative w-full flex items-center justify-center px-16 z-50">
+        <helm-container class="relative pt-24 pb-0 grid grid-cols-3 items-center">
+            <a href="/" class="flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14 rotate-180"><path fill-rule="evenodd" d="M5.47 3.47a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 1 1-1.06-1.06L8.94 8 5.47 4.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+                <span>Home</span>
+            </a>
+            <div class="relative flex items-center justify-center h-40 gap-4">
+                <a href="/" class="relative flex items-center gap-8 h-full px-10 whitespace-nowrap">
+                    <icon-logo class="h-[1em] w-auto text-headline shrink-0"></icon-logo>
+                    <span class="text-16 font-normal text-headline">Stripe Projects</span>
+                </a>
+            </div>
+            <div></div>
+        </helm-container>
+    </header>
+
+    <main id="main">
+        <helm-section class="relative z-20">
+            <helm-container class="relative flex flex-col items-start pt-64 pb-96 max-w-768 mx-auto">
+
+                <h1 class="text-32/110 sm:text-40/110 tracking-[-0.02em] text-headline mb-16">Stripe Projects for developers</h1>
+                <p class="text-16/150 text-content mb-40">Stripe Projects provisions third-party services — hosting, databases, auth, AI, analytics — from the command line, and returns real credentials to you or your agent. This page indexes everything a developer or an agent needs to integrate with it.</p>
+
+                <!--- CLI --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Install the CLI</h2>
+                    <p class="text-16/150 text-content mb-12">Stripe Projects is a plugin for the Stripe CLI. Install both:</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>brew install stripe/stripe-cli/stripe &amp;&amp; stripe plugin install projects</code></pre>
+                    <p class="text-16/150 text-content">Windows, Linux, and Docker instructions: <a href="https://docs.stripe.com/stripe-cli/install" class="text-primary hover:text-primary-hover transition-colors duration-200">docs.stripe.com/stripe-cli/install</a></p>
+                </div>
+
+                <!--- Agent skill --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Install the agent skill</h2>
+                    <p class="text-16/150 text-content mb-12">To give an agent end-to-end provisioning capability, install the published skill:</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>install https://projects.dev/skill.md</code></pre>
+                    <p class="text-16/150 text-content">The skill is discoverable at <a href="/.well-known/agent-skills/index.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/.well-known/agent-skills/index.json</code></a> and drives the full workflow: verify provider, install CLI, install plugin, search catalog, init project, add service, hand off.</p>
+                </div>
+
+                <!--- Catalog --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Browse what you can provision</h2>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li><a href="/providers/" class="text-primary hover:text-primary-hover transition-colors duration-200">Provider catalog</a> — every supported provider with its service slug and category.</li>
+                        <li><a href="/templates/" class="text-primary hover:text-primary-hover transition-colors duration-200">Templates</a> — starting points with providers already wired together.</li>
+                        <li><a href="/llms.txt" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/llms.txt</code></a> — the same catalog as a single plain-text file for LLM context.</li>
+                    </ul>
+                </div>
+
+                <!--- Site API --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Site API and discovery</h2>
+                    <p class="text-16/150 text-content mb-12">This website exposes a small, public, read-only API used for discovery and health checks. It is not the product API — provisioning happens through the CLI.</p>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li><a href="/docs/api/" class="text-primary hover:text-primary-hover transition-colors duration-200">API discovery documentation</a> — endpoint reference for this site.</li>
+                        <li><a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/openapi.json</code></a> — OpenAPI 3.1 description, including the typed error model.</li>
+                        <li><a href="/.well-known/api-catalog" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/.well-known/api-catalog</code></a> — RFC 9727 linkset.</li>
+                        <li><a href="/api/health" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/health</code></a> — JSON health check.</li>
+                        <li><a href="/auth.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/auth.md</code></a> — authentication status for this site.</li>
+                    </ul>
+                </div>
+
+                <!--- Errors --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Error format</h2>
+                    <p class="text-16/150 text-content mb-12">Endpoints under <code>/api/</code> that return an error respond with <a href="https://www.rfc-editor.org/rfc/rfc9457" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9457</a> problem details as <code>application/problem+json</code>. The <code>code</code> field is machine-readable and stable; <code>detail</code> is for humans.</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto"><code>{
+  "type": "https://projects.dev/docs/api/#method-not-allowed",
+  "title": "Method Not Allowed",
+  "status": 405,
+  "code": "method_not_allowed",
+  "detail": "This endpoint only supports GET.",
+  "instance": "/api/health"
+}</code></pre>
+                </div>
+
+                <!--- Versioning --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Versioning and deprecation</h2>
+                    <p class="text-16/150 text-content mb-12">The site API is versioned by the <code>info.version</code> field in <a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/openapi.json</code></a>, which follows semantic versioning. Paths are unversioned because the surface is read-only and additive.</p>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li>Adding an endpoint, or an optional field to a response, is a minor version bump and is not announced.</li>
+                        <li>Removing an endpoint or field, or changing a field's type, is a major version bump.</li>
+                        <li>Before any breaking change, the affected endpoint returns <a href="https://www.rfc-editor.org/rfc/rfc9745" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9745</a> <code>Deprecation</code> and <a href="https://www.rfc-editor.org/rfc/rfc8594" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 8594</a> <code>Sunset</code> headers, plus a <code>Link</code> header with <code>rel="deprecation"</code> pointing at an explanation.</li>
+                        <li>The window between the first <code>Deprecation</code> header and the <code>Sunset</code> date is at least 90 days.</li>
+                        <li>Deprecations are also recorded in the <code>x-deprecation-policy</code> extension in the OpenAPI document and announced on the <a href="/blog/" class="text-primary hover:text-primary-hover transition-colors duration-200">blog</a>.</li>
+                    </ul>
+                </div>
+
+                <!--- Product docs --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24">
+                    <h2 class="text-20/130 text-headline mb-12">Product documentation</h2>
+                    <ul class="flex flex-col gap-10 text-16/150 text-content">
+                        <li><a href="https://docs.stripe.com/projects" class="text-primary hover:text-primary-hover transition-colors duration-200">Stripe Projects documentation</a></li>
+                        <li><a href="https://docs.stripe.com/stripe-cli" class="text-primary hover:text-primary-hover transition-colors duration-200">Stripe CLI reference</a></li>
+                        <li><a href="https://docs.stripe.com/api" class="text-primary hover:text-primary-hover transition-colors duration-200">Stripe API reference</a></li>
+                        <li><a href="https://docs.stripe.com/keys" class="text-primary hover:text-primary-hover transition-colors duration-200">Stripe API keys and authentication</a></li>
+                    </ul>
+                </div>
+
+            </helm-container>
+        </helm-section>
+    </main>
+
+    <!--- Footer --->
+    <footer class="w-full flex items-center justify-center flex-col px-16">
+        <helm-container class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
+            <p class="text-14/150 text-detail" @text="`© ` + base.currentYear() + ` Stripe`"></p>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-16 sm:gap-24">
+                <a href="/developers/" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Developers</a>
+                <a href="https://stripe.com/privacy" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Privacy &amp; Terms</a>
+                <a href="https://stripe.com" class="text-14/150 font-normal text-primary hover:text-primary-hover transition-colors duration-250 outline-none">Go to Stripe</a>
+            </div>
+        </helm-container>
+    </footer>
+
+</div>
