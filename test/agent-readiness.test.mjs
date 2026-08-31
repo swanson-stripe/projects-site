@@ -388,10 +388,17 @@ describe("provider catalog coverage", () => {
   }
 
   test("the catalog matches what /providers renders", () => {
+    /*
+     * Strip comments first: htmlmin only removes them in production builds, and
+     * providers.webc keeps a commented-out Klaviyo row. Counting it would make
+     * this pass or fail depending on whether the last build was `npm run build`
+     * or the dev server.
+     */
+    const markup = read("providers/index.html").replaceAll(/<!--[\s\S]*?-->/g, "");
     const rendered = new Set(
-      [...read("providers/index.html").matchAll(
-        /stripe projects add ([a-z0-9_.-]+\/[a-z0-9_.-]+)/g,
-      )].map((match) => match[1]),
+      [...markup.matchAll(/stripe projects add ([a-z0-9_.-]+\/[a-z0-9_.-]+)/g)].map(
+        (match) => match[1],
+      ),
     );
     assert.deepEqual(
       slugs.filter((slug) => !rendered.has(slug)),
