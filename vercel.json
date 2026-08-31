@@ -139,6 +139,14 @@
     { "source": "/_next/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/_next/:path*" },
     { "source": "/__clerk/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/__clerk/:path*" },
     { "source": "/textures/:path*", "destination": "https://stripe-projects-leaderboard.vercel.app/textures/:path*" },
-    { "source": "/favicon.svg", "destination": "https://stripe-projects-leaderboard.vercel.app/favicon.svg" }
+    { "source": "/favicon.svg", "destination": "https://stripe-projects-leaderboard.vercel.app/favicon.svg" },
+    { "source": "/api/v1/health", "destination": "/api/health" },
+    { "source": "/api/v1/og", "destination": "/api/og" },
+    { "source": "/api/:path*", "destination": "/api/not-found?path=/api/:path*" },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "header", "key": "accept", "value": "(.*)text/markdown(.*)" }],
+      "destination": "/api/not-found?path=/:path*&format=md"
+    }
   ]
 }

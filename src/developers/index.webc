@@ -83,7 +83,7 @@ wave: false
                         <li><a href="/docs/api/" class="text-primary hover:text-primary-hover transition-colors duration-200">API discovery documentation</a> — endpoint reference for this site.</li>
                         <li><a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/openapi.json</code></a> — OpenAPI 3.1 description, including the typed error model.</li>
                         <li><a href="/.well-known/api-catalog" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/.well-known/api-catalog</code></a> — RFC 9727 linkset.</li>
-                        <li><a href="/api/health" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/health</code></a> — JSON health check.</li>
+                        <li><a href="/api/v1/health" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/v1/health</code></a> — JSON health check. <code>/api/health</code> is an unversioned alias.</li>
                         <li><a href="/auth.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/auth.md</code></a> — authentication status for this site.</li>
                     </ul>
                 </div>
@@ -91,7 +91,7 @@ wave: false
                 <!--- Errors --->
                 <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
                     <h2 class="text-20/130 text-headline mb-12">Error format</h2>
-                    <p class="text-16/150 text-content mb-12">Endpoints under <code>/api/</code> that return an error respond with <a href="https://www.rfc-editor.org/rfc/rfc9457" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9457</a> problem details as <code>application/problem+json</code>. The <code>code</code> field is machine-readable and stable; <code>detail</code> is for humans.</p>
+                    <p class="text-16/150 text-content mb-12">Endpoints under <code>/api/</code> that return an error respond with <a href="https://www.rfc-editor.org/rfc/rfc9457" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9457</a> problem details as <code>application/problem+json</code>. The <code>code</code> field is machine-readable and stable; <code>detail</code> is for humans. This includes unrecognised paths: any <code>/api/</code> URL that does not exist returns a <code>404</code> problem document, never an HTML or plaintext error page.</p>
                     <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto"><code>{
   "type": "https://projects.dev/docs/api/#method-not-allowed",
   "title": "Method Not Allowed",
@@ -105,14 +105,22 @@ wave: false
                 <!--- Versioning --->
                 <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
                     <h2 class="text-20/130 text-headline mb-12">Versioning and deprecation</h2>
-                    <p class="text-16/150 text-content mb-12">The site API is versioned by the <code>info.version</code> field in <a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/openapi.json</code></a>, which follows semantic versioning. Paths are unversioned because the surface is read-only and additive.</p>
+                    <p class="text-16/150 text-content mb-12"><strong class="font-normal text-headline">Pin to <code>/api/v1/</code>.</strong> That is the versioned surface. The unversioned <code>/api/</code> paths are aliases kept for compatibility and always resolve to the current major version, so they may change behaviour when <code>v2</code> ships. A <code>v2</code> prefix would be introduced alongside <code>v1</code> rather than replacing it.</p>
+                    <p class="text-16/150 text-content mb-12">The description document is separately versioned by <code>info.version</code> in <a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/openapi.json</code></a>, following semantic versioning.</p>
                     <ul class="flex flex-col gap-10 text-16/150 text-content">
                         <li>Adding an endpoint, or an optional field to a response, is a minor version bump and is not announced.</li>
-                        <li>Removing an endpoint or field, or changing a field's type, is a major version bump.</li>
+                        <li>Removing an endpoint or field, or changing a field's type, is a major version bump and gets a new path prefix.</li>
                         <li>Before any breaking change, the affected endpoint returns <a href="https://www.rfc-editor.org/rfc/rfc9745" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9745</a> <code>Deprecation</code> and <a href="https://www.rfc-editor.org/rfc/rfc8594" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 8594</a> <code>Sunset</code> headers, plus a <code>Link</code> header with <code>rel="deprecation"</code> pointing at an explanation.</li>
                         <li>The window between the first <code>Deprecation</code> header and the <code>Sunset</code> date is at least 90 days.</li>
                         <li>Deprecations are also recorded in the <code>x-deprecation-policy</code> extension in the OpenAPI document and announced on the <a href="/blog/" class="text-primary hover:text-primary-hover transition-colors duration-200">blog</a>.</li>
                     </ul>
+                </div>
+
+                <!--- Rate limits --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Rate limits</h2>
+                    <p class="text-16/150 text-content mb-12">There are none. No per-client rate limiting is applied to these endpoints, so no <code>RateLimit</code> headers are returned and you do not need to self-throttle. This is stated rather than left to inference: an absent header here means no limit, not an undocumented one.</p>
+                    <p class="text-16/150 text-content">If limits are introduced, they will be advertised with the <a href="https://www.rfc-editor.org/rfc/rfc9331" class="text-primary hover:text-primary-hover transition-colors duration-200">RFC 9331</a> <code>RateLimit</code> and <code>RateLimit-Policy</code> headers, with <code>Retry-After</code> on a <code>429</code>, and announced under the deprecation policy above. The current state is also machine-readable as <code>x-rate-limit-policy</code> in <a href="/api/openapi.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/api/openapi.json</code></a>.</p>
                 </div>
 
                 <!--- Product docs --->

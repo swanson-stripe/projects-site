@@ -30,9 +30,14 @@
       ],
       "status": [
         {
+          "href": "https://projects.dev/api/v1/health",
+          "type": "application/json",
+          "title": "Health check (versioned)"
+        },
+        {
           "href": "https://projects.dev/api/health",
           "type": "application/json",
-          "title": "Health check"
+          "title": "Health check (unversioned alias)"
         }
       ],
       "author": [

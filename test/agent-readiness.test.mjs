@@ -143,6 +143,62 @@ describe("OpenAPI description", () => {
     assert.ok(checked > 0, "expected at least one documented error response");
   });
 
+  test("declares a versioned path surface agents can pin to", () => {
+    const doc = spec();
+    for (const path of ["/api/v1/health", "/api/v1/og"]) {
+      assert.ok(doc.paths[path], `${path} must be described`);
+    }
+    /* The unversioned paths stay documented, but marked as aliases. */
+    for (const [path, canonical] of [
+      ["/api/health", "/api/v1/health"],
+      ["/api/og", "/api/v1/og"],
+    ]) {
+      assert.ok(doc.paths[path], `${path} must remain described`);
+      assert.equal(doc.paths[path].get["x-alias-of"], canonical);
+    }
+    const policy = doc["x-deprecation-policy"];
+    assert.equal(policy.pathVersioned, true);
+    assert.equal(policy.versionedPathPrefix, "/api/v1");
+    assert.equal(policy.currentMajor, "v1");
+  });
+
+  test("every operation documents a 404 with a problem body", () => {
+    const doc = spec();
+    for (const [path, item] of Object.entries(doc.paths)) {
+      for (const [method, operation] of Object.entries(item)) {
+        const response = operation.responses["404"];
+        assert.ok(response, `${method.toUpperCase()} ${path} must document a 404`);
+        const resolved = response.$ref
+          ? doc.components.responses[response.$ref.split("/").pop()]
+          : response;
+        assert.ok(resolved.content?.["application/problem+json"]);
+      }
+    }
+  });
+
+  /*
+   * No rate limiting exists. Rather than emit RateLimit headers for a limit nobody
+   * enforces, the absence is declared so an agent can tell "no limit" from
+   * "undocumented limit".
+   */
+  test("states the rate-limit position instead of implying one", () => {
+    const doc = spec();
+    const policy = doc["x-rate-limit-policy"];
+    assert.ok(policy, "x-rate-limit-policy is required");
+    assert.equal(policy.enforced, false);
+    assert.match(doc.info.description, /## Rate limiting/);
+
+    for (const item of Object.values(doc.paths)) {
+      for (const operation of Object.values(item)) {
+        for (const response of Object.values(operation.responses)) {
+          const headers = Object.keys(response.headers ?? {});
+          const advertised = headers.filter((name) => /^ratelimit/i.test(name));
+          assert.deepEqual(advertised, [], "must not advertise unenforced rate limits");
+        }
+      }
+    }
+  });
+
   test("publishes a versioning and deprecation policy", () => {
     const policy = spec()["x-deprecation-policy"];
     assert.ok(policy, "x-deprecation-policy is required");
