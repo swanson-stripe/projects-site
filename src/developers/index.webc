@@ -37,20 +37,32 @@ wave: false
                 <h1 class="text-32/110 sm:text-40/110 tracking-[-0.02em] text-headline mb-16">Stripe Projects for developers</h1>
                 <p class="text-16/150 text-content mb-40">Stripe Projects provisions third-party services — hosting, databases, auth, AI, analytics — from the command line, and returns real credentials to you or your agent. This page indexes everything a developer or an agent needs to integrate with it.</p>
 
+                <!--- Install — mirrors the home page "Get started" command exactly. --->
+                <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
+                    <h2 class="text-20/130 text-headline mb-12">Install everything</h2>
+                    <p class="text-16/150 text-content mb-12">Stripe Projects is a plugin for the Stripe CLI. This installs the CLI, the plugin, and the agent skill in one command:</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>npm install -g @stripe/cli@latest &amp;&amp; \
+  stripe plugin install projects &amp;&amp; \
+  npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g</code></pre>
+                    <p class="text-16/150 text-content">Free to use. You pay providers directly at their standard rates.</p>
+                </div>
+
                 <!--- CLI --->
                 <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
-                    <h2 class="text-20/130 text-headline mb-12">Install the CLI</h2>
-                    <p class="text-16/150 text-content mb-12">Stripe Projects is a plugin for the Stripe CLI. Install both:</p>
-                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>brew install stripe/stripe-cli/stripe &amp;&amp; stripe plugin install projects</code></pre>
-                    <p class="text-16/150 text-content">Windows, Linux, and Docker instructions: <a href="https://docs.stripe.com/stripe-cli/install" class="text-primary hover:text-primary-hover transition-colors duration-200">docs.stripe.com/stripe-cli/install</a></p>
+                    <h2 class="text-20/130 text-headline mb-12">Install the CLI only</h2>
+                    <p class="text-16/150 text-content mb-12">On macOS:</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-16"><code>brew install stripe/stripe-cli/stripe &amp;&amp; stripe plugin install projects</code></pre>
+                    <p class="text-16/150 text-content mb-12">On Linux and Windows:</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>npm install -g @stripe/cli@latest &amp;&amp; stripe plugin install projects</code></pre>
+                    <p class="text-16/150 text-content">Other install methods, including Docker: <a href="https://docs.stripe.com/stripe-cli/install" class="text-primary hover:text-primary-hover transition-colors duration-200">docs.stripe.com/stripe-cli/install</a></p>
                 </div>
 
                 <!--- Agent skill --->
                 <div class="w-full rounded-8 border border-edge bg-foreground p-24 mb-24">
-                    <h2 class="text-20/130 text-headline mb-12">Install the agent skill</h2>
-                    <p class="text-16/150 text-content mb-12">To give an agent end-to-end provisioning capability, install the published skill:</p>
-                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>install https://projects.dev/skill.md</code></pre>
-                    <p class="text-16/150 text-content">The skill is discoverable at <a href="/.well-known/agent-skills/index.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/.well-known/agent-skills/index.json</code></a> and drives the full workflow: verify provider, install CLI, install plugin, search catalog, init project, add service, hand off.</p>
+                    <h2 class="text-20/130 text-headline mb-12">Install the agent skill only</h2>
+                    <p class="text-16/150 text-content mb-12">To give an agent end-to-end provisioning capability without reinstalling the CLI:</p>
+                    <pre class="text-14/150 text-content bg-highlight border border-edge rounded-4 p-16 overflow-x-auto mb-12"><code>npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g</code></pre>
+                    <p class="text-16/150 text-content">The skill drives the full workflow: verify provider, install CLI, install plugin, search catalog, init project, add service, hand off. It is also published as <a href="/skill.md" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/skill.md</code></a> and declared for discovery at <a href="/.well-known/agent-skills/index.json" class="text-primary hover:text-primary-hover transition-colors duration-200"><code>/.well-known/agent-skills/index.json</code></a>.</p>
                 </div>
 
                 <!--- Catalog --->

@@ -392,6 +392,43 @@ describe("developer portal", () => {
     }
   });
 
+  /*
+   * The home page's "Get started" button is the canonical install command. Derive
+   * the expected segments from it rather than hardcoding, so changing the hero
+   * command forces /developers to follow.
+   */
+  test("install and skill commands match the home page", () => {
+    const home = read("index.html");
+    const attribute = home.match(/data-copy-expand="([^"]*)"/);
+    assert.ok(attribute, "home page should expose the canonical command");
+
+    const canonical = attribute[1].replaceAll("&amp;", "&");
+    const segments = canonical.split("&&").map((part) => part.trim()).filter(Boolean);
+    assert.ok(segments.length >= 3, "expected CLI, plugin, and skill steps");
+
+    const developers = read("developers/index.html");
+    for (const segment of segments) {
+      assert.ok(
+        developers.includes(segment),
+        `/developers/ is missing the home page step: ${segment}`,
+      );
+    }
+  });
+
+  test("offers the macOS install the home page uses on Mac", () => {
+    assert.match(
+      read("developers/index.html"),
+      /brew install stripe\/stripe-cli\/stripe &amp;&amp; stripe plugin install projects/,
+    );
+  });
+
+  test("does not resurrect the retired skill install form", () => {
+    assert.ok(
+      !read("developers/index.html").includes("install https://projects.dev/skill.md"),
+      "the skill is installed with `npx skills add`, not a bare URL",
+    );
+  });
+
   test("documents the error format and the deprecation policy", () => {
     const html = read("developers/index.html");
     assert.match(html, /problem\+json/);
