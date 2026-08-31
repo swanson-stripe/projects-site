@@ -6,10 +6,17 @@ Stripe Projects lets you or your agents provision multiple services, generate an
 
 ## Install the Agent Skill
 
-To give your agent end-to-end provisioning capability, install the skill:
+To give your agent end-to-end provisioning capability, install the CLI, the plugin, and
+the skill in one command:
 
 ```
-install https://projects.dev/skill.md
+npm install -g @stripe/cli@latest && stripe plugin install projects && npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g
+```
+
+To add only the skill to an existing install:
+
+```
+npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g
 ```
 
 This skill drives the full workflow: verify provider → install CLI → install plugin → search catalog → init project → add service → hand off.
@@ -24,6 +31,12 @@ This skill drives the full workflow: verify provider → install CLI → install
 ## Install CLI
 
 Stripe Projects is a plugin for the Stripe CLI. Install both with:
+
+```
+npm install -g @stripe/cli@latest && stripe plugin install projects
+```
+
+On macOS, Homebrew works too:
 
 ```
 brew install stripe/stripe-cli/stripe && stripe plugin install projects
@@ -227,10 +240,10 @@ Important rules for agents:
 Install the skill directly:
 
 ```
-install https://projects.dev/skill.md
+npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g
 ```
 
-Or save it manually as `SKILL.md` inside `.claude/skills/stripe-projects-provision/` (or your agent's equivalent skills directory).
+Or fetch https://projects.dev/skill.md and save it manually as `SKILL.md` inside `.claude/skills/stripe-projects-provision/` (or your agent's equivalent skills directory).
 
 ## Project Structure
 

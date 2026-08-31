@@ -21,13 +21,21 @@ Because every operation is a single command with structured output, it works the
 
 ## Getting Started
 
-Stripe Projects is a plugin for the Stripe CLI. Install both:
+Stripe Projects is a plugin for the Stripe CLI. This installs the CLI, the plugin, and the agent skill in one command:
+
+```bash
+npm install -g @stripe/cli@latest && stripe plugin install projects && npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g
+```
+
+To install just the CLI and plugin, drop the last step. On macOS, Homebrew works too:
 
 ```bash
 brew install stripe/stripe-cli/stripe && stripe plugin install projects
 ```
 
 For Windows, Linux, and Docker, see https://docs.stripe.com/stripe-cli/install
+
+Free to use. You pay providers directly at their standard rates.
 
 Create a project and sign in:
 
@@ -205,7 +213,8 @@ CLI with `stripe projects catalog`.
 
 ## CLI Reference
 
-Install: `brew install stripe/stripe-cli/stripe && stripe plugin install projects`
+Install: `npm install -g @stripe/cli@latest && stripe plugin install projects`
+Agent skill: `npx skills add https://github.com/stripe/ai --skill stripe-projects -y -g`
 
 ### Project lifecycle
 

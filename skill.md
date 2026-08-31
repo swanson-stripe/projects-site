@@ -28,8 +28,9 @@ which stripe && stripe --version
 
 If not installed or below version 1.40.0:
 
+- **Any platform with Node:** `npm install -g @stripe/cli@latest`
 - **macOS (Homebrew):** `brew install stripe/stripe-cli/stripe` (or `brew upgrade stripe/stripe-cli/stripe`)
-- **Other platforms:** Direct the user to https://docs.stripe.com/stripe-cli/install for up-to-date instructions.
+- **Other install methods (Windows, Linux, Docker):** Direct the user to https://docs.stripe.com/stripe-cli/install for up-to-date instructions.
 
 Then ensure the Projects plugin is installed:
 

@@ -13,6 +13,8 @@
     "start": "npm run clean && npm run dev:css && npm run watch:all",
     "build": "npm run clean && npm run build:html && npm run build:css",
     "sync:providers": "node scripts/sync-provider-docs.mjs",
+    "sync:skill": "node scripts/sync-skill-digest.mjs",
+    "sync": "npm run sync:providers && npm run sync:skill",
     "test:unit": "node --test test/api-handlers.test.mjs",
     "test:dist": "node --test test/agent-readiness.test.mjs",
     "test": "npm run build && node --test \"test/*.test.mjs\""
