@@ -59,6 +59,25 @@ export function categoryLabel(category) {
 }
 
 /**
+ * Providers whose lead category is deliberately not one the catalog reports.
+ *
+ * The catalog describes the services on offer today, which for these three
+ * reads wrong as a headline: it lists only `email` for a communications
+ * platform, and calls a sandbox product and a web host `compute` and `cdn`.
+ * The site leads with the reviewed category instead and keeps the catalog's own
+ * categories as the remaining chips — so the lead reads correctly while
+ * filtering still reaches everything the catalog actually reports.
+ *
+ * A test asserts every OTHER provider leads with a category the catalog agrees
+ * with, so accidental drift still fails while these stay declared.
+ */
+export const INTENTIONAL_LEAD_OVERRIDES = new Map([
+    ["twilio/email", "catalog lists only email services for a communications platform"],
+    ["createos/project", "catalog says compute; the product is sandboxed AI compute"],
+    ["herenow/hosting", "catalog says cdn + storage; the product is web hosting"],
+]);
+
+/**
  * Provider slugs differ between the two data sources: providers.js addresses a
  * service ("wordpress.com/site") while the generated catalog keys on a
  * normalised provider slug ("wordpress"). Strip the service, then the

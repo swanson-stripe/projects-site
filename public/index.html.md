@@ -104,9 +104,9 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Base 44** — `base44_projects/app` — Full-stack app platform with hosting, database, and AI built in. Ship complete applications from a single environment. https://base44.com
 - **Blaxel** — `blaxel/sandbox` — Serverless platform for deploying and running AI agents with built-in sandboxed execution environments. https://blaxel.ai
 - **Cloudflare** — `cloudflare/worker` — Cloudflare is the edge platform for running, securing, and accelerating applications without managing infrastructure. Deploy code and services to a global network that handles routing, protection, and performance close to users by default. https://cloudflare.com
-- **CreateOS** — `createos/project` — Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand. https://createos.ai
 - **E2B** — `e2b/sandboxes` — Cloud sandboxes for AI agents and apps. Spin up secure, isolated environments for code execution in milliseconds. https://e2b.dev
 - **Fly.io** — `flyio/app` — Deploy full-stack apps and databases globally on fast hardware with low-latency networking. Run containers close to your users with built-in Postgres, Redis, and private networking. https://fly.io
+- **here.now** — `herenow/hosting` — here.now publishes HTML, files, and full sites to live URLs at {slug}.here.now via a single API call. Custom domains, version history with rollback, password and invite-only access, and built-in analytics — no dashboard round-trip required. https://here.now
 - **Laravel Cloud** — `laravel_cloud/application` — Managed cloud platform for Laravel apps with built-in hosting, caching, databases, and queue workers. https://cloud.laravel.com
 - **Netlify** — `netlify/project` — Web platform for building and launching sites and apps with automatic builds, global deployment, serverless backends, and instant scaling. https://netlify.com
 - **Railway** — `railway/hosting` — Railway is the all-in-one intelligent cloud provider. Deploy servers, databases, and cron jobs with zero ops overhead. https://railway.app
@@ -171,13 +171,13 @@ below. Every service is addressed as `<provider>/<service>` and added with
 
 ### Sandbox
 
+- **CreateOS** — `createos/project` — Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand. https://createos.ai
 - **Daytona** — `daytona/sandbox` — Secure, elastic sandbox infrastructure for AI agents, providing complete, isolated, and fully programmable environments spun up on demand for autonomous agentic workflows, coding assistants, and pipelines at scale. https://daytona.io
 - **Runloop** — `runloop/sandbox` — Runloop provides secure execution infrastructure for AI agents. Run agent workloads inside isolated micro-VM sandboxes, allowing agents to safely execute code, use tools, and access external systems. https://runloop.ai
 
 ### Email
 
 - **AgentMail** — `agentmail/api` — The email inbox API for AI agents. Agents can communicate with any internet user and authenticate with any internet service. https://agentmail.to
-- **Twilio** — `twilio/email` — Customer engagement platform with programmable communications and data APIs for adding intelligence and security to sales, marketing, service, and growth workflows. https://twilio.com
 
 ### Messaging
 
@@ -189,10 +189,6 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Privy** — `privy/app` — Wallet and key-management infrastructure for embedding secure wallets, authentication, and signing policies into apps across Tempo, EVM, Solana, and Bitcoin. https://privy.io
 - **RevenueCat** — `revenuecat/app` — In-app subscription infrastructure. Manage purchases, paywalls, and subscription analytics across iOS, Android, and web. https://revenuecat.com
 
-### CDN
-
-- **here.now** — `herenow/hosting` — here.now publishes HTML, files, and full sites to live URLs at {slug}.here.now via a single API call. Custom domains, version history with rollback, password and invite-only access, and built-in analytics — no dashboard round-trip required. https://here.now
-
 ### CI
 
 - **Depot** — `depot/api` — Fast CI/CD infrastructure. Accelerate container builds and CI pipelines with managed remote builders and caching. https://depot.dev
@@ -202,6 +198,7 @@ below. Every service is addressed as `<provider>/<service>` and added with
 
 - **AgentPhone** — `agentphone/number` — Programmable phone numbers for AI agents. Make and receive calls, handle voicemail, and route conversations autonomously. https://agentphone.ai
 - **PostalForm** — `postalform/mail` — Programmable physical mail API. Send letters, postcards, and documents via USPS from your application. https://postalform.com
+- **Twilio** — `twilio/email` — Customer engagement platform with programmable communications and data APIs for adding intelligence and security to sales, marketing, service, and growth workflows. https://twilio.com
 
 ### Ecommerce
 

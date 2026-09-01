@@ -74,17 +74,28 @@ const rows = [...providers].sort(byName).map((provider) => {
 });
 
 /*
- * Filter pills, generated from the catalog so they can never drift from it. The
- * page previously hardcoded sixteen, two of which ("hosting", "ci-cd") matched
- * no live category while seven real ones had no pill at all.
+ * Filter pills, counted off the rows above rather than off catalog.categories.
+ * The counts have to be what the filter will actually return, and the two
+ * disagree wherever INTENTIONAL_LEAD_OVERRIDES adds a category the catalog does
+ * not report — here.now leading with Hosting makes that pill 17, not 16.
+ *
+ * Deriving the list from the rows also means a pill cannot match zero providers,
+ * and every category present gets one. The page previously hardcoded sixteen,
+ * two of which ("hosting", "ci-cd") matched no live category at all.
  */
+const counts = new Map();
+for (const row of rows) {
+    for (const id of row.dataCategories.split(" ")) {
+        counts.set(id, (counts.get(id) ?? 0) + 1);
+    }
+}
+
 const pills = [
-    { id: "all", label: "All", count: providers.length },
-    ...catalog.categories.map((category) => ({
-        id: category.id,
-        label: categoryLabel(category.id),
-        count: category.count,
-    })),
+    { id: "all", label: "All", count: rows.length },
+    ...[...counts.entries()]
+        /* Most populated first, then alphabetically by the label on screen. */
+        .map(([id, count]) => ({ id, label: categoryLabel(id), count }))
+        .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "en")),
 ];
 
 /* One default export: 11ty only surfaces that as the `providerRows` global. */

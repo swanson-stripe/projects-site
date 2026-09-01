@@ -13,7 +13,11 @@ import test, { describe } from "node:test";
 import providers from "../src/_data/providers.js";
 import catalog from "../src/_data/catalog.js";
 import providerRows from "../src/_data/providerRows.js";
-import { KNOWN_CATEGORIES, catalogSlug } from "../src/lib/categories.js";
+import {
+  INTENTIONAL_LEAD_OVERRIDES,
+  KNOWN_CATEGORIES,
+  catalogSlug,
+} from "../src/lib/categories.js";
 
 const DIST = new URL("../dist/", import.meta.url);
 
@@ -508,16 +512,51 @@ describe("provider categories", () => {
     );
   });
 
+  /* Mismatches the catalog does not back have to be declared, not incidental. */
+  function leadMismatches() {
+    const bySlug = new Map(catalog.providers.map((provider) => [provider.slug, provider]));
+    return providers.filter((provider) => {
+      const entry = bySlug.get(catalogSlug(provider.slug));
+      return entry && !entry.categories.includes(provider.category);
+    });
+  }
+
   test("the lead category is one the provider is actually in", () => {
-    const known = new Set(catalog.providers.map((provider) => provider.slug));
-    const lying = providers
-      .filter((provider) => known.has(catalogSlug(provider.slug)))
-      .filter((provider) => {
-        const entry = catalog.providers.find((p) => p.slug === catalogSlug(provider.slug));
-        return !entry.categories.includes(provider.category);
-      })
+    const undeclared = leadMismatches()
+      .filter((provider) => !INTENTIONAL_LEAD_OVERRIDES.has(provider.slug))
       .map((provider) => `${provider.slug} leads with "${provider.category}"`);
-    assert.deepEqual(lying, [], "editorial lead category is not in the catalog set");
+    assert.deepEqual(
+      undeclared,
+      [],
+      "lead category is not in the catalog set — fix it, or declare it in INTENTIONAL_LEAD_OVERRIDES",
+    );
+  });
+
+  /* Keeps the allowlist from outliving the mismatch it was written for. */
+  test("every declared lead override is still a real mismatch", () => {
+    const mismatched = new Set(leadMismatches().map((provider) => provider.slug));
+    const stale = [...INTENTIONAL_LEAD_OVERRIDES.keys()].filter((slug) => !mismatched.has(slug));
+    assert.deepEqual(
+      stale,
+      [],
+      "INTENTIONAL_LEAD_OVERRIDES entr(ies) no longer diverge from the catalog — drop them",
+    );
+  });
+
+  /*
+   * An override adds a category the catalog does not report, so counts taken
+   * from catalog.categories would undercount the pill against what clicking it
+   * actually returns.
+   */
+  test("each pill count matches the rows that pill will show", () => {
+    for (const pill of providerRows.pills) {
+      const matching =
+        pill.id === "all"
+          ? providerRows.rows.length
+          : providerRows.rows.filter((row) => row.dataCategories.split(" ").includes(pill.id))
+              .length;
+      assert.equal(pill.count, matching, `the ${pill.label} pill is mislabelled`);
+    }
   });
 
   test("no filter pill matches zero providers", () => {

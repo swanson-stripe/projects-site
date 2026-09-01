@@ -167,7 +167,9 @@ export default [
   {
     name: "here.now",
     slug: "herenow/hosting",
-    category: "cdn",
+    // Catalog reports cdn + storage; the product is web hosting. See
+    // INTENTIONAL_LEAD_OVERRIDES in src/lib/categories.js.
+    category: "compute",
     description: "Instant web hosting for agents",
     longDescription: "here.now publishes HTML, files, and full sites to live URLs at {slug}.here.now via a single API call. Custom domains, version history with rollback, password and invite-only access, and built-in analytics — no dashboard round-trip required.",
     tableDescription: "Instant web hosting for agents. Publish HTML, files, and full sites to live URLs at {slug}.here.now, with custom domains, version history, and access controls.",
@@ -327,7 +329,9 @@ export default [
   {
     name: "CreateOS",
     slug: "createos/project",
-    category: "compute",
+    // Catalog reports compute; the product is sandboxed AI compute. See
+    // INTENTIONAL_LEAD_OVERRIDES in src/lib/categories.js.
+    category: "sandbox",
     description: "Compute infrastructure for AI",
     longDescription: "Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand.",
     url: "https://createos.ai",
@@ -504,7 +508,9 @@ export default [
   {
     name: "Twilio",
     slug: "twilio/email",
-    category: "email",
+    // Catalog lists only email services; Twilio is a communications platform.
+    // See INTENTIONAL_LEAD_OVERRIDES in src/lib/categories.js.
+    category: "communications",
     description: "Programmable communications APIs",
     longDescription: "Customer engagement platform with programmable communications and data APIs for adding intelligence and security to sales, marketing, service, and growth workflows.",
     url: "https://twilio.com",

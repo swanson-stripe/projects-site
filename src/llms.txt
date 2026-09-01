@@ -77,7 +77,7 @@ first listed is the primary one.
 | ClickHouse | clickhouse/clickhouse | Database, Analytics |
 | Cloudflare | cloudflare/worker | Hosting, Database, AI, Browser, Cache, Domains, Queue, Storage |
 | Composio | composio/project | AI |
-| CreateOS | createos/project | Hosting |
+| CreateOS | createos/project | Sandbox, Hosting |
 | Customer.io | customer.io/workspace | Messaging, Email, Notifications |
 | Datadog | datadog/observability | Observability |
 | Daytona | daytona/sandbox | Sandbox, AI, Hosting |
@@ -88,7 +88,7 @@ first listed is the primary one.
 | Firecrawl | firecrawl/api | Search |
 | Fly.io | flyio/app | Hosting, Database |
 | GitLab | gitlab/project | CI, AI, Analytics, CDN, Hosting, Observability, Storage |
-| here.now | herenow/hosting | CDN, Storage |
+| here.now | herenow/hosting | Hosting, CDN, Storage |
 | HeyGen | heygen/api | AI |
 | Hugging Face | huggingface/platform | AI, Hosting, Storage |
 | Inngest | inngest/app | Queue |
@@ -120,7 +120,7 @@ first listed is the primary one.
 | Supermemory | supermemory/memory | AI, Database, Search, Storage |
 | Tabstack | tabstack/api | Search, AI, Browser |
 | Turso | turso/database | Database |
-| Twilio | twilio/email | Email |
+| Twilio | twilio/email | Communications, Email |
 | Upstash | upstash/redis | Cache, Database, AI, Messaging, Search |
 | Vercel | vercel/project | Hosting |
 | Wix | wix/headless | Ecommerce |
