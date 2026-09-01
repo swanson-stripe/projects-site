@@ -22,6 +22,9 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import siteProviderData from "../src/_data/providers.js";
+import { catalogSlug } from "../src/lib/categories.js";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 
@@ -204,22 +207,16 @@ function extractBrandColor(slug) {
 /* Site provider table — websites and marketing copy                          */
 /* -------------------------------------------------------------------------- */
 
-// Scraped from the rows of src/providers.webc so the marketplace listing reuses
-// the copy already reviewed for /providers/ rather than a second set of strings.
+// Read from src/_data/providers.js so the marketplace listing reuses the copy
+// already reviewed for /providers/ rather than a second set of strings. This
+// used to scrape the rendered rows out of providers.webc, which stopped working
+// once that table became a loop over this same data.
 function readSiteProviders() {
-    const source = fs.readFileSync(path.join(ROOT, "src/providers.webc"), "utf-8");
-    const rows = source.matchAll(
-        /<tr data-provider-row data-url="([^"]+)" data-name="([^"]+)"[\s\S]*?<\/tr>/g,
-    );
     const bySlug = new Map();
-    for (const [row, url, name] of rows) {
-        // Third cell of each row is the long description.
-        const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map(([, cell]) =>
-            cell.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(),
-        );
-        bySlug.set(name.replace(/[^a-z0-9]/g, ""), {
-            url,
-            description: cells[2] ?? "",
+    for (const provider of siteProviderData) {
+        bySlug.set(catalogSlug(provider.slug), {
+            url: provider.url,
+            description: provider.tableDescription || provider.longDescription || provider.description,
         });
     }
     return bySlug;
@@ -227,12 +224,12 @@ function readSiteProviders() {
 
 const siteProviders = readSiteProviders();
 
-function findSiteProvider(slug, displayName) {
-    return (
-        siteProviders.get(slug) ??
-        siteProviders.get(displayName.toLowerCase().replace(/[^a-z0-9]/g, "")) ??
-        null
-    );
+/*
+ * Both sides now key on the same normalised provider slug via catalogSlug(), so
+ * a miss means the catalog carries a provider the site table does not list yet.
+ */
+function findSiteProvider(slug) {
+    return siteProviders.get(slug) ?? null;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -497,7 +494,7 @@ const providers = [...byProvider.entries()]
     .map(([providerName, providerServices]) => {
         const slug = toSlug(providerName);
         const name = toDisplayName(providerName);
-        const site = findSiteProvider(slug, name);
+        const site = findSiteProvider(slug);
         const url = site?.url ?? "";
         const deployables = providerServices
             .filter((service) => service.kind === "deployable")
