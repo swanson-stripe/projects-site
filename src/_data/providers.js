@@ -171,7 +171,7 @@ export default [
     logoTag: "logo-openrouter",
   },
   {
-    name: "here.now",
+    name: "Here.now",
     slug: "herenow/hosting",
     // Catalog reports cdn + storage; the product is web hosting. See
     // INTENTIONAL_LEAD_OVERRIDES in src/lib/categories.js.
