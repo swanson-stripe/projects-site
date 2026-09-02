@@ -160,9 +160,26 @@ async function fetchText(url) {
   return response.text();
 }
 
+/*
+ * The home page carousel leads with this template; /templates keeps the plain
+ * alphabetical order. Applied outside the cached payload below, so a cache
+ * written before this existed still gets the ordering rather than serving a
+ * shape the carousel cannot read.
+ */
+const CAROUSEL_LEAD = "Shopify Trending Products";
+
+function withCarousel(result) {
+  const families = result.families ?? [];
+  const lead = families.filter((family) => family.name === CAROUSEL_LEAD);
+  return {
+    ...result,
+    carousel: [...lead, ...families.filter((family) => family.name !== CAROUSEL_LEAD)],
+  };
+}
+
 export default async function () {
   const cached = readCache();
-  if (cached) return cached;
+  if (cached) return withCarousel(cached);
 
   const tree = await fetchJson(`${REGISTRY_API_BASE}/git/trees/${REGISTRY_REF}?recursive=1`);
   const guidedRaw = await fetchText(`${REGISTRY_RAW_BASE}/guided.yaml`);
@@ -336,5 +353,5 @@ export default async function () {
   };
 
   writeCache(result);
-  return result;
+  return withCarousel(result);
 }
