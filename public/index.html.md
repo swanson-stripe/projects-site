@@ -85,7 +85,7 @@ Services are provisioned in provider accounts you own. If you stop using Stripe 
 
 ## Ecosystem — Supported Services
 
-Stripe Projects provisions services from 63 providers across the categories
+Stripe Projects provisions services from 64 providers across the categories
 below. Every service is addressed as `<provider>/<service>` and added with
 `stripe projects add <provider>/<service>`.
 
@@ -124,6 +124,15 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Supabase** — `supabase/project` — Supabase is the easy-to-use, open-source managed Postgres with integrated backend services — Database, Auth, Storage, Edge Functions, Realtime, and Vector search. https://supabase.com
 - **Turso** — `turso/database` — Turso Cloud gives AI agents the fast, durable, and isolated state they need to run reliably at scale. Each agent gets its own lightweight, replicated SQLite-compatible database with fast reads, built-in vector search, and automatic sync. https://turso.tech
 
+### Search
+
+- **Algolia** — `algolia/application` — AI Search and Retrieval platform with a unified keyword and vector engine, enabling companies to build agentic, generative, and search experiences. https://algolia.com
+- **Exa** — `exa/api` — AI-native search engine that understands meaning, not just keywords. Build search and retrieval into AI applications. https://exa.ai
+- **Firecrawl** — `firecrawl/api` — Firecrawl turns any website into clean, structured data for AI applications. Crawl, scrape, and extract content at scale with built-in JS rendering, markdown output, and LLM-ready formatting. https://firecrawl.dev
+- **Parallel** — `parallel/api` — AI-powered research and analysis engine. Search, synthesize, and extract insights from web and private data sources. https://parallel.ai
+- **Perplexity** — `perplexity/api` — Perplexity's API answers from the live web with citations, and gives applications and agents access to the Sonar models for search-native reasoning. Billed by usage, per request and per token. https://perplexity.ai
+- **Tabstack** — `tabstack/api` — Search API by Mozilla. Privacy-focused web search and retrieval infrastructure for applications and AI agents. https://tabstack.com
+
 ### Analytics
 
 - **Amplitude** — `amplitude/analytics` — Amplitude is the digital analytics platform for understanding user behavior, building conversion funnels, measuring retention, and running A/B experiments to drive product growth. https://amplitude.com
@@ -135,14 +144,6 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Auth0/Okta** — `auth0/client` — Secure users, AI agents, and more with Auth0, an easy-to-implement, scalable, and adaptable authentication and authorization platform. https://auth0.com
 - **Clerk** — `clerk/auth` — Drop-in authentication with social login, magic links, MFA, and full user management UI. Works out of the box with zero configuration. https://clerk.dev
 - **WorkOS** — `workos/auth` — WorkOS is the infrastructure B2B and AI-native companies use to sell to enterprise, covering everything enterprise security requires: SSO, SCIM, RBAC, Audit Logs, AI governance, and more. https://workos.com
-
-### Search
-
-- **Algolia** — `algolia/application` — AI Search and Retrieval platform with a unified keyword and vector engine, enabling companies to build agentic, generative, and search experiences. https://algolia.com
-- **Exa** — `exa/api` — AI-native search engine that understands meaning, not just keywords. Build search and retrieval into AI applications. https://exa.ai
-- **Firecrawl** — `firecrawl/api` — Firecrawl turns any website into clean, structured data for AI applications. Crawl, scrape, and extract content at scale with built-in JS rendering, markdown output, and LLM-ready formatting. https://firecrawl.dev
-- **Parallel** — `parallel/api` — AI-powered research and analysis engine. Search, synthesize, and extract insights from web and private data sources. https://parallel.ai
-- **Tabstack** — `tabstack/api` — Search API by Mozilla. Privacy-focused web search and retrieval infrastructure for applications and AI agents. https://tabstack.com
 
 ### Browser
 

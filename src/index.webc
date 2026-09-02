@@ -321,6 +321,7 @@ structuredData: "software-application"
                                   height does, so sm:h-24 is where it stops growing. --->
                             <logo-openrouter data-provider-slug="openrouter/api" class="marquee-logo h-18 sm:h-24"></logo-openrouter>
                             <logo-parallel data-provider-slug="parallel/api" class="marquee-logo h-11 sm:h-19"></logo-parallel>
+                            <logo-perplexity data-provider-slug="perplexity/api" class="marquee-logo h-16 sm:h-24"></logo-perplexity>
                             <logo-planetscale data-provider-slug="planetscale/postgresql" class="marquee-logo h-40 sm:h-52"></logo-planetscale>
                             <logo-postalform data-provider-slug="postalform/mail" class="marquee-logo h-20 sm:h-28"></logo-postalform>
                         </div>

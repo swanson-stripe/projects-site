@@ -57,7 +57,7 @@ Key capabilities:
 
 ## Supported Providers
 
-Stripe Projects currently supports 63 providers. Provision any of them with
+Stripe Projects currently supports 64 providers. Provision any of them with
 `stripe projects add <provider>/<service>`. Many providers span several categories; the
 first listed is the primary one.
 
@@ -100,6 +100,7 @@ first listed is the primary one.
 | Netlify | netlify/project | Hosting |
 | OpenRouter | openrouter/api | AI |
 | Parallel | parallel/api | Search, AI |
+| Perplexity | perplexity/api | Search, AI |
 | PlanetScale | planetscale/postgresql | Database |
 | PostalForm | postalform/mail | Communications |
 | PostHog | posthog/analytics | Analytics, AI, Feature flags, Observability |

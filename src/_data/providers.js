@@ -429,6 +429,16 @@ export default [
     logoTag: "logo-parallel",
   },
   {
+    name: "Perplexity",
+    slug: "perplexity/api",
+    category: "search",
+    description: "Web-grounded search API",
+    longDescription: "Perplexity's API answers from the live web with citations, and gives applications and agents access to the Sonar models for search-native reasoning. Billed by usage, per request and per token.",
+    tableDescription: "Web-grounded search API. Answer from the live web with citations, or call the Sonar models for search-native reasoning.",
+    url: "https://perplexity.ai",
+    logoTag: "logo-perplexity",
+  },
+  {
     name: "Mixpanel",
     slug: "mixpanel/analytics",
     category: "analytics",
