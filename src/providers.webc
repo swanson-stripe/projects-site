@@ -276,6 +276,29 @@ wave: false
             return chip;
         }
 
+        /*
+         * How tall a cell's content actually is. offsetHeight is no use here: a
+         * table cell stretches to the row height, so every cell in a row reports
+         * the same number — including the row height the chips themselves caused.
+         * Measuring the content instead is what keeps the budget from being
+         * circular.
+         */
+        function contentHeight(cell) {
+            let top = Infinity;
+            let bottom = -Infinity;
+            const consider = rect => {
+                if (!rect || (!rect.height && !rect.width)) return;
+                top = Math.min(top, rect.top);
+                bottom = Math.max(bottom, rect.bottom);
+            };
+            const range = document.createRange();
+            range.selectNodeContents(cell);
+            for (const rect of range.getClientRects()) consider(rect);
+            // Ranges do not report a flex/block child's own box, so add those too.
+            for (const child of cell.children) consider(child.getBoundingClientRect());
+            return bottom < top ? 0 : bottom - top;
+        }
+
         function layoutRow(row) {
             const bar = row.querySelector('[data-chips]');
             const chips = [...bar.querySelectorAll('[data-chip]')];
@@ -291,35 +314,36 @@ wave: false
             button.setAttribute('aria-expanded', 'false');
             if (chips.length < 2) return;
 
-            const step = (chips[0].offsetHeight || 24) + GAP;
+            const step = (chips[0].getBoundingClientRect().height || 24) + GAP;
+            // One line of chips is the floor: a 24px chip against a 21px line of
+            // text overshoots by 3px, which is the price of showing any chip.
             let lines = 1;
             if (desktop.matches) {
-                // Cells share py-12, so the tallest sibling's height less that
-                // padding is the vertical room chips can use for free.
-                const style = getComputedStyle(cell);
-                const padding = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
                 let tallest = 0;
                 for (const sibling of row.children) {
-                    if (sibling !== cell) tallest = Math.max(tallest, sibling.offsetHeight);
+                    if (sibling !== cell) tallest = Math.max(tallest, contentHeight(sibling));
                 }
-                lines = Math.max(1, Math.floor((tallest - padding + GAP) / step));
+                lines = Math.max(1, Math.floor((tallest + GAP) / step));
             }
 
             const budget = lines * step - GAP;
-            if (bar.offsetHeight <= budget) return;
+            // Chips are all visible, so each one's offset tells us its line.
+            const first = chips[0].offsetTop;
+            let visible = chips.filter(chip => Math.round((chip.offsetTop - first) / step) < lines).length;
+            if (visible >= chips.length) return;
 
-            // Hide from the end until the chips plus the +N button fit. The
-            // button's own width counts, which is why its label is set in here.
+            // The +N button takes horizontal room of its own, which can push one
+            // more chip off the last line — so re-check after labelling it.
             wrap.removeAttribute('data-off');
-            let visible = chips.length;
-            while (visible > 1) {
-                visible -= 1;
+            for (;;) {
                 chips.forEach((chip, i) => {
                     if (i < visible) chip.removeAttribute('data-off');
                     else chip.setAttribute('data-off', '');
                 });
                 button.textContent = '+' + (chips.length - visible);
-                if (bar.offsetHeight <= budget) break;
+                if (visible <= 1) break;
+                if (bar.getBoundingClientRect().height <= budget + 0.5) break;
+                visible -= 1;
             }
 
             const hidden = chips.slice(visible).map(chip => chip.textContent);
@@ -361,19 +385,26 @@ wave: false
             button.setAttribute('aria-expanded', 'true');
         }
 
+        /* Pointer left, or focus moved out — but not merely between the button
+         * and its own panel, and never while the panel is pinned open. */
+        function dismiss(event) {
+            const wrap = event.target.closest('[data-more-wrap]');
+            if (!wrap || wrap.dataset.pinned) return;
+            if (wrap.contains(event.relatedTarget)) return;
+            wrap.removeAttribute('data-open');
+            wrap.querySelector('[data-chip-more]').setAttribute('aria-expanded', 'false');
+        }
+
         const list = document.querySelector('[data-provider-list]');
         if (list) {
             list.addEventListener('mouseover', event => {
                 const wrap = event.target.closest('[data-more-wrap]');
                 if (wrap && !wrap.hasAttribute('data-open')) open(wrap);
             });
-            list.addEventListener('mouseout', event => {
-                const wrap = event.target.closest('[data-more-wrap]');
-                if (!wrap || wrap.dataset.pinned) return;
-                if (wrap.contains(event.relatedTarget)) return;
-                wrap.removeAttribute('data-open');
-                wrap.querySelector('[data-chip-more]').setAttribute('aria-expanded', 'false');
-            });
+            list.addEventListener('mouseout', dismiss);
+            // Without this a keyboard user tabs past the button and leaves the
+            // panel stranded open.
+            list.addEventListener('focusout', dismiss);
             list.addEventListener('click', event => {
                 const button = event.target.closest('[data-chip-more]');
                 if (!button) return;
