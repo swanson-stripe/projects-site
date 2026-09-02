@@ -15,9 +15,6 @@ import providers from "./providers.js";
 import catalog from "./catalog.js";
 import { catalogSlug, categoryLabel, providerAnchor } from "../lib/categories.js";
 
-/* Chips rendered inline before collapsing the rest into `+N`. */
-const VISIBLE_CHIPS = 2;
-
 const byCatalogSlug = new Map(catalog.providers.map((provider) => [provider.slug, provider]));
 
 /*
@@ -42,7 +39,6 @@ const byName = (a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base
 const rows = [...providers].sort(byName).map((provider) => {
     const catalogEntry = byCatalogSlug.get(catalogSlug(provider.slug));
     const categories = orderedCategories(provider, catalogEntry);
-    const overflow = categories.slice(VISIBLE_CHIPS);
 
     return {
         name: provider.name,
@@ -54,13 +50,14 @@ const rows = [...providers].sort(byName).map((provider) => {
         /* Editorial fields the llms.txt / index.html.md sync also renders. */
         slug: provider.slug,
         longDescription: provider.longDescription || provider.description,
-        /* Every category, lead first — what the docs sync lists in full. */
+        /*
+         * Every category, lead first. All of them render as chips; how many stay
+         * visible is measured in the browser, because it depends on how tall the
+         * description already made the row. See the collapse pass in
+         * providers.webc.
+         */
         categories: categories.map((id) => ({ id, label: categoryLabel(id) })),
         categoryLabels: categories.map(categoryLabel).join(", "),
-        chips: categories.slice(0, VISIBLE_CHIPS).map((id) => ({ id, label: categoryLabel(id) })),
-        overflowCount: overflow.length,
-        /* Tooltip on the `+N` chip, so the hidden labels stay reachable. */
-        overflowLabels: overflow.map(categoryLabel).join(", "),
         /* Space separated so the filter can do .split(" ").includes(id). */
         dataCategories: categories.join(" "),
         /*

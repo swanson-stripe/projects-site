@@ -568,13 +568,35 @@ describe("provider categories", () => {
     assert.deepEqual(empty, [], "filter pill(s) match no provider");
   });
 
-  test("a filter can reach the categories the +N chip hides", () => {
+  /*
+   * How many chips stay visible is measured in the browser against the height
+   * the description already gives the row, so the markup ships every category
+   * and the script collapses only what will not fit. That means the served HTML
+   * must be complete: a reader with no JS, and anything scraping the page, sees
+   * all eight of Cloudflare's categories.
+   */
+  test("the markup ships every category, leaving the split to the client", () => {
     const cloudflare = providerRows.rows.find((row) => row.name === "Cloudflare");
-    const categories = cloudflare.dataCategories.split(" ");
-    assert.ok(cloudflare.overflowCount > 0, "expected Cloudflare to overflow");
-    assert.equal(categories.length, cloudflare.chips.length + cloudflare.overflowCount);
-    /* "storage" is collapsed into the +N chip, so only data-categories carries it. */
-    assert.ok(categories.includes("storage"));
+    assert.equal(cloudflare.categories.length, 8);
+    assert.deepEqual(
+      cloudflare.categories.map((category) => category.id),
+      cloudflare.dataCategories.split(" "),
+      "chips and the filter attribute must describe the same set",
+    );
+
+    const markup = read("providers/index.html").replaceAll(/<!--[\s\S]*?-->/g, "");
+    const row = markup.match(/<tr data-provider-row[^>]*data-name="cloudflare"[\s\S]*?<\/tr>/)[0];
+    const cell = row.match(/<span data-chips[\s\S]*?<\/td>/)[0];
+    assert.equal(
+      (cell.match(/data-chip=""/g) ?? []).length,
+      8,
+      "every category should be rendered as a chip",
+    );
+    for (const { label } of cloudflare.categories) {
+      assert.ok(cell.includes(`>${label}</span>`), `chip for ${label} is missing`);
+    }
+    /* The +N control ships collapsed; the script reveals it only if needed. */
+    assert.match(cell, /data-more-wrap="" data-off=""/);
   });
 
   test("the rendered table carries the full category set per row", () => {
