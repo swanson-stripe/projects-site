@@ -844,7 +844,8 @@ structuredData: "software-application"
                 <div data-carousel-viewport class="relative flex overflow-x-scroll no-scrollbar">
                     <ul data-carousel-track class="relative flex gap-8 sm:gap-16 shrink-0 max-w-none pr-32 py-32 px-16 md:px-0">
                         <!--- Cards --->
-                        <li webc:for="template of templates.families" class="relative w-336 sm:w-348 shrink-0 flex flex-col">
+                        <!--- templates.carousel, not .families: same set, featured template first. --->
+                        <li webc:for="template of templates.carousel" class="relative w-336 sm:w-348 shrink-0 flex flex-col">
                             <div class="relative flex flex-col h-full border border-edge bg-highlight rounded-6">
                                 <!--- Content --->
                                 <div class="relative flex-1 flex flex-col justify-between p-24">

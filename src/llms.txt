@@ -88,7 +88,7 @@ first listed is the primary one.
 | Firecrawl | firecrawl/api | Search |
 | Fly.io | flyio/app | Hosting, Database |
 | GitLab | gitlab/project | CI, AI, Analytics, CDN, Hosting, Observability, Storage |
-| here.now | herenow/hosting | Hosting, CDN, Storage |
+| Here.now | herenow/hosting | Hosting, CDN, Storage |
 | HeyGen | heygen/api | AI |
 | Hugging Face | huggingface/platform | AI, Hosting, Storage |
 | Inngest | inngest/app | Queue |
