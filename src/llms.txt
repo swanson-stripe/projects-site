@@ -58,72 +58,73 @@ Key capabilities:
 ## Supported Providers
 
 Stripe Projects currently supports 63 providers. Provision any of them with
-`stripe projects add <provider>/<service>`.
+`stripe projects add <provider>/<service>`. Many providers span several categories; the
+first listed is the primary one.
 
-| Provider | Service slug | Category |
+| Provider | Service slug | Categories |
 |---|---|---|
-| AgentMail | agentmail/api | Communications |
+| AgentMail | agentmail/api | Email, AI, Messaging |
 | AgentPhone | agentphone/number | Communications |
-| Algolia | algolia/application | Search |
-| Amplitude | amplitude/analytics | Analytics |
+| Algolia | algolia/application | Search, AI |
+| Amplitude | amplitude/analytics | Analytics, AI, Feature flags |
 | Auth0/Okta | auth0/client | Auth |
-| Base 44 | base44_projects/app | Hosting |
-| Blaxel | blaxel/sandbox | Hosting |
-| Browserbase | browserbase/project | AI |
+| Base 44 | base44_projects/app | Hosting, AI, Auth, Database |
+| Blaxel | blaxel/sandbox | Hosting, AI, Sandbox, Storage |
+| Browserbase | browserbase/project | Browser |
 | Chatbase | chatbase/agent | AI |
-| Chroma | chroma/database | Database |
+| Chroma | chroma/database | Database, AI |
 | Clerk | clerk/auth | Auth |
-| ClickHouse | clickhouse/clickhouse | Database |
-| Cloudflare | cloudflare/worker | Hosting |
+| ClickHouse | clickhouse/clickhouse | Database, Analytics |
+| Cloudflare | cloudflare/worker | Hosting, Database, Domains, Browser, Cache, Queue, Storage, AI |
 | Composio | composio/project | AI |
-| CreateOS | createos/project | Compute |
-| Customer.io | customer.io/workspace | Communications |
+| CreateOS | createos/project | Sandbox, Hosting |
+| Customer.io | customer.io/workspace | Messaging, Email, Notifications |
 | Datadog | datadog/observability | Observability |
-| Daytona | daytona/sandbox | Sandbox |
-| Depot | depot/api | CI |
-| E2B | e2b/sandboxes | Hosting |
+| Daytona | daytona/sandbox | Sandbox, AI, Hosting |
+| Depot | depot/api | CI, Cache, Hosting |
+| E2B | e2b/sandboxes | Hosting, Sandbox |
 | ElevenLabs | elevenlabs/tts | AI |
-| Exa | exa/api | Search |
+| Exa | exa/api | Search, AI |
 | Firecrawl | firecrawl/api | Search |
-| Fly.io | flyio/app | Hosting |
-| GitLab | gitlab/project | CI/CD |
-| here.now | herenow/hosting | Hosting |
+| Fly.io | flyio/app | Hosting, Database |
+| GitLab | gitlab/project | CI, AI, Analytics, CDN, Hosting, Observability, Storage |
+| here.now | herenow/hosting | Hosting, CDN, Storage |
 | HeyGen | heygen/api | AI |
-| Hugging Face | huggingface/platform | AI |
-| Inngest | inngest/app | AI |
-| KERNEL | kernel/project | Browser |
-| Laravel Cloud | laravel_cloud/application | Hosting |
+| Hugging Face | huggingface/platform | AI, Hosting, Storage |
+| Inngest | inngest/app | Queue |
+| KERNEL | kernel/project | Browser, AI |
+| Laravel Cloud | laravel_cloud/application | Hosting, Cache, Database |
 | Metronome | metronome/sandbox | Payments |
 | Mixpanel | mixpanel/analytics | Analytics |
-| Neon | neon/postgres | Database |
+| Neon | neon/postgres | Database, Auth |
 | Netlify | netlify/project | Hosting |
-| Openrouter | openrouter/api | AI |
-| Parallel | parallel/api | Search |
+| OpenRouter | openrouter/api | AI |
+| Parallel | parallel/api | Search, AI |
 | PlanetScale | planetscale/postgresql | Database |
 | PostalForm | postalform/mail | Communications |
-| PostHog | posthog/analytics | Analytics |
+| PostHog | posthog/analytics | Analytics, AI, Feature flags, Observability |
 | Prisma | prisma/database | Database |
-| Privy | privy/app | Payments |
-| Pydantic | pydantic/logfire | Observability |
-| Railway | railway/hosting | Hosting |
-| Render | render/static-site | Hosting |
-| RevenueCat | revenuecat/app | Payments |
-| Runloop | runloop/sandbox | Sandbox |
+| Privy | privy/app | Payments, Auth |
+| Pydantic | pydantic/logfire | Observability, AI, Analytics, Feature flags |
+| Railway | railway/hosting | Hosting, Database, Cache, Storage |
+| Render | render/static-site | Hosting, Database |
+| RevenueCat | revenuecat/app | Payments, Analytics |
+| Runloop | runloop/sandbox | Sandbox, AI |
 | Schematic | schematic/schematic-environment | Feature flags |
 | Sentry | sentry/project | Observability |
 | Shopify | shopify/store | Ecommerce |
 | Spaceship | spaceship/domain | Domains |
 | Squarespace | squarespace/domain | Domains |
 | Steel | steel/browser | Browser |
-| Supabase | supabase/project | Database |
-| Supermemory | supermemory/memory | AI |
-| Tabstack | tabstack/api | Search |
+| Supabase | supabase/project | Database, Auth, Storage |
+| Supermemory | supermemory/memory | AI, Database, Search, Storage |
+| Tabstack | tabstack/api | Search, AI, Browser |
 | Turso | turso/database | Database |
-| Twilio | twilio/email | Communications |
-| Upstash | upstash/redis | Cache |
+| Twilio | twilio/email | Communications, Email |
+| Upstash | upstash/redis | Cache, Database, AI, Messaging, Search |
 | Vercel | vercel/project | Hosting |
 | Wix | wix/headless | Ecommerce |
-| WordPress.com | wordpress.com/site | Hosting |
+| WordPress.com | wordpress.com/site | Hosting, Domains |
 | WorkOS | workos/auth | Auth |
 
 Browse the same catalog on the web at https://projects.dev/providers/, or from the CLI

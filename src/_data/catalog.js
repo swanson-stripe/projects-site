@@ -11,10 +11,10 @@
  */
 
 export default {
-    "lastUpdated": "2026-08-25T22:25:19.615Z",
-    "providerCount": 62,
-    "serviceCount": 199,
-    "deployableCount": 90,
+    "lastUpdated": "2026-09-01T21:55:37.727Z",
+    "providerCount": 63,
+    "serviceCount": 202,
+    "deployableCount": 91,
     "categories": [
         {
             "id": "ai",
@@ -32,6 +32,11 @@ export default {
             "count": 15
         },
         {
+            "id": "storage",
+            "label": "Storage",
+            "count": 8
+        },
+        {
             "id": "analytics",
             "label": "Analytics",
             "count": 7
@@ -44,11 +49,6 @@ export default {
         {
             "id": "search",
             "label": "Search",
-            "count": 7
-        },
-        {
-            "id": "storage",
-            "label": "Storage",
             "count": 7
         },
         {
@@ -97,6 +97,11 @@ export default {
             "count": 3
         },
         {
+            "id": "cdn",
+            "label": "Cdn",
+            "count": 2
+        },
+        {
             "id": "ci",
             "label": "CI",
             "count": 2
@@ -115,11 +120,6 @@ export default {
             "id": "queue",
             "label": "Queue",
             "count": 2
-        },
-        {
-            "id": "cdn",
-            "label": "Cdn",
-            "count": 1
         },
         {
             "id": "notification",
@@ -167,8 +167,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "developer",
                         "startup",
+                        "developer",
                         "free"
                     ]
                 },
@@ -458,8 +458,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "plus-v3-10k-mtu-monthly",
                         "plus-v3-25k-mtu-monthly",
+                        "plus-v3-10k-mtu-monthly",
                         "plus-v3-50k-mtu-monthly",
                         "free"
                     ]
@@ -554,8 +554,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "plus-v3-10k-mtu-monthly",
                         "plus-v3-25k-mtu-monthly",
+                        "plus-v3-10k-mtu-monthly",
                         "free",
                         "plus-v3-50k-mtu-monthly"
                     ]
@@ -654,10 +654,10 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
+                        "b2c-professional",
                         "b2b-professional",
                         "b2c-essentials",
                         "b2b-essentials",
-                        "b2c-professional",
                         "free"
                     ]
                 },
@@ -685,10 +685,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "b2c-professional",
                         "free",
                         "b2c-essentials",
                         "b2b-essentials",
-                        "b2c-professional",
                         "b2b-professional"
                     ]
                 },
@@ -716,10 +716,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "b2c-professional",
                         "b2b-professional",
                         "free",
                         "b2c-essentials",
-                        "b2c-professional",
                         "b2b-essentials"
                     ]
                 },
@@ -778,10 +778,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "b2c-professional",
                         "b2b-professional",
                         "free",
                         "b2b-essentials",
-                        "b2c-professional",
                         "b2c-essentials"
                     ]
                 }
@@ -954,11 +954,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "tier-6",
+                        "tier-5",
                         "tier-4",
                         "tier-3",
                         "tier-2",
-                        "tier-6",
-                        "tier-5",
                         "tier-1"
                     ]
                 },
@@ -991,11 +991,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-3",
                         "tier-2",
                         "tier-1",
                         "tier-6",
                         "tier-5",
+                        "tier-3",
                         "tier-4"
                     ]
                 },
@@ -1028,11 +1028,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-4",
-                        "tier-3",
                         "tier-2",
                         "tier-1",
                         "tier-6",
+                        "tier-4",
+                        "tier-3",
                         "tier-5"
                     ]
                 },
@@ -1065,11 +1065,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-4",
-                        "tier-3",
                         "tier-1",
                         "tier-6",
                         "tier-5",
+                        "tier-4",
+                        "tier-3",
                         "tier-2"
                     ]
                 },
@@ -1102,11 +1102,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "tier-2",
+                        "tier-1",
                         "tier-5",
                         "tier-4",
                         "tier-3",
-                        "tier-2",
-                        "tier-1",
                         "tier-6"
                     ]
                 },
@@ -1139,11 +1139,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-4",
                         "tier-2",
                         "tier-1",
                         "tier-6",
                         "tier-5",
+                        "tier-4",
                         "tier-3"
                     ]
                 }
@@ -1421,8 +1421,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "standard",
                         "pro",
+                        "standard",
                         "hobby"
                     ]
                 },
@@ -1739,8 +1739,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "enterprise",
                         "scale",
+                        "enterprise",
                         "basic"
                     ]
                 },
@@ -1769,8 +1769,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "basic",
                         "scale",
+                        "basic",
                         "enterprise"
                     ]
                 }
@@ -1956,8 +1956,8 @@ export default {
                         "PROJECT_ID"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "browser-run"
                     ]
                 },
@@ -1988,8 +1988,8 @@ export default {
                         "REGION"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "containers"
                     ]
                 },
@@ -2028,8 +2028,8 @@ export default {
                         "DATABASE_PASSWORD"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "d1"
                     ]
                 },
@@ -2068,8 +2068,8 @@ export default {
                         "DATABASE_PASSWORD"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "hyperdrive"
                     ]
                 },
@@ -2106,8 +2106,8 @@ export default {
                         "TOKEN"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "kv"
                     ]
                 },
@@ -2143,8 +2143,8 @@ export default {
                         "API_KEY"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "queues"
                     ]
                 },
@@ -2228,8 +2228,8 @@ export default {
                         "REGION"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "workers"
                     ]
                 },
@@ -2265,8 +2265,8 @@ export default {
                         "API_KEY"
                     ],
                     "updateableTo": [
-                        "workers:paid",
                         "workers:free",
+                        "workers:paid",
                         "workers-ai"
                     ]
                 }
@@ -2428,9 +2428,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "beginner-monthly",
-                        "pro-monthly",
                         "free",
+                        "pro-monthly",
+                        "beginner-monthly",
                         "enterprise-monthly"
                     ]
                 },
@@ -2489,8 +2489,8 @@ export default {
                     ],
                     "updateableTo": [
                         "enterprise-monthly",
-                        "beginner-monthly",
                         "free",
+                        "beginner-monthly",
                         "pro-monthly"
                     ]
                 }
@@ -2816,8 +2816,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-2000",
                         "top-up-0025",
+                        "top-up-2000",
                         "top-up-1000",
                         "top-up-0500"
                     ]
@@ -3409,9 +3409,9 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "hobby",
+                        "api",
                         "standard",
                         "growth",
-                        "api",
                         "free"
                     ]
                 },
@@ -3455,9 +3455,9 @@ export default {
                     ],
                     "updateableTo": [
                         "hobby",
+                        "api",
                         "free",
                         "standard",
-                        "api",
                         "growth"
                     ]
                 },
@@ -3547,9 +3547,9 @@ export default {
                     ],
                     "updateableTo": [
                         "hobby",
+                        "api",
                         "free",
                         "growth",
-                        "api",
                         "standard"
                     ]
                 }
@@ -3836,6 +3836,128 @@ export default {
             ]
         },
         {
+            "slug": "herenow",
+            "name": "herenow",
+            "url": "https://here.now",
+            "tosUrl": "https://here.now/terms",
+            "privacyUrl": "https://here.now/privacy",
+            "iconUrl": null,
+            "brandColor": "#000000",
+            "brandIsMono": true,
+            "brandInk": "light",
+            "brandIsPale": false,
+            "fallbackInitials": "HE",
+            "entry": {
+                "status": "free",
+                "label": "Free tier"
+            },
+            "description": "Instant web hosting for agents. Publish HTML, files, and full sites to live URLs at {slug}.here.now, with custom domains, version history, and access controls.",
+            "categories": [
+                "cdn",
+                "storage"
+            ],
+            "pageUrl": "/marketplace/herenow/",
+            "searchText": "herenow herenow instant web hosting for agents. publish html, files, and full sites to live urls at {slug}.here.now, with custom domains, version history, and access controls. cdn storage herenow/hosting",
+            "plans": [
+                {
+                    "serviceId": "developer",
+                    "ref": "herenow/developer",
+                    "description": "here.now Developer plan — $20/month: unlimited sites, 2 TB storage, 20 custom domains, vanity subdomain namespaces, and a higher publish rate limit.",
+                    "categories": [
+                        "cdn"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$20.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$20.00 per month",
+                            "status": "paid",
+                            "description": "$20 per month",
+                            "isDefault": true,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "hobby",
+                        "developer"
+                    ]
+                },
+                {
+                    "serviceId": "hobby",
+                    "ref": "herenow/hobby",
+                    "description": "here.now Hobby plan — $4/month: up to 1,000 sites, 500 GB storage, 5 custom domains, vanity subdomain namespaces, and a higher publish rate limit.",
+                    "categories": [
+                        "cdn"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$4.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$4.00 per month",
+                            "status": "paid",
+                            "description": "$4 per month",
+                            "isDefault": true,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "developer",
+                        "hobby"
+                    ]
+                }
+            ],
+            "deployables": [
+                {
+                    "serviceId": "hosting",
+                    "ref": "herenow/hosting",
+                    "description": "here.now hosting — publish HTML, files, and full sites to live URLs at {slug}.here.now via the here.now API. Provisions an API key synced as HERENOW_API_KEY.",
+                    "categories": [
+                        "storage",
+                        "cdn"
+                    ],
+                    "scope": "project",
+                    "selectionMode": "component",
+                    "planOptions": [
+                        {
+                            "planServiceId": "developer",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "hobby",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        }
+                    ],
+                    "tiers": [],
+                    "status": "paid",
+                    "price": "Depends on plan",
+                    "defaultResourceName": "hosting",
+                    "envPrefix": "HERENOW_HOSTING",
+                    "credentialKeys": [
+                        "ACCESS_KEY_ID",
+                        "SECRET_ACCESS_KEY",
+                        "BUCKET"
+                    ],
+                    "updateableTo": [
+                        "hosting"
+                    ]
+                }
+            ]
+        },
+        {
             "slug": "heygen",
             "name": "HeyGen",
             "url": "https://heygen.com",
@@ -4064,8 +4186,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "hobby",
-                        "pro"
+                        "pro",
+                        "hobby"
                     ]
                 },
                 {
@@ -4092,8 +4214,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobby",
-                        "pro"
+                        "pro",
+                        "hobby"
                     ]
                 }
             ],
@@ -4171,8 +4293,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "hobbyist",
                         "startup",
+                        "hobbyist",
                         "developer"
                     ]
                 },
@@ -4800,8 +4922,8 @@ export default {
             "tosUrl": "https://openrouter.ai/terms",
             "privacyUrl": "https://openrouter.ai/privacy",
             "iconUrl": "/assets/images/provider-favicons/openrouter.svg",
-            "brandColor": "#000000",
-            "brandIsMono": true,
+            "brandColor": "#7624f4",
+            "brandIsMono": false,
             "brandInk": "light",
             "brandIsPale": false,
             "fallbackInitials": "OP",
@@ -8968,10 +9090,10 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro",
+                        "business",
                         "free",
-                        "starter",
-                        "business"
+                        "pro",
+                        "starter"
                     ]
                 },
                 {
@@ -8998,10 +9120,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "pro",
                         "starter",
                         "business",
-                        "free",
-                        "pro"
+                        "free"
                     ]
                 },
                 {
@@ -9028,9 +9150,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "business",
                         "starter",
                         "pro",
-                        "business",
                         "free"
                     ]
                 },
@@ -9058,8 +9180,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
                         "business",
+                        "pro",
                         "starter",
                         "free"
                     ]
@@ -9488,8 +9610,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "hobby",
                         "pro",
+                        "hobby",
                         "free"
                     ]
                 },
@@ -10277,8 +10399,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "business",
                         "team",
+                        "business",
                         "developer"
                     ]
                 },
@@ -10763,8 +10885,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro",
                         "team",
+                        "pro",
                         "free"
                     ]
                 },
@@ -10794,8 +10916,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "free",
                         "team",
+                        "free",
                         "pro"
                     ]
                 },
@@ -10825,8 +10947,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "free",
                         "pro",
+                        "free",
                         "team"
                     ]
                 }
@@ -11131,12 +11253,12 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
+                        "scaler_overages",
+                        "pro_overages",
                         "developer",
                         "scaler",
                         "developer_overages",
                         "pro",
-                        "scaler_overages",
-                        "pro_overages",
                         "starter"
                     ]
                 },
@@ -11164,11 +11286,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "pro_overages",
+                        "pro",
+                        "developer_overages",
                         "scaler_overages",
                         "scaler",
-                        "pro",
-                        "pro_overages",
-                        "developer_overages",
                         "developer"
                     ]
                 },
@@ -11196,8 +11318,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro_overages",
                         "pro",
+                        "pro_overages",
                         "scaler_overages"
                     ]
                 },
@@ -11253,9 +11375,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro_overages",
                         "pro",
                         "scaler_overages",
+                        "pro_overages",
                         "scaler"
                     ]
                 },
@@ -11330,12 +11452,6 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "scaler",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "pro_overages",
                             "status": "free",
                             "price": "Free",
@@ -11367,6 +11483,12 @@ export default {
                         },
                         {
                             "planServiceId": "starter",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "scaler",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -11773,8 +11895,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "hobby",
-                        "pro"
+                        "pro",
+                        "hobby"
                     ]
                 },
                 {
@@ -11801,8 +11923,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobby",
-                        "pro"
+                        "pro",
+                        "hobby"
                     ]
                 }
             ],

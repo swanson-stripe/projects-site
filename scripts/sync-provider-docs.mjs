@@ -16,61 +16,38 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import providers from "../src/_data/providers.js";
+import catalog from "../src/_data/catalog.js";
+import providerRows from "../src/_data/providerRows.js";
+import { KNOWN_CATEGORIES, categoryLabel } from "../src/lib/categories.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-/* Display labels for the raw category slugs used in the provider data. */
-const CATEGORY_LABELS = {
-  ai: "AI",
-  analytics: "Analytics",
-  auth: "Auth",
-  browser: "Browser",
-  cache: "Cache",
-  ci: "CI",
-  "ci-cd": "CI/CD",
-  communications: "Communications",
-  compute: "Compute",
-  database: "Database",
-  domains: "Domains",
-  ecommerce: "Ecommerce",
-  feature_flags: "Feature flags",
-  hosting: "Hosting",
-  observability: "Observability",
-  payments: "Payments",
-  sandbox: "Sandbox",
-  search: "Search",
-};
+/*
+ * Labels and the full per-provider category set both come from the shared
+ * taxonomy, so llms.txt lists the same categories as /providers rather than a
+ * single one. This script used to keep its own copy of the label map and a
+ * hand-ordered category list, both of which had drifted from the catalog.
+ */
+const rowsBySlug = new Map(providerRows.rows.map((row) => [row.slug, row]));
 
-/* Order categories so the most-used ones lead, then alphabetically. */
-const CATEGORY_ORDER = [
-  "hosting",
-  "database",
-  "auth",
-  "ai",
-  "communications",
-  "analytics",
-  "observability",
-  "payments",
-  "search",
-  "sandbox",
-  "browser",
-  "compute",
-  "cache",
-  "ci",
-  "ci-cd",
-  "domains",
-  "ecommerce",
-  "feature_flags",
-];
+/* Most-populated category first — the order the catalog already computes. */
+const CATEGORY_ORDER = catalog.categories.map((category) => category.id);
 
 function label(category) {
-  const known = CATEGORY_LABELS[category];
-  if (!known) {
+  if (!KNOWN_CATEGORIES.has(category)) {
     throw new Error(
-      `Unknown provider category "${category}". Add it to CATEGORY_LABELS and CATEGORY_ORDER in scripts/sync-provider-docs.mjs.`,
+      `Unknown provider category "${category}". Add it to CATEGORY_LABELS in src/lib/categories.js.`,
     );
   }
-  return known;
+  return categoryLabel(category);
+}
+
+/* Every category the provider is in, not just the editorial lead. */
+function allCategories(provider) {
+  const row = rowsBySlug.get(provider.slug);
+  if (!row) throw new Error(`No catalog row for ${provider.slug}`);
+  for (const { id } of row.categories) label(id);
+  return row.categoryLabels;
 }
 
 function byName(a, b) {
@@ -86,13 +63,14 @@ function cell(value) {
 function renderTable() {
   const rows = [...providers].sort(byName).map(
     (provider) =>
-      `| ${cell(provider.name)} | ${cell(provider.slug)} | ${cell(label(provider.category))} |`,
+      `| ${cell(provider.name)} | ${cell(provider.slug)} | ${cell(allCategories(provider))} |`,
   );
   return [
     `Stripe Projects currently supports ${providers.length} providers. Provision any of them with`,
-    "`stripe projects add <provider>/<service>`.",
+    "`stripe projects add <provider>/<service>`. Many providers span several categories; the",
+    "first listed is the primary one.",
     "",
-    "| Provider | Service slug | Category |",
+    "| Provider | Service slug | Categories |",
     "|---|---|---|",
     ...rows,
     "",

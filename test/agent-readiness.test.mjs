@@ -11,6 +11,13 @@ import { readFileSync, existsSync } from "node:fs";
 import test, { describe } from "node:test";
 
 import providers from "../src/_data/providers.js";
+import catalog from "../src/_data/catalog.js";
+import providerRows from "../src/_data/providerRows.js";
+import {
+  INTENTIONAL_LEAD_OVERRIDES,
+  KNOWN_CATEGORIES,
+  catalogSlug,
+} from "../src/lib/categories.js";
 
 const DIST = new URL("../dist/", import.meta.url);
 
@@ -474,6 +481,176 @@ describe("provider catalog coverage", () => {
         provider.longDescription || provider.description,
         `provider ${provider.slug} needs a description`,
       );
+    }
+  });
+});
+
+/*
+ * Providers are multi-category — a third of the catalog sits in two or more, and
+ * Cloudflare in eight. /providers used to hardcode one category per row, which
+ * drifted to 19 wrong values plus two filter pills ("hosting", "ci-cd") matching
+ * no real category. The table and pills are now joined to the generated catalog;
+ * these tests fail if that join breaks or the taxonomy grows a label-less id.
+ */
+describe("provider categories", () => {
+  test("every provider joins to a catalog entry", () => {
+    const known = new Set(catalog.providers.map((provider) => provider.slug));
+    const orphans = providers
+      .filter((provider) => !known.has(catalogSlug(provider.slug)))
+      .map((provider) => `${provider.slug} -> ${catalogSlug(provider.slug)}`);
+    assert.deepEqual(orphans, [], "provider(s) have no catalog entry — add a slug alias");
+  });
+
+  test("every catalog category has an explicit label", () => {
+    const unlabelled = catalog.categories
+      .map((category) => category.id)
+      .filter((id) => !KNOWN_CATEGORIES.has(id));
+    assert.deepEqual(
+      unlabelled,
+      [],
+      "catalog category id(s) need a label in src/lib/categories.js",
+    );
+  });
+
+  /* Mismatches the catalog does not back have to be declared, not incidental. */
+  function leadMismatches() {
+    const bySlug = new Map(catalog.providers.map((provider) => [provider.slug, provider]));
+    return providers.filter((provider) => {
+      const entry = bySlug.get(catalogSlug(provider.slug));
+      return entry && !entry.categories.includes(provider.category);
+    });
+  }
+
+  test("the lead category is one the provider is actually in", () => {
+    const undeclared = leadMismatches()
+      .filter((provider) => !INTENTIONAL_LEAD_OVERRIDES.has(provider.slug))
+      .map((provider) => `${provider.slug} leads with "${provider.category}"`);
+    assert.deepEqual(
+      undeclared,
+      [],
+      "lead category is not in the catalog set — fix it, or declare it in INTENTIONAL_LEAD_OVERRIDES",
+    );
+  });
+
+  /* Keeps the allowlist from outliving the mismatch it was written for. */
+  test("every declared lead override is still a real mismatch", () => {
+    const mismatched = new Set(leadMismatches().map((provider) => provider.slug));
+    const stale = [...INTENTIONAL_LEAD_OVERRIDES.keys()].filter((slug) => !mismatched.has(slug));
+    assert.deepEqual(
+      stale,
+      [],
+      "INTENTIONAL_LEAD_OVERRIDES entr(ies) no longer diverge from the catalog — drop them",
+    );
+  });
+
+  /*
+   * categoryOrder is filtered against the provider's real categories, so a
+   * typo would not break the page — it would just quietly fail to reorder
+   * anything. Catch that here instead.
+   */
+  test("every categoryOrder entry is a category the provider has", () => {
+    const bySlug = new Map(catalog.providers.map((provider) => [provider.slug, provider]));
+    const bogus = [];
+    for (const provider of providers) {
+      if (!provider.categoryOrder) continue;
+      const real = new Set([
+        provider.category,
+        ...(bySlug.get(catalogSlug(provider.slug))?.categories ?? []),
+      ]);
+      for (const id of provider.categoryOrder) {
+        if (!real.has(id)) bogus.push(`${provider.slug} orders "${id}", which it is not in`);
+      }
+    }
+    assert.deepEqual(bogus, [], "categoryOrder names a category the provider does not have");
+  });
+
+  /*
+   * An override adds a category the catalog does not report, so counts taken
+   * from catalog.categories would undercount the pill against what clicking it
+   * actually returns.
+   */
+  test("each pill count matches the rows that pill will show", () => {
+    for (const pill of providerRows.pills) {
+      const matching =
+        pill.id === "all"
+          ? providerRows.rows.length
+          : providerRows.rows.filter((row) => row.dataCategories.split(" ").includes(pill.id))
+              .length;
+      assert.equal(pill.count, matching, `the ${pill.label} pill is mislabelled`);
+    }
+  });
+
+  test("no filter pill matches zero providers", () => {
+    const sets = providerRows.rows.map((row) => row.dataCategories.split(" "));
+    const empty = providerRows.pills
+      .filter((pill) => pill.id !== "all")
+      .filter((pill) => !sets.some((categories) => categories.includes(pill.id)))
+      .map((pill) => pill.id);
+    assert.deepEqual(empty, [], "filter pill(s) match no provider");
+  });
+
+  /*
+   * How many chips stay visible is measured in the browser against the height
+   * the description already gives the row, so the markup ships every category
+   * and the script collapses only what will not fit. That means the served HTML
+   * must be complete: a reader with no JS, and anything scraping the page, sees
+   * all eight of Cloudflare's categories.
+   */
+  test("the markup ships every category, leaving the split to the client", () => {
+    const cloudflare = providerRows.rows.find((row) => row.name === "Cloudflare");
+    assert.equal(cloudflare.categories.length, 8);
+    assert.deepEqual(
+      cloudflare.categories.map((category) => category.id),
+      cloudflare.dataCategories.split(" "),
+      "chips and the filter attribute must describe the same set",
+    );
+
+    const markup = read("providers/index.html").replaceAll(/<!--[\s\S]*?-->/g, "");
+    const row = markup.match(/<tr data-provider-row[^>]*data-name="cloudflare"[\s\S]*?<\/tr>/)[0];
+    const cell = row.match(/<span data-chips[\s\S]*?<\/td>/)[0];
+    assert.equal(
+      (cell.match(/data-chip=""/g) ?? []).length,
+      8,
+      "every category should be rendered as a chip",
+    );
+    for (const { label } of cloudflare.categories) {
+      assert.ok(cell.includes(`>${label}</span>`), `chip for ${label} is missing`);
+    }
+    /* The +N control ships collapsed; the script reveals it only if needed. */
+    assert.match(cell, /data-more-wrap="" data-off=""/);
+  });
+
+  test("the rendered table carries the full category set per row", () => {
+    const markup = read("providers/index.html").replaceAll(/<!--[\s\S]*?-->/g, "");
+    const rendered = new Map(
+      [...markup.matchAll(/data-name="([^"]*)"[^>]*data-categories="([^"]*)"/g)].map(
+        (match) => [match[1], match[2]],
+      ),
+    );
+    assert.equal(rendered.size, providers.length);
+    for (const row of providerRows.rows) {
+      assert.equal(
+        rendered.get(row.anchor),
+        row.dataCategories,
+        `/providers renders the wrong categories for ${row.name}`,
+      );
+    }
+  });
+
+  test("no row still carries the retired single data-category", () => {
+    const markup = read("providers/index.html");
+    assert.doesNotMatch(markup, /data-provider-row[^>]*\sdata-category=/);
+  });
+
+  /*
+   * The id and the label diverge for compute/Hosting, so a visitor typing the
+   * word printed on the chip has to match the row the chip belongs to.
+   */
+  test("search matches a category by its label as well as its id", () => {
+    const vercel = providerRows.rows.find((row) => row.name === "Vercel");
+    assert.equal(vercel.dataCategories, "compute");
+    for (const query of ["compute", "hosting", "vercel"]) {
+      assert.ok(vercel.searchText.includes(query), `search misses "${query}"`);
     }
   });
 });

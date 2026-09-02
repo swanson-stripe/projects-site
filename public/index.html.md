@@ -89,6 +89,16 @@ Stripe Projects provisions services from 63 providers across the categories
 below. Every service is addressed as `<provider>/<service>` and added with
 `stripe projects add <provider>/<service>`.
 
+### AI
+
+- **Chatbase** — `chatbase/agent` — AI agent builder platform. Create, deploy, and manage custom AI chatbots trained on your data. https://chatbase.co
+- **Composio** — `composio/project` — Integration platform for AI agents. Connect agents to 250+ tools and apps with managed authentication and execution. https://composio.dev
+- **ElevenLabs** — `elevenlabs/tts` — AI tools for generating human-like speech, voice cloning, and audio content to make communication and creation seamless. https://elevenlabs.io
+- **HeyGen** — `heygen/api` — AI video generation platform for creating personalized talking-head videos, avatars, and translations at scale. https://heygen.com
+- **Hugging Face** — `huggingface/platform` — Hugging Face is the ML platform for hosting, training, and deploying models and datasets. Access thousands of open-source models and run inference with a simple API. https://huggingface.co
+- **OpenRouter** — `openrouter/api` — Openrouter provides a single API to access hundreds of AI models from OpenAI, Anthropic, Google, Meta, and more. Route to the best model for cost, speed, or capability automatically. https://openrouter.ai
+- **Supermemory** — `supermemory/memory` — AI memory layer for agents and apps. Store, retrieve, and reason over knowledge with vector and semantic search. https://supermemory.ai
+
 ### Hosting
 
 - **Base 44** — `base44_projects/app` — Full-stack app platform with hosting, database, and AI built in. Ship complete applications from a single environment. https://base44.com
@@ -114,49 +124,17 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Supabase** — `supabase/project` — Supabase is the easy-to-use, open-source managed Postgres with integrated backend services — Database, Auth, Storage, Edge Functions, Realtime, and Vector search. https://supabase.com
 - **Turso** — `turso/database` — Turso Cloud gives AI agents the fast, durable, and isolated state they need to run reliably at scale. Each agent gets its own lightweight, replicated SQLite-compatible database with fast reads, built-in vector search, and automatic sync. https://turso.tech
 
-### Auth
-
-- **Auth0/Okta** — `auth0/client` — Secure users, AI agents, and more with Auth0, an easy-to-implement, scalable, and adaptable authentication and authorization platform. https://auth0.com
-- **Clerk** — `clerk/auth` — Drop-in authentication with social login, magic links, MFA, and full user management UI. Works out of the box with zero configuration. https://clerk.dev
-- **WorkOS** — `workos/auth` — WorkOS is the infrastructure B2B and AI-native companies use to sell to enterprise, covering everything enterprise security requires: SSO, SCIM, RBAC, Audit Logs, AI governance, and more. https://workos.com
-
-### AI
-
-- **Browserbase** — `browserbase/project` — Platform for building and deploying browser agents that interact with the web like humans, enabling developers to spin up thousands of headless browsers in milliseconds, globally. https://browserbase.com
-- **Chatbase** — `chatbase/agent` — AI agent builder platform. Create, deploy, and manage custom AI chatbots trained on your data. https://chatbase.co
-- **Composio** — `composio/project` — Integration platform for AI agents. Connect agents to 250+ tools and apps with managed authentication and execution. https://composio.dev
-- **ElevenLabs** — `elevenlabs/tts` — AI tools for generating human-like speech, voice cloning, and audio content to make communication and creation seamless. https://elevenlabs.io
-- **HeyGen** — `heygen/api` — AI video generation platform for creating personalized talking-head videos, avatars, and translations at scale. https://heygen.com
-- **Hugging Face** — `huggingface/platform` — Hugging Face is the ML platform for hosting, training, and deploying models and datasets. Access thousands of open-source models and run inference with a simple API. https://huggingface.co
-- **Inngest** — `inngest/app` — Inngest is the event-driven platform for background jobs, scheduled tasks, and long-running AI workflows. Built-in retries, step functions, fan-out, and full observability without managing queues. https://inngest.com
-- **Openrouter** — `openrouter/api` — Openrouter provides a single API to access hundreds of AI models from OpenAI, Anthropic, Google, Meta, and more. Route to the best model for cost, speed, or capability automatically. https://openrouter.ai
-- **Supermemory** — `supermemory/memory` — AI memory layer for agents and apps. Store, retrieve, and reason over knowledge with vector and semantic search. https://supermemory.ai
-
-### Communications
-
-- **AgentMail** — `agentmail/api` — The email inbox API for AI agents. Agents can communicate with any internet user and authenticate with any internet service. https://agentmail.to
-- **AgentPhone** — `agentphone/number` — Programmable phone numbers for AI agents. Make and receive calls, handle voicemail, and route conversations autonomously. https://agentphone.ai
-- **Customer.io** — `customer.io/workspace` — Automated messaging platform for targeted emails, push notifications, SMS, and in-app messages based on user behavior. https://customer.io
-- **PostalForm** — `postalform/mail` — Programmable physical mail API. Send letters, postcards, and documents via USPS from your application. https://postalform.com
-- **Twilio** — `twilio/email` — Customer engagement platform with programmable communications and data APIs for adding intelligence and security to sales, marketing, service, and growth workflows. https://twilio.com
-
 ### Analytics
 
 - **Amplitude** — `amplitude/analytics` — Amplitude is the digital analytics platform for understanding user behavior, building conversion funnels, measuring retention, and running A/B experiments to drive product growth. https://amplitude.com
 - **Mixpanel** — `mixpanel/analytics` — Mixpanel tracks user events and interactions to help teams understand behavior, build funnels, measure retention, and make data-driven decisions without a data warehouse. https://mixpanel.com
 - **PostHog** — `posthog/analytics` — PostHog is the single platform for software teams — with analytics, session replay, feature flags, A/B testing, data warehouse, CDP, and more all in one AI-powered platform. https://posthog.com
 
-### Observability
+### Auth
 
-- **Datadog** — `datadog/observability` — Cloud-scale monitoring and security platform. Unified observability for infrastructure, applications, logs, and more. https://datadoghq.com
-- **Pydantic** — `pydantic/logfire` — Logfire observability platform. OpenTelemetry-native monitoring, tracing, and debugging for Python applications and AI agents. https://pydantic.dev
-- **Sentry** — `sentry/project` — Debugging platform that helps teams detect, understand, and fix broken code fast, reducing resolution time from days to minutes. https://sentry.io
-
-### Payments
-
-- **Metronome** — `metronome/sandbox` — Usage-based billing infrastructure for SaaS. Meter, price, and invoice based on real product consumption. https://metronome.com
-- **Privy** — `privy/app` — Wallet and key-management infrastructure for embedding secure wallets, authentication, and signing policies into apps across Tempo, EVM, Solana, and Bitcoin. https://privy.io
-- **RevenueCat** — `revenuecat/app` — In-app subscription infrastructure. Manage purchases, paywalls, and subscription analytics across iOS, Android, and web. https://revenuecat.com
+- **Auth0/Okta** — `auth0/client` — Secure users, AI agents, and more with Auth0, an easy-to-implement, scalable, and adaptable authentication and authorization platform. https://auth0.com
+- **Clerk** — `clerk/auth` — Drop-in authentication with social login, magic links, MFA, and full user management UI. Works out of the box with zero configuration. https://clerk.dev
+- **WorkOS** — `workos/auth` — WorkOS is the infrastructure B2B and AI-native companies use to sell to enterprise, covering everything enterprise security requires: SSO, SCIM, RBAC, Audit Logs, AI governance, and more. https://workos.com
 
 ### Search
 
@@ -166,45 +144,70 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Parallel** — `parallel/api` — AI-powered research and analysis engine. Search, synthesize, and extract insights from web and private data sources. https://parallel.ai
 - **Tabstack** — `tabstack/api` — Search API by Mozilla. Privacy-focused web search and retrieval infrastructure for applications and AI agents. https://tabstack.com
 
-### Sandbox
-
-- **Daytona** — `daytona/sandbox` — Secure, elastic sandbox infrastructure for AI agents, providing complete, isolated, and fully programmable environments spun up on demand for autonomous agentic workflows, coding assistants, and pipelines at scale. https://daytona.io
-- **Runloop** — `runloop/sandbox` — Runloop provides secure execution infrastructure for AI agents. Run agent workloads inside isolated micro-VM sandboxes, allowing agents to safely execute code, use tools, and access external systems. https://runloop.ai
-
 ### Browser
 
+- **Browserbase** — `browserbase/project` — Platform for building and deploying browser agents that interact with the web like humans, enabling developers to spin up thousands of headless browsers in milliseconds, globally. https://browserbase.com
 - **KERNEL** — `kernel/project` — AI-native browser infrastructure for building agents that browse, interact with, and extract data from the web. https://www.kernel.sh/
 - **Steel** — `steel/browser` — Browser automation API for AI agents. Managed headless browsers with session management, anti-detection, and proxy support. https://steel.dev
-
-### Compute
-
-- **CreateOS** — `createos/project` — Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand. https://createos.ai
 
 ### Cache
 
 - **Upstash** — `upstash/redis` — The serverless platform for AI agents and modern apps. https://upstash.com
 
-### CI
+### Observability
 
-- **Depot** — `depot/api` — Fast CI/CD infrastructure. Accelerate container builds and CI pipelines with managed remote builders and caching. https://depot.dev
-
-### CI/CD
-
-- **GitLab** — `gitlab/project` — Intelligent DevSecOps orchestration platform that enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. https://gitlab.com
+- **Datadog** — `datadog/observability` — Cloud-scale monitoring and security platform. Unified observability for infrastructure, applications, logs, and more. https://datadoghq.com
+- **Pydantic** — `pydantic/logfire` — Logfire observability platform. OpenTelemetry-native monitoring, tracing, and debugging for Python applications and AI agents. https://pydantic.dev
+- **Sentry** — `sentry/project` — Debugging platform that helps teams detect, understand, and fix broken code fast, reducing resolution time from days to minutes. https://sentry.io
 
 ### Domains
 
 - **Spaceship** — `spaceship/domain` — Find the perfect domain for your project with Spaceship powered domain registration. https://spaceship.com
 - **Squarespace** — `squarespace/domain` — Search domain names and find the right one for your website. https://squarespace.com
 
+### Feature flags
+
+- **Schematic** — `schematic/schematic-environment` — Feature management and entitlements platform. Control feature access, run experiments, and manage plan-based entitlements. https://schematichq.com
+
+### Sandbox
+
+- **CreateOS** — `createos/project` — Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand. https://createos.ai
+- **Daytona** — `daytona/sandbox` — Secure, elastic sandbox infrastructure for AI agents, providing complete, isolated, and fully programmable environments spun up on demand for autonomous agentic workflows, coding assistants, and pipelines at scale. https://daytona.io
+- **Runloop** — `runloop/sandbox` — Runloop provides secure execution infrastructure for AI agents. Run agent workloads inside isolated micro-VM sandboxes, allowing agents to safely execute code, use tools, and access external systems. https://runloop.ai
+
+### Email
+
+- **AgentMail** — `agentmail/api` — The email inbox API for AI agents. Agents can communicate with any internet user and authenticate with any internet service. https://agentmail.to
+
+### Messaging
+
+- **Customer.io** — `customer.io/workspace` — Automated messaging platform for targeted emails, push notifications, SMS, and in-app messages based on user behavior. https://customer.io
+
+### Payments
+
+- **Metronome** — `metronome/sandbox` — Usage-based billing infrastructure for SaaS. Meter, price, and invoice based on real product consumption. https://metronome.com
+- **Privy** — `privy/app` — Wallet and key-management infrastructure for embedding secure wallets, authentication, and signing policies into apps across Tempo, EVM, Solana, and Bitcoin. https://privy.io
+- **RevenueCat** — `revenuecat/app` — In-app subscription infrastructure. Manage purchases, paywalls, and subscription analytics across iOS, Android, and web. https://revenuecat.com
+
+### CI
+
+- **Depot** — `depot/api` — Fast CI/CD infrastructure. Accelerate container builds and CI pipelines with managed remote builders and caching. https://depot.dev
+- **GitLab** — `gitlab/project` — Intelligent DevSecOps orchestration platform that enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. https://gitlab.com
+
+### Communications
+
+- **AgentPhone** — `agentphone/number` — Programmable phone numbers for AI agents. Make and receive calls, handle voicemail, and route conversations autonomously. https://agentphone.ai
+- **PostalForm** — `postalform/mail` — Programmable physical mail API. Send letters, postcards, and documents via USPS from your application. https://postalform.com
+- **Twilio** — `twilio/email` — Customer engagement platform with programmable communications and data APIs for adding intelligence and security to sales, marketing, service, and growth workflows. https://twilio.com
+
 ### Ecommerce
 
 - **Shopify** — `shopify/store` — Shopify is the leading commerce platform powering millions of businesses worldwide. The Shopify app lets developers provision a fully hosted Shopify online store directly from Stripe Projects – no separate signup or context switching. Choose a plan, launch your storefront, and manage billing through Stripe, so you can go from idea to selling in just a few clicks. https://shopify.com
 - **Wix** — `wix/headless` — Headless web platform for building and managing sites with flexible APIs and enterprise-grade hosting. https://wix.com
 
-### Feature flags
+### Queue
 
-- **Schematic** — `schematic/schematic-environment` — Feature management and entitlements platform. Control feature access, run experiments, and manage plan-based entitlements. https://schematichq.com
+- **Inngest** — `inngest/app` — Inngest is the event-driven platform for background jobs, scheduled tasks, and long-running AI workflows. Built-in retries, step functions, fan-out, and full observability without managing queues. https://inngest.com
 
 The complete catalog is also browsable at https://projects.dev/providers/ and from the
 CLI with `stripe projects catalog`.
