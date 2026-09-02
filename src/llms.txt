@@ -75,7 +75,7 @@ first listed is the primary one.
 | Chroma | chroma/database | Database, AI |
 | Clerk | clerk/auth | Auth |
 | ClickHouse | clickhouse/clickhouse | Database, Analytics |
-| Cloudflare | cloudflare/worker | Hosting, Database, AI, Browser, Cache, Domains, Queue, Storage |
+| Cloudflare | cloudflare/worker | Hosting, Database, Domains, Browser, Cache, Queue, Storage, AI |
 | Composio | composio/project | AI |
 | CreateOS | createos/project | Sandbox, Hosting |
 | Customer.io | customer.io/workspace | Messaging, Email, Notifications |

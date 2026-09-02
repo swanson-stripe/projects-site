@@ -138,6 +138,12 @@ export default [
     name: "Cloudflare",
     slug: "cloudflare/worker",
     category: "compute",
+    // Domains takes the third slot the catalog's count-then-alphabetical order
+    // gave AI on the strength of a single service. AI goes last rather than
+    // straight into Domains' old slot: "AI" is a narrower chip than "Domains",
+    // so a plain swap left room for a sixth chip and AI stayed visible. Last
+    // keeps it in the +N panel at every width.
+    categoryOrder: ["compute", "database", "domains", "browser", "cache", "queue", "storage", "ai"],
     description: "Edge platform for apps",
     longDescription: "Cloudflare is the edge platform for running, securing, and accelerating applications without managing infrastructure. Deploy code and services to a global network that handles routing, protection, and performance close to users by default.",
     tableDescription: "Edge platform for running, securing, and accelerating apps without managing infrastructure. Global network with routing, protection, and performance built in.",

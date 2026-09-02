@@ -544,6 +544,27 @@ describe("provider categories", () => {
   });
 
   /*
+   * categoryOrder is filtered against the provider's real categories, so a
+   * typo would not break the page — it would just quietly fail to reorder
+   * anything. Catch that here instead.
+   */
+  test("every categoryOrder entry is a category the provider has", () => {
+    const bySlug = new Map(catalog.providers.map((provider) => [provider.slug, provider]));
+    const bogus = [];
+    for (const provider of providers) {
+      if (!provider.categoryOrder) continue;
+      const real = new Set([
+        provider.category,
+        ...(bySlug.get(catalogSlug(provider.slug))?.categories ?? []),
+      ]);
+      for (const id of provider.categoryOrder) {
+        if (!real.has(id)) bogus.push(`${provider.slug} orders "${id}", which it is not in`);
+      }
+    }
+    assert.deepEqual(bogus, [], "categoryOrder names a category the provider does not have");
+  });
+
+  /*
    * An override adds a category the catalog does not report, so counts taken
    * from catalog.categories would undercount the pill against what clicking it
    * actually returns.

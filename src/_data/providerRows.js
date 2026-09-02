@@ -26,7 +26,21 @@ const byCatalogSlug = new Map(catalog.providers.map((provider) => [provider.slug
 function orderedCategories(provider, catalogEntry) {
     const fromCatalog = catalogEntry?.categories ?? [];
     const all = fromCatalog.length ? fromCatalog : [provider.category];
-    return [provider.category, ...all.filter((id) => id !== provider.category)];
+    /*
+     * A provider may also set `categoryOrder` to place its categories by hand
+     * where the count sort reads oddly — Cloudflare has eight, most with a
+     * single service, so which of them lands in the visible chips is otherwise
+     * decided alphabetically. Filtered against the real set so a typo cannot
+     * invent a category, and anything left out keeps the catalog's order.
+     */
+    const real = new Set([provider.category, ...all]);
+    const preferred = (provider.categoryOrder ?? []).filter((id) => real.has(id));
+
+    const ordered = [];
+    for (const id of [provider.category, ...preferred, ...all]) {
+        if (!ordered.includes(id)) ordered.push(id);
+    }
+    return ordered;
 }
 
 /*
