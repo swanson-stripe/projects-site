@@ -11,15 +11,15 @@
  */
 
 export default {
-    "lastUpdated": "2026-09-01T21:55:37.727Z",
-    "providerCount": 63,
-    "serviceCount": 202,
-    "deployableCount": 91,
+    "lastUpdated": "2026-09-02T17:53:24.398Z",
+    "providerCount": 64,
+    "serviceCount": 203,
+    "deployableCount": 92,
     "categories": [
         {
             "id": "ai",
             "label": "AI",
-            "count": 24
+            "count": 25
         },
         {
             "id": "compute",
@@ -30,6 +30,11 @@ export default {
             "id": "database",
             "label": "Database",
             "count": 15
+        },
+        {
+            "id": "search",
+            "label": "Search",
+            "count": 8
         },
         {
             "id": "storage",
@@ -44,11 +49,6 @@ export default {
         {
             "id": "auth",
             "label": "Auth",
-            "count": 7
-        },
-        {
-            "id": "search",
-            "label": "Search",
             "count": 7
         },
         {
@@ -167,8 +167,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "startup",
                         "developer",
+                        "startup",
                         "free"
                     ]
                 },
@@ -247,7 +247,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "free",
+                            "planServiceId": "developer",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -259,7 +259,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "developer",
+                            "planServiceId": "free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -458,9 +458,9 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
+                        "plus-v3-50k-mtu-monthly",
                         "plus-v3-25k-mtu-monthly",
                         "plus-v3-10k-mtu-monthly",
-                        "plus-v3-50k-mtu-monthly",
                         "free"
                     ]
                 },
@@ -490,9 +490,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "plus-v3-50k-mtu-monthly",
                         "plus-v3-25k-mtu-monthly",
                         "free",
-                        "plus-v3-50k-mtu-monthly",
                         "plus-v3-10k-mtu-monthly"
                     ]
                 },
@@ -523,8 +523,8 @@ export default {
                     ],
                     "updateableTo": [
                         "plus-v3-10k-mtu-monthly",
-                        "free",
                         "plus-v3-50k-mtu-monthly",
+                        "free",
                         "plus-v3-25k-mtu-monthly"
                     ]
                 },
@@ -554,8 +554,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "plus-v3-25k-mtu-monthly",
                         "plus-v3-10k-mtu-monthly",
+                        "plus-v3-25k-mtu-monthly",
                         "free",
                         "plus-v3-50k-mtu-monthly"
                     ]
@@ -610,10 +610,10 @@ export default {
                         "HOST"
                     ],
                     "updateableTo": [
-                        "free",
                         "plus-v3-25k-mtu-monthly",
                         "plus-v3-50k-mtu-monthly",
                         "plus-v3-10k-mtu-monthly",
+                        "free",
                         "analytics"
                     ]
                 }
@@ -654,10 +654,10 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "b2c-professional",
                         "b2b-professional",
-                        "b2c-essentials",
+                        "b2c-professional",
                         "b2b-essentials",
+                        "b2c-essentials",
                         "free"
                     ]
                 },
@@ -686,9 +686,9 @@ export default {
                     ],
                     "updateableTo": [
                         "b2c-professional",
-                        "free",
-                        "b2c-essentials",
                         "b2b-essentials",
+                        "b2c-essentials",
+                        "free",
                         "b2b-professional"
                     ]
                 },
@@ -716,10 +716,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "b2c-professional",
                         "b2b-professional",
-                        "free",
+                        "b2c-professional",
                         "b2c-essentials",
+                        "free",
                         "b2b-essentials"
                     ]
                 },
@@ -748,9 +748,9 @@ export default {
                     ],
                     "updateableTo": [
                         "b2b-professional",
-                        "free",
-                        "b2c-essentials",
                         "b2b-essentials",
+                        "b2c-essentials",
+                        "free",
                         "b2c-professional"
                     ]
                 },
@@ -778,10 +778,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "b2c-professional",
                         "b2b-professional",
-                        "free",
+                        "b2c-professional",
                         "b2b-essentials",
+                        "free",
                         "b2c-essentials"
                     ]
                 }
@@ -798,7 +798,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "free",
+                            "planServiceId": "b2b-professional",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -810,19 +810,19 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "b2b-professional",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "b2b-essentials",
+                            "planServiceId": "free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
                             "planServiceId": "b2c-essentials",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "b2b-essentials",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -940,11 +940,11 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "qualification_window_days": 30,
+                                "credits_usd": 20,
                                 "tier": "tier_1",
-                                "credits_usd": 20
+                                "qualification_window_days": 30
                             },
-                            "label": "30 · tier_1 · 20",
+                            "label": "20 · tier_1 · 30",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 1: higher resource limits and all previous tier features",
@@ -954,11 +954,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-6",
-                        "tier-5",
-                        "tier-4",
-                        "tier-3",
                         "tier-2",
+                        "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-6",
                         "tier-1"
                     ]
                 },
@@ -977,11 +977,11 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "qualification_window_days": 30,
+                                "credits_usd": 500,
                                 "tier": "tier_4",
-                                "credits_usd": 500
+                                "qualification_window_days": 30
                             },
-                            "label": "30 · tier_4 · 500",
+                            "label": "500 · tier_4 · 30",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 4: higher resource limits and all previous tier features",
@@ -991,11 +991,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-2",
-                        "tier-1",
-                        "tier-6",
-                        "tier-5",
                         "tier-3",
+                        "tier-5",
+                        "tier-6",
+                        "tier-1",
+                        "tier-2",
                         "tier-4"
                     ]
                 },
@@ -1014,11 +1014,11 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "qualification_window_days": 30,
+                                "credits_usd": 1500,
                                 "tier": "tier_5",
-                                "credits_usd": 1500
+                                "qualification_window_days": 30
                             },
-                            "label": "30 · tier_5 · 1500",
+                            "label": "1500 · tier_5 · 30",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 5: higher resource limits and all previous tier features",
@@ -1028,11 +1028,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-2",
-                        "tier-1",
-                        "tier-6",
-                        "tier-4",
                         "tier-3",
+                        "tier-4",
+                        "tier-6",
+                        "tier-1",
+                        "tier-2",
                         "tier-5"
                     ]
                 },
@@ -1051,11 +1051,11 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "qualification_window_days": 30,
+                                "credits_usd": 50,
                                 "tier": "tier_2",
-                                "credits_usd": 50
+                                "qualification_window_days": 30
                             },
-                            "label": "30 · tier_2 · 50",
+                            "label": "50 · tier_2 · 30",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 2: higher resource limits and all previous tier features",
@@ -1065,11 +1065,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-1",
-                        "tier-6",
-                        "tier-5",
-                        "tier-4",
                         "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-6",
+                        "tier-1",
                         "tier-2"
                     ]
                 },
@@ -1088,11 +1088,11 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "qualification_window_days": 30,
+                                "credits_usd": 4000,
                                 "tier": "tier_6",
-                                "credits_usd": 4000
+                                "qualification_window_days": 30
                             },
-                            "label": "30 · tier_6 · 4000",
+                            "label": "4000 · tier_6 · 30",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 6: higher resource limits and all previous tier features",
@@ -1102,11 +1102,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-2",
-                        "tier-1",
-                        "tier-5",
-                        "tier-4",
                         "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-1",
+                        "tier-2",
                         "tier-6"
                     ]
                 },
@@ -1125,11 +1125,11 @@ export default {
                         {
                             "id": "tier-0",
                             "configuration": {
-                                "qualification_window_days": 30,
+                                "credits_usd": 200,
                                 "tier": "tier_3",
-                                "credits_usd": 200
+                                "qualification_window_days": 30
                             },
-                            "label": "30 · tier_3 · 200",
+                            "label": "200 · tier_3 · 30",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 3: higher resource limits and all previous tier features",
@@ -1139,11 +1139,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-2",
-                        "tier-1",
-                        "tier-6",
-                        "tier-5",
                         "tier-4",
+                        "tier-5",
+                        "tier-6",
+                        "tier-1",
+                        "tier-2",
                         "tier-3"
                     ]
                 }
@@ -1392,8 +1392,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "standard",
                         "hobby",
+                        "standard",
                         "pro"
                     ]
                 },
@@ -1450,8 +1450,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobby",
                         "pro",
+                        "hobby",
                         "standard"
                     ]
                 }
@@ -1468,7 +1468,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "standard",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -1480,7 +1480,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "standard",
+                            "planServiceId": "hobby",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -1709,8 +1709,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "enterprise",
                         "basic",
+                        "enterprise",
                         "scale"
                     ]
                 },
@@ -1739,8 +1739,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "scale",
                         "enterprise",
+                        "scale",
                         "basic"
                     ]
                 },
@@ -2398,8 +2398,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "enterprise-monthly",
                         "pro-monthly",
+                        "enterprise-monthly",
                         "beginner-monthly",
                         "free"
                     ]
@@ -2428,9 +2428,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "free",
                         "pro-monthly",
                         "beginner-monthly",
+                        "free",
                         "enterprise-monthly"
                     ]
                 },
@@ -2458,8 +2458,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "enterprise-monthly",
                         "pro-monthly",
+                        "enterprise-monthly",
                         "free",
                         "beginner-monthly"
                     ]
@@ -2488,9 +2488,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "beginner-monthly",
                         "enterprise-monthly",
                         "free",
-                        "beginner-monthly",
                         "pro-monthly"
                     ]
                 }
@@ -2507,13 +2507,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "pro-monthly",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "free",
+                            "planServiceId": "enterprise-monthly",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -2525,7 +2519,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "enterprise-monthly",
+                            "planServiceId": "free",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "pro-monthly",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -2816,9 +2816,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-0025",
-                        "top-up-2000",
                         "top-up-1000",
+                        "top-up-2000",
+                        "top-up-0025",
                         "top-up-0500"
                     ]
                 },
@@ -2848,8 +2848,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-2000",
                         "top-up-0025",
+                        "top-up-2000",
                         "top-up-0500",
                         "top-up-1000"
                     ]
@@ -2880,8 +2880,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-2000",
                         "top-up-1000",
+                        "top-up-2000",
                         "top-up-0500",
                         "top-up-0025"
                     ]
@@ -2912,8 +2912,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-0025",
                         "top-up-1000",
+                        "top-up-0025",
                         "top-up-0500",
                         "top-up-2000"
                     ]
@@ -2933,25 +2933,25 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "top-up-0025",
-                            "status": "paid",
-                            "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "top-up-1000",
                             "status": "paid",
                             "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "top-up-2000",
+                            "planServiceId": "top-up-0025",
                             "status": "paid",
                             "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
                             "isDefault": false
                         },
                         {
                             "planServiceId": "top-up-0500",
+                            "status": "paid",
+                            "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "top-up-2000",
                             "status": "paid",
                             "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
                             "isDefault": false
@@ -3072,13 +3072,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "startup-plan",
+                            "planServiceId": "developer-plan",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "developer-plan",
+                            "planServiceId": "startup-plan",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -3410,8 +3410,8 @@ export default {
                     "updateableTo": [
                         "hobby",
                         "api",
-                        "standard",
                         "growth",
+                        "standard",
                         "free"
                     ]
                 },
@@ -3456,8 +3456,8 @@ export default {
                     "updateableTo": [
                         "hobby",
                         "api",
-                        "free",
                         "standard",
+                        "free",
                         "growth"
                     ]
                 },
@@ -3501,9 +3501,9 @@ export default {
                     ],
                     "updateableTo": [
                         "api",
-                        "free",
-                        "standard",
                         "growth",
+                        "standard",
+                        "free",
                         "hobby"
                     ]
                 },
@@ -3548,8 +3548,8 @@ export default {
                     "updateableTo": [
                         "hobby",
                         "api",
-                        "free",
                         "growth",
+                        "free",
                         "standard"
                     ]
                 }
@@ -3572,7 +3572,7 @@ export default {
                             "isDefault": true
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "standard",
                             "status": "paid",
                             "price": "Paid Firecrawl plans: pick hobby, standard, or growth, then monthly or yearly billing.",
                             "isDefault": false
@@ -3584,7 +3584,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "standard",
+                            "planServiceId": "hobby",
                             "status": "paid",
                             "price": "Paid Firecrawl plans: pick hobby, standard, or growth, then monthly or yearly billing.",
                             "isDefault": false
@@ -3601,9 +3601,9 @@ export default {
                     ],
                     "updateableTo": [
                         "hobby",
-                        "free",
-                        "standard",
                         "growth",
+                        "standard",
+                        "free",
                         "api"
                     ]
                 }
@@ -3929,13 +3929,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "developer",
+                            "planServiceId": "hobby",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "developer",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -4231,13 +4231,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -4322,8 +4322,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobbyist",
                         "developer",
+                        "hobbyist",
                         "startup"
                     ]
                 },
@@ -4370,7 +4370,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "hobbyist",
+                            "planServiceId": "developer",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -4382,7 +4382,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "developer",
+                            "planServiceId": "hobbyist",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -4497,13 +4497,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "starter",
+                            "planServiceId": "growth",
                             "status": "paid",
                             "price": "From $6/mo + usage",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "growth",
+                            "planServiceId": "starter",
                             "status": "paid",
                             "price": "From $6/mo + usage",
                             "isDefault": false
@@ -4533,13 +4533,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "starter",
+                            "planServiceId": "growth",
                             "status": "paid",
                             "price": "From $6.60/mo + usage",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "growth",
+                            "planServiceId": "starter",
                             "status": "paid",
                             "price": "From $6.60/mo + usage",
                             "isDefault": false
@@ -4571,13 +4571,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "starter",
+                            "planServiceId": "growth",
                             "status": "paid",
                             "price": "From $6/mo + usage",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "growth",
+                            "planServiceId": "starter",
                             "status": "paid",
                             "price": "From $6/mo + usage",
                             "isDefault": false
@@ -5226,10 +5226,10 @@ export default {
                         {
                             "id": "tier-12",
                             "configuration": {
-                                "generator": "preview",
-                                "product": "findall"
+                                "product": "findall",
+                                "generator": "preview"
                             },
-                            "label": "preview · findall",
+                            "label": "findall · preview",
                             "price": "$0.10 per query + $0.00 per match",
                             "status": "paid",
                             "description": "FindAll API - preview generator",
@@ -5240,10 +5240,10 @@ export default {
                         {
                             "id": "tier-13",
                             "configuration": {
-                                "generator": "base",
-                                "product": "findall"
+                                "product": "findall",
+                                "generator": "base"
                             },
-                            "label": "base · findall",
+                            "label": "findall · base",
                             "price": "$0.25 per query + $0.03 per match",
                             "status": "paid",
                             "description": "FindAll API - base generator",
@@ -5254,10 +5254,10 @@ export default {
                         {
                             "id": "tier-14",
                             "configuration": {
-                                "generator": "core",
-                                "product": "findall"
+                                "product": "findall",
+                                "generator": "core"
                             },
-                            "label": "core · findall",
+                            "label": "findall · core",
                             "price": "$2.00 per query + $0.15 per match",
                             "status": "paid",
                             "description": "FindAll API - core generator",
@@ -5268,10 +5268,10 @@ export default {
                         {
                             "id": "tier-15",
                             "configuration": {
-                                "generator": "pro",
-                                "product": "findall"
+                                "product": "findall",
+                                "generator": "pro"
                             },
-                            "label": "pro · findall",
+                            "label": "findall · pro",
                             "price": "$10.00 per query + $1.00 per match",
                             "status": "paid",
                             "description": "FindAll API - pro generator",
@@ -5312,6 +5312,57 @@ export default {
                     "price": "Search API - base request",
                     "defaultResourceName": "api",
                     "envPrefix": "PARALLEL_API",
+                    "credentialKeys": [
+                        "API_KEY",
+                        "APP_ID"
+                    ],
+                    "updateableTo": [
+                        "api"
+                    ]
+                }
+            ]
+        },
+        {
+            "slug": "perplexity",
+            "name": "Perplexity",
+            "url": "https://perplexity.ai",
+            "tosUrl": "https://perplexity.ai/terms",
+            "privacyUrl": "https://perplexity.ai/privacy",
+            "iconUrl": null,
+            "brandColor": "#427e8c",
+            "brandIsMono": false,
+            "brandInk": "light",
+            "brandIsPale": false,
+            "fallbackInitials": "PE",
+            "entry": {
+                "status": "free",
+                "label": "Free tier"
+            },
+            "description": "Web-grounded search API. Answer from the live web with citations, or call the Sonar models for search-native reasoning.",
+            "categories": [
+                "ai",
+                "search"
+            ],
+            "pageUrl": "/marketplace/perplexity/",
+            "searchText": "perplexity perplexity web-grounded search api. answer from the live web with citations, or call the sonar models for search-native reasoning. ai search perplexity/api",
+            "plans": [],
+            "deployables": [
+                {
+                    "serviceId": "api",
+                    "ref": "perplexity/api",
+                    "description": "Perplexity API: web-grounded search and Sonar models, billed by usage.",
+                    "categories": [
+                        "search",
+                        "ai"
+                    ],
+                    "scope": "project",
+                    "selectionMode": "free",
+                    "planOptions": [],
+                    "tiers": [],
+                    "status": "free",
+                    "price": "Free",
+                    "defaultResourceName": "api",
+                    "envPrefix": "PERPLEXITY_API",
                     "credentialKeys": [
                         "API_KEY",
                         "APP_ID"
@@ -9091,9 +9142,9 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "business",
-                        "free",
+                        "starter",
                         "pro",
-                        "starter"
+                        "free"
                     ]
                 },
                 {
@@ -9120,9 +9171,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
                         "starter",
                         "business",
+                        "pro",
                         "free"
                     ]
                 },
@@ -9181,8 +9232,8 @@ export default {
                     ],
                     "updateableTo": [
                         "business",
-                        "pro",
                         "starter",
+                        "pro",
                         "free"
                     ]
                 }
@@ -9199,25 +9250,25 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "pro",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "business",
+                            "planServiceId": "pro",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
                             "planServiceId": "starter",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "business",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -9382,7 +9433,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "free",
+                            "planServiceId": "enterprise",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -9394,7 +9445,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "enterprise",
+                            "planServiceId": "free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -9689,13 +9740,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
@@ -9732,13 +9783,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
@@ -9774,13 +9825,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
@@ -9818,13 +9869,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
@@ -9863,13 +9914,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "paid",
                             "price": "Usage-based. Compute: $0.000463/min/vCPU, Memory: $0.000231/min/GB. Volume storage: $0.25/GB/month.",
                             "isDefault": false
@@ -10337,13 +10388,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "schematic-free",
+                            "planServiceId": "schematic-growth",
                             "status": "free",
                             "price": "Free",
                             "isDefault": true
                         },
                         {
-                            "planServiceId": "schematic-growth",
+                            "planServiceId": "schematic-free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": true
@@ -10428,8 +10479,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "developer",
                         "team",
+                        "developer",
                         "business"
                     ]
                 },
@@ -10457,8 +10508,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "developer",
                         "business",
+                        "developer",
                         "team"
                     ]
                 }
@@ -10544,7 +10595,7 @@ export default {
             "url": "https://shopify.com",
             "tosUrl": "https://www.shopify.com/legal/terms",
             "privacyUrl": "https://www.shopify.com/legal/privacy",
-            "iconUrl": null,
+            "iconUrl": "/assets/images/provider-favicons/shopify.svg",
             "brandColor": "#95bf47",
             "brandIsMono": false,
             "brandInk": "dark",
@@ -10973,13 +11024,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "team",
+                            "planServiceId": "pro",
                             "status": "paid",
                             "price": "$10 per project (first project on Micro compute free)",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "team",
                             "status": "paid",
                             "price": "$10 per project (first project on Micro compute free)",
                             "isDefault": false
@@ -11254,11 +11305,11 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "scaler_overages",
-                        "pro_overages",
                         "developer",
-                        "scaler",
-                        "developer_overages",
                         "pro",
+                        "developer_overages",
+                        "scaler",
+                        "pro_overages",
                         "starter"
                     ]
                 },
@@ -11286,10 +11337,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "scaler_overages",
+                        "developer_overages",
                         "pro_overages",
                         "pro",
-                        "developer_overages",
-                        "scaler_overages",
                         "scaler",
                         "developer"
                     ]
@@ -11375,8 +11426,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
                         "scaler_overages",
+                        "pro",
                         "pro_overages",
                         "scaler"
                     ]
@@ -11406,9 +11457,9 @@ export default {
                     ],
                     "updateableTo": [
                         "pro_overages",
-                        "pro",
-                        "scaler_overages",
                         "scaler",
+                        "scaler_overages",
+                        "pro",
                         "developer_overages"
                     ]
                 },
@@ -11452,19 +11503,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "pro_overages",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "scaler_overages",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "pro",
+                            "planServiceId": "developer_overages",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -11476,19 +11515,31 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "developer_overages",
+                            "planServiceId": "pro",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "starter",
+                            "planServiceId": "scaler_overages",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "pro_overages",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
                             "planServiceId": "scaler",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "starter",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -11940,13 +11991,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "hobby",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "pro",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
