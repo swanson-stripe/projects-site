@@ -31,6 +31,15 @@
   ],
   "headers": [
     {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "tdm-reservation",
+          "value": "0"
+        }
+      ]
+    },
+    {
       "source": "/",
       "headers": [
         {

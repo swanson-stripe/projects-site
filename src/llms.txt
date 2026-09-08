@@ -291,9 +291,25 @@ Stripe Projects publishes these files at predictable URLs on https://projects.de
 | `/api/openapi.json` | application/openapi+json | OpenAPI 3.1 description of the site API |
 | `/api/health` | application/json | Health check |
 | `/sitemap.xml` | application/xml | Canonical URLs |
-| `/robots.txt` | text/plain | Crawler access rules |
+| `/robots.txt` | text/plain | Crawler access rules and content signals |
+| `/.well-known/tdmrep.json` | application/json | TDM Reservation Protocol — mining and training permitted |
 
 Requesting `/` with `Accept: text/markdown` returns `/index.html.md`.
+
+## Content Usage
+
+The public pages of https://projects.dev may be crawled, indexed, retrieved at
+inference time, and used to train AI models. `/robots.txt` states this with
+`Content-Signal: ai-train=yes, search=yes, ai-input=yes` and allows the training
+crawlers by name; `/.well-known/tdmrep.json` states it as a TDMRep record with
+`tdm-reservation: 0` (no rights reserved).
+
+The one exception is `/s/` — those are generated stack-share links rather than
+canonical pages, and every crawler group disallows them.
+
+Trademarks, provider names, and provider logos remain the property of their owners,
+and nothing here grants rights to content on other domains (including
+https://docs.stripe.com). See https://stripe.com/legal for Stripe's terms.
 
 ## Authentication
 
