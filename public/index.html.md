@@ -308,7 +308,8 @@ Stripe is a global financial infrastructure platform. Millions of companies — 
 - `/llms.txt` — Curated LLM-friendly overview of this site (llmstxt.org spec)
 - `/skill.md` — Stripe Projects agent skill
 - `/.well-known/agent-skills/index.json` — Agent skill discovery document
-- `/robots.txt` — Crawler access rules
+- `/robots.txt` — Crawler access rules and content signals
+- `/.well-known/tdmrep.json` — TDM Reservation Protocol record (mining and training permitted)
 - `/sitemap.xml` — Canonical URLs for the public site
 - `/.well-known/api-catalog` — RFC 9727 linkset for automated API discovery
 - `/api/openapi.json` — OpenAPI 3.1 description of the site API
@@ -322,3 +323,14 @@ Requests to `/` with `Accept: text/markdown` return this markdown representation
 
 Unknown paths return a real HTTP 404 with a markdown body at `/404.md` listing where to
 look next. A path that 404s on this site does not exist.
+
+## Content Usage
+
+The public pages of https://projects.dev may be crawled, indexed, retrieved at inference
+time, and used to train AI models. `/robots.txt` declares
+`Content-Signal: ai-train=yes, search=yes, ai-input=yes` and allows the training crawlers
+by name; `/.well-known/tdmrep.json` carries a TDMRep record with `tdm-reservation: 0`.
+
+`/s/` is the exception — those are generated stack-share links, not canonical pages, and
+every crawler group disallows them. Provider names and logos remain the property of their
+owners, and nothing here grants rights to content on other domains.

@@ -1,5 +1,11 @@
 # robots.txt — Stripe Projects
-# Public site pages may be crawled. Dynamic stack share URLs are not canonical.
+# Public site pages may be crawled, indexed, and used to train AI models.
+# Dynamic stack share URLs (/s/) are generated links, not canonical pages, so
+# they stay out of every group below.
+#
+# Content-Signal (contentsignals.org) states the same policy in machine-readable
+# form: search=yes, ai-input=yes (RAG / live retrieval), ai-train=yes (model
+# training).
 
 User-agent: *
 Allow: /
@@ -14,43 +20,30 @@ Allow: /404.md
 Allow: /api/openapi.json
 Allow: /sitemap.xml
 Disallow: /s/
-Content-Signal: ai-train=no, search=yes, ai-input=yes
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
+# Training crawlers and training-usage tokens — allowed. Listed explicitly so
+# the opt-in is unambiguous to operators that look for their own user-agent
+# rather than falling back to the wildcard group.
 User-agent: GPTBot
-Disallow: /
-
 User-agent: Google-Extended
-Disallow: /
-
 User-agent: Applebot-Extended
-Disallow: /
-
 User-agent: ClaudeBot
-Disallow: /
-
 User-agent: anthropic-ai
-Disallow: /
-
 User-agent: cohere-ai
-Disallow: /
-
 User-agent: meta-externalagent
-Disallow: /
+User-agent: CCBot
+Allow: /
+Disallow: /s/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
+# Retrieval and assistant crawlers — allowed (unchanged).
 User-agent: OAI-SearchBot
-Allow: /
-Disallow: /s/
-
 User-agent: ChatGPT-User
-Allow: /
-Disallow: /s/
-
 User-agent: Claude-Web
-Allow: /
-Disallow: /s/
-
 User-agent: PerplexityBot
 Allow: /
 Disallow: /s/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 Sitemap: https://projects.dev/sitemap.xml

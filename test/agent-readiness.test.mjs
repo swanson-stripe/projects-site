@@ -266,6 +266,7 @@ describe("agent discovery files", () => {
       "api/openapi.json",
       ".well-known/api-catalog",
       ".well-known/agent-skills/index.json",
+      ".well-known/tdmrep.json",
     ]) {
       assert.ok(
         existsSync(new URL(file, DIST)),
@@ -284,6 +285,39 @@ describe("agent discovery files", () => {
   test("robots.txt and llms.txt advertise the developer portal", () => {
     assert.match(read("robots.txt"), /^Allow: \/developers\/$/m);
     assert.ok(read("llms.txt").includes("https://projects.dev/developers/"));
+  });
+
+  /*
+   * The site opts in to AI training. Operators read that from robots.txt or from
+   * the TDMRep record, so both have to agree — and a `Disallow: /` under any
+   * training user-agent would revoke the opt-in for that operator alone, which is
+   * invisible unless something checks.
+   */
+  test("robots.txt opts in to AI training", () => {
+    const robots = read("robots.txt");
+    assert.match(robots, /^Content-Signal: ai-train=yes, search=yes, ai-input=yes$/m);
+    assert.doesNotMatch(robots, /^Disallow: \/$/m, "no group may block the whole site");
+    for (const agent of [
+      "GPTBot",
+      "Google-Extended",
+      "Applebot-Extended",
+      "ClaudeBot",
+      "anthropic-ai",
+      "CCBot",
+    ]) {
+      assert.match(
+        robots,
+        new RegExp(`^User-agent: ${agent}$`, "m"),
+        `${agent} should be named so the opt-in is explicit`,
+      );
+    }
+  });
+
+  test("the TDMRep record reserves no rights over the site", () => {
+    const entries = readJson(".well-known/tdmrep.json");
+    assert.ok(Array.isArray(entries) && entries.length === 1, "expected one TDMRep entry");
+    assert.equal(entries[0].location, "/");
+    assert.equal(entries[0]["tdm-reservation"], 0);
   });
 
   /*
