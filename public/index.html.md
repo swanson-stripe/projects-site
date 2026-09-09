@@ -85,7 +85,7 @@ Services are provisioned in provider accounts you own. If you stop using Stripe 
 
 ## Ecosystem — Supported Services
 
-Stripe Projects provisions services from 64 providers across the categories
+Stripe Projects provisions services from 65 providers across the categories
 below. Every service is addressed as `<provider>/<service>` and added with
 `stripe projects add <provider>/<service>`.
 
@@ -166,6 +166,11 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Spaceship** — `spaceship/domain` — Find the perfect domain for your project with Spaceship powered domain registration. https://spaceship.com
 - **Squarespace** — `squarespace/domain` — Search domain names and find the right one for your website. https://squarespace.com
 
+### Email
+
+- **AgentMail** — `agentmail/api` — The email inbox API for AI agents. Agents can communicate with any internet user and authenticate with any internet service. https://agentmail.to
+- **Resend** — `resend/email` — Email API for developers and AI agents. Send transactional and marketing email with React templates, webhooks, and deliverability tooling on a single endpoint. https://resend.com
+
 ### Feature flags
 
 - **Schematic** — `schematic/schematic-environment` — Feature management and entitlements platform. Control feature access, run experiments, and manage plan-based entitlements. https://schematichq.com
@@ -175,10 +180,6 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **CreateOS** — `createos/project` — Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand. https://createos.ai
 - **Daytona** — `daytona/sandbox` — Secure, elastic sandbox infrastructure for AI agents, providing complete, isolated, and fully programmable environments spun up on demand for autonomous agentic workflows, coding assistants, and pipelines at scale. https://daytona.io
 - **Runloop** — `runloop/sandbox` — Runloop provides secure execution infrastructure for AI agents. Run agent workloads inside isolated micro-VM sandboxes, allowing agents to safely execute code, use tools, and access external systems. https://runloop.ai
-
-### Email
-
-- **AgentMail** — `agentmail/api` — The email inbox API for AI agents. Agents can communicate with any internet user and authenticate with any internet service. https://agentmail.to
 
 ### Messaging
 
