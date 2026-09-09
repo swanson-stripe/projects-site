@@ -522,6 +522,15 @@ export default [
     logoTag: "logo-render",
   },
   {
+    name: "Resend",
+    slug: "resend/email",
+    category: "email",
+    description: "Email API for developers and agents",
+    longDescription: "Email API for developers and AI agents. Send transactional and marketing email with React templates, webhooks, and deliverability tooling on a single endpoint.",
+    url: "https://resend.com",
+    logoTag: "logo-resend",
+  },
+  {
     name: "Twilio",
     slug: "twilio/email",
     // Catalog lists only email services; Twilio is a communications platform.

@@ -12,9 +12,9 @@
 
 export default {
     "lastUpdated": "2026-09-02T17:53:24.398Z",
-    "providerCount": 64,
-    "serviceCount": 203,
-    "deployableCount": 92,
+    "providerCount": 65,
+    "serviceCount": 207,
+    "deployableCount": 93,
     "categories": [
         {
             "id": "ai",
@@ -72,6 +72,11 @@ export default {
             "count": 4
         },
         {
+            "id": "email",
+            "label": "Email",
+            "count": 4
+        },
+        {
             "id": "feature_flags",
             "label": "Feature flags",
             "count": 4
@@ -80,11 +85,6 @@ export default {
             "id": "sandbox",
             "label": "Sandbox",
             "count": 4
-        },
-        {
-            "id": "email",
-            "label": "Email",
-            "count": 3
         },
         {
             "id": "messaging",
@@ -10130,6 +10130,149 @@ export default {
                     ],
                     "updateableTo": [
                         "web-service"
+                    ]
+                }
+            ]
+        },
+        {
+            "slug": "resend",
+            "name": "Resend",
+            "url": "https://resend.com",
+            "tosUrl": "https://resend.com/legal/terms-of-service",
+            "privacyUrl": "https://resend.com/legal/privacy-policy",
+            "iconUrl": null,
+            "brandColor": "#061b31",
+            "brandIsMono": false,
+            "brandInk": "light",
+            "brandIsPale": false,
+            "fallbackInitials": "RE",
+            "entry": {
+                "status": "free",
+                "label": "Free tier"
+            },
+            "description": "Email API for developers and AI agents. Send transactional and marketing email with React templates, webhooks, and deliverability tooling on a single endpoint.",
+            "categories": [
+                "email"
+            ],
+            "pageUrl": "/marketplace/resend/",
+            "searchText": "resend resend email api for developers and ai agents. send transactional and marketing email with react templates, webhooks, and deliverability tooling on a single endpoint. email resend/email",
+            "plans": [
+                {
+                    "serviceId": "free",
+                    "ref": "resend/free",
+                    "description": "3,000 emails per month, up to 100 per day, one custom domain",
+                    "categories": [
+                        "email"
+                    ],
+                    "scope": "project",
+                    "status": "free",
+                    "price": "Free",
+                    "tiers": [],
+                    "updateableTo": [
+                        "pro",
+                        "scale",
+                        "free"
+                    ]
+                },
+                {
+                    "serviceId": "pro",
+                    "ref": "resend/pro",
+                    "description": "50,000 emails per month for production sending",
+                    "categories": [
+                        "email"
+                    ],
+                    "scope": "project",
+                    "status": "paid",
+                    "price": "$20.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$20.00 per month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "free",
+                        "scale",
+                        "pro"
+                    ]
+                },
+                {
+                    "serviceId": "scale",
+                    "ref": "resend/scale",
+                    "description": "100,000 emails per month for high-volume sending",
+                    "categories": [
+                        "email"
+                    ],
+                    "scope": "project",
+                    "status": "paid",
+                    "price": "$90.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$90.00 per month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "free",
+                        "pro",
+                        "scale"
+                    ]
+                }
+            ],
+            "deployables": [
+                {
+                    "serviceId": "email",
+                    "ref": "resend/email",
+                    "description": "Resend email API — send transactional and marketing email programmatically, with React templates, webhooks, and deliverability tooling",
+                    "categories": [
+                        "email"
+                    ],
+                    "scope": "project",
+                    "selectionMode": "component",
+                    "planOptions": [
+                        {
+                            "planServiceId": "free",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "pro",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "scale",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        }
+                    ],
+                    "tiers": [],
+                    "status": "paid",
+                    "price": "Depends on plan",
+                    "defaultResourceName": "email",
+                    "envPrefix": "RESEND_EMAIL",
+                    "credentialKeys": [
+                        "API_KEY"
+                    ],
+                    "updateableTo": [
+                        "email"
                     ]
                 }
             ]

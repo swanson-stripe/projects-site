@@ -57,7 +57,7 @@ Key capabilities:
 
 ## Supported Providers
 
-Stripe Projects currently supports 64 providers. Provision any of them with
+Stripe Projects currently supports 65 providers. Provision any of them with
 `stripe projects add <provider>/<service>`. Many providers span several categories; the
 first listed is the primary one.
 
@@ -109,6 +109,7 @@ first listed is the primary one.
 | Pydantic | pydantic/logfire | Observability, AI, Analytics, Feature flags |
 | Railway | railway/hosting | Hosting, Database, Cache, Storage |
 | Render | render/static-site | Hosting, Database |
+| Resend | resend/email | Email |
 | RevenueCat | revenuecat/app | Payments, Analytics |
 | Runloop | runloop/sandbox | Sandbox, AI |
 | Schematic | schematic/schematic-environment | Feature flags |

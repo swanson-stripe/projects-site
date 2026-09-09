@@ -264,6 +264,11 @@ const LEGAL_OVERRIDES = {
         tosUrl: "https://sentry.io/terms/",
         privacyUrl: "https://sentry.io/privacy/",
     },
+    // resend.com/terms and /privacy both 404; the legal pages live under /legal.
+    resend: {
+        tosUrl: "https://resend.com/legal/terms-of-service",
+        privacyUrl: "https://resend.com/legal/privacy-policy",
+    },
 };
 
 function legalLinks(slug, url) {
