@@ -61,12 +61,18 @@ const NAME_OVERRIDES = {
     createos: "CreateOS",
     customerio: "Customer.io",
     Flyio: "Fly.io",
-    HuggingFace: "Hugging Face",
     KERNEL: "KERNEL",
     Laravel_Cloud: "Laravel Cloud",
     PostalForm: "PostalForm",
     "WordPress.com": "WordPress.com",
 };
+
+/*
+ * Slugs the site does not list, even while the upstream catalog still returns
+ * them. Without this a regeneration from a live snapshot silently reinstates a
+ * provider that was deliberately pulled from /providers and the marquee.
+ */
+const EXCLUDED_SLUGS = new Set(["huggingface"]);
 
 function toSlug(providerName) {
     if (SLUG_OVERRIDES[providerName]) return SLUG_OVERRIDES[providerName];
@@ -594,6 +600,7 @@ const providers = [...byProvider.entries()]
         };
     })
     .filter((provider) => provider.deployables.length > 0)
+    .filter((provider) => !EXCLUDED_SLUGS.has(provider.slug))
     .sort((a, b) => a.name.localeCompare(b.name));
 
 const categoryCounts = new Map();

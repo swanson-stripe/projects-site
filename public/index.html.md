@@ -85,7 +85,7 @@ Services are provisioned in provider accounts you own. If you stop using Stripe 
 
 ## Ecosystem — Supported Services
 
-Stripe Projects provisions services from 64 providers across the categories
+Stripe Projects provisions services from 63 providers across the categories
 below. Every service is addressed as `<provider>/<service>` and added with
 `stripe projects add <provider>/<service>`.
 
@@ -95,7 +95,6 @@ below. Every service is addressed as `<provider>/<service>` and added with
 - **Composio** — `composio/project` — Integration platform for AI agents. Connect agents to 250+ tools and apps with managed authentication and execution. https://composio.dev
 - **ElevenLabs** — `elevenlabs/tts` — AI tools for generating human-like speech, voice cloning, and audio content to make communication and creation seamless. https://elevenlabs.io
 - **HeyGen** — `heygen/api` — AI video generation platform for creating personalized talking-head videos, avatars, and translations at scale. https://heygen.com
-- **Hugging Face** — `huggingface/platform` — Hugging Face is the ML platform for hosting, training, and deploying models and datasets. Access thousands of open-source models and run inference with a simple API. https://huggingface.co
 - **OpenRouter** — `openrouter/api` — Openrouter provides a single API to access hundreds of AI models from OpenAI, Anthropic, Google, Meta, and more. Route to the best model for cost, speed, or capability automatically. https://openrouter.ai
 - **Supermemory** — `supermemory/memory` — AI memory layer for agents and apps. Store, retrieve, and reason over knowledge with vector and semantic search. https://supermemory.ai
 

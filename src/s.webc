@@ -274,7 +274,6 @@ binaryCanvas: false
         firecrawl:    { name: 'Firecrawl',    desc: 'Web scraping API' },
         flyio:        { name: 'Fly.io',       desc: 'App hosting' },
         gitlab:       { name: 'GitLab',       desc: 'DevOps platform' },
-        huggingface:  { name: 'Hugging Face', desc: 'ML models' },
         inngest:      { name: 'Inngest',      desc: 'Background jobs' },
         mixpanel:     { name: 'Mixpanel',     desc: 'Event analytics' },
         neon:         { name: 'Neon',         desc: 'Serverless Postgres' },

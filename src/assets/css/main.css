@@ -608,7 +608,7 @@
  * Marketplace "bold" variant: tiles flooded with the provider's brand colour.
  *
  * --ink is chosen at build time from WCAG contrast against the brand, so light
- * brands (Hugging Face yellow) get near-black text and dark ones get white.
+ * brands (ClickHouse yellow) get near-black text and dark ones get white.
  * Marks are knocked out to a flat silhouette because a provider's own mark is
  * frequently the same colour as its brand and would vanish otherwise.
  */

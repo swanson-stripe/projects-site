@@ -12,19 +12,19 @@
 
 export default {
     "lastUpdated": "2026-09-02T17:53:24.398Z",
-    "providerCount": 64,
-    "serviceCount": 203,
-    "deployableCount": 92,
+    "providerCount": 63,
+    "serviceCount": 199,
+    "deployableCount": 90,
     "categories": [
         {
             "id": "ai",
             "label": "AI",
-            "count": 25
+            "count": 24
         },
         {
             "id": "compute",
             "label": "Compute",
-            "count": 16
+            "count": 15
         },
         {
             "id": "database",
@@ -37,11 +37,6 @@ export default {
             "count": 8
         },
         {
-            "id": "storage",
-            "label": "Storage",
-            "count": 8
-        },
-        {
             "id": "analytics",
             "label": "Analytics",
             "count": 7
@@ -49,6 +44,11 @@ export default {
         {
             "id": "auth",
             "label": "Auth",
+            "count": 7
+        },
+        {
+            "id": "storage",
+            "label": "Storage",
             "count": 7
         },
         {
@@ -4001,152 +4001,6 @@ export default {
                     ],
                     "updateableTo": [
                         "api"
-                    ]
-                }
-            ]
-        },
-        {
-            "slug": "huggingface",
-            "name": "Hugging Face",
-            "url": "https://huggingface.co",
-            "tosUrl": "https://huggingface.co/terms",
-            "privacyUrl": "https://huggingface.co/privacy",
-            "iconUrl": "/assets/images/provider-favicons/huggingface.svg",
-            "brandColor": "#ffd21e",
-            "brandIsMono": false,
-            "brandInk": "dark",
-            "brandIsPale": true,
-            "fallbackInitials": "HF",
-            "entry": {
-                "status": "free",
-                "label": "Free tier"
-            },
-            "description": "ML platform for hosting, training, and deploying models and datasets. Access thousands of open-source models and run inference with a simple API.",
-            "categories": [
-                "ai",
-                "compute",
-                "storage"
-            ],
-            "pageUrl": "/marketplace/huggingface/",
-            "searchText": "hugging face huggingface ml platform for hosting, training, and deploying models and datasets. access thousands of open-source models and run inference with a simple api. ai compute storage huggingface/bucket huggingface/platform",
-            "plans": [
-                {
-                    "serviceId": "free",
-                    "ref": "huggingface/free",
-                    "description": "Free — access the Hugging Face platform at zero cost, no credit card required. Includes a free usage quota. Optional pay-as-you-go auto top-up can be enabled to bill usage above quota via a shared payment token. See https://huggingface.co/pricing",
-                    "categories": [
-                        "ai"
-                    ],
-                    "scope": "account",
-                    "status": "free",
-                    "price": "Free",
-                    "tiers": [],
-                    "updateableTo": [
-                        "pro",
-                        "free"
-                    ]
-                },
-                {
-                    "serviceId": "pro",
-                    "ref": "huggingface/pro",
-                    "description": "Pro — paid Hugging Face plan for higher limits and advanced features. Includes a generous monthly usage quota. Optional pay-as-you-go auto top-up can be enabled to bill usage above quota via a shared payment token. Requires a shared payment token. See https://huggingface.co/pricing",
-                    "categories": [
-                        "ai"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "Recurring monthly subscription. See https://huggingface.co/pricing for current rates and limits.",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "Recurring monthly subscription. See https://huggingface.co/pricing for current rates and limits.",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "free",
-                        "pro"
-                    ]
-                }
-            ],
-            "deployables": [
-                {
-                    "serviceId": "bucket",
-                    "ref": "huggingface/bucket",
-                    "description": "Create a Storage Bucket for your data",
-                    "categories": [
-                        "ai",
-                        "storage"
-                    ],
-                    "scope": "project",
-                    "selectionMode": "component",
-                    "planOptions": [
-                        {
-                            "planServiceId": "free",
-                            "status": "paid",
-                            "price": "Free tier storage included with the Free plan; additional storage is only billed if pay-as-you-go auto top-up is enabled on the plan, otherwise writes stop once the quota is depleted. See https://huggingface.co/pricing for current rates.",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "pro",
-                            "status": "paid",
-                            "price": "Pro tier storage included with the Pro plan subscription; additional storage is only billed if pay-as-you-go auto top-up is enabled on the plan, otherwise writes stop once the quota is depleted. See https://huggingface.co/pricing for current rates.",
-                            "isDefault": false
-                        }
-                    ],
-                    "tiers": [],
-                    "status": "paid",
-                    "price": "Depends on plan",
-                    "defaultResourceName": "bucket",
-                    "envPrefix": "HUGGINGFACE_BUCKET",
-                    "credentialKeys": [
-                        "API_KEY"
-                    ],
-                    "updateableTo": [
-                        "bucket"
-                    ]
-                },
-                {
-                    "serviceId": "platform",
-                    "ref": "huggingface/platform",
-                    "description": "Full access to the Hugging Face platform: models, datasets, GPU compute, and inference",
-                    "categories": [
-                        "compute",
-                        "ai"
-                    ],
-                    "scope": "project",
-                    "selectionMode": "component",
-                    "planOptions": [
-                        {
-                            "planServiceId": "free",
-                            "status": "paid",
-                            "price": "Free tier quota included with the Free plan; additional usage is only billed if pay-as-you-go auto top-up is enabled on the plan, otherwise the service stops once the quota is depleted. See https://huggingface.co/pricing for current rates.",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "pro",
-                            "status": "paid",
-                            "price": "Pro tier quota included with the Pro plan subscription; additional usage is only billed if pay-as-you-go auto top-up is enabled on the plan, otherwise the service stops once the quota is depleted. See https://huggingface.co/pricing for current rates.",
-                            "isDefault": false
-                        }
-                    ],
-                    "tiers": [],
-                    "status": "paid",
-                    "price": "Depends on plan",
-                    "defaultResourceName": "platform",
-                    "envPrefix": "HUGGINGFACE_PLATFORM",
-                    "credentialKeys": [
-                        "API_KEY",
-                        "REGION"
-                    ],
-                    "updateableTo": [
-                        "platform"
                     ]
                 }
             ]

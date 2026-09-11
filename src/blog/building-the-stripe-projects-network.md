@@ -22,8 +22,6 @@ This next set adds real range.
 
 **OpenRouter** gives developers a simpler way to work across models, with one API key spanning a large range of options. That makes experimentation easier and lowers the overhead of building with multiple model providers.
 
-**Hugging Face** brings open models and inference into the network, giving developers more flexibility and a stronger path for building with the open model world.
-
 **Fly.io** adds a fast, developer-friendly way to run apps globally, close to users, with infrastructure that feels direct and built for developers.
 
 ## Strengthening the operational layer

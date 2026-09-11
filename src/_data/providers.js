@@ -192,16 +192,6 @@ export default [
     logoTag: "logo-heygen",
   },
   {
-    name: "Hugging Face",
-    slug: "huggingface/platform",
-    category: "ai",
-    description: "Open-source AI platform",
-    longDescription: "Hugging Face is the ML platform for hosting, training, and deploying models and datasets. Access thousands of open-source models and run inference with a simple API.",
-    tableDescription: "ML platform for hosting, training, and deploying models and datasets. Access thousands of open-source models and run inference with a simple API.",
-    url: "https://huggingface.co",
-    logoTag: "logo-huggingface",
-  },
-  {
     name: "Inngest",
     slug: "inngest/app",
     category: "queue",

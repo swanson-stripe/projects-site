@@ -10,7 +10,7 @@ const PROVIDER_NAMES = {
   agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
   browserbase: 'Browserbase', chroma: 'Chroma', clerk: 'Clerk', cloudflare: 'Cloudflare',
   daytona: 'Daytona', elevenlabs: 'ElevenLabs', firecrawl: 'Firecrawl', flyio: 'Fly.io',
-  gitlab: 'GitLab', huggingface: 'Hugging Face', inngest: 'Inngest', mixpanel: 'Mixpanel',
+  gitlab: 'GitLab', inngest: 'Inngest', mixpanel: 'Mixpanel',
   neon: 'Neon', netlify: 'Netlify', openrouter: 'OpenRouter', planetscale: 'PlanetScale',
   posthog: 'PostHog', privy: 'Privy', railway: 'Railway', render: 'Render',
   runloop: 'Runloop', sentry: 'Sentry', supabase: 'Supabase', turso: 'Turso',
