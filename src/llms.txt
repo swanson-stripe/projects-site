@@ -57,7 +57,7 @@ Key capabilities:
 
 ## Supported Providers
 
-Stripe Projects currently supports 64 providers. Provision any of them with
+Stripe Projects currently supports 63 providers. Provision any of them with
 `stripe projects add <provider>/<service>`. Many providers span several categories; the
 first listed is the primary one.
 
@@ -90,7 +90,6 @@ first listed is the primary one.
 | GitLab | gitlab/project | CI, AI, Analytics, CDN, Hosting, Observability, Storage |
 | Here.now | herenow/hosting | Hosting, CDN, Storage |
 | HeyGen | heygen/api | AI |
-| Hugging Face | huggingface/platform | AI, Hosting, Storage |
 | Inngest | inngest/app | Queue |
 | KERNEL | kernel/project | Browser, AI |
 | Laravel Cloud | laravel_cloud/application | Hosting, Cache, Database |

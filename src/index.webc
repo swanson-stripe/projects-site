@@ -305,7 +305,6 @@ structuredData: "software-application"
                             <logo-gitlab data-provider-slug="gitlab/project" class="marquee-logo h-32 sm:h-48"></logo-gitlab>
                             <logo-herenow data-provider-slug="herenow/hosting" class="marquee-logo h-22 sm:h-31"></logo-herenow>
                             <logo-heygen data-provider-slug="heygen/api" class="marquee-logo h-36 sm:h-48"></logo-heygen>
-                            <logo-huggingface data-provider-slug="huggingface/platform" class="marquee-logo h-22 sm:h-36"></logo-huggingface>
                             <logo-inngest data-provider-slug="inngest/app" class="marquee-logo h-12 sm:h-18"></logo-inngest>
                             <logo-kernel data-provider-slug="kernel/project" class="marquee-logo h-12 sm:h-18"></logo-kernel>
 <!-- Klaviyo temporarily removed — to be added back later
@@ -707,15 +706,6 @@ structuredData: "software-application"
                                 </span>
                             </div>
                         </a>
-                        <!--- Quote: HuggingFace --->
-                        <div class="testimonial-card" style="--brand: #FFD21E;">
-                            <logo-huggingface class="h-28 w-auto opacity-70"></logo-huggingface>
-                            <p class="testimonial-quote">"This is exactly the kind of integration we dreamed about when we started HuggingFace: making state-of-the-art AI ridiculously accessible to every developer, everywhere. This is just the beginning, and honestly? We couldn't be more pumped."</p>
-                            <div class="testimonial-author">
-                                <span class="text-14 text-headline">Julien Chaumond</span>
-                                <span class="text-13 text-detail">CTO, Hugging Face</span>
-                            </div>
-                        </div>
                         <!--- Video: Netlify --->
                         <a class="testimonial-video-card" href="https://www.youtube.com/watch?v=Km4_m2zAW8k" target="_blank" style="--brand: #00C7B7;">
                             <div class="testimonial-video-thumb">
@@ -1377,7 +1367,6 @@ structuredData: "software-application"
             'base44_projects': 'base 44',
             'flyio': 'fly.io',
             'herenow': 'here.now',
-            'huggingface': 'hugging face',
             'laravel_cloud': 'laravel cloud',
         };
         document.querySelectorAll('.marquee-track').forEach(track => {
@@ -1596,7 +1585,7 @@ structuredData: "software-application"
             database:  ['neon/postgres', 'supabase/project', 'turso/database', 'planetscale/postgresql', 'chroma/database', 'clickhouse/clickhouse', 'prisma/database'],
             auth:      ['clerk/auth', 'auth0/client', 'workos/auth'],
             cache:     ['upstash/redis'],
-            ai:        ['openrouter/api', 'huggingface/platform', 'inngest/app', 'browserbase/project', 'elevenlabs/tts', 'heygen/api', 'supermemory/memory'],
+            ai:        ['openrouter/api', 'inngest/app', 'browserbase/project', 'elevenlabs/tts', 'heygen/api', 'supermemory/memory'],
             observability: ['sentry/project'],
             analytics: ['posthog/analytics', 'amplitude/analytics', 'mixpanel/analytics'],
             communications: ['agentmail/api', 'twilio/email', 'agentphone/number', 'postalform/mail'],
@@ -1879,7 +1868,6 @@ structuredData: "software-application"
             'firecrawl api',
             'flyio app',
             'gitlab project',
-            'huggingface platform',
             'inngest app',
             'mixpanel analytics',
             'netlify project',
