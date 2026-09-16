@@ -281,11 +281,13 @@ structuredData: "software-application"
                             <logo-agentphone data-provider-slug="agentphone/number" class="marquee-logo h-16 sm:h-24"></logo-agentphone>
                             <logo-algolia data-provider-slug="algolia/application" class="marquee-logo h-18 sm:h-25"></logo-algolia>
                             <logo-amplitude data-provider-slug="amplitude/analytics" class="marquee-logo h-18 sm:h-24"></logo-amplitude>
+                            <logo-athena data-provider-slug="athena/agents" class="marquee-logo h-12 sm:h-18"></logo-athena>
                             <logo-auth0 data-provider-slug="auth0/client" class="marquee-logo h-20 sm:h-28"></logo-auth0>
                             <logo-base44 data-provider-slug="base44_projects/app" class="marquee-logo h-22 sm:h-33"></logo-base44>
                             <logo-blaxel data-provider-slug="blaxel/sandbox" class="marquee-logo h-16 sm:h-24"></logo-blaxel>
                             <logo-browserbase data-provider-slug="browserbase/project" class="marquee-logo h-21 sm:h-31"></logo-browserbase>
                             <logo-chroma data-provider-slug="chroma/database" class="marquee-logo h-20 sm:h-28"></logo-chroma>
+                            <logo-churnkey data-provider-slug="churnkey/retention" class="marquee-logo h-16 sm:h-24"></logo-churnkey>
                             <logo-clerk data-provider-slug="clerk/auth" class="marquee-logo h-28 sm:h-38"></logo-clerk>
                             <logo-clickhouse data-provider-slug="clickhouse/clickhouse" class="marquee-logo h-28 sm:h-40"></logo-clickhouse>
                             <logo-cloudflare data-provider-slug="cloudflare/worker" class="marquee-logo h-14 sm:h-20"></logo-cloudflare>
@@ -1364,6 +1366,7 @@ structuredData: "software-application"
     // Marquee: wrap logos in links, duplicate tracks, measure exact scroll distance, randomize start
     (function marqueeSetup() {
         const slugToName = {
+            'athena': 'athena ai',
             'base44_projects': 'base 44',
             'flyio': 'fly.io',
             'herenow': 'here.now',

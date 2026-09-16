@@ -57,7 +57,7 @@ Key capabilities:
 
 ## Supported Providers
 
-Stripe Projects currently supports 63 providers. Provision any of them with
+Stripe Projects currently supports 65 providers. Provision any of them with
 `stripe projects add <provider>/<service>`. Many providers span several categories; the
 first listed is the primary one.
 
@@ -67,12 +67,14 @@ first listed is the primary one.
 | AgentPhone | agentphone/number | Communications |
 | Algolia | algolia/application | Search, AI |
 | Amplitude | amplitude/analytics | Analytics, AI, Feature flags |
+| Athena AI | athena/agents | AI |
 | Auth0/Okta | auth0/client | Auth |
 | Base 44 | base44_projects/app | Hosting, AI, Auth, Database |
 | Blaxel | blaxel/sandbox | Hosting, AI, Sandbox, Storage |
 | Browserbase | browserbase/project | Browser |
 | Chatbase | chatbase/agent | AI |
 | Chroma | chroma/database | Database, AI |
+| Churnkey | churnkey/retention | Payments |
 | Clerk | clerk/auth | Auth |
 | ClickHouse | clickhouse/clickhouse | Database, Analytics |
 | Cloudflare | cloudflare/worker | Hosting, Database, Domains, Browser, Cache, Queue, Storage, AI |
