@@ -85,12 +85,13 @@ Services are provisioned in provider accounts you own. If you stop using Stripe 
 
 ## Ecosystem — Supported Services
 
-Stripe Projects provisions services from 63 providers across the categories
+Stripe Projects provisions services from 65 providers across the categories
 below. Every service is addressed as `<provider>/<service>` and added with
 `stripe projects add <provider>/<service>`.
 
 ### AI
 
+- **Athena AI** — `athena/agents` — Athena AI builds agents out of your own instructions, knowledge, and tools without any code. Share one by link — public, or private to invited users — or embed it on your site as a widget you style, extend its reach with a remote MCP server so it can call your own APIs and data, and read the conversation history back to see what people actually asked. https://athenachat.bot
 - **Chatbase** — `chatbase/agent` — AI agent builder platform. Create, deploy, and manage custom AI chatbots trained on your data. https://chatbase.co
 - **Composio** — `composio/project` — Integration platform for AI agents. Connect agents to 250+ tools and apps with managed authentication and execution. https://composio.dev
 - **ElevenLabs** — `elevenlabs/tts` — AI tools for generating human-like speech, voice cloning, and audio content to make communication and creation seamless. https://elevenlabs.io
@@ -169,6 +170,13 @@ below. Every service is addressed as `<provider>/<service>` and added with
 
 - **Schematic** — `schematic/schematic-environment` — Feature management and entitlements platform. Control feature access, run experiments, and manage plan-based entitlements. https://schematichq.com
 
+### Payments
+
+- **Churnkey** — `churnkey/retention` — Churnkey is the retention layer for subscription businesses. It replaces the cancel button with a segmented flow that can offer a pause, a discount, or a cross-sell, recovers failed payments automatically with ML-timed retries over email, SMS, and in-app, and reads the cancellation feedback back as churn themes ranked by revenue at risk. https://churnkey.co
+- **Metronome** — `metronome/sandbox` — Usage-based billing infrastructure for SaaS. Meter, price, and invoice based on real product consumption. https://metronome.com
+- **Privy** — `privy/app` — Wallet and key-management infrastructure for embedding secure wallets, authentication, and signing policies into apps across Tempo, EVM, Solana, and Bitcoin. https://privy.io
+- **RevenueCat** — `revenuecat/app` — In-app subscription infrastructure. Manage purchases, paywalls, and subscription analytics across iOS, Android, and web. https://revenuecat.com
+
 ### Sandbox
 
 - **CreateOS** — `createos/project` — Compute infrastructure for AI workloads. Provision and manage GPU and CPU resources on demand. https://createos.ai
@@ -182,12 +190,6 @@ below. Every service is addressed as `<provider>/<service>` and added with
 ### Messaging
 
 - **Customer.io** — `customer.io/workspace` — Automated messaging platform for targeted emails, push notifications, SMS, and in-app messages based on user behavior. https://customer.io
-
-### Payments
-
-- **Metronome** — `metronome/sandbox` — Usage-based billing infrastructure for SaaS. Meter, price, and invoice based on real product consumption. https://metronome.com
-- **Privy** — `privy/app` — Wallet and key-management infrastructure for embedding secure wallets, authentication, and signing policies into apps across Tempo, EVM, Solana, and Bitcoin. https://privy.io
-- **RevenueCat** — `revenuecat/app` — In-app subscription infrastructure. Manage purchases, paywalls, and subscription analytics across iOS, Android, and web. https://revenuecat.com
 
 ### CI
 

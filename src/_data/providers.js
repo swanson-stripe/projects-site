@@ -78,6 +78,16 @@ export default [
     logoTag: "logo-chroma",
   },
   {
+    name: "Churnkey",
+    slug: "churnkey/retention",
+    category: "payments",
+    description: "Churn prevention for subscriptions",
+    longDescription: "Churnkey is the retention layer for subscription businesses. It replaces the cancel button with a segmented flow that can offer a pause, a discount, or a cross-sell, recovers failed payments automatically with ML-timed retries over email, SMS, and in-app, and reads the cancellation feedback back as churn themes ranked by revenue at risk.",
+    tableDescription: "Churn prevention for subscription businesses. Segmented cancel flows with pause, discount, and cross-sell offers, automated failed-payment recovery, and churn analytics.",
+    url: "https://churnkey.co",
+    logoTag: "logo-churnkey",
+  },
+  {
     name: "Clerk",
     slug: "clerk/auth",
     category: "auth",
@@ -408,6 +418,16 @@ export default [
     tableDescription: "Digital analytics platform for understanding user behavior, building funnels, measuring retention, and running A/B experiments to drive product growth.",
     url: "https://amplitude.com",
     logoTag: "logo-amplitude",
+  },
+  {
+    name: "Athena AI",
+    slug: "athena/agents",
+    category: "ai",
+    description: "No-code AI agent builder",
+    longDescription: "Athena AI builds agents out of your own instructions, knowledge, and tools without any code. Share one by link — public, or private to invited users — or embed it on your site as a widget you style, extend its reach with a remote MCP server so it can call your own APIs and data, and read the conversation history back to see what people actually asked.",
+    tableDescription: "No-code AI agent builder. Give an agent your instructions, knowledge, and tools, then share it by link or embed it on your site, and review its conversations.",
+    url: "https://athenachat.bot",
+    logoTag: "logo-athena",
   },
   {
     name: "Parallel",

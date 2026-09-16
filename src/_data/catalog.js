@@ -12,14 +12,14 @@
 
 export default {
     "lastUpdated": "2026-09-02T17:53:24.398Z",
-    "providerCount": 63,
-    "serviceCount": 199,
-    "deployableCount": 90,
+    "providerCount": 65,
+    "serviceCount": 201,
+    "deployableCount": 92,
     "categories": [
         {
             "id": "ai",
             "label": "AI",
-            "count": 24
+            "count": 25
         },
         {
             "id": "compute",
@@ -77,6 +77,11 @@ export default {
             "count": 4
         },
         {
+            "id": "payments",
+            "label": "Payments",
+            "count": 4
+        },
+        {
             "id": "sandbox",
             "label": "Sandbox",
             "count": 4
@@ -89,11 +94,6 @@ export default {
         {
             "id": "messaging",
             "label": "Messaging",
-            "count": 3
-        },
-        {
-            "id": "payments",
-            "label": "Payments",
             "count": 3
         },
         {
@@ -615,6 +615,54 @@ export default {
                         "plus-v3-10k-mtu-monthly",
                         "free",
                         "analytics"
+                    ]
+                }
+            ]
+        },
+        {
+            "slug": "athena",
+            "name": "Athena AI",
+            "url": "https://athenachat.bot",
+            "tosUrl": "https://devfortress.com/terms-of-service/",
+            "privacyUrl": "https://devfortress.com/privacy-policy/",
+            "iconUrl": "/assets/images/provider-favicons/athena.svg",
+            "brandColor": "#00a699",
+            "brandIsMono": false,
+            "brandInk": "dark",
+            "brandIsPale": false,
+            "fallbackInitials": "AA",
+            "entry": {
+                "status": "free",
+                "label": "Free tier"
+            },
+            "description": "No-code AI agent builder. Give an agent your instructions, knowledge, and tools, then share it by link or embed it on your site, and review its conversations.",
+            "categories": [
+                "ai"
+            ],
+            "pageUrl": "/marketplace/athena/",
+            "searchText": "athena ai athena no-code ai agent builder. give an agent your instructions, knowledge, and tools, then share it by link or embed it on your site, and review its conversations. ai athena/agents",
+            "plans": [],
+            "deployables": [
+                {
+                    "serviceId": "agents",
+                    "ref": "athena/agents",
+                    "description": "Athena AI agents — build an agent from your own instructions, knowledge, and tools, then share it by link or embed it on your site.",
+                    "categories": [
+                        "ai"
+                    ],
+                    "scope": "project",
+                    "selectionMode": "free",
+                    "planOptions": [],
+                    "tiers": [],
+                    "status": "free",
+                    "price": "Free",
+                    "defaultResourceName": "agents",
+                    "envPrefix": "ATHENA_AGENTS",
+                    "credentialKeys": [
+                        "API_KEY"
+                    ],
+                    "updateableTo": [
+                        "agents"
                     ]
                 }
             ]
@@ -1549,6 +1597,55 @@ export default {
                     ],
                     "updateableTo": [
                         "database"
+                    ]
+                }
+            ]
+        },
+        {
+            "slug": "churnkey",
+            "name": "Churnkey",
+            "url": "https://churnkey.co",
+            "tosUrl": "https://churnkey.co/legal/terms",
+            "privacyUrl": "https://churnkey.co/legal/privacy-policy",
+            "iconUrl": "/assets/images/provider-favicons/churnkey.svg",
+            "brandColor": "#f7b200",
+            "brandIsMono": false,
+            "brandInk": "dark",
+            "brandIsPale": false,
+            "fallbackInitials": "CH",
+            "entry": {
+                "status": "free",
+                "label": "Free tier"
+            },
+            "description": "Churn prevention for subscription businesses. Segmented cancel flows with pause, discount, and cross-sell offers, automated failed-payment recovery, and churn analytics.",
+            "categories": [
+                "payments"
+            ],
+            "pageUrl": "/marketplace/churnkey/",
+            "searchText": "churnkey churnkey churn prevention for subscription businesses. segmented cancel flows with pause, discount, and cross-sell offers, automated failed-payment recovery, and churn analytics. payments churnkey/retention",
+            "plans": [],
+            "deployables": [
+                {
+                    "serviceId": "retention",
+                    "ref": "churnkey/retention",
+                    "description": "Churnkey retention — cancel flows, retention offers, failed-payment recovery, and churn analytics for your subscriptions.",
+                    "categories": [
+                        "payments"
+                    ],
+                    "scope": "project",
+                    "selectionMode": "free",
+                    "planOptions": [],
+                    "tiers": [],
+                    "status": "free",
+                    "price": "Free",
+                    "defaultResourceName": "retention",
+                    "envPrefix": "CHURNKEY_RETENTION",
+                    "credentialKeys": [
+                        "API_KEY",
+                        "WEBHOOK_SECRET"
+                    ],
+                    "updateableTo": [
+                        "retention"
                     ]
                 }
             ]

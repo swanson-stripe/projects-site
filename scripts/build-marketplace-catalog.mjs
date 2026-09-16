@@ -57,6 +57,7 @@ const SLUG_OVERRIDES = {
 // Catalog provider_name → display name, where the raw value reads badly.
 const NAME_OVERRIDES = {
     AgentMail: "AgentMail",
+    athena: "Athena AI",
     Base44_Projects: "Base 44",
     createos: "CreateOS",
     customerio: "Customer.io",
@@ -269,6 +270,15 @@ const LEGAL_OVERRIDES = {
     sentry: {
         tosUrl: "https://sentry.io/terms/",
         privacyUrl: "https://sentry.io/privacy/",
+    },
+    churnkey: {
+        tosUrl: "https://churnkey.co/legal/terms",
+        privacyUrl: "https://churnkey.co/legal/privacy-policy",
+    },
+    /* Athena's legal pages sit on its parent company's domain, not its own. */
+    athena: {
+        tosUrl: "https://devfortress.com/terms-of-service/",
+        privacyUrl: "https://devfortress.com/privacy-policy/",
     },
 };
 
