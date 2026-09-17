@@ -1,3 +1,5 @@
+import { PROVIDER_NAMES, decodeStackServices } from './src/lib/provider-directory.js';
+
 declare const process: { env: Record<string, string | undefined> };
 
 export const config = {
@@ -212,44 +214,6 @@ function safeOgHtml(tags: {
     twitterImage: tags.twitterImage ? escapeHtml(tags.twitterImage) : undefined,
   });
 }
-
-function decodeStackServices(encoded: string): { provider: string; service: string }[] {
-  const colonIdx = encoded.indexOf(':');
-  if (colonIdx <= 0) return [];
-  const version = encoded.slice(0, colonIdx);
-  if (version !== 'v1') return [];
-  const payload = encoded.slice(colonIdx + 1);
-  if (!payload) return [];
-  const services: { provider: string; service: string }[] = [];
-  for (const part of payload.split(',')) {
-    const tildeIdx = part.indexOf('~');
-    if (tildeIdx <= 0) continue;
-    let provider: string;
-    let service: string;
-    try {
-      // Share links may use display casing; normalize before allowlist lookup.
-      provider = decodeURIComponent(part.slice(0, tildeIdx)).toLowerCase();
-      service = decodeURIComponent(part.slice(tildeIdx + 1));
-    } catch {
-      continue;
-    }
-    // Only known providers are rendered into Stack Share metadata.
-    if (!PROVIDER_NAMES[provider]) continue;
-    services.push({ provider, service });
-  }
-  return services;
-}
-
-const PROVIDER_NAMES: Record<string, string> = {
-  agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
-  browserbase: 'Browserbase', chroma: 'Chroma', clerk: 'Clerk', cloudflare: 'Cloudflare',
-  daytona: 'Daytona', elevenlabs: 'ElevenLabs', firecrawl: 'Firecrawl', flyio: 'Fly.io',
-  gitlab: 'GitLab', inngest: 'Inngest', mixpanel: 'Mixpanel',
-  neon: 'Neon', netlify: 'Netlify', openrouter: 'OpenRouter', planetscale: 'PlanetScale',
-  posthog: 'PostHog', privy: 'Privy', railway: 'Railway', render: 'Render',
-  runloop: 'Runloop', sentry: 'Sentry', supabase: 'Supabase', turso: 'Turso',
-  twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
-};
 
 export default async function middleware(req: Request): Promise<Response | void> {
   const url = new URL(req.url);
