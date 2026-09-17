@@ -75,8 +75,24 @@ const NAME_OVERRIDES = {
  */
 const EXCLUDED_SLUGS = new Set(["huggingface"]);
 
+/*
+ * Both override tables are keyed on the catalog's provider_name, and upstream
+ * does not promise a casing for it: the snapshot has shipped `athena`, `Athena`,
+ * `createos`, and `CreateOS` at different times. An exact-match lookup therefore
+ * fails silently and the raw value falls through — which is how a regeneration
+ * came to rename "Athena AI" to "Athena", taking fallbackInitials and searchText
+ * with it. Fold the case so the override survives whichever spelling arrives.
+ */
+function foldKeys(table) {
+    return new Map(Object.entries(table).map(([key, value]) => [key.toLowerCase(), value]));
+}
+
+const SLUG_OVERRIDES_FOLDED = foldKeys(SLUG_OVERRIDES);
+const NAME_OVERRIDES_FOLDED = foldKeys(NAME_OVERRIDES);
+
 function toSlug(providerName) {
-    if (SLUG_OVERRIDES[providerName]) return SLUG_OVERRIDES[providerName];
+    const override = SLUG_OVERRIDES_FOLDED.get(providerName.toLowerCase());
+    if (override) return override;
     return providerName
         .toLowerCase()
         .replace(/_projects$/, "")
@@ -84,7 +100,8 @@ function toSlug(providerName) {
 }
 
 function toDisplayName(providerName) {
-    if (NAME_OVERRIDES[providerName]) return NAME_OVERRIDES[providerName];
+    const override = NAME_OVERRIDES_FOLDED.get(providerName.toLowerCase());
+    if (override) return override;
     return providerName.replace(/_/g, " ");
 }
 
@@ -306,6 +323,7 @@ const BRANDING_REWRITES = [
     [/manage billing through Stripe/g, "manage billing in one place"],
     [/\s*\(your Stripe SPT\)/g, ""],
     [/your Stripe-powered site/g, "your site"],
+    [/for Stripe subscriptions/g, "for your subscriptions"],
 ];
 
 const brandingLeaks = new Set();
@@ -346,14 +364,30 @@ function pricingStatus(entry) {
     return "paid";
 }
 
+/*
+ * The selecting configuration, minus the legal markers, with its keys in a fixed
+ * order.
+ *
+ * JSON object order is whatever the API emitted, and it moves between snapshots:
+ * Blaxel's tiers came back as {qualification_window_days, credits_usd, tier} in
+ * one and a different rotation in the next. That reshuffles the serialized object
+ * AND the heading built from it, so 265 of the 394 differences in a regeneration
+ * were this alone — noise that buries the handful of real upstream changes. Sort
+ * by key so the same snapshot always produces the same file.
+ */
+function selectingConfiguration(entry) {
+    return Object.fromEntries(
+        Object.entries(entry.configuration ?? {})
+            .filter(([key]) => !CONFIG_META_KEYS.has(key))
+            .sort(([a], [b]) => a.localeCompare(b)),
+    );
+}
+
 function tierEntries(service) {
     const entries = service.pricing?.paid_pricing ?? [];
     return entries.map((entry, index) => ({
         id: `tier-${index}`,
-        // The configuration that selects this tier, minus the legal markers.
-        configuration: Object.fromEntries(
-            Object.entries(entry.configuration ?? {}).filter(([key]) => !CONFIG_META_KEYS.has(key)),
-        ),
+        configuration: selectingConfiguration(entry),
         label: tierLabel(entry, index),
         price: pricingLabel(entry),
         status: pricingStatus(entry),
@@ -378,9 +412,9 @@ function isLabelValue(value) {
 }
 
 function tierLabel(entry, index) {
-    const values = Object.entries(entry.configuration ?? {})
-        .filter(([key]) => !CONFIG_META_KEYS.has(key))
-        .map(([, value]) => String(value))
+    // Key-sorted, so the heading does not reshuffle when the API's order does.
+    const values = Object.values(selectingConfiguration(entry))
+        .map((value) => String(value))
         .filter(isLabelValue);
     if (values.length) return values.join(" · ");
     return entry.type === "free" ? "Free" : `Option ${index + 1}`;
@@ -430,6 +464,15 @@ function envToken(value) {
     return String(value).toUpperCase().replace(/[^A-Z0-9]+/g, "_").replace(/^_|_$/g, "");
 }
 
+/*
+ * `updateable_to` is a set of service ids the API happens to emit as an array,
+ * and nothing downstream reads position — the upgrade/downgrade UI looks ids up.
+ * Its order still moved on every snapshot, so sort it and stop the churn.
+ */
+function sortedServiceIds(ids) {
+    return [...(ids ?? [])].sort((a, b) => a.localeCompare(b));
+}
+
 function shapePlan(service) {
     const tiers = tierEntries(service);
     return {
@@ -442,7 +485,7 @@ function shapePlan(service) {
         price: service.pricing?.type === "free" ? "Free" : pricingLabel(service.pricing?.paid),
         tiers,
         // Plans this plan can be switched to (drives upgrade/downgrade).
-        updateableTo: service.updateable_to ?? [],
+        updateableTo: sortedServiceIds(service.updateable_to),
     };
 }
 
@@ -461,14 +504,18 @@ function shapeDeployable(service) {
         selectionMode = "tiered";
     }
 
-    const planOptions = componentOptions.flatMap((option) =>
-        (option.parent_services ?? []).map((planServiceId) => ({
-            planServiceId,
-            status: option.type === "free" ? "free" : "paid",
-            price: option.type === "free" ? "Free" : pricingLabel(option.paid),
-            isDefault: option.is_default === true,
-        })),
-    );
+    // Sorted by the plan they point at: the flatMap follows the API's ordering of
+    // both `component.options` and each option's `parent_services`, and both move.
+    const planOptions = componentOptions
+        .flatMap((option) =>
+            (option.parent_services ?? []).map((planServiceId) => ({
+                planServiceId,
+                status: option.type === "free" ? "free" : "paid",
+                price: option.type === "free" ? "Free" : pricingLabel(option.paid),
+                isDefault: option.is_default === true,
+            })),
+        )
+        .sort((a, b) => a.planServiceId.localeCompare(b.planServiceId));
 
     return {
         serviceId: service.service_id,
@@ -490,7 +537,7 @@ function shapeDeployable(service) {
         defaultResourceName: service.service_id.replace(/[^a-zA-Z0-9]+/g, "-"),
         envPrefix: `${envToken(slug)}_${envToken(service.service_id)}`,
         credentialKeys: credentialKeys(service.categories ?? []),
-        updateableTo: service.updateable_to ?? [],
+        updateableTo: sortedServiceIds(service.updateable_to),
     };
 }
 
@@ -519,7 +566,13 @@ const providers = [...byProvider.entries()]
         const plans = providerServices
             .filter((service) => service.kind === "plan")
             .map(shapePlan)
-            .sort((a, b) => Number(b.status === "free") - Number(a.status === "free"));
+            // Free first, then by id — without the tie-break, same-status plans
+            // keep whatever order the snapshot listed them in.
+            .sort(
+                (a, b) =>
+                    Number(b.status === "free") - Number(a.status === "free") ||
+                    a.serviceId.localeCompare(b.serviceId),
+            );
 
         // A few deployables name parent_services that are not listed plans
         // (e.g. twilio/email). Drop them so the plan step only ever offers a
