@@ -11,7 +11,7 @@
  */
 
 export default {
-    "lastUpdated": "2026-09-02T17:53:24.398Z",
+    "lastUpdated": "2026-09-17T18:14:28.488Z",
     "providerCount": 65,
     "serviceCount": 201,
     "deployableCount": 92,
@@ -168,8 +168,8 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "developer",
-                        "startup",
-                        "free"
+                        "free",
+                        "startup"
                     ]
                 },
                 {
@@ -198,9 +198,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "startup",
+                        "developer",
                         "free",
-                        "developer"
+                        "startup"
                     ]
                 },
                 {
@@ -253,13 +253,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "startup",
+                            "planServiceId": "free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "free",
+                            "planServiceId": "startup",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -458,10 +458,10 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "plus-v3-50k-mtu-monthly",
-                        "plus-v3-25k-mtu-monthly",
+                        "free",
                         "plus-v3-10k-mtu-monthly",
-                        "free"
+                        "plus-v3-25k-mtu-monthly",
+                        "plus-v3-50k-mtu-monthly"
                     ]
                 },
                 {
@@ -490,10 +490,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "plus-v3-50k-mtu-monthly",
-                        "plus-v3-25k-mtu-monthly",
                         "free",
-                        "plus-v3-10k-mtu-monthly"
+                        "plus-v3-10k-mtu-monthly",
+                        "plus-v3-25k-mtu-monthly",
+                        "plus-v3-50k-mtu-monthly"
                     ]
                 },
                 {
@@ -522,10 +522,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "plus-v3-10k-mtu-monthly",
-                        "plus-v3-50k-mtu-monthly",
                         "free",
-                        "plus-v3-25k-mtu-monthly"
+                        "plus-v3-10k-mtu-monthly",
+                        "plus-v3-25k-mtu-monthly",
+                        "plus-v3-50k-mtu-monthly"
                     ]
                 },
                 {
@@ -554,9 +554,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "free",
                         "plus-v3-10k-mtu-monthly",
                         "plus-v3-25k-mtu-monthly",
-                        "free",
                         "plus-v3-50k-mtu-monthly"
                     ]
                 }
@@ -610,11 +610,11 @@ export default {
                         "HOST"
                     ],
                     "updateableTo": [
-                        "plus-v3-25k-mtu-monthly",
-                        "plus-v3-50k-mtu-monthly",
-                        "plus-v3-10k-mtu-monthly",
+                        "analytics",
                         "free",
-                        "analytics"
+                        "plus-v3-10k-mtu-monthly",
+                        "plus-v3-25k-mtu-monthly",
+                        "plus-v3-50k-mtu-monthly"
                     ]
                 }
             ]
@@ -646,7 +646,7 @@ export default {
                 {
                     "serviceId": "agents",
                     "ref": "athena/agents",
-                    "description": "Athena AI agents — build an agent from your own instructions, knowledge, and tools, then share it by link or embed it on your site.",
+                    "description": "Configurable Athena AI agent with an optional public HTTPS MCP server.",
                     "categories": [
                         "ai"
                     ],
@@ -702,10 +702,41 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "b2b-professional",
-                        "b2c-professional",
                         "b2b-essentials",
+                        "b2b-professional",
                         "b2c-essentials",
+                        "b2c-professional",
+                        "free"
+                    ]
+                },
+                {
+                    "serviceId": "b2b-essentials",
+                    "ref": "auth0/b2b-essentials",
+                    "description": "Auth0 B2B - Essentials Plan",
+                    "categories": [
+                        "auth"
+                    ],
+                    "scope": "project",
+                    "status": "paid",
+                    "price": "$150.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$150.00 per month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "b2b-essentials",
+                        "b2b-professional",
+                        "b2c-essentials",
+                        "b2c-professional",
                         "free"
                     ]
                 },
@@ -733,73 +764,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "b2c-professional",
                         "b2b-essentials",
-                        "b2c-essentials",
-                        "free",
-                        "b2b-professional"
-                    ]
-                },
-                {
-                    "serviceId": "b2b-essentials",
-                    "ref": "auth0/b2b-essentials",
-                    "description": "Auth0 B2B - Essentials Plan",
-                    "categories": [
-                        "auth"
-                    ],
-                    "scope": "project",
-                    "status": "paid",
-                    "price": "$150.00 per month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$150.00 per month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
                         "b2b-professional",
+                        "b2c-essentials",
                         "b2c-professional",
-                        "b2c-essentials",
-                        "free",
-                        "b2b-essentials"
-                    ]
-                },
-                {
-                    "serviceId": "b2c-professional",
-                    "ref": "auth0/b2c-professional",
-                    "description": "Auth0 B2C - Professional Plan",
-                    "categories": [
-                        "auth"
-                    ],
-                    "scope": "project",
-                    "status": "paid",
-                    "price": "$240.00 per month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$240.00 per month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "b2b-professional",
-                        "b2b-essentials",
-                        "b2c-essentials",
-                        "free",
-                        "b2c-professional"
+                        "free"
                     ]
                 },
                 {
@@ -826,11 +795,42 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "b2b-professional",
-                        "b2c-professional",
                         "b2b-essentials",
-                        "free",
-                        "b2c-essentials"
+                        "b2b-professional",
+                        "b2c-essentials",
+                        "b2c-professional",
+                        "free"
+                    ]
+                },
+                {
+                    "serviceId": "b2c-professional",
+                    "ref": "auth0/b2c-professional",
+                    "description": "Auth0 B2C - Professional Plan",
+                    "categories": [
+                        "auth"
+                    ],
+                    "scope": "project",
+                    "status": "paid",
+                    "price": "$240.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$240.00 per month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "b2b-essentials",
+                        "b2b-professional",
+                        "b2c-essentials",
+                        "b2c-professional",
+                        "free"
                     ]
                 }
             ],
@@ -846,7 +846,19 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
+                            "planServiceId": "b2b-essentials",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
                             "planServiceId": "b2b-professional",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "b2c-essentials",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -859,18 +871,6 @@ export default {
                         },
                         {
                             "planServiceId": "free",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "b2c-essentials",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "b2b-essentials",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -989,10 +989,10 @@ export default {
                             "id": "tier-0",
                             "configuration": {
                                 "credits_usd": 20,
-                                "tier": "tier_1",
-                                "qualification_window_days": 30
+                                "qualification_window_days": 30,
+                                "tier": "tier_1"
                             },
-                            "label": "20 · tier_1 · 30",
+                            "label": "20 · 30 · tier_1",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 1: higher resource limits and all previous tier features",
@@ -1002,86 +1002,12 @@ export default {
                         }
                     ],
                     "updateableTo": [
+                        "tier-1",
                         "tier-2",
                         "tier-3",
                         "tier-4",
                         "tier-5",
-                        "tier-6",
-                        "tier-1"
-                    ]
-                },
-                {
-                    "serviceId": "tier-4",
-                    "ref": "blaxel/tier-4",
-                    "description": "$500/month top-up enables Tier 4.",
-                    "categories": [
-                        "compute",
-                        "ai"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "paid",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {
-                                "credits_usd": 500,
-                                "tier": "tier_4",
-                                "qualification_window_days": 30
-                            },
-                            "label": "500 · tier_4 · 30",
-                            "price": "paid",
-                            "status": "paid",
-                            "description": "Tier 4: higher resource limits and all previous tier features",
-                            "isDefault": true,
-                            "terms": null,
-                            "tosUrl": "https://blaxel.ai/terms"
-                        }
-                    ],
-                    "updateableTo": [
-                        "tier-3",
-                        "tier-5",
-                        "tier-6",
-                        "tier-1",
-                        "tier-2",
-                        "tier-4"
-                    ]
-                },
-                {
-                    "serviceId": "tier-5",
-                    "ref": "blaxel/tier-5",
-                    "description": "$1,500/month top-up enables Tier 5.",
-                    "categories": [
-                        "compute",
-                        "ai"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "paid",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {
-                                "credits_usd": 1500,
-                                "tier": "tier_5",
-                                "qualification_window_days": 30
-                            },
-                            "label": "1500 · tier_5 · 30",
-                            "price": "paid",
-                            "status": "paid",
-                            "description": "Tier 5: higher resource limits and all previous tier features",
-                            "isDefault": true,
-                            "terms": null,
-                            "tosUrl": "https://blaxel.ai/terms"
-                        }
-                    ],
-                    "updateableTo": [
-                        "tier-3",
-                        "tier-4",
-                        "tier-6",
-                        "tier-1",
-                        "tier-2",
-                        "tier-5"
+                        "tier-6"
                     ]
                 },
                 {
@@ -1100,10 +1026,10 @@ export default {
                             "id": "tier-0",
                             "configuration": {
                                 "credits_usd": 50,
-                                "tier": "tier_2",
-                                "qualification_window_days": 30
+                                "qualification_window_days": 30,
+                                "tier": "tier_2"
                             },
-                            "label": "50 · tier_2 · 30",
+                            "label": "50 · 30 · tier_2",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 2: higher resource limits and all previous tier features",
@@ -1113,48 +1039,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-3",
-                        "tier-4",
-                        "tier-5",
-                        "tier-6",
-                        "tier-1",
-                        "tier-2"
-                    ]
-                },
-                {
-                    "serviceId": "tier-6",
-                    "ref": "blaxel/tier-6",
-                    "description": "$4,000/month top-up enables Tier 6.",
-                    "categories": [
-                        "compute",
-                        "ai"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "paid",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {
-                                "credits_usd": 4000,
-                                "tier": "tier_6",
-                                "qualification_window_days": 30
-                            },
-                            "label": "4000 · tier_6 · 30",
-                            "price": "paid",
-                            "status": "paid",
-                            "description": "Tier 6: higher resource limits and all previous tier features",
-                            "isDefault": true,
-                            "terms": null,
-                            "tosUrl": "https://blaxel.ai/terms"
-                        }
-                    ],
-                    "updateableTo": [
-                        "tier-3",
-                        "tier-4",
-                        "tier-5",
                         "tier-1",
                         "tier-2",
+                        "tier-3",
+                        "tier-4",
+                        "tier-5",
                         "tier-6"
                     ]
                 },
@@ -1174,10 +1063,10 @@ export default {
                             "id": "tier-0",
                             "configuration": {
                                 "credits_usd": 200,
-                                "tier": "tier_3",
-                                "qualification_window_days": 30
+                                "qualification_window_days": 30,
+                                "tier": "tier_3"
                             },
-                            "label": "200 · tier_3 · 30",
+                            "label": "200 · 30 · tier_3",
                             "price": "paid",
                             "status": "paid",
                             "description": "Tier 3: higher resource limits and all previous tier features",
@@ -1187,12 +1076,123 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "tier-4",
-                        "tier-5",
-                        "tier-6",
                         "tier-1",
                         "tier-2",
-                        "tier-3"
+                        "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-6"
+                    ]
+                },
+                {
+                    "serviceId": "tier-4",
+                    "ref": "blaxel/tier-4",
+                    "description": "$500/month top-up enables Tier 4.",
+                    "categories": [
+                        "compute",
+                        "ai"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "paid",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {
+                                "credits_usd": 500,
+                                "qualification_window_days": 30,
+                                "tier": "tier_4"
+                            },
+                            "label": "500 · 30 · tier_4",
+                            "price": "paid",
+                            "status": "paid",
+                            "description": "Tier 4: higher resource limits and all previous tier features",
+                            "isDefault": true,
+                            "terms": null,
+                            "tosUrl": "https://blaxel.ai/terms"
+                        }
+                    ],
+                    "updateableTo": [
+                        "tier-1",
+                        "tier-2",
+                        "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-6"
+                    ]
+                },
+                {
+                    "serviceId": "tier-5",
+                    "ref": "blaxel/tier-5",
+                    "description": "$1,500/month top-up enables Tier 5.",
+                    "categories": [
+                        "compute",
+                        "ai"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "paid",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {
+                                "credits_usd": 1500,
+                                "qualification_window_days": 30,
+                                "tier": "tier_5"
+                            },
+                            "label": "1500 · 30 · tier_5",
+                            "price": "paid",
+                            "status": "paid",
+                            "description": "Tier 5: higher resource limits and all previous tier features",
+                            "isDefault": true,
+                            "terms": null,
+                            "tosUrl": "https://blaxel.ai/terms"
+                        }
+                    ],
+                    "updateableTo": [
+                        "tier-1",
+                        "tier-2",
+                        "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-6"
+                    ]
+                },
+                {
+                    "serviceId": "tier-6",
+                    "ref": "blaxel/tier-6",
+                    "description": "$4,000/month top-up enables Tier 6.",
+                    "categories": [
+                        "compute",
+                        "ai"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "paid",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {
+                                "credits_usd": 4000,
+                                "qualification_window_days": 30,
+                                "tier": "tier_6"
+                            },
+                            "label": "4000 · 30 · tier_6",
+                            "price": "paid",
+                            "status": "paid",
+                            "description": "Tier 6: higher resource limits and all previous tier features",
+                            "isDefault": true,
+                            "terms": null,
+                            "tosUrl": "https://blaxel.ai/terms"
+                        }
+                    ],
+                    "updateableTo": [
+                        "tier-1",
+                        "tier-2",
+                        "tier-3",
+                        "tier-4",
+                        "tier-5",
+                        "tier-6"
                     ]
                 }
             ],
@@ -1285,8 +1285,8 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "developer",
-                        "startup",
-                        "free"
+                        "free",
+                        "startup"
                     ]
                 },
                 {
@@ -1313,9 +1313,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "startup",
+                        "developer",
                         "free",
-                        "developer"
+                        "startup"
                     ]
                 },
                 {
@@ -1417,6 +1417,35 @@ export default {
             "searchText": "chatbase chatbase ai agent builder platform. create, deploy, and manage custom ai chatbots trained on your data. ai chatbase/agent",
             "plans": [
                 {
+                    "serviceId": "hobby",
+                    "ref": "chatbase/hobby",
+                    "description": "Hobby plan — 700 message credits/month, 1 AI agent, all AI models",
+                    "categories": [
+                        "ai"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "paid",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "paid",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "hobby",
+                        "pro",
+                        "standard"
+                    ]
+                },
+                {
                     "serviceId": "pro",
                     "ref": "chatbase/pro",
                     "description": "Pro plan — 15,000 message credits/month, 1 AI agent, all features, advanced analytics, tickets",
@@ -1441,37 +1470,8 @@ export default {
                     ],
                     "updateableTo": [
                         "hobby",
-                        "standard",
-                        "pro"
-                    ]
-                },
-                {
-                    "serviceId": "hobby",
-                    "ref": "chatbase/hobby",
-                    "description": "Hobby plan — 700 message credits/month, 1 AI agent, all AI models",
-                    "categories": [
-                        "ai"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "paid",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "paid",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
                         "pro",
-                        "standard",
-                        "hobby"
+                        "standard"
                     ]
                 },
                 {
@@ -1498,8 +1498,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
                         "hobby",
+                        "pro",
                         "standard"
                     ]
                 }
@@ -1516,7 +1516,7 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "standard",
+                            "planServiceId": "hobby",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -1528,7 +1528,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "standard",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -1628,7 +1628,7 @@ export default {
                 {
                     "serviceId": "retention",
                     "ref": "churnkey/retention",
-                    "description": "Churnkey retention — cancel flows, retention offers, failed-payment recovery, and churn analytics for your subscriptions.",
+                    "description": "Cancel flows, failed payment recovery, and reactivation for your subscriptions. Free 14-day trial, then billed by Churnkey (see churnkey.co/pricing). Returns Churnkey SDK credentials for one environment.",
                     "categories": [
                         "payments"
                     ],
@@ -1685,8 +1685,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 },
                 {
@@ -1782,6 +1782,66 @@ export default {
             "searchText": "clickhouse clickhouse open-source columnar database for real-time analytics. process billions of rows in milliseconds with sql. database analytics clickhouse/clickhouse clickhouse/postgres",
             "plans": [
                 {
+                    "serviceId": "basic",
+                    "ref": "clickhouse/basic",
+                    "description": "ClickHouse Cloud Basic — single-replica managed ClickHouse for development, prototyping, and small analytical workloads. Usage-based pricing: compute metered per memory-hour at a fixed replica memory size, storage per compressed TB-month. Idle scaling on by default — compute bills $0 during idle periods. Prices vary per (cloud provider, region) pair.",
+                    "categories": [
+                        "analytics",
+                        "database"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "Basic tier — usage-based: compute $0.18–$0.29/hour, storage $22.00–$27.50/TB-month (8 GiB × 1 replica; spans all regions).",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "Basic tier — usage-based: compute $0.18–$0.29/hour, storage $22.00–$27.50/TB-month (8 GiB × 1 replica; spans all regions).",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "basic",
+                        "enterprise",
+                        "scale"
+                    ]
+                },
+                {
+                    "serviceId": "enterprise",
+                    "ref": "clickhouse/enterprise",
+                    "description": "ClickHouse Cloud Enterprise — dedicated-infrastructure managed ClickHouse with enhanced support and the largest memory range. Usage-based pricing: compute metered per memory-hour between minReplicaMemoryGb and maxReplicaMemoryGb (times numReplicas), storage per compressed TB-month. Prices vary per (cloud provider, region) pair.",
+                    "categories": [
+                        "analytics",
+                        "database"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "Enterprise tier — usage-based: compute $0.65–$16.61/hour, storage $22.00–$27.50/TB-month (8–128 GiB × 2 replicas; spans all regions).",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "Enterprise tier — usage-based: compute $0.65–$16.61/hour, storage $22.00–$27.50/TB-month (8–128 GiB × 2 replicas; spans all regions).",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "basic",
+                        "enterprise",
+                        "scale"
+                    ]
+                },
+                {
                     "serviceId": "scale",
                     "ref": "clickhouse/scale",
                     "description": "ClickHouse Cloud Scale — production-grade managed ClickHouse with multi-replica baseline, autoscaling, and broader memory range. Usage-based pricing: compute metered per memory-hour between minReplicaMemoryGb and maxReplicaMemoryGb (times numReplicas), storage per compressed TB-month. Prices vary per (cloud provider, region) pair.",
@@ -1810,66 +1870,6 @@ export default {
                         "enterprise",
                         "scale"
                     ]
-                },
-                {
-                    "serviceId": "basic",
-                    "ref": "clickhouse/basic",
-                    "description": "ClickHouse Cloud Basic — single-replica managed ClickHouse for development, prototyping, and small analytical workloads. Usage-based pricing: compute metered per memory-hour at a fixed replica memory size, storage per compressed TB-month. Idle scaling on by default — compute bills $0 during idle periods. Prices vary per (cloud provider, region) pair.",
-                    "categories": [
-                        "analytics",
-                        "database"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "Basic tier — usage-based: compute $0.18–$0.29/hour, storage $22.00–$27.50/TB-month (8 GiB × 1 replica; spans all regions).",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "Basic tier — usage-based: compute $0.18–$0.29/hour, storage $22.00–$27.50/TB-month (8 GiB × 1 replica; spans all regions).",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "enterprise",
-                        "scale",
-                        "basic"
-                    ]
-                },
-                {
-                    "serviceId": "enterprise",
-                    "ref": "clickhouse/enterprise",
-                    "description": "ClickHouse Cloud Enterprise — dedicated-infrastructure managed ClickHouse with enhanced support and the largest memory range. Usage-based pricing: compute metered per memory-hour between minReplicaMemoryGb and maxReplicaMemoryGb (times numReplicas), storage per compressed TB-month. Prices vary per (cloud provider, region) pair.",
-                    "categories": [
-                        "analytics",
-                        "database"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "Enterprise tier — usage-based: compute $0.65–$16.61/hour, storage $22.00–$27.50/TB-month (8–128 GiB × 2 replicas; spans all regions).",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "Enterprise tier — usage-based: compute $0.65–$16.61/hour, storage $22.00–$27.50/TB-month (8–128 GiB × 2 replicas; spans all regions).",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "scale",
-                        "basic",
-                        "enterprise"
-                    ]
                 }
             ],
             "deployables": [
@@ -1891,15 +1891,15 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "scale",
-                            "status": "paid",
-                            "price": "Compute and storage are metered by usage and billed under your active Scale plan; see the plan for compute ranges. Rates vary by cloud provider and region.",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "enterprise",
                             "status": "paid",
                             "price": "Compute and storage are metered by usage and billed under your active Enterprise plan; see the plan for compute ranges. Rates vary by cloud provider and region.",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "scale",
+                            "status": "paid",
+                            "price": "Compute and storage are metered by usage and billed under your active Scale plan; see the plan for compute ranges. Rates vary by cloud provider and region.",
                             "isDefault": false
                         }
                     ],
@@ -1986,8 +1986,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "workers:paid",
-                        "workers:free"
+                        "workers:free",
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2053,9 +2053,9 @@ export default {
                         "PROJECT_ID"
                     ],
                     "updateableTo": [
+                        "browser-run",
                         "workers:free",
-                        "workers:paid",
-                        "browser-run"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2085,9 +2085,9 @@ export default {
                         "REGION"
                     ],
                     "updateableTo": [
+                        "containers",
                         "workers:free",
-                        "workers:paid",
-                        "containers"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2125,9 +2125,9 @@ export default {
                         "DATABASE_PASSWORD"
                     ],
                     "updateableTo": [
+                        "d1",
                         "workers:free",
-                        "workers:paid",
-                        "d1"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2165,9 +2165,9 @@ export default {
                         "DATABASE_PASSWORD"
                     ],
                     "updateableTo": [
+                        "hyperdrive",
                         "workers:free",
-                        "workers:paid",
-                        "hyperdrive"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2203,9 +2203,9 @@ export default {
                         "TOKEN"
                     ],
                     "updateableTo": [
+                        "kv",
                         "workers:free",
-                        "workers:paid",
-                        "kv"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2240,9 +2240,9 @@ export default {
                         "API_KEY"
                     ],
                     "updateableTo": [
+                        "queues",
                         "workers:free",
-                        "workers:paid",
-                        "queues"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2325,9 +2325,9 @@ export default {
                         "REGION"
                     ],
                     "updateableTo": [
+                        "workers",
                         "workers:free",
-                        "workers:paid",
-                        "workers"
+                        "workers:paid"
                     ]
                 },
                 {
@@ -2362,9 +2362,9 @@ export default {
                         "API_KEY"
                     ],
                     "updateableTo": [
+                        "workers-ai",
                         "workers:free",
-                        "workers:paid",
-                        "workers-ai"
+                        "workers:paid"
                     ]
                 }
             ]
@@ -2495,40 +2495,10 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro-monthly",
+                        "beginner-monthly",
                         "enterprise-monthly",
-                        "beginner-monthly",
-                        "free"
-                    ]
-                },
-                {
-                    "serviceId": "enterprise-monthly",
-                    "ref": "createos/enterprise-monthly",
-                    "description": "Enterprise plan billed monthly at $200.",
-                    "categories": [
-                        "compute"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$200/month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$200/month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "pro-monthly",
-                        "beginner-monthly",
                         "free",
-                        "enterprise-monthly"
+                        "pro-monthly"
                     ]
                 },
                 {
@@ -2555,10 +2525,40 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro-monthly",
+                        "beginner-monthly",
                         "enterprise-monthly",
                         "free",
-                        "beginner-monthly"
+                        "pro-monthly"
+                    ]
+                },
+                {
+                    "serviceId": "enterprise-monthly",
+                    "ref": "createos/enterprise-monthly",
+                    "description": "Enterprise plan billed monthly at $200.",
+                    "categories": [
+                        "compute"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$200/month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$200/month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "beginner-monthly",
+                        "enterprise-monthly",
+                        "free",
+                        "pro-monthly"
                     ]
                 },
                 {
@@ -2604,13 +2604,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "enterprise-monthly",
+                            "planServiceId": "beginner-monthly",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "beginner-monthly",
+                            "planServiceId": "enterprise-monthly",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -2730,13 +2730,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "builder:sandbox",
+                            "planServiceId": "builder",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "builder",
+                            "planServiceId": "builder:sandbox",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -2762,7 +2762,7 @@ export default {
             "url": "https://datadoghq.com",
             "tosUrl": "https://datadoghq.com/terms",
             "privacyUrl": "https://datadoghq.com/privacy",
-            "iconUrl": null,
+            "iconUrl": "/assets/images/provider-favicons/datadog.svg",
             "brandColor": "#632ca6",
             "brandIsMono": false,
             "brandInk": "light",
@@ -2876,7 +2876,7 @@ export default {
             "fallbackInitials": "DA",
             "entry": {
                 "status": "paid",
-                "label": "$500/mo in Daytona credits"
+                "label": "$25/mo in Daytona credits"
             },
             "description": "Secure, elastic sandbox infrastructure for AI agents. Complete, isolated, and fully programmable environments spun up on demand for agentic workflows and pipelines at scale.",
             "categories": [
@@ -2887,6 +2887,38 @@ export default {
             "pageUrl": "/marketplace/daytona/",
             "searchText": "daytona daytona secure, elastic sandbox infrastructure for ai agents. complete, isolated, and fully programmable environments spun up on demand for agentic workflows and pipelines at scale. ai compute sandbox daytona/sandbox",
             "plans": [
+                {
+                    "serviceId": "top-up-0025",
+                    "ref": "daytona/top-up-0025",
+                    "description": "Add $25/mo in Daytona credits for compute usage.",
+                    "categories": [
+                        "compute",
+                        "ai",
+                        "sandbox"
+                    ],
+                    "scope": "project",
+                    "status": "paid",
+                    "price": "$25/mo in Daytona credits",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$25/mo in Daytona credits",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "top-up-0025",
+                        "top-up-0500",
+                        "top-up-1000",
+                        "top-up-2000"
+                    ]
+                },
                 {
                     "serviceId": "top-up-0500",
                     "ref": "daytona/top-up-0500",
@@ -2913,10 +2945,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-1000",
-                        "top-up-2000",
                         "top-up-0025",
-                        "top-up-0500"
+                        "top-up-0500",
+                        "top-up-1000",
+                        "top-up-2000"
                     ]
                 },
                 {
@@ -2946,41 +2978,9 @@ export default {
                     ],
                     "updateableTo": [
                         "top-up-0025",
-                        "top-up-2000",
                         "top-up-0500",
-                        "top-up-1000"
-                    ]
-                },
-                {
-                    "serviceId": "top-up-0025",
-                    "ref": "daytona/top-up-0025",
-                    "description": "Add $25/mo in Daytona credits for compute usage.",
-                    "categories": [
-                        "compute",
-                        "ai",
-                        "sandbox"
-                    ],
-                    "scope": "project",
-                    "status": "paid",
-                    "price": "$25/mo in Daytona credits",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$25/mo in Daytona credits",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
                         "top-up-1000",
-                        "top-up-2000",
-                        "top-up-0500",
-                        "top-up-0025"
+                        "top-up-2000"
                     ]
                 },
                 {
@@ -3009,9 +3009,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "top-up-1000",
                         "top-up-0025",
                         "top-up-0500",
+                        "top-up-1000",
                         "top-up-2000"
                     ]
                 }
@@ -3030,12 +3030,6 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "top-up-1000",
-                            "status": "paid",
-                            "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "top-up-0025",
                             "status": "paid",
                             "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
@@ -3043,6 +3037,12 @@ export default {
                         },
                         {
                             "planServiceId": "top-up-0500",
+                            "status": "paid",
+                            "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "top-up-1000",
                             "status": "paid",
                             "price": "Usage-based: vCPU $0.0504/h, RAM $0.0162/GiB/h, Storage $0.000108/GiB/h (5 GiB free)",
                             "isDefault": false
@@ -3095,6 +3095,36 @@ export default {
             "searchText": "depot depot fast ci/cd infrastructure. accelerate container builds and ci pipelines with managed remote builders and caching. cache ci compute depot/api",
             "plans": [
                 {
+                    "serviceId": "developer-plan",
+                    "ref": "depot/developer-plan",
+                    "description": "Depot Developer plan for accelerated builds, CI runners, and build cache.",
+                    "categories": [
+                        "compute",
+                        "cache",
+                        "ci"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "Starting at $20/month plus pay-as-you-go usage.",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "Starting at $20/month plus pay-as-you-go usage.",
+                            "status": "paid",
+                            "description": "Developer plan",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "developer-plan",
+                        "startup-plan"
+                    ]
+                },
+                {
                     "serviceId": "startup-plan",
                     "ref": "depot/startup-plan",
                     "description": "Depot Startup plan for accelerated builds, CI runners, and build cache.",
@@ -3122,36 +3152,6 @@ export default {
                     "updateableTo": [
                         "developer-plan",
                         "startup-plan"
-                    ]
-                },
-                {
-                    "serviceId": "developer-plan",
-                    "ref": "depot/developer-plan",
-                    "description": "Depot Developer plan for accelerated builds, CI runners, and build cache.",
-                    "categories": [
-                        "compute",
-                        "cache",
-                        "ci"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "Starting at $20/month plus pay-as-you-go usage.",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "Starting at $20/month plus pay-as-you-go usage.",
-                            "status": "paid",
-                            "description": "Developer plan",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "startup-plan",
-                        "developer-plan"
                     ]
                 }
             ],
@@ -3244,8 +3244,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 },
                 {
@@ -3402,8 +3402,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pay_as_you_go",
-                        "free"
+                        "free",
+                        "pay_as_you_go"
                     ]
                 },
                 {
@@ -3505,11 +3505,11 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "hobby",
                         "api",
+                        "free",
                         "growth",
-                        "standard",
-                        "free"
+                        "hobby",
+                        "standard"
                     ]
                 },
                 {
@@ -3551,11 +3551,11 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobby",
                         "api",
-                        "standard",
                         "free",
-                        "growth"
+                        "growth",
+                        "hobby",
+                        "standard"
                     ]
                 },
                 {
@@ -3598,10 +3598,10 @@ export default {
                     ],
                     "updateableTo": [
                         "api",
-                        "growth",
-                        "standard",
                         "free",
-                        "hobby"
+                        "growth",
+                        "hobby",
+                        "standard"
                     ]
                 },
                 {
@@ -3643,10 +3643,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobby",
                         "api",
-                        "growth",
                         "free",
+                        "growth",
+                        "hobby",
                         "standard"
                     ]
                 }
@@ -3669,12 +3669,6 @@ export default {
                             "isDefault": true
                         },
                         {
-                            "planServiceId": "standard",
-                            "status": "paid",
-                            "price": "Paid Firecrawl plans: pick hobby, standard, or growth, then monthly or yearly billing.",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "growth",
                             "status": "paid",
                             "price": "Paid Firecrawl plans: pick hobby, standard, or growth, then monthly or yearly billing.",
@@ -3682,6 +3676,12 @@ export default {
                         },
                         {
                             "planServiceId": "hobby",
+                            "status": "paid",
+                            "price": "Paid Firecrawl plans: pick hobby, standard, or growth, then monthly or yearly billing.",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "standard",
                             "status": "paid",
                             "price": "Paid Firecrawl plans: pick hobby, standard, or growth, then monthly or yearly billing.",
                             "isDefault": false
@@ -3697,11 +3697,11 @@ export default {
                         "APP_ID"
                     ],
                     "updateableTo": [
-                        "hobby",
-                        "growth",
-                        "standard",
+                        "api",
                         "free",
-                        "api"
+                        "growth",
+                        "hobby",
+                        "standard"
                     ]
                 }
             ]
@@ -3938,7 +3938,7 @@ export default {
             "url": "https://here.now",
             "tosUrl": "https://here.now/terms",
             "privacyUrl": "https://here.now/privacy",
-            "iconUrl": null,
+            "iconUrl": "/assets/images/provider-favicons/herenow.svg",
             "brandColor": "#000000",
             "brandIsMono": true,
             "brandInk": "light",
@@ -3959,7 +3959,7 @@ export default {
                 {
                     "serviceId": "developer",
                     "ref": "herenow/developer",
-                    "description": "here.now Developer plan — $20/month: unlimited sites, 2 TB storage, 20 custom domains, vanity subdomain namespaces, and a higher publish rate limit.",
+                    "description": "here.now Developer plan — $20/month: unlimited sites, 2 TB storage, 20 custom domains, vanity subdomain namespaces, and a higher publish rate limit. Includes $5/month of Editor credits.",
                     "categories": [
                         "cdn"
                     ],
@@ -3980,14 +3980,14 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "hobby",
-                        "developer"
+                        "developer",
+                        "hobby"
                     ]
                 },
                 {
                     "serviceId": "hobby",
                     "ref": "herenow/hobby",
-                    "description": "here.now Hobby plan — $4/month: up to 1,000 sites, 500 GB storage, 5 custom domains, vanity subdomain namespaces, and a higher publish rate limit.",
+                    "description": "here.now Hobby plan — $4/month: up to 1,000 sites, 500 GB storage, 5 custom domains, vanity subdomain namespaces, and a higher publish rate limit. Includes $2/month of Editor credits.",
                     "categories": [
                         "cdn"
                     ],
@@ -4026,13 +4026,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "hobby",
+                            "planServiceId": "developer",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "developer",
+                            "planServiceId": "hobby",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -4137,8 +4137,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 },
                 {
@@ -4165,8 +4165,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 }
             ],
@@ -4244,9 +4244,38 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "startup",
+                        "developer",
                         "hobbyist",
-                        "developer"
+                        "startup"
+                    ]
+                },
+                {
+                    "serviceId": "hobbyist",
+                    "ref": "kernel/hobbyist",
+                    "description": "Hobbyist - $30/mo, $10 free credits, 10 concurrent browsers",
+                    "categories": [
+                        "browser"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$30/month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$30/month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "developer",
+                        "hobbyist",
+                        "startup"
                     ]
                 },
                 {
@@ -4277,35 +4306,6 @@ export default {
                         "hobbyist",
                         "startup"
                     ]
-                },
-                {
-                    "serviceId": "hobbyist",
-                    "ref": "kernel/hobbyist",
-                    "description": "Hobbyist - $30/mo, $10 free credits, 10 concurrent browsers",
-                    "categories": [
-                        "browser"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$30/month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$30/month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "startup",
-                        "developer",
-                        "hobbyist"
-                    ]
                 }
             ],
             "deployables": [
@@ -4327,13 +4327,13 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "startup",
+                            "planServiceId": "hobbyist",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "hobbyist",
+                            "planServiceId": "startup",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -4403,8 +4403,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "starter",
-                        "growth"
+                        "growth",
+                        "starter"
                     ]
                 },
                 {
@@ -4633,8 +4633,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "growth",
-                        "free"
+                        "free",
+                        "growth"
                     ]
                 },
                 {
@@ -4901,8 +4901,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pay_as_you_go",
-                        "free"
+                        "free",
+                        "pay_as_you_go"
                     ]
                 },
                 {
@@ -5024,10 +5024,10 @@ export default {
                         {
                             "id": "tier-1",
                             "configuration": {
-                                "tier": "additional_results",
-                                "product": "search"
+                                "product": "search",
+                                "tier": "additional_results"
                             },
-                            "label": "additional_results · search",
+                            "label": "search · additional_results",
                             "price": "+$1 per 1,000 additional page results & excerpts",
                             "status": "paid",
                             "description": "Search API - each result beyond the default 10",
@@ -5177,10 +5177,10 @@ export default {
                         {
                             "id": "tier-12",
                             "configuration": {
-                                "product": "findall",
-                                "generator": "preview"
+                                "generator": "preview",
+                                "product": "findall"
                             },
-                            "label": "findall · preview",
+                            "label": "preview · findall",
                             "price": "$0.10 per query + $0.00 per match",
                             "status": "paid",
                             "description": "FindAll API - preview generator",
@@ -5191,10 +5191,10 @@ export default {
                         {
                             "id": "tier-13",
                             "configuration": {
-                                "product": "findall",
-                                "generator": "base"
+                                "generator": "base",
+                                "product": "findall"
                             },
-                            "label": "findall · base",
+                            "label": "base · findall",
                             "price": "$0.25 per query + $0.03 per match",
                             "status": "paid",
                             "description": "FindAll API - base generator",
@@ -5205,10 +5205,10 @@ export default {
                         {
                             "id": "tier-14",
                             "configuration": {
-                                "product": "findall",
-                                "generator": "core"
+                                "generator": "core",
+                                "product": "findall"
                             },
-                            "label": "findall · core",
+                            "label": "core · findall",
                             "price": "$2.00 per query + $0.15 per match",
                             "status": "paid",
                             "description": "FindAll API - core generator",
@@ -5219,10 +5219,10 @@ export default {
                         {
                             "id": "tier-15",
                             "configuration": {
-                                "product": "findall",
-                                "generator": "pro"
+                                "generator": "pro",
+                                "product": "findall"
                             },
-                            "label": "findall · pro",
+                            "label": "pro · findall",
                             "price": "$10.00 per query + $1.00 per match",
                             "status": "paid",
                             "description": "FindAll API - pro generator",
@@ -5279,7 +5279,7 @@ export default {
             "url": "https://perplexity.ai",
             "tosUrl": "https://perplexity.ai/terms",
             "privacyUrl": "https://perplexity.ai/privacy",
-            "iconUrl": null,
+            "iconUrl": "/assets/images/provider-favicons/perplexity.svg",
             "brandColor": "#427e8c",
             "brandIsMono": false,
             "brandInk": "light",
@@ -5301,17 +5301,40 @@ export default {
                 {
                     "serviceId": "api",
                     "ref": "perplexity/api",
-                    "description": "Perplexity API: web-grounded search and Sonar models, billed by usage.",
+                    "description": "Perplexity - real-time web search and agent APIs. Search API for ranked web results and filtering, Agent API for tools, MCP, and structured outputs across providers. New Perplexity accounts get $10 in free credits.",
                     "categories": [
                         "search",
                         "ai"
                     ],
                     "scope": "project",
-                    "selectionMode": "free",
+                    "selectionMode": "tiered",
                     "planOptions": [],
-                    "tiers": [],
-                    "status": "free",
-                    "price": "Free",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Free",
+                            "price": "$10 in free credits for new Perplexity accounts, valid 60 days.",
+                            "status": "free",
+                            "description": "$10 in free credits for new Perplexity accounts, valid 60 days.",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        },
+                        {
+                            "id": "tier-1",
+                            "configuration": {},
+                            "label": "Option 2",
+                            "price": "Search API $5 per 1K requests, no token charges. Agent API: model tokens at list rates plus tool fees (web_search $2.50 per 1K calls). Full rates: https://docs.perplexity.ai/docs/getting-started/pricing",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": true,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "status": "paid",
+                    "price": "Usage-based",
                     "defaultResourceName": "api",
                     "envPrefix": "PERPLEXITY_API",
                     "credentialKeys": [
@@ -8977,8 +9000,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pay_as_you_go",
-                        "free"
+                        "free",
+                        "pay_as_you_go"
                     ]
                 },
                 {
@@ -9051,8 +9074,8 @@ export default {
                         "HOST"
                     ],
                     "updateableTo": [
-                        "service_ref",
-                        "analytics"
+                        "analytics",
+                        "service_ref"
                     ]
                 }
             ]
@@ -9093,9 +9116,9 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "business",
-                        "starter",
+                        "free",
                         "pro",
-                        "free"
+                        "starter"
                     ]
                 },
                 {
@@ -9122,10 +9145,10 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "starter",
                         "business",
+                        "free",
                         "pro",
-                        "free"
+                        "starter"
                     ]
                 },
                 {
@@ -9153,9 +9176,9 @@ export default {
                     ],
                     "updateableTo": [
                         "business",
-                        "starter",
+                        "free",
                         "pro",
-                        "free"
+                        "starter"
                     ]
                 },
                 {
@@ -9183,9 +9206,9 @@ export default {
                     ],
                     "updateableTo": [
                         "business",
-                        "starter",
+                        "free",
                         "pro",
-                        "free"
+                        "starter"
                     ]
                 }
             ],
@@ -9201,6 +9224,12 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
+                            "planServiceId": "business",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
                             "planServiceId": "free",
                             "status": "free",
                             "price": "Free",
@@ -9214,12 +9243,6 @@ export default {
                         },
                         {
                             "planServiceId": "starter",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
-                            "planServiceId": "business",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -9280,8 +9303,65 @@ export default {
                     "tiers": [],
                     "updateableTo": [
                         "core",
-                        "scale",
-                        "free"
+                        "free",
+                        "scale"
+                    ]
+                },
+                {
+                    "serviceId": "core",
+                    "ref": "privy/core",
+                    "description": "Privy Core — up to 2,500 MAU. 50K free monthly wallet signatures. Includes Custom JWT auth, Custom OAuth, fiat on-ramp, and Expo SDK.",
+                    "categories": [
+                        "auth",
+                        "payments"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$299.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$299.00 per month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "core",
+                        "scale"
+                    ]
+                },
+                {
+                    "serviceId": "enterprise",
+                    "ref": "privy/enterprise",
+                    "description": "Privy Enterprise — contact sales to provision.",
+                    "categories": [
+                        "auth",
+                        "payments"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$2,000.00 per month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$2,000.00 per month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "enterprise"
                     ]
                 },
                 {
@@ -9312,63 +9392,6 @@ export default {
                         "enterprise",
                         "scale"
                     ]
-                },
-                {
-                    "serviceId": "core",
-                    "ref": "privy/core",
-                    "description": "Privy Core — up to 2,500 MAU. 50K free monthly wallet signatures. Includes Custom JWT auth, Custom OAuth, fiat on-ramp, and Expo SDK.",
-                    "categories": [
-                        "auth",
-                        "payments"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$299.00 per month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$299.00 per month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "scale",
-                        "core"
-                    ]
-                },
-                {
-                    "serviceId": "enterprise",
-                    "ref": "privy/enterprise",
-                    "description": "Privy Enterprise — contact sales to provision.",
-                    "categories": [
-                        "auth",
-                        "payments"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$2,000.00 per month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$2,000.00 per month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "enterprise"
-                    ]
                 }
             ],
             "deployables": [
@@ -9384,13 +9407,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "enterprise",
+                            "planServiceId": "core",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "scale",
+                            "planServiceId": "enterprise",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -9402,7 +9425,7 @@ export default {
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "core",
+                            "planServiceId": "scale",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -9495,8 +9518,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "team",
-                        "growth"
+                        "growth",
+                        "team"
                     ]
                 },
                 {
@@ -9612,9 +9635,9 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro",
+                        "free",
                         "hobby",
-                        "free"
+                        "pro"
                     ]
                 },
                 {
@@ -9641,8 +9664,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 },
                 {
@@ -10091,9 +10114,9 @@ export default {
             "url": "https://revenuecat.com",
             "tosUrl": "https://revenuecat.com/terms",
             "privacyUrl": "https://revenuecat.com/privacy",
-            "iconUrl": null,
-            "brandColor": "#061b31",
-            "brandIsMono": false,
+            "iconUrl": "/assets/images/provider-favicons/revenuecat.svg",
+            "brandColor": "#000000",
+            "brandIsMono": true,
             "brandInk": "light",
             "brandIsPale": false,
             "fallbackInitials": "RE",
@@ -10151,7 +10174,7 @@ export default {
             "fallbackInitials": "RU",
             "entry": {
                 "status": "paid",
-                "label": "First month free, then $250/mo + usage-based pricing"
+                "label": "Usage-based pricing"
             },
             "description": "Secure execution infrastructure for AI agents. Isolated micro-VM sandboxes for safe code execution and tool use.",
             "categories": [
@@ -10161,6 +10184,35 @@ export default {
             "pageUrl": "/marketplace/runloop/",
             "searchText": "runloop runloop secure execution infrastructure for ai agents. isolated micro-vm sandboxes for safe code execution and tool use. ai sandbox runloop/sandbox",
             "plans": [
+                {
+                    "serviceId": "basic",
+                    "ref": "runloop/basic",
+                    "description": "Runloop Basic — cloud sandboxes with high concurrency and compute",
+                    "categories": [
+                        "ai",
+                        "sandbox"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "Usage-based pricing",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "Usage-based pricing",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "basic",
+                        "pro"
+                    ]
+                },
                 {
                     "serviceId": "pro",
                     "ref": "runloop/pro",
@@ -10188,35 +10240,6 @@ export default {
                     "updateableTo": [
                         "basic",
                         "pro"
-                    ]
-                },
-                {
-                    "serviceId": "basic",
-                    "ref": "runloop/basic",
-                    "description": "Runloop Basic — cloud sandboxes with high concurrency and compute",
-                    "categories": [
-                        "ai",
-                        "sandbox"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "Usage-based pricing",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "Usage-based pricing",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "pro",
-                        "basic"
                     ]
                 }
             ],
@@ -10265,9 +10288,9 @@ export default {
             "url": "https://schematichq.com",
             "tosUrl": "https://schematichq.com/terms",
             "privacyUrl": "https://schematichq.com/privacy",
-            "iconUrl": null,
-            "brandColor": "#061b31",
-            "brandIsMono": false,
+            "iconUrl": "/assets/images/provider-favicons/schematic.svg",
+            "brandColor": "#000000",
+            "brandIsMono": true,
             "brandInk": "light",
             "brandIsPale": false,
             "fallbackInitials": "SC",
@@ -10294,8 +10317,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "schematic-growth",
-                        "schematic-free"
+                        "schematic-free",
+                        "schematic-growth"
                     ]
                 },
                 {
@@ -10339,13 +10362,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "schematic-growth",
+                            "planServiceId": "schematic-free",
                             "status": "free",
                             "price": "Free",
                             "isDefault": true
                         },
                         {
-                            "planServiceId": "schematic-free",
+                            "planServiceId": "schematic-growth",
                             "status": "free",
                             "price": "Free",
                             "isDefault": true
@@ -10401,9 +10424,9 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "team",
                         "business",
-                        "developer"
+                        "developer",
+                        "team"
                     ]
                 },
                 {
@@ -10430,9 +10453,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "team",
+                        "business",
                         "developer",
-                        "business"
+                        "team"
                     ]
                 },
                 {
@@ -10477,13 +10500,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "team",
+                            "planServiceId": "business",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "business",
+                            "planServiceId": "team",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -10513,13 +10536,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "team",
+                            "planServiceId": "business",
                             "status": "paid",
                             "price": "$40/active contributor/month",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "business",
+                            "planServiceId": "team",
                             "status": "paid",
                             "price": "$40/active contributor/month",
                             "isDefault": false
@@ -10747,9 +10770,9 @@ export default {
             "url": "https://steel.dev",
             "tosUrl": "https://steel.dev/terms",
             "privacyUrl": "https://steel.dev/privacy",
-            "iconUrl": null,
-            "brandColor": "#061b31",
-            "brandIsMono": false,
+            "iconUrl": "/assets/images/provider-favicons/steel.svg",
+            "brandColor": "#000000",
+            "brandIsMono": true,
             "brandInk": "light",
             "brandIsPale": false,
             "fallbackInitials": "ST",
@@ -10776,8 +10799,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "plan-scale",
-                        "plan-launch"
+                        "plan-launch",
+                        "plan-scale"
                     ]
                 },
                 {
@@ -10887,9 +10910,9 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "team",
+                        "free",
                         "pro",
-                        "free"
+                        "team"
                     ]
                 },
                 {
@@ -10918,9 +10941,9 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "team",
                         "free",
-                        "pro"
+                        "pro",
+                        "team"
                     ]
                 },
                 {
@@ -10949,8 +10972,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
                         "free",
+                        "pro",
                         "team"
                     ]
                 }
@@ -11255,12 +11278,12 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "scaler_overages",
                         "developer",
-                        "pro",
                         "developer_overages",
-                        "scaler",
+                        "pro",
                         "pro_overages",
+                        "scaler",
+                        "scaler_overages",
                         "starter"
                     ]
                 },
@@ -11288,12 +11311,128 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "scaler_overages",
+                        "developer",
                         "developer_overages",
-                        "pro_overages",
                         "pro",
+                        "pro_overages",
                         "scaler",
-                        "developer"
+                        "scaler_overages"
+                    ]
+                },
+                {
+                    "serviceId": "developer_overages",
+                    "ref": "turso/developer_overages",
+                    "description": "Unlimited DBs (500 active), 9 GB storage, 2.5B rows read, 25M rows written, 10 GB syncs, 10-day PITR",
+                    "categories": [
+                        "database"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$5.99/month + overages: $0.20/DB, $0.75/GB storage, $1/B rows read, $1/M rows written, $0.35/GB syncs",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$5.99/month + overages: $0.20/DB, $0.75/GB storage, $1/B rows read, $1/M rows written, $0.35/GB syncs",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "developer_overages",
+                        "pro",
+                        "pro_overages",
+                        "scaler",
+                        "scaler_overages"
+                    ]
+                },
+                {
+                    "serviceId": "pro",
+                    "ref": "turso/pro",
+                    "description": "Unlimited DBs (10,000 active), 50 GB storage, 250B rows read, 250M rows written, 100 GB syncs, 90-day PITR",
+                    "categories": [
+                        "database"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$499/month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$499/month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "pro",
+                        "pro_overages"
+                    ]
+                },
+                {
+                    "serviceId": "pro_overages",
+                    "ref": "turso/pro_overages",
+                    "description": "Unlimited DBs (10,000 active), 50 GB storage, 250B rows read, 250M rows written, 100 GB syncs, 90-day PITR",
+                    "categories": [
+                        "database"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$499/month + overages: $0.025/DB, $0.45/GB storage, $0.75/B rows read, $0.75/M rows written, $0.15/GB syncs",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$499/month + overages: $0.025/DB, $0.45/GB storage, $0.75/B rows read, $0.75/M rows written, $0.15/GB syncs",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "pro_overages"
+                    ]
+                },
+                {
+                    "serviceId": "scaler",
+                    "ref": "turso/scaler",
+                    "description": "Unlimited DBs (2,500 active), 24 GB storage, 100B rows read, 100M rows written, 24 GB syncs, 30-day PITR",
+                    "categories": [
+                        "database"
+                    ],
+                    "scope": "account",
+                    "status": "paid",
+                    "price": "$29/month",
+                    "tiers": [
+                        {
+                            "id": "tier-0",
+                            "configuration": {},
+                            "label": "Option 1",
+                            "price": "$29/month",
+                            "status": "paid",
+                            "description": "",
+                            "isDefault": false,
+                            "terms": null,
+                            "tosUrl": null
+                        }
+                    ],
+                    "updateableTo": [
+                        "pro",
+                        "pro_overages",
+                        "scaler",
+                        "scaler_overages"
                     ]
                 },
                 {
@@ -11324,122 +11463,6 @@ export default {
                         "pro_overages",
                         "scaler_overages"
                     ]
-                },
-                {
-                    "serviceId": "pro",
-                    "ref": "turso/pro",
-                    "description": "Unlimited DBs (10,000 active), 50 GB storage, 250B rows read, 250M rows written, 100 GB syncs, 90-day PITR",
-                    "categories": [
-                        "database"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$499/month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$499/month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "pro_overages",
-                        "pro"
-                    ]
-                },
-                {
-                    "serviceId": "scaler",
-                    "ref": "turso/scaler",
-                    "description": "Unlimited DBs (2,500 active), 24 GB storage, 100B rows read, 100M rows written, 24 GB syncs, 30-day PITR",
-                    "categories": [
-                        "database"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$29/month",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$29/month",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "scaler_overages",
-                        "pro",
-                        "pro_overages",
-                        "scaler"
-                    ]
-                },
-                {
-                    "serviceId": "developer_overages",
-                    "ref": "turso/developer_overages",
-                    "description": "Unlimited DBs (500 active), 9 GB storage, 2.5B rows read, 25M rows written, 10 GB syncs, 10-day PITR",
-                    "categories": [
-                        "database"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$5.99/month + overages: $0.20/DB, $0.75/GB storage, $1/B rows read, $1/M rows written, $0.35/GB syncs",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$5.99/month + overages: $0.20/DB, $0.75/GB storage, $1/B rows read, $1/M rows written, $0.35/GB syncs",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "pro_overages",
-                        "scaler",
-                        "scaler_overages",
-                        "pro",
-                        "developer_overages"
-                    ]
-                },
-                {
-                    "serviceId": "pro_overages",
-                    "ref": "turso/pro_overages",
-                    "description": "Unlimited DBs (10,000 active), 50 GB storage, 250B rows read, 250M rows written, 100 GB syncs, 90-day PITR",
-                    "categories": [
-                        "database"
-                    ],
-                    "scope": "account",
-                    "status": "paid",
-                    "price": "$499/month + overages: $0.025/DB, $0.45/GB storage, $0.75/B rows read, $0.75/M rows written, $0.15/GB syncs",
-                    "tiers": [
-                        {
-                            "id": "tier-0",
-                            "configuration": {},
-                            "label": "Option 1",
-                            "price": "$499/month + overages: $0.025/DB, $0.45/GB storage, $0.75/B rows read, $0.75/M rows written, $0.15/GB syncs",
-                            "status": "paid",
-                            "description": "",
-                            "isDefault": false,
-                            "terms": null,
-                            "tosUrl": null
-                        }
-                    ],
-                    "updateableTo": [
-                        "pro_overages"
-                    ]
                 }
             ],
             "deployables": [
@@ -11454,25 +11477,19 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "developer_overages",
-                            "status": "free",
-                            "price": "Free",
-                            "isDefault": false
-                        },
-                        {
                             "planServiceId": "developer",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "pro",
+                            "planServiceId": "developer_overages",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "scaler_overages",
+                            "planServiceId": "pro",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -11485,6 +11502,12 @@ export default {
                         },
                         {
                             "planServiceId": "scaler",
+                            "status": "free",
+                            "price": "Free",
+                            "isDefault": false
+                        },
+                        {
+                            "planServiceId": "scaler_overages",
                             "status": "free",
                             "price": "Free",
                             "isDefault": false
@@ -11603,13 +11626,13 @@ export default {
                     "selectionMode": "component",
                     "planOptions": [
                         {
-                            "planServiceId": "hobbyist",
+                            "planServiceId": "business",
                             "status": "paid",
                             "price": "Based on selected plan",
                             "isDefault": false
                         },
                         {
-                            "planServiceId": "business",
+                            "planServiceId": "hobbyist",
                             "status": "paid",
                             "price": "Based on selected plan",
                             "isDefault": false
@@ -11897,8 +11920,8 @@ export default {
                     "price": "Free",
                     "tiers": [],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 },
                 {
@@ -11925,8 +11948,8 @@ export default {
                         }
                     ],
                     "updateableTo": [
-                        "pro",
-                        "hobby"
+                        "hobby",
+                        "pro"
                     ]
                 }
             ],
