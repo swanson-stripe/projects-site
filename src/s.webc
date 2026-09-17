@@ -43,10 +43,15 @@ binaryCanvas: false
 [data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button:hover { background: #334155 !important; }
 [data-stack-card-inner][data-theme="dark"] [data-clone-dropdown] button + button { border-color: #334155 !important; }
 [data-stack-card-inner][data-theme="dark"] [data-expand-btn] { color: #a5b4fc; }
-[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="#000"],
-[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="#131316"],
-[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="#0a0a0a"] { fill: #f1f5f9; }
-[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="currentColor"] { fill: #f1f5f9; }
+[data-stack-card-inner][data-theme="dark"] .stack-logo svg [fill="currentColor"],
+[data-stack-card-inner][data-theme="dark"] .stack-logo svg [stroke="currentColor"] { fill: #f1f5f9; stroke: #f1f5f9; }
+/*
+ * Literal near-black ink is lifted by retintLogos() below rather than by a list
+ * of hex selectors here. The three values this used to match (#000, #131316,
+ * #0a0a0a) covered a third of the logos that were then reachable; across the
+ * full catalog the same ink is also written #050505, #1C2026, #1D1C1A, and — in
+ * logo-exa — as the keyword `black`, which no attribute selector would catch.
+ */
 
 /* Animated gradient header */
 @keyframes stack-gradient-shift {
@@ -249,6 +254,22 @@ binaryCanvas: false
     <span data-copy-toast-label>Copied</span>
 </div>
 
+<!---
+    The provider directory, written in at build time from src/_data/providers.js —
+    the same file /providers, /marketplace, and llms.txt read. This used to be a
+    hand-written map here, and it had stalled at 31 of 65 providers: a share link
+    naming any of the other 34 silently lost those rows, and one naming only those
+    providers rendered the "No stack found" empty state. See
+    src/lib/provider-directory.js for the two server-side consumers.
+
+    Carried on an attribute rather than in a script tag, because WebC strips
+    script elements it did not author even with webc:keep, and because attribute
+    values are the one place the HTML minifier will not collapse whitespace
+    inside the JSON string values.
+--->
+<div hidden
+     :data-provider-directory="JSON.stringify(Object.fromEntries(providers.map((p) => [p.slug.split('/')[0], { name: p.name, desc: p.description }])))"></div>
+
 <script webc:keep>
 (async function stackShare() {
     // Load provider logos
@@ -260,39 +281,13 @@ binaryCanvas: false
         LOGOS_SVG = fn() || {};
     } catch(e) {}
 
-    const PROVIDERS = {
-        agentmail:    { name: 'AgentMail',    desc: 'Email API for agents' },
-        algolia:      { name: 'Algolia',      desc: 'Search & discovery' },
-        amplitude:    { name: 'Amplitude',    desc: 'Product analytics' },
-        auth0:        { name: 'Auth0',        desc: 'Identity platform' },
-        browserbase:  { name: 'Browserbase',  desc: 'Headless browsers' },
-        chroma:       { name: 'Chroma',       desc: 'Vector database' },
-        clerk:        { name: 'Clerk',        desc: 'Auth & user management' },
-        cloudflare:   { name: 'Cloudflare',   desc: 'Edge compute' },
-        daytona:      { name: 'Daytona',      desc: 'Dev sandboxes' },
-        elevenlabs:   { name: 'ElevenLabs',   desc: 'Text to speech' },
-        firecrawl:    { name: 'Firecrawl',    desc: 'Web scraping API' },
-        flyio:        { name: 'Fly.io',       desc: 'App hosting' },
-        gitlab:       { name: 'GitLab',       desc: 'DevOps platform' },
-        inngest:      { name: 'Inngest',      desc: 'Background jobs' },
-        mixpanel:     { name: 'Mixpanel',     desc: 'Event analytics' },
-        neon:         { name: 'Neon',         desc: 'Serverless Postgres' },
-        netlify:      { name: 'Netlify',      desc: 'Web hosting' },
-        openrouter:   { name: 'OpenRouter',   desc: 'LLM router' },
-        planetscale:  { name: 'PlanetScale',  desc: 'Managed database' },
-        posthog:      { name: 'PostHog',      desc: 'Product analytics' },
-        privy:        { name: 'Privy',        desc: 'Wallet auth' },
-        railway:      { name: 'Railway',      desc: 'App infrastructure' },
-        render:       { name: 'Render',       desc: 'Cloud hosting' },
-        runloop:      { name: 'Runloop',      desc: 'Agent sandboxes' },
-        sentry:       { name: 'Sentry',       desc: 'Error monitoring' },
-        supabase:     { name: 'Supabase',     desc: 'Postgres + backend' },
-        turso:        { name: 'Turso',        desc: 'Edge SQLite' },
-        twilio:       { name: 'Twilio',       desc: 'Email & SMS' },
-        upstash:      { name: 'Upstash',      desc: 'Serverless Redis' },
-        vercel:       { name: 'Vercel',       desc: 'Frontend cloud' },
-        workos:       { name: 'WorkOS',       desc: 'Enterprise auth' },
-    };
+    let PROVIDERS = {};
+    try {
+        PROVIDERS = JSON.parse(document.querySelector('[data-provider-directory]').dataset.providerDirectory);
+    } catch(e) {
+        // Every row is keyed off this, so say so rather than showing a bare empty state.
+        console.error('Stack Share: provider directory missing or malformed', e);
+    }
 
     function decodeHash() {
         const hash = window.location.hash.slice(1);
@@ -310,13 +305,18 @@ binaryCanvas: false
             let provider;
             let service;
             try {
-                // Share links may use display casing; normalize before allowlist lookup.
+                // Share links may use display casing; normalize before the lookup.
                 provider = decodeURIComponent(part.slice(0, tildeIdx)).toLowerCase();
                 service = decodeURIComponent(part.slice(tildeIdx + 1));
             } catch(e) {
                 continue;
             }
-            // Only known providers are rendered into the Stack Share page.
+            /*
+             * Guards the card against a crafted URL injecting arbitrary text, so
+             * it stays keyed to the whole directory rather than a subset of it.
+             * Kept in step with middleware.ts and api/og.ts by
+             * decodeStackServices in src/lib/provider-directory.js.
+             */
             if (!PROVIDERS[provider]) continue;
             services.push({ provider, service });
         }
@@ -344,6 +344,57 @@ binaryCanvas: false
             gsap.to(toast, { autoAlpha: 0, y: 8, duration: 0.25, ease: 'power2.in' });
         }, 2500);
     }
+
+    const DARK_LOGO_INK = '#f1f5f9';
+
+    /*
+     * Is this colour a wordmark's ink, or the brand's own colour?
+     *
+     * Dark ink has to be lifted or it sits invisibly on the dark card, but a dark
+     * brand colour must survive: inverting Fly.io's #24175b or Datadog's #632ca6
+     * would be worse than leaving them. Near-black neutrals separate cleanly from
+     * saturated brand colours on channel spread — every ink in the catalog is
+     * within 30 of grey, and every dark brand colour is at least 68 away.
+     */
+    function isNeutralInk(computed) {
+        const m = /rgba?\((\d+)[,\s]+(\d+)[,\s]+(\d+)/.exec(computed || '');
+        if (!m) return false;
+        const rgb = [+m[1], +m[2], +m[3]];
+        const linear = rgb.map((v) => {
+            const c = v / 255;
+            return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        });
+        const luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+        const spread = Math.max(...rgb) - Math.min(...rgb);
+        return luminance < 0.2 && spread <= 38;
+    }
+
+    /*
+     * Reads the computed value rather than the attribute, so `black`, `#000`, and
+     * `#1C2026` are all recognised without a list of literals to keep in step
+     * with the artwork. The authored value is stashed on first pass so toggling
+     * back to light restores the real logo.
+     */
+    function retintLogos(dark) {
+        for (const el of document.querySelectorAll('.stack-logo svg *')) {
+            for (const prop of ['fill', 'stroke']) {
+                const key = prop === 'fill' ? 'stackInkFill' : 'stackInkStroke';
+                if (el.dataset[key] === undefined) {
+                    const authored = el.getAttribute(prop);
+                    // currentColor is handled in CSS; gradients and none are brand, or nothing.
+                    if (authored === null || authored === 'none' || authored === 'currentColor' || authored.startsWith('url(')) continue;
+                    el.dataset[key] = authored;
+                }
+                el.setAttribute(prop, el.dataset[key]);
+                if (dark && isNeutralInk(getComputedStyle(el)[prop])) {
+                    el.setAttribute(prop, DARK_LOGO_INK);
+                }
+            }
+        }
+    }
+
+    // Set by initTheme so render() can re-tint the rows it just built.
+    let applyTheme = function() {};
 
     function renderProviderRow(provider, serviceList) {
         const info = PROVIDERS[provider];
@@ -375,7 +426,12 @@ binaryCanvas: false
 
         const desc = document.createElement('span');
         desc.className = 'stack-text-secondary';
-        desc.style.cssText = 'font-size:0.6875rem;';
+        /*
+         * The catalog descriptions run to 66 characters (privy), against the ~22
+         * of the hand-written map this replaced. Ellipsis rather than a second
+         * line, so every row stays the same height down the card.
+         */
+        desc.style.cssText = 'font-size:0.6875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
         desc.textContent = info.desc;
 
         details.append(name, desc);
@@ -427,6 +483,9 @@ binaryCanvas: false
             container.appendChild(row);
             rows.push(row);
         });
+
+        // These logos are new to the DOM, so the current theme has to reach them.
+        applyTheme();
 
         // Staggered entrance animation
         gsap.to(rows, {
@@ -516,14 +575,18 @@ binaryCanvas: false
                 iconDark.style.display = 'none';
             }
             localStorage.setItem('stack-theme', dark ? 'dark' : 'light');
+            retintLogos(dark);
         }
 
+        applyTheme = apply;
         toggle.addEventListener('click', () => { dark = !dark; apply(); });
         apply();
     }
 
-    render();
+    // Theme first, so the rows render() builds are tinted as they are added
+    // rather than flashing dark-on-dark for a frame.
     initTheme();
+    render();
     window.addEventListener('hashchange', render);
 })();
 </script>

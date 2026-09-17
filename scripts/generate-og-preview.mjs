@@ -3,33 +3,14 @@ import { writeFileSync, readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import { PROVIDER_NAMES, PROVIDER_DIRECTORY } from '../src/lib/provider-directory.js';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const PROVIDER_NAMES = {
-  agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
-  browserbase: 'Browserbase', chroma: 'Chroma', clerk: 'Clerk', cloudflare: 'Cloudflare',
-  daytona: 'Daytona', elevenlabs: 'ElevenLabs', firecrawl: 'Firecrawl', flyio: 'Fly.io',
-  gitlab: 'GitLab', inngest: 'Inngest', mixpanel: 'Mixpanel',
-  neon: 'Neon', netlify: 'Netlify', openrouter: 'OpenRouter', planetscale: 'PlanetScale',
-  posthog: 'PostHog', privy: 'Privy', railway: 'Railway', render: 'Render',
-  runloop: 'Runloop', sentry: 'Sentry', supabase: 'Supabase', turso: 'Turso',
-  twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
-};
-
-const PROVIDER_DESCRIPTIONS = {
-  agentmail: 'Email for AI agents', algolia: 'Search & discovery', amplitude: 'Product analytics',
-  auth0: 'Authentication', browserbase: 'Headless browsers', chroma: 'Vector database',
-  clerk: 'Auth & user management', cloudflare: 'Edge compute', daytona: 'Dev environments',
-  elevenlabs: 'Voice AI', firecrawl: 'Web scraping', flyio: 'App hosting',
-  gitlab: 'DevOps platform', inngest: 'Background jobs',
-  mixpanel: 'Product analytics', neon: 'Serverless Postgres', netlify: 'Web hosting',
-  openrouter: 'LLM routing', planetscale: 'MySQL platform', posthog: 'Product analytics',
-  privy: 'Web3 auth', railway: 'App hosting', render: 'Cloud hosting',
-  runloop: 'AI dev tools', sentry: 'Error monitoring', supabase: 'Backend as a service',
-  turso: 'Edge database', twilio: 'Communications', upstash: 'Serverless Redis',
-  vercel: 'Frontend hosting', workos: 'Enterprise SSO',
-};
+const PROVIDER_DESCRIPTIONS = Object.fromEntries(
+  Object.entries(PROVIDER_DIRECTORY).map(([slug, p]) => [slug, p.description]),
+);
 
 const STACKS = {
   standard: [
@@ -83,7 +64,8 @@ function groupByProvider(services) {
 // Load wordmark logos from provider-logos.js
 function loadLogos() {
   const content = readFileSync(join(ROOT, 'src/assets/js/provider-logos.js'), 'utf-8');
-  const start = content.indexOf('{');
+  const marker = content.indexOf('__PROVIDER_LOGOS');
+  const start = content.indexOf('{', marker === -1 ? 0 : marker);
   const end = content.lastIndexOf('}') + 1;
   return JSON.parse(content.slice(start, end));
 }

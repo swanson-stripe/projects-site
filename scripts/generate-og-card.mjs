@@ -3,23 +3,15 @@ import { writeFileSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+import { PROVIDER_NAMES } from '../src/lib/provider-directory.js';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 
-const PROVIDER_NAMES = {
-  agentmail: 'AgentMail', algolia: 'Algolia', amplitude: 'Amplitude', auth0: 'Auth0',
-  browserbase: 'Browserbase', chroma: 'Chroma', clerk: 'Clerk', cloudflare: 'Cloudflare',
-  daytona: 'Daytona', elevenlabs: 'ElevenLabs', firecrawl: 'Firecrawl', flyio: 'Fly.io',
-  gitlab: 'GitLab', inngest: 'Inngest', mixpanel: 'Mixpanel',
-  neon: 'Neon', netlify: 'Netlify', openrouter: 'OpenRouter', planetscale: 'PlanetScale',
-  posthog: 'PostHog', privy: 'Privy', railway: 'Railway', render: 'Render',
-  runloop: 'Runloop', sentry: 'Sentry', supabase: 'Supabase', turso: 'Turso',
-  twilio: 'Twilio', upstash: 'Upstash', vercel: 'Vercel', workos: 'WorkOS',
-};
-
 function loadLogos() {
   const content = readFileSync(join(ROOT, 'src/assets/js/provider-logos.js'), 'utf-8');
-  const start = content.indexOf('{');
+  const marker = content.indexOf('__PROVIDER_LOGOS');
+  const start = content.indexOf('{', marker === -1 ? 0 : marker);
   const end = content.lastIndexOf('}') + 1;
   return JSON.parse(content.slice(start, end));
 }
