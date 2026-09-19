@@ -21,6 +21,12 @@ export const MARKETPLACE_ORIGIN = "https://provisioning.dev";
  */
 export const MARKETPLACE_HOME = "/marketplace/bold/";
 
+/**
+ * The real product documentation for the provisioning API. The marketplace is a
+ * mock UI, so this is the one link in its chrome that leads somewhere live.
+ */
+export const MARKETPLACE_DOCS_URL = "https://docs.stripe.com/provisioning";
+
 export function escapeHtml(value = "") {
     return String(value)
         .replaceAll("&", "&amp;")
@@ -63,6 +69,9 @@ const ICONS = {
     upgrade:
         '<path fill-rule="evenodd" d="M8 1.5a.75.75 0 0 1 .53.22l4 4a.75.75 0 1 1-1.06 1.06L8.75 4.06v9.19a.75.75 0 0 1-1.5 0V4.06L4.53 6.78a.75.75 0 1 1-1.06-1.06l4-4A.75.75 0 0 1 8 1.5Z" clip-rule="evenodd"/>',
     link: '<path d="M6.35 9.65a.75.75 0 0 1 0-1.06l2.24-2.24a.75.75 0 1 1 1.06 1.06L7.41 9.65a.75.75 0 0 1-1.06 0Z"/><path d="M9.3 3.4a2.75 2.75 0 0 1 3.89 3.89l-1.6 1.6a.75.75 0 0 1-1.06-1.06l1.6-1.6a1.25 1.25 0 0 0-1.77-1.77l-1.6 1.6A.75.75 0 0 1 7.7 5l1.6-1.6Zm-2.6 7.2a.75.75 0 0 1 0 1.06l-1.6 1.6a2.75 2.75 0 0 1-3.89-3.89l1.6-1.6A.75.75 0 0 1 3.87 8.83l-1.6 1.6a1.25 1.25 0 0 0 1.77 1.77l1.6-1.6a.75.75 0 0 1 1.06 0Z"/>',
+    // Diagonal arrow, reserved for the links that leave the demo for real docs.
+    arrowUpRight:
+        '<path fill-rule="evenodd" d="M13.25 2.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V5.06l-8.72 8.72a.75.75 0 1 1-1.06-1.06L11.44 4H7.75a.75.75 0 0 1 0-1.5h5.5Z" clip-rule="evenodd"/>',
 };
 
 export function icon(name, className = "w-14 h-14") {
@@ -120,13 +129,44 @@ function renderVariantToggle(variant) {
 }
 
 function renderHeader({ backHref, backLabel, variant }) {
+    /*
+     * Docs sits on the left, opposite the demo controls, because it belongs to a
+     * different layer than they do: the variant toggle and "My stack" operate the
+     * mock, while this is the one link that leads to the real product. Grouped
+     * with them it read as more demo apparatus. The whole width of the header now
+     * separates the two, and being in flow it survives every viewport — unlike
+     * the centred wordmark it would otherwise have been paired with.
+     *
+     * Filled brand purple in a rounded-4, which is the site's CTA shape
+     * (link-btn) and the marketplace's own for "Provision a service". The demo
+     * controls are all outlined rounded-full chrome, so shape and fill together
+     * mark this as the one real action in the header rather than another pill; a
+     * purple pill beside "My stack" reads instead as that control, activated.
+     * bg-primary/text-highlight resolves per theme — purple on white, lighter
+     * purple on navy in .mkt-dark, ink on paper in .mkt-devsite, which keeps
+     * brand purple off a palette that has no place for it.
+     */
+    const docsLink = `<a href="${MARKETPLACE_DOCS_URL}" target="_blank" rel="noopener" class="flex items-center gap-6 h-32 px-12 rounded-4 bg-primary text-highlight text-13 font-normal hover:bg-primary-hover transition-colors duration-200 cursor-pointer outline-none focus-visible:shadow-focus shrink-0">
+        <span>Docs</span>
+        ${icon("arrowUpRight", "w-12 h-12")}
+      </a>`;
+
     // data-back-* let the provider pages retarget this at the variant you came from.
-    const left = backHref
+    const backLink = backHref
         ? `<a href="${escapeHtml(backHref)}" data-back-link class="flex items-center gap-6 text-14 font-normal text-primary hover:text-primary-hover transition-colors duration-200 shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-14 h-14 rotate-180">${ICONS.arrowRight}</svg>
         <span data-back-label class="hidden sm:inline">${escapeHtml(backLabel)}</span>
       </a>`
-        : "<div></div>";
+        : "";
+
+    // No divider between them: a filled button beside a text link is already
+    // plainly a different kind of thing, and a hairline there reads as a seam.
+    const left = backLink
+        ? `<div class="flex items-center gap-12 min-w-0">
+        ${backLink}
+        ${docsLink}
+      </div>`
+        : docsLink;
 
     /*
      * The wordmark is absolutely centred on the viewport rather than living in a
@@ -139,7 +179,8 @@ function renderHeader({ backHref, backLabel, variant }) {
      * clear the controls on either side. The listing pages carry the variant
      * toggle on top of "My stack" (~340px of controls), which the centred
      * wordmark plus badge only clears past ~965px. The provider pages carry only
-     * "My stack", so they clear it well before sm.
+     * "My stack", so they clear it well before sm. Docs is narrow enough on the
+     * left that it never becomes the binding side.
      */
     const wordmarkReveal = variant ? "hidden min-[1000px]:flex" : "hidden sm:flex";
 
@@ -170,6 +211,10 @@ function renderFooter(year) {
     return `<footer class="w-full flex items-center justify-center flex-col px-16">
     <div class="w-full max-w-1266 relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-16 py-24 border-t border-edge">
       <p class="text-14/150 text-detail">Provisioning API · Marketplace demo · ${year}</p>
+      <a href="${MARKETPLACE_DOCS_URL}" target="_blank" rel="noopener" class="flex items-center gap-4 w-fit text-14/150 text-primary hover:text-primary-hover transition-colors duration-150">
+        <span>Provisioning API docs</span>
+        ${icon("arrowUpRight", "w-12 h-12")}
+      </a>
     </div>
   </footer>`;
 }
